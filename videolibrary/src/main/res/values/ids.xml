@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="exo_video_fullscreen" type="id" />
+    <item name="exo_controls_back" type="id" />
+    <item name="exo_play_error_btn" type="id" />
+    <item name="exo_play_error_layout" type="id" />
+    <item name="exo_video_replay" type="id"/>
+    <item name="exo_play_replay_layout" type="id"/>
+    <item name="exo_loading_layout" type="id"/>
+    <item name="exo_loading_show_text" type="id"/>
+    <item name="exo_play_watermark" type="id"/>
+</resources>

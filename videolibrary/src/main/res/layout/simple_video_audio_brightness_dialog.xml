@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/exo_video_audio_brightness_layout"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/simple_video_dialog_progress_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/exo_video_audio_brightness_img"
+            android:layout_width="36dp"
+            android:layout_height="27dp"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@null" />
+
+        <ProgressBar
+            android:id="@+id/exo_video_audio_brightness_pro"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="4dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:max="100"
+            android:progressDrawable="@drawable/simple_video_dialog_progress" />
+    </LinearLayout>
+</RelativeLayout>
