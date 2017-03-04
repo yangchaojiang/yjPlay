@@ -14,15 +14,19 @@ import chuangyuan.xiangjiang.videolibrary.utils.VideoPlayUtils;
 /**
  * Created by yangc on 2017/2/27.
  * E-Mail:1007181167@qq.com
- * Description： 缩略播放器
+ * Description： 手动播放播放器
  */
 public class ManualPlayer extends GestureVideoPlayer {
     public static final String TAG = "ManualPlayer";
     private boolean isLoad = false;//已经加载
 
+    public ManualPlayer(Activity activity, String url) {
+        super(activity, url);
+        setExoPlayWatermarkImg(R.mipmap.watermark_big);
+    }
+
     public ManualPlayer(Activity activity, SimpleExoPlayerView playerView, String url) {
         super(activity, playerView, url);
-        setExoPlayWatermarkImg(R.mipmap.watermark_big);
     }
 
     @Override

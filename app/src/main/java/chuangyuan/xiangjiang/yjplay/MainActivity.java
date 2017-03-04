@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
 import chuangyuan.xiangjiang.videolibrary.video.ManualPlayer;
 
@@ -14,14 +13,12 @@ public class MainActivity extends Activity {
 
     private ManualPlayer exoPlayerManager;
     private static final String TAG = "MainActivity";
-    SimpleExoPlayerView playerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
-        playerView = (SimpleExoPlayerView) findViewById(R.id.player_view);
-        exoPlayerManager = new ManualPlayer(this, playerView, getString(R.string.url_hls));
+        setContentView(R.layout.layout);
+        exoPlayerManager = new ManualPlayer(this,getString(R.string.url_hls));
     }
 
     @Override

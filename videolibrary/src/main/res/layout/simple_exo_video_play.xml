@@ -12,12 +12,12 @@
             android:id="@+id/player_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:player_layout_id="@layout/simple_exo_player_view"
             app:controller_layout_id="@layout/simple_exo_playback_control_view"
-         app:default_artwork="@mipmap/video_def"
+            app:default_artwork="@mipmap/video_def"
+            app:player_layout_id="@layout/simple_exo_player_view"
             app:resize_mode="fit"
-            app:use_artwork="true"
-            app:surface_type="texture_view" />
+            app:surface_type="texture_view"
+            app:use_artwork="true" />
 
     </FrameLayout>
 </merge>

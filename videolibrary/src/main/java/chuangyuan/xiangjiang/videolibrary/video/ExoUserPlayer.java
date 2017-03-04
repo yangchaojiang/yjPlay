@@ -85,7 +85,17 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
 
     /****
      * @param activity     活动对象
-     * @param playerView   播放空间
+     * @param url          地址
+     **/
+    public ExoUserPlayer(Activity activity,String url) {
+        this.activity = activity;
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), url);
+        this.playerView = (SimpleExoPlayerView) activity.findViewById(R.id.player_view);
+        initView();
+    }
+    /****
+     * @param activity     活动对象
+     * @param playerView   播放控件
      * @param url          地址
      **/
     public ExoUserPlayer(Activity activity, SimpleExoPlayerView playerView, String url) {

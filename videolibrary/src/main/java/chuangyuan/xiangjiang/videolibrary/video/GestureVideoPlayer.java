@@ -17,7 +17,7 @@ import chuangyuan.xiangjiang.videolibrary.R;
 /**
  * Created by yangc on 2017/2/28.
  * E-Mail:1007181167@qq.com
- * Description：
+ * Description：增加手势播放器
  */
 public class GestureVideoPlayer extends ExoUserPlayer {
     public static final String TAG = "GestureVideoPlayer";
@@ -32,6 +32,11 @@ public class GestureVideoPlayer extends ExoUserPlayer {
     private ImageView exo_video_dialog_pro_img;//显示进度
     private TextView exo_video_dialog_pro_text, exo_video_dialog_duration_text;//显示进度是text
 
+
+    public GestureVideoPlayer(Activity activity,String url) {
+        super(activity, url);
+        intiView();
+    }
 
     public GestureVideoPlayer(Activity activity, SimpleExoPlayerView playerView, String url) {
         super(activity, playerView, url);
