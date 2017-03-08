@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/exo_video_audio_brightness_img"
-            android:layout_width="36dp"
-            android:layout_height="27dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:contentDescription="@null" />
 

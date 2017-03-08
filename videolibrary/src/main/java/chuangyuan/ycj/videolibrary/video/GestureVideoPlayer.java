@@ -150,7 +150,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
         if (!exo_video_audio_brightness_layout.isShown()) {
             exo_video_audio_brightness_layout.setVisibility(View.VISIBLE);
             exo_video_audio_brightness_pro.setMax(100);
-            exo_video_audio_brightness_img.setImageResource(R.mipmap.ic_brightness_6_white_36dp);
+            exo_video_audio_brightness_img.setImageResource(R.drawable.ic_brightness_6_white_48px);
         }
         exo_video_audio_brightness_pro.setProgress((int) (lpa.screenBrightness * 100));
     }

@@ -441,10 +441,10 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         if (v.getId() == R.id.exo_video_fullscreen) {
             if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {//横屏
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                exo_video_fullscreen.setImageResource(R.mipmap.ic_fullscreen_white_24dp);
+                exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_white_48px);
             } else if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {//竖屏
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                exo_video_fullscreen.setImageResource(R.mipmap.ic_fullscreen_exit_white_36dp);
+                exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_exit_white_48px);
             }
         } else if (v.getId() == R.id.exo_controls_back) {
             onBackPressed();
@@ -487,7 +487,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     public void onBackPressed() {
         if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            exo_video_fullscreen.setImageResource(R.mipmap.ic_fullscreen_white_24dp);
+            exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_white_48px);
             doOnConfigurationChanged(Configuration.ORIENTATION_LANDSCAPE);
         } else {
             if (mOnBackLListener != null) {
