@@ -46,7 +46,7 @@ group = "ycjiang"
 //发布到JCenter上的项目名字，必须填写
 def libName = "videolibrary"
 // 版本号，下次更新是只需要更改版本号即可
-version = "1.0.2"
+version = "1.0.4"
 /**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
 
 //生成源文件
@@ -95,14 +95,14 @@ install {
                 licenses {
                     license {
                         name 'This is a lightweight SQLite database framework'
-                        url 'https://github.com/linglongxin24/SQLite'
+                        url siteUrl
                     }
                 }
                 developers {
                     developer {
-                        id 'linglongxin24'
-                        name 'dylan'
-                        email 'linglongxin24@163.com'
+                        id 'ycjiang'
+                        name 'ycjiang'
+                        email 'yangchaojiang@outlook.com'
                     }
                 }
                 scm {
@@ -113,7 +113,7 @@ install {
             }
         }
     }
-}
+    }
 
 //上传到jcenter
 Properties properties = new Properties()
