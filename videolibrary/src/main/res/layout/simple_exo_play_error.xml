@@ -7,7 +7,7 @@
     android:clickable="true"
     android:gravity="center"
     android:orientation="vertical"
-    android:visibility="visible">
+    android:visibility="gone">
 
     <TextView
         android:id="@id/exo_play_error_btn"
