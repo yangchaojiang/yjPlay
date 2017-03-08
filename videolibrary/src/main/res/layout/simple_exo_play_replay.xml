@@ -7,13 +7,13 @@
     android:gravity="center"
     android:clickable="true"
     android:orientation="vertical"
-    android:visibility="gone">
+    android:visibility="visible">
     <ImageView
         android:id="@id/exo_video_replay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_play_circle_outline_white_36dp"
+        android:src="@drawable/ic_play_circle_outline_white_48px"
         android:visibility="visible" />
 </LinearLayout>
