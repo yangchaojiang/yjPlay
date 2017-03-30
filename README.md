@@ -7,6 +7,14 @@
  2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势
  3 ManualPlayer  默认手动播放，增加默认图
  4 支持自定义ui
+ 
+ ###Import
+ use     import dependency in gradle
+  ```
+dependencies {
+  
+}
+```
 ### XML
 ```XML
    播放代码
