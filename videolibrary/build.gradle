@@ -2,15 +2,13 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
-
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,6 +18,8 @@ android {
     lintOptions {
         abortOnError false
     }
+
+
 }
 
 dependencies {
@@ -29,7 +29,7 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.google.android.exoplayer:exoplayer:r2.2.0'
+    compile 'com.google.android.exoplayer:exoplayer:r2.3.1'
     compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
 
 }
@@ -46,7 +46,7 @@ group = "ycjiang"
 //发布到JCenter上的项目名字，必须填写
 def libName = "videolibrary"
 // 版本号，下次更新是只需要更改版本号即可
-version = "1.0.4"
+version = "1.1.0"
 /**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
 
 //生成源文件
@@ -94,7 +94,7 @@ install {
                 url siteUrl
                 licenses {
                     license {
-                        name 'This is a lightweight SQLite database framework'
+                        name 'Video player support live'
                         url siteUrl
                     }
                 }

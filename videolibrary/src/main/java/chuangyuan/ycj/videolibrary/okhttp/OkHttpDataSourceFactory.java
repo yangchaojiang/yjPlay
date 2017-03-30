@@ -16,6 +16,7 @@
 package chuangyuan.ycj.videolibrary.okhttp;
 
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.upstream.HttpDataSource.BaseFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource.Factory;
 import com.google.android.exoplayer2.upstream.TransferListener;
@@ -58,9 +59,9 @@ public final class OkHttpDataSourceFactory extends BaseFactory {
     this.cacheControl = cacheControl;
   }
 
-  @Override
-  protected OkHttpDataSource createDataSourceInternal() {
-    return new OkHttpDataSource(callFactory, userAgent, null, listener, cacheControl);
-  }
 
+  @Override
+  protected HttpDataSource createDataSourceInternal(HttpDataSource.RequestProperties defaultRequestProperties) {
+    return  new OkHttpDataSource(callFactory, userAgent, null, listener, cacheControl);
+  }
 }

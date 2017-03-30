@@ -32,7 +32,7 @@ import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.trackselection.AdaptiveVideoTrackSelection;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
@@ -52,6 +52,8 @@ import chuangyuan.ycj.videolibrary.utils.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 
 public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListener, OnTouchListener {
+
+
     public interface OnBackLListener {
         void onBack();
     }
@@ -66,7 +68,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     private StringBuilder formatBuilder;
     private Formatter formatter;
     private Timer timer;//定时任务类
-      VideoInfoListener videoInfoListener;//回调信息
+    VideoInfoListener videoInfoListener;//回调信息
     private ExoPlayerMediaSourceBuilder mediaSourceBuilder;//加载多媒体载体
     private SimpleExoPlayerView playerView;///播放view
     protected SimpleExoPlayer player;
@@ -123,7 +125,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     private void initView() {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//防锁屏
         screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
-        screenHeightPixels = activity.getResources().getDisplayMetrics().heightPixels;
+        screenHeightPixels = activity.getApplicationContext().getResources().getDisplayMetrics().heightPixels;
         exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_play_watermark);
         exo_video_fullscreen = (ImageButton) playerView.findViewById(R.id.exo_video_fullscreen);
         View exo_controls_back = playerView.findViewById(R.id.exo_controls_back);
@@ -143,6 +145,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         formatter = new Formatter(formatBuilder, Locale.getDefault());
         timer.schedule(task, 0, 1000); // 1s后启动任务，每2s执行一次
         gestureDetector = new GestureDetector(activity, new PlayerGestureListener());
+        doOnConfigurationChanged(activity.getResources().getConfiguration().orientation);
         hslHideView();
     }
 
@@ -227,7 +230,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
 
     private SimpleExoPlayer createFullPlayer() {
         TrackSelection.Factory videoTrackSelectionFactory
-                = new AdaptiveVideoTrackSelection.Factory(new DefaultBandwidthMeter());
+                = new AdaptiveTrackSelection.Factory(new DefaultBandwidthMeter());
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
         LoadControl loadControl = new DefaultLoadControl();
         SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(playerView.getContext(),
@@ -388,6 +391,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
                     activity2.getSupportActionBar().hide();
                 }
             }
+            playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
             //获得 WindowManager.LayoutParams 属性对象
             WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
             //直接对它flags变量操作   LayoutParams.FLAG_FULLSCREEN 表示设置全屏
@@ -404,6 +408,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
                     activity2.getSupportActionBar().show();
                 }
             }
+            playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
             //获得 WindowManager.LayoutParams 属性对象
             WindowManager.LayoutParams lp2 = activity.getWindow().getAttributes();
             //LayoutParams.FLAG_FULLSCREEN 强制屏幕状态条栏弹出
@@ -422,16 +427,18 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     //设置videoFrame的大小
     private void scaleLayout(int newConfig) {
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) playerView.getLayoutParams();
-        if (newConfig == Configuration.ORIENTATION_PORTRAIT) {
+        if (newConfig == Configuration.ORIENTATION_PORTRAIT) {//shiping
             params.height = video_height;
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             playerView.setLayoutParams(params);
+
         } else {
             WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
             DisplayMetrics outMetrics = new DisplayMetrics();
             wm.getDefaultDisplay().getMetrics(outMetrics);
-            params.height = FrameLayout.LayoutParams.MATCH_PARENT;
-            params.width = screenHeightPixels;
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+             params.width =ViewGroup.LayoutParams.MATCH_PARENT;
+
         }
         playerView.setLayoutParams(params);
     }
@@ -446,6 +453,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_exit_white_48px);
             }
+            doOnConfigurationChanged(activity.getResources().getConfiguration().orientation);
         } else if (v.getId() == R.id.exo_controls_back) {
             onBackPressed();
         } else if (v.getId() == R.id.exo_play_error_btn) {
