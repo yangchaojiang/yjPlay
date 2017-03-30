@@ -12,7 +12,7 @@
  use     import dependency in gradle
   ```
 dependencies {
-  
+  compile 'ycjiang:videolibrary:1.1.0'
 }
 ```
 ### XML
