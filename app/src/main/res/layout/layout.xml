@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <include layout="@layout/simple_exo_video_play"/>
-</LinearLayout>
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:fitsSystemWindows="true">
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:controller_layout_id="@layout/simple_exo_playback_control_view"
+        app:default_artwork="@mipmap/video_def"
+        app:player_layout_id="@layout/simple_exo_player_view"
+        app:resize_mode="fit"
+        app:surface_type="texture_view"
+        app:use_artwork="true" />
+</FrameLayout>
