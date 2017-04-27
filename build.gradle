@@ -17,11 +17,14 @@ allprojects {
     repositories {
         jcenter()
     }
+
     project.ext {
         compileSdkVersion=25
         targetSdkVersion=25
         buildToolsVersion='25.0.2'
         minSdkVersion=16
+        versionCode = 17
+        versionName = "3.0"
     }
     tasks.withType(Javadoc) {
         options {
@@ -30,6 +33,7 @@ allprojects {
             links "http://docs.oracle.com/javase/7/docs/api"
         }
     }
+
 }
 
 task clean(type: Delete) {

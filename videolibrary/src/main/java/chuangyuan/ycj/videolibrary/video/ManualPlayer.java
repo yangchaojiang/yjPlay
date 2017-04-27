@@ -34,7 +34,7 @@ public class ManualPlayer extends GestureVideoPlayer {
 
     @Override
     public void onStart() {
-        if (Util.SDK_INT > 23 && !isLoad) {
+        if (Util.SDK_INT > 23 && isLoad) {
             createPlayers();
         } else {
             createPlayersPlay();

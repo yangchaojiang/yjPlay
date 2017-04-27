@@ -29,6 +29,7 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
@@ -370,6 +371,11 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         }
     }
 
+    @Override
+    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+        Log.d(TAG, "onPlaybackParametersChanged:"+playbackParameters.pitch);
+    }
+
     /****
      * 横竖屏切换
      * @param configuration  旋转
@@ -448,10 +454,10 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         if (v.getId() == R.id.exo_video_fullscreen) {
             if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {//横屏
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_white_48px);
+                exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_white);
             } else if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {//竖屏
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_exit_white_48px);
+                exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_exit_white);
             }
             doOnConfigurationChanged(activity.getResources().getConfiguration().orientation);
         } else if (v.getId() == R.id.exo_controls_back) {
@@ -495,7 +501,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     public void onBackPressed() {
         if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_white_48px);
+            exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_white);
             doOnConfigurationChanged(Configuration.ORIENTATION_LANDSCAPE);
         } else {
             if (mOnBackLListener != null) {

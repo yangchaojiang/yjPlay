@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 
 
+import com.google.android.exoplayer2.ui.TimeBar;
+
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 
 
@@ -25,7 +27,7 @@ public class MainActivity extends Activity {
                 Log.d(TAG, "onSystemUiVisibilityChange");
             }
         });
-        exoPlayerManager = new ManualPlayer(this, getString(R.string.url_hls));
+        exoPlayerManager = new ManualPlayer(this,"http://flv2.bn.netease.com/videolib3/1604/28/fVobI0704/SD/fVobI0704-mobile.mp4");
     }
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {

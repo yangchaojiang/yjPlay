@@ -33,7 +33,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -59,63 +59,50 @@
             android:src="@drawable/exo_controls_pause"
             android:visibility="gone" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_weight="1">
 
-            <SeekBar
+            <com.google.android.exoplayer2.ui.DefaultTimeBar
                 android:id="@id/exo_progress"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
                 android:max="800" />
 
             <TextView
+                android:layout_weight="0"
                 android:id="@id/exo_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/exo_progress"
-                android:layout_toLeftOf="@+id/ycj_video_timeSpan"
-                android:layout_toStartOf="@+id/ycj_video_timeSpan"
                 android:text="06:21"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
-
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/exo_progress"
-                android:layout_marginLeft="15dp"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@id/exo_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/exo_progress"
-                android:layout_marginRight="15dp"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-
-            <TextView
+                android:layout_weight="0"
                 android:id="@+id/ycj_video_timeSpan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/exo_progress"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_toLeftOf="@id/exo_duration"
-                android:layout_toStartOf="@id/exo_duration"
+                android:textColor="@android:color/white"
+                android:text="/"
+                android:textSize="12sp" />
+            <TextView
+                android:layout_weight="0"
+                android:id="@id/exo_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <ImageButton
             android:contentDescription="@null"
@@ -125,6 +112,6 @@
             android:layout_margin="5dp"
             android:layout_weight="0"
             android:background="@null"
-            android:src="@drawable/ic_fullscreen_white_48px" />
+            android:src="@drawable/ic_fullscreen_white" />
     </LinearLayout>
 </RelativeLayout>
