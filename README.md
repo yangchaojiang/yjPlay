@@ -9,12 +9,17 @@
  4 支持自定义ui
  
  ###Import
+
  use     import dependency in gradle
 
 dependencies {
+
   compile 'com.ycjiang:videolibrary:1.1.2'
+
 }
+
  Maven
+
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>videolibrary</artifactId>
