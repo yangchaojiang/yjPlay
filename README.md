@@ -10,10 +10,17 @@
  
  ###Import
  use     import dependency in gradle
-  ```
+
 dependencies {
-  
+  compile 'com.ycjiang:videolibrary:1.1.2'
 }
+ Maven
+<dependency>
+  <groupId>com.ycjiang</groupId>
+  <artifactId>videolibrary</artifactId>
+  <version>1.1.2</version>
+  <type>pom</type>
+</dependency>
 ```
 ### XML
 ```XML
