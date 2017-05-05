@@ -11,7 +11,8 @@
  ###Import
 
  use     import dependency in gradle
-
+ 
+```
 dependencies {
 
   compile 'com.ycjiang:videolibrary:1.1.2'
@@ -26,7 +27,6 @@ dependencies {
   <version>1.1.2</version>
   <type>pom</type>
 </dependency>
-
 
 ```
 ### XML
