@@ -13,6 +13,11 @@
  use     import dependency in gradle
  
 ```
+ repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+    
 dependencies {
 
   compile 'com.ycjiang:videolibrary:1.1.2'
