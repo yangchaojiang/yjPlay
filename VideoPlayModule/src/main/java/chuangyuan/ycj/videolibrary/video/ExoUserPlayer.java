@@ -6,8 +6,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -425,7 +427,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
 
     //设置videoFrame的大小
     private void scaleLayout(int newConfig) {
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) playerView.getLayoutParams();
+        ViewGroup.LayoutParams params =playerView.getLayoutParams();
         if (newConfig == Configuration.ORIENTATION_PORTRAIT) {//shiping
             params.height = video_height;
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
