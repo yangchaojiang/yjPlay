@@ -11,7 +11,13 @@
  ###Import
 
  use     import dependency in gradle
-
+ 
+```
+ repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+    
 dependencies {
 
    compile 'com.ycjiang:VideoPlayModule:1.1.5'
@@ -26,7 +32,6 @@ dependencies {
   <version>1.1.5</version>
   <type>pom</type>
 </dependency>
-
 
 ```
 ### XML
