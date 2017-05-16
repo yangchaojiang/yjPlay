@@ -22,13 +22,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
@@ -82,14 +79,13 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     private View exo_play_replay_layout;//播放结束
     private ImageView exoPlayWatermark;// 水印
     private int screenWidthPixels;
-    private int screenHeightPixels;
     private GestureDetector gestureDetector;
     private OnBackLListener mOnBackLListener;
     protected boolean playerNeedsSource;
 
     /****
-     * @param activity     活动对象
-     * @param url          地址
+     * @param activity 活动对象
+     * @param url      地址
      **/
     public ExoUserPlayer(Activity activity, String url) {
         this.activity = activity;
@@ -99,9 +95,9 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     }
 
     /****
-     * @param activity     活动对象
-     * @param playerView   播放控件
-     * @param url          地址
+     * @param activity   活动对象
+     * @param playerView 播放控件
+     * @param url        地址
      **/
     public ExoUserPlayer(Activity activity, SimpleExoPlayerView playerView, Uri url) {
         this.playerView = playerView;
@@ -111,9 +107,9 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     }
 
     /****
-     * @param activity     活动对象
-     * @param playerView   播放控件
-     * @param url          地址
+     * @param activity   活动对象
+     * @param playerView 播放控件
+     * @param url        地址
      **/
     public ExoUserPlayer(Activity activity, SimpleExoPlayerView playerView, String url) {
         this.playerView = playerView;
@@ -126,8 +122,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     private void initView() {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//防锁屏
         screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
-        screenHeightPixels = activity.getApplicationContext().getResources().getDisplayMetrics().heightPixels;
-      exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_play_watermark);
+        exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_play_watermark);
         exo_video_fullscreen = (ImageButton) playerView.findViewById(R.id.exo_video_fullscreen);
         View exo_controls_back = playerView.findViewById(R.id.exo_controls_back);
         exo_controls_title = (TextView) playerView.findViewById(R.id.exo_controls_title);
@@ -229,12 +224,10 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     }
 
     private SimpleExoPlayer createFullPlayer() {
-        TrackSelection.Factory videoTrackSelectionFactory
-                = new AdaptiveTrackSelection.Factory(new DefaultBandwidthMeter());
+        TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(new DefaultBandwidthMeter());
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
-        LoadControl loadControl = new DefaultLoadControl();
         SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(playerView.getContext(),
-                trackSelector, loadControl);
+                trackSelector);
         player.addListener(this);
         playerView.setPlayer(player);
         return player;
@@ -372,12 +365,13 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
 
     @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-        Log.d(TAG, "onPlaybackParametersChanged:"+playbackParameters.pitch);
+        Log.d(TAG, "onPlaybackParametersChanged:" + playbackParameters.pitch);
     }
 
     /****
      * 横竖屏切换
-     * @param configuration  旋转
+     *
+     * @param configuration 旋转
      ***/
     public void onConfigurationChanged(Configuration configuration) {
         doOnConfigurationChanged(configuration.orientation);
@@ -404,7 +398,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
             //设置属性
             activity.getWindow().setAttributes(lp);
             //意思大致就是  允许窗口扩展到屏幕之外
-        //    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            //    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             //skin的宽高
         } else {//竖屏
             if (activity instanceof AppCompatActivity) {
@@ -442,7 +436,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
             DisplayMetrics outMetrics = new DisplayMetrics();
             wm.getDefaultDisplay().getMetrics(outMetrics);
             params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-             params.width =ViewGroup.LayoutParams.MATCH_PARENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
         }
         playerView.setLayoutParams(params);
@@ -731,8 +725,9 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
 
     /***
      * 显示水印图
+     *
      * @param res 资源
-     * ***/
+     ***/
     protected void setExoPlayWatermarkImg(int res) {
         try {
             if (exoPlayWatermark != null) {
@@ -741,6 +736,10 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public SimpleExoPlayer getPlayer() {
+        return player;
     }
 
     public void setExo_controls_title(TextView exo_controls_title) {

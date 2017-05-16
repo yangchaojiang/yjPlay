@@ -2,14 +2,11 @@
 
 package chuangyuan.ycj.videolibrary.video;
 
-
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
-
-import com.facebook.stetho.Stetho;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSourceFactory;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -22,7 +19,6 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import chuangyuan.ycj.videolibrary.okhttp.OkHttpDataSourceFactory;
 import okhttp3.OkHttpClient;
 
 /*****
@@ -37,14 +33,12 @@ public class ExoPlayerMediaSourceBuilder {
     private Handler mainHandler = new Handler();
     private OkHttpClient okHttpClient;
     public ExoPlayerMediaSourceBuilder(Context context, String url) {
-        Stetho.initializeWithDefaults(context.getApplicationContext());
         this.context = context;
         this.uri = Uri.parse(url);
         this.bandwidthMeter = new DefaultBandwidthMeter();
         this.streamType = Util.inferContentType(uri.getLastPathSegment());
     }
     public ExoPlayerMediaSourceBuilder(Context context, Uri url) {
-        Stetho.initializeWithDefaults(context.getApplicationContext());
         this.context = context;
         this.uri =url;
         this.bandwidthMeter = new DefaultBandwidthMeter();
@@ -67,9 +61,10 @@ public class ExoPlayerMediaSourceBuilder {
             case C.TYPE_HLS:
                 return new HlsMediaSource(uri, getDataSourceFactory(preview), mainHandler, null);
             case C.TYPE_OTHER:
-
-                return new ExtractorMediaSource(uri, getDataSourceFactory(preview),
+                MediaSource mediaSource=new ExtractorMediaSource(uri, getDataSourceFactory(preview),
                         new DefaultExtractorsFactory(), mainHandler, null);
+              //  LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
+                return mediaSource;
             default: {
                 throw new IllegalStateException("Unsupported type: " + streamType);
             }
@@ -83,8 +78,8 @@ public class ExoPlayerMediaSourceBuilder {
 
     private DataSource.Factory getHttpDataSourceFactory(boolean preview) {
         // return new DefaultHttpDataSourceFactory(Util.getUserAgent(context,"yjPlay"), preview ? null : bandwidthMeter);
-        okHttpClient = new OkHttpClient.Builder().addNetworkInterceptor(new StethoInterceptor()).build();
-        return new OkHttpDataSourceFactory(okHttpClient, Util.getUserAgent(context, "yjPlay"), bandwidthMeter);
+        okHttpClient =new OkHttpClient();
+        return new OkHttpDataSourceFactory(okHttpClient, Util.getUserAgent(context,context.getApplicationContext().getPackageName()), bandwidthMeter);
     }
 
 
