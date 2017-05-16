@@ -24,7 +24,7 @@
     
 dependencies {
 
-   compile 'com.ycjiang:VideoPlayModule:1.1.6'
+   compile 'com.ycjiang:VideoPlayModule:1.1.8'
 
 }
 
@@ -33,7 +33,7 @@ dependencies {
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>VideoPlayModule</artifactId>
-  <version>1.1.6/version>
+  <version>1.1.8/version>
   <type>pom</type>
 </dependency>
 
@@ -45,9 +45,9 @@ dependencies {
    布局引用
     <include layout="@layout/simple_exo_video_play"/>
     或者是
-     播放代码
+    播放代码
     ManualPlayer exoPlayerManager = new ManualPlayer(this,playView,getString(R.string.url_hls));  
-      布局引用
+    布局引用
       
       
    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
