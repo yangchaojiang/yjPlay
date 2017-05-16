@@ -5,15 +5,17 @@
     android:layout_height="match_parent"
     android:background="@android:color/black"
     android:fitsSystemWindows="true">
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/player_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:controller_layout_id="@layout/simple_exo_playback_control_view"
-        app:player_layout_id="@layout/simple_exo_player_view"
-        app:resize_mode="fit"
-        app:use_controller="true"
-        app:show_timeout="3000"
-        app:surface_type="texture_view"
-        app:use_artwork="true" />
+
+    <include layout="@layout/simple_encryption_exo_video_play"/>
+    <!--<com.google.android.exoplayer2.ui.SimpleExoPlayerView-->
+        <!--android:id="@+id/player_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--app:controller_layout_id="@layout/simple_exo_playback_control_view"-->
+        <!--app:player_layout_id="@layout/simple_exo_view"-->
+        <!--app:resize_mode="fit"-->
+        <!--app:use_controller="true"-->
+        <!--app:show_timeout="3000"-->
+        <!--app:surface_type="texture_view"-->
+    <!--app:use_artwork="true" />-->
 </FrameLayout>

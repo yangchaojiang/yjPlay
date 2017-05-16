@@ -127,7 +127,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//防锁屏
         screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
         screenHeightPixels = activity.getApplicationContext().getResources().getDisplayMetrics().heightPixels;
-        exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_play_watermark);
+      exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_play_watermark);
         exo_video_fullscreen = (ImageButton) playerView.findViewById(R.id.exo_video_fullscreen);
         View exo_controls_back = playerView.findViewById(R.id.exo_controls_back);
         exo_controls_title = (TextView) playerView.findViewById(R.id.exo_controls_title);
@@ -146,7 +146,6 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         formatter = new Formatter(formatBuilder, Locale.getDefault());
         timer.schedule(task, 0, 1000); // 1s后启动任务，每2s执行一次
         gestureDetector = new GestureDetector(activity, new PlayerGestureListener());
-        doOnConfigurationChanged(activity.getResources().getConfiguration().orientation);
         hslHideView();
     }
 
@@ -405,7 +404,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
             //设置属性
             activity.getWindow().setAttributes(lp);
             //意思大致就是  允许窗口扩展到屏幕之外
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        //    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             //skin的宽高
         } else {//竖屏
             if (activity instanceof AppCompatActivity) {
@@ -502,7 +501,8 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_white);
-            doOnConfigurationChanged(Configuration.ORIENTATION_LANDSCAPE);
+            onConfigurationChanged(activity.getResources().getConfiguration());
+
         } else {
             if (mOnBackLListener != null) {
                 mOnBackLListener.onBack();

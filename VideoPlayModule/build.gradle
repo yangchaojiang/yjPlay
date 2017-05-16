@@ -1,10 +1,10 @@
 apply plugin: 'com.android.library'
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -28,7 +28,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.google.android.exoplayer:exoplayer:r2.4.0'
     compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
 
@@ -42,11 +42,11 @@ def siteUrl = 'https://github.com/yangchaojiang/yjPlay'    // project homepage
 def gitUrl = 'git@github.com:yangchaojiang/yjPlay.git' // project git
 
 //发布到组织名称名字，必须填写
-group = "com.ycjiang"
+group ="com.ycjiang"
 //发布到JCenter上的项目名字，必须填写
-def libName = "videolibrary"
+def libName = "VideoPlayModule"
 // 版本号，下次更新是只需要更改版本号即可
-version = "1.1.1"
+version = "1.1.5"
 /**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
 
 //生成源文件
@@ -98,13 +98,6 @@ install {
                         url siteUrl
                     }
                 }
-                developers {
-                    developer {
-                        id 'ycjiang'
-                        name 'ycjiang'
-                        email 'yangchaojiang@outlook.com'
-                    }
-                }
                 scm {
                     connection gitUrl
                     developerConnection gitUrl
@@ -123,7 +116,7 @@ bintray {
     key = properties.getProperty("bintray.apikey")   //读取 local.properties 文件里面的 bintray.apikey
     configurations = ['archives']
     pkg {
-        repo = "yangjiang"
+        repo = "ycjiang"
         name = libName    //发布到JCenter上的项目名字，必须填写
         desc = 'Video player support live'    //项目描述
         websiteUrl = siteUrl

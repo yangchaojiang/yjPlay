@@ -27,12 +27,15 @@ public class MainActivity extends Activity {
                 Log.d(TAG, "onSystemUiVisibilityChange");
             }
         });
-        exoPlayerManager = new ManualPlayer(this,"http://flv2.bn.netease.com/videolib3/1604/28/fVobI0704/SD/fVobI0704-mobile.mp4");
+        exoPlayerManager = new ManualPlayer(this, "http://flv2.bn.netease.com/videolib3/1604/28/fVobI0704/SD/fVobI0704-mobile.mp4");
+        //exoPlayerManager = new ManualPlayer(this,"ftp://g:g@tv.dl1234.com:2121/不懂撒娇的女人粤语01.mkv");
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -62,7 +65,6 @@ public class MainActivity extends Activity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-
         exoPlayerManager.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
     }

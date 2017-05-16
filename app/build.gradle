@@ -18,8 +18,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    lintOptions {
-        abortOnError false
+    // 保证其他的lib没有被preDex
+    dexOptions {
+        preDexLibraries = false
     }
 }
 
@@ -30,5 +31,5 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.2.0'
-    compile project(':videolibrary')
+    compile project(':VideoPlayModule')
 }
