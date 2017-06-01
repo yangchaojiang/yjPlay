@@ -245,7 +245,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         }
         player.setPlayWhenReady(true);
         playerView.setOnTouchListener(this);
-        player.prepare(mediaSourceBuilder.getMediaSource(false), !haveResumePosition, false);
+        player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         playerNeedsSource = false;
     }
 

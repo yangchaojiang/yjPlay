@@ -3,6 +3,7 @@ package chuangyuan.ycj.videolibrary.widget;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+import android.widget.GridView;
 
 public class ParamsCreator {
 	private Context context;
@@ -17,6 +18,7 @@ public class ParamsCreator {
     	DisplayMetrics metric = new DisplayMetrics();
     	wm.getDefaultDisplay().getMetrics(metric);
     	densityDpi = metric.densityDpi;
+
     }
     
 	/**

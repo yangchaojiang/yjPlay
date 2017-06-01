@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <include layout="@layout/simple_encryption_exo_video_play"/>
-    <!--<com.google.android.exoplayer2.ui.SimpleExoPlayerView-->
-        <!--android:id="@+id/player_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="200dp"-->
-        <!--app:controller_layout_id="@layout/simple_exo_playback_control_view"-->
-        <!--app:player_layout_id="@layout/simple_exo_view"-->
-        <!--app:resize_mode="fit"-->
-        <!--app:use_controller="true"-->
-        <!--app:show_timeout="3000"-->
-        <!--app:surface_type="texture_view"-->
-    <!--app:use_artwork="true" />-->
-</FrameLayout>
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@android:color/transparent"
+        app:controller_layout_id="@layout/simple_exo_playback_control_view"
+        app:player_layout_id="@layout/simple_exo_view"
+        app:resize_mode="fit"
+        app:show_timeout="3000"
+        app:surface_type="texture_view"
+        app:use_artwork="true"
+        app:use_controller="true" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="进度定位0.01秒"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+</LinearLayout>
