@@ -47,6 +47,15 @@ public class GestureVideoPlayer extends ExoUserPlayer {
         super(activity, playerView, url);
         intiView();
     }
+    /****
+     * @param activity   活动对象
+     * @param firstVideoUri        开始地址
+     * @param secondVideoUri   第二个视频
+     **/
+    public GestureVideoPlayer(Activity activity, String firstVideoUri, String secondVideoUri) {
+        super(activity, firstVideoUri, secondVideoUri);
+        intiView();
+    }
     private void intiView() {
         mMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         exo_video_audio_brightness_layout = activity.findViewById(R.id.exo_video_audio_brightness_layout);

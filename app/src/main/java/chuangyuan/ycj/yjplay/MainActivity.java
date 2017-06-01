@@ -34,10 +34,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
-       exoPlayerManager = new ExoUserPlayer(this, "http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
+       exoPlayerManager = new ExoUserPlayer(this, "http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         //  exoPlayerManager = new ManualPlayer(this, "storage/emulated/0/demo-170322.mp4");
-          exoPlayerManager = new ExoUserPlayer(this, Environment.getExternalStorageDirectory().getAbsolutePath() + "/vr_video_1.mp4");
-        //exoPlayerManager = new ManualPlayer(this,"ftp://g:g@tv.dl1234.com:2121/不懂撒娇的女人粤语01.mkv");
+        //  exoPlayerManager = new ExoUserPlayer(this, Environment.getExternalStorageDirectory().getAbsolutePath() + "/vr_video_1.mp4");
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

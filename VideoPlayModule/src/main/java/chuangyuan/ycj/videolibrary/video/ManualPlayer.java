@@ -24,14 +24,6 @@ public class ManualPlayer extends GestureVideoPlayer {
         setExoPlayWatermarkImg(R.mipmap.watermark_big);
     }
 
-    public ManualPlayer(Activity activity, SimpleExoPlayerView playerView, String url) {
-        super(activity, playerView, url);
-    }
-
-    public ManualPlayer(Activity activity, SimpleExoPlayerView playerView, Uri url) {
-        super(activity, playerView, url);
-    }
-
     @Override
     public void onStart() {
         if (Util.SDK_INT > 23 && isLoad) {

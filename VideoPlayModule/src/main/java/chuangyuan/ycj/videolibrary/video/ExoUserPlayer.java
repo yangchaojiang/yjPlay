@@ -9,7 +9,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -24,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -120,8 +120,21 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         initView();
     }
 
+    /****
+     * @param activity   活动对象
+     * @param firstVideoUri        开始地址
+     * @param secondVideoUri   第二个视频
+     **/
+    public ExoUserPlayer(Activity activity, String firstVideoUri, String secondVideoUri) {
+        this.activity = activity;
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri,secondVideoUri);
+        this.playerView = (SimpleExoPlayerView) activity.findViewById(R.id.player_view);
+        initView();
+    }
+
     @SuppressLint("InflateParams")
     private void initView() {
+
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//防锁屏
         screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
         exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_play_watermark);
@@ -427,7 +440,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
 
     //设置videoFrame的大小
     private void scaleLayout(int newConfig) {
-        ViewGroup.LayoutParams params =playerView.getLayoutParams();
+        ViewGroup.LayoutParams params = playerView.getLayoutParams();
         if (newConfig == Configuration.ORIENTATION_PORTRAIT) {//shiping
             params.height = video_height;
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;

@@ -45,7 +45,7 @@ group ="com.ycjiang"
 //发布到JCenter上的项目名字，必须填写
 def libName = "VideoPlayModule"
 // 版本号，下次更新是只需要更改版本号即可
-version = "1.1.9"
+version = "1.2.0"
 /**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
 
 //生成源文件
