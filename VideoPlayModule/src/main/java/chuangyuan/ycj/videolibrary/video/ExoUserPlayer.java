@@ -38,6 +38,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.ui.TimeBar;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.util.Util;
 
@@ -127,7 +128,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
      **/
     public ExoUserPlayer(Activity activity, String firstVideoUri, String secondVideoUri) {
         this.activity = activity;
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri,secondVideoUri);
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
         this.playerView = (SimpleExoPlayerView) activity.findViewById(R.id.player_view);
         initView();
     }
@@ -159,12 +160,20 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         hslHideView();
     }
 
-    private void hslHideView() {
+    /***
+     * 是否云隐藏
+     * **/
+    public void hslHideView() {
         if (mediaSourceBuilder.getStreamType() == C.TYPE_HLS) {//直播隐藏进度条
-            activity.findViewById(R.id.exo_progress).setVisibility(View.GONE);
-            activity.findViewById(R.id.exo_duration).setVisibility(View.GONE);
-            activity.findViewById(R.id.exo_position).setVisibility(View.GONE);
-            activity.findViewById(R.id.ycj_video_timeSpan).setVisibility(View.GONE);
+//            activity.findViewById(R.id.exo_progress).setVisibility(View.GONE);
+//            activity.findViewById(R.id.exo_duration).setVisibility(View.GONE);
+//            activity.findViewById(R.id.exo_position).setVisibility(View.GONE);
+//            activity.findViewById(R.id.ycj_video_timeSpan).setVisibility(View.GONE);
+            TimeBar timeBar= (TimeBar) activity.findViewById(R.id.exo_progress);
+            timeBar.setEnabled(false);
+            timeBar.setListener(null);
+
+
         }
     }
 
@@ -757,8 +766,8 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         return player;
     }
 
-    public void setExo_controls_title(TextView exo_controls_title) {
-        this.exo_controls_title = exo_controls_title;
+    public void setTitle(String title) {
+        exo_controls_title.setText(title);
     }
 
     public void setVideoInfoListener(VideoInfoListener videoInfoListener) {
@@ -769,5 +778,8 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         this.mOnBackLListener = mOnBackLListener;
     }
 
+    public TextView getExo_controls_title() {
+        return exo_controls_title;
+    }
 }
 
