@@ -6,7 +6,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,7 +29,7 @@ import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
  * Description:加密视频播放器
  */
 
-public class EncryptedVideoActivity extends AppCompatActivity {
+public class EncryptedVideoActivity extends Activity {
     private static final String TAG = "EncryptedVideoActivity";
     SimpleExoPlayerView simpleExoPlayerView;
     private HttpServer httpServer;

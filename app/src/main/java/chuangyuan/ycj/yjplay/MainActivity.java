@@ -37,18 +37,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
 
-      // exoPlayerManager = new ExoUserPlayer(this, "http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
-        //  exoPlayerManager = new ManualPlayer(this, "storage/emulated/0/demo-170322.mp4");
-        exoPlayerManager = new ExoUserPlayer(this,"http://61.240.143.212/251/4/75/letv-uts/14/ver_00_22-1104623442-avc-796490-aac-64000-3731920-407135057-88958e5c503076b4883b08e4866463e4-1496634082010.m3u8?crypt=84aa7f2e693&b=872&nlh=4096&nlt=60&bf=64&p2p=1&video_type=mp4&termid=2&tss=ios&platid=3&splatid=347&its=12346160&qos=5&fcheck=0&amltag=19650&mltag=19650&proxy=1039176421,1039176777,467476745&uid=2099409483.rp&keyitem=GOw_33YJAAbXYE-cnQwpfLlv_b2zAkYctFVqe5bsXQpaGNn3T1-vhw..&ntm=1496842800&nkey=d38915daa2cd661bc151a8932c741d7d&nkey2=69fa0c372fb90864946f04872d9da4ce&geo=CN-1-5-2&mmsid=65215193&tm=1496824407&key=6fed92c452fd91044819bf7b79986f27&playid=0&vtype=22&cvid=613150880745&payff=1&sign=mb&dname=mobile&p1=0&p2=00&p3=003&tag=mobile&pid=10037084&pay=0&ostype=android&hwtype=iphone&uidx=0&errc=0&gn=1190&ndtype=0&vrtmcd=106&buss=19650&cips=125.34.114.75");
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long position = exoPlayerManager.getPlayer().getCurrentPosition();
-                Log.d(TAG, "position:" + position);
-                Log.d(TAG, "position:new:" + (position + 100));
-                exoPlayerManager.getPlayer().seekTo((position + 100));
-            }
-        });
+       exoPlayerManager = new ExoUserPlayer(this, "http://183.251.61.207/PLTV/88888888/224/3221225922/index.m3u8");
+       // exoPlayerManager = new ManualPlayer(this, "storage/emulated/0/demo-170322.mp4");
+     //   exoPlayerManager = new ExoUserPlayer(this,"http://61.240.143.212/251/4/75/letv-uts/14/ver_00_22-1104623442-avc-796490-aac-64000-3731920-407135057-88958e5c503076b4883b08e4866463e4-1496634082010.m3u8?crypt=84aa7f2e693&b=872&nlh=4096&nlt=60&bf=64&p2p=1&video_type=mp4&termid=2&tss=ios&platid=3&splatid=347&its=12346160&qos=5&fcheck=0&amltag=19650&mltag=19650&proxy=1039176421,1039176777,467476745&uid=2099409483.rp&keyitem=GOw_33YJAAbXYE-cnQwpfLlv_b2zAkYctFVqe5bsXQpaGNn3T1-vhw..&ntm=1496842800&nkey=d38915daa2cd661bc151a8932c741d7d&nkey2=69fa0c372fb90864946f04872d9da4ce&geo=CN-1-5-2&mmsid=65215193&tm=1496824407&key=6fed92c452fd91044819bf7b79986f27&playid=0&vtype=22&cvid=613150880745&payff=1&sign=mb&dname=mobile&p1=0&p2=00&p3=003&tag=mobile&pid=10037084&pay=0&ostype=android&hwtype=iphone&uidx=0&errc=0&gn=1190&ndtype=0&vrtmcd=106&buss=19650&cips=125.34.114.75");
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         //  Log.d(TAG, UtilityAdapter.FFmpegVideoGetInfo("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"));

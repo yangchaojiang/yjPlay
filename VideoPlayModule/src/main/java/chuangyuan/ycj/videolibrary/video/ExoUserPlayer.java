@@ -9,7 +9,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
+
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -408,12 +408,12 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
      */
     private void doOnConfigurationChanged(int newConfig) {
         if (newConfig == Configuration.ORIENTATION_LANDSCAPE) {//横屏
-            if (activity instanceof AppCompatActivity) {
-                AppCompatActivity activity2 = (AppCompatActivity) activity;
-                if (activity2.getSupportActionBar() != null) {
-                    activity2.getSupportActionBar().hide();
-                }
-            }
+//            if (activity instanceof AppCompatActivity) {
+//                AppCompatActivity activity2 = (AppCompatActivity) activity;
+//                if (activity2.getSupportActionBar() != null) {
+//                    activity2.getSupportActionBar().hide();
+//                }
+//            }
             playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
             //获得 WindowManager.LayoutParams 属性对象
             WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
@@ -425,12 +425,12 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
             //    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             //skin的宽高
         } else {//竖屏
-            if (activity instanceof AppCompatActivity) {
-                AppCompatActivity activity2 = (AppCompatActivity) activity;
-                if (activity2.getSupportActionBar() != null) {
-                    activity2.getSupportActionBar().show();
-                }
-            }
+//            if (activity instanceof AppCompatActivity) {
+//                AppCompatActivity activity2 = (AppCompatActivity) activity;
+//                if (activity2.getSupportActionBar() != null) {
+//                    activity2.getSupportActionBar().show();
+//                }
+//            }
             playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
             //获得 WindowManager.LayoutParams 属性对象
             WindowManager.LayoutParams lp2 = activity.getWindow().getAttributes();
