@@ -28,8 +28,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    compile 'com.google.android.exoplayer:exoplayer:r2.4.1'
-    compile 'com.google.android.exoplayer:extension-okhttp:r2.4.1'
+    compile 'com.google.android.exoplayer:exoplayer:r2.4.2'
+    compile 'com.google.android.exoplayer:extension-okhttp:r2.4.2'
 }
 /** 以下开始是将Android Library上传到jcenter的相关配置**/
 apply plugin: 'com.github.dcendents.android-maven'
