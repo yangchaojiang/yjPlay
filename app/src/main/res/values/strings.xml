@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">yjPlayVideo</string>
+    <string name="url_hls">http://ivi.bupt.edu.cn/hls/cctv2.m3u8</string>
+</resources>
