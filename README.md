@@ -57,7 +57,7 @@ dependencies {
             android:layout_height="200dp"
             app:controller_layout_id="@layout/simple_exo_playback_control_view"
             app:default_artwork="@mipmap/video_def"
-            app:player_layout_id="@layout/simple_exo_player_view"
+            app:player_layout_id="@layout/simple_exo_view"
             app:resize_mode="fit"
             app:surface_type="texture_view"
             app:use_artwork="true" />
