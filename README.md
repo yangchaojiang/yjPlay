@@ -25,7 +25,7 @@
     
 dependencies {
 
-   compile 'com.ycjiang:VideoPlayModule:1.2.3'
+   compile 'com.ycjiang:VideoPlayModule:1.2.6'
 
 }
 
@@ -34,24 +34,15 @@ dependencies {
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>VideoPlayModule</artifactId>
-  <version>1.2.3/version>
+  <version>1.2.6/version>
   <type>pom</type>
 </dependency>
 
 ```
-### XML
-```XML
-   播放代码
-   ManualPlayer exoPlayerManager = new ManualPlayer(this,getString(R.string.url_hls));
-   布局引用
-    <include layout="@layout/simple_exo_video_play"/>
-    或者是
-    播放代码
-    ManualPlayer exoPlayerManager = new ManualPlayer(this,playView,getString(R.string.url_hls));  
-    布局引用
-      
-      
-   <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+
+
+ ###布局引用
+ ```<com.google.android.exoplayer2.ui.SimpleExoPlayerView
             android:id="@+id/player_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -61,9 +52,19 @@ dependencies {
             app:resize_mode="fit"
             app:surface_type="texture_view"
             app:use_artwork="true" />
- 
- 
- 
+ ```
+ ###  JAVA
+ ```
+    播放代码
+    ManualPlayer exoPlayerManager = new ManualPlayer(this);
+      exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
+    布局引用
+     <include layout="@layout/simple_exo_video_play"/>
+     或者是
+     播放代码
+     ManualPlayer exoPlayerManager = new ManualPlayer(this,getString(R.string.url_hls));
+ ```
+ ```
    @Override
     public void onStart() {
         super.onStart();
@@ -101,3 +102,4 @@ dependencies {
     public void onBackPressed() {
         exoPlayerManager.onBackPressed();
     }
+ ```
