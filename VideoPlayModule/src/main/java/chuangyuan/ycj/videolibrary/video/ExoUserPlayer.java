@@ -70,7 +70,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     private Formatter formatter;
     private Timer timer;//定时任务类
     VideoInfoListener videoInfoListener;//回调信息
-    private ExoPlayerMediaSourceBuilder mediaSourceBuilder;//加载多媒体载体
+    protected ExoPlayerMediaSourceBuilder mediaSourceBuilder;//加载多媒体载体
     private SimpleExoPlayerView playerView;///播放view
     protected SimpleExoPlayer player;
     protected Activity activity;
@@ -88,54 +88,44 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
 
     /****
      * @param activity 活动对象
-     * @param url      地址
+     * @param uri      地址
      **/
-    public ExoUserPlayer(Activity activity, String url) {
+    public ExoUserPlayer(Activity activity, String uri) {
         this.activity = activity;
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), url);
-        this.playerView = (SimpleExoPlayerView) activity.findViewById(R.id.player_view);
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), Uri.parse(uri));
         initView();
     }
 
     /****
      * @param activity   活动对象
      * @param playerView 播放控件
-     * @param url        地址
      **/
-    public ExoUserPlayer(Activity activity, SimpleExoPlayerView playerView, Uri url) {
+    public ExoUserPlayer(Activity activity, SimpleExoPlayerView playerView) {
         this.playerView = playerView;
         this.activity = activity;
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), url);
+        initView();
+    }
+    public ExoUserPlayer(Activity activity) {
+        this.activity = activity;
         initView();
     }
 
     /****
-     * @param activity   活动对象
-     * @param playerView 播放控件
-     * @param url        地址
-     **/
-    public ExoUserPlayer(Activity activity, SimpleExoPlayerView playerView, String url) {
-        this.playerView = playerView;
-        this.activity = activity;
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), url);
-        initView();
-    }
-
-    /****
-     * @param activity   活动对象
-     * @param firstVideoUri        开始地址
-     * @param secondVideoUri   第二个视频
+     * @param activity       活动对象
+     * @param firstVideoUri  开始地址
+     * @param secondVideoUri 第二个视频
      **/
     public ExoUserPlayer(Activity activity, String firstVideoUri, String secondVideoUri) {
         this.activity = activity;
         this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
-        this.playerView = (SimpleExoPlayerView) activity.findViewById(R.id.player_view);
         initView();
     }
 
     @SuppressLint("InflateParams")
     private void initView() {
-
+        if (playerView==null) {
+            this.playerView = (SimpleExoPlayerView) activity.findViewById(R.id.player_view);
+        }
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//防锁屏
         screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
         exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_play_watermark);
@@ -162,21 +152,30 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
 
     /***
      * 是否云隐藏
-     * **/
+     **/
     public void hslHideView() {
-        if (mediaSourceBuilder.getStreamType() == C.TYPE_HLS) {//直播隐藏进度条
-//            activity.findViewById(R.id.exo_progress).setVisibility(View.GONE);
-//            activity.findViewById(R.id.exo_duration).setVisibility(View.GONE);
-//            activity.findViewById(R.id.exo_position).setVisibility(View.GONE);
-//            activity.findViewById(R.id.ycj_video_timeSpan).setVisibility(View.GONE);
-            TimeBar timeBar= (TimeBar) activity.findViewById(R.id.exo_progress);
+        if (mediaSourceBuilder!=null&&mediaSourceBuilder.getStreamType() == C.TYPE_HLS) {//直播隐藏进度条
+            TimeBar timeBar = (TimeBar) activity.findViewById(R.id.exo_progress);
             timeBar.setEnabled(false);
             timeBar.setListener(null);
-
-
         }
     }
 
+    /**
+     * 设置播放路径
+     ***/
+    public void setPlayUri(String uri) {
+        setPlayUri(Uri.parse(uri));
+    }
+
+    /**
+     * 设置播放路径
+     ***/
+    public void setPlayUri(Uri uri) {
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), uri);
+          hslHideView();
+        createPlayers();
+    }
 
     public void onStart() {
         if (Util.SDK_INT > 23) {
@@ -261,14 +260,16 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
      * 播放视频
      **/
     protected void playVideo() {
-        boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
-        if (haveResumePosition) {
-            player.seekTo(resumeWindow, resumePosition);
+        if (mediaSourceBuilder!=null) {
+            boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
+            if (haveResumePosition) {
+                player.seekTo(resumeWindow, resumePosition);
+            }
+            player.setPlayWhenReady(true);
+            playerView.setOnTouchListener(this);
+            player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
+            playerNeedsSource = false;
         }
-        player.setPlayWhenReady(true);
-        playerView.setOnTouchListener(this);
-        player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
-        playerNeedsSource = false;
     }
 
     /****
@@ -670,6 +671,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
                 firstTouch = false;
             }
             if (toSeek) {
+                if (mediaSourceBuilder==null)return false;
                 if (mediaSourceBuilder.getStreamType() == C.TYPE_HLS)
                     return super.onScroll(e1, e2, distanceX, distanceY);//直播隐藏进度条
                 deltaX = -deltaX;

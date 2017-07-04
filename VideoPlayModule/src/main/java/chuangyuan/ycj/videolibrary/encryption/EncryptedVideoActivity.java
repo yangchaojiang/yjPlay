@@ -62,7 +62,8 @@ public class EncryptedVideoActivity extends Activity {
             Toast.makeText(this, "文件不存在", Toast.LENGTH_LONG).show();
             return;
         }
-        gestureVideoPlayer = new GestureVideoPlayer(this, simpleExoPlayerView, uri);
+        gestureVideoPlayer = new GestureVideoPlayer(this, simpleExoPlayerView);
+        gestureVideoPlayer.setPlayUri(uri);
         gestureVideoPlayer.setmOnBackLListener(new ExoUserPlayer.OnBackLListener() {
             @Override
             public void onBack() {

@@ -39,12 +39,13 @@ public class GestureVideoPlayer extends ExoUserPlayer {
         intiView();
     }
 
-    public GestureVideoPlayer(Activity activity, SimpleExoPlayerView playerView, String url) {
-        super(activity, playerView, url);
+    public GestureVideoPlayer(Activity activity, SimpleExoPlayerView playerView) {
+        super(activity, playerView);
         intiView();
     }
-    public GestureVideoPlayer(Activity activity, SimpleExoPlayerView playerView, Uri url) {
-        super(activity, playerView, url);
+
+    public GestureVideoPlayer(Activity activity) {
+        super(activity);
         intiView();
     }
     /****

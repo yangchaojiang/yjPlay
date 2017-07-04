@@ -23,6 +23,15 @@ public class ManualPlayer extends GestureVideoPlayer {
         super(activity, url);
         setExoPlayWatermarkImg(R.mipmap.watermark_big);
     }
+    public ManualPlayer(Activity activity) {
+        super(activity);
+        setExoPlayWatermarkImg(R.mipmap.watermark_big);
+    }
+
+    @Override
+    public void setPlayUri(Uri uri) {
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), uri);
+    }
 
     @Override
     public void onStart() {

@@ -39,19 +39,6 @@ public class ExoPlayerMediaSourceBuilder {
     private MediaSource mediaSource;
 
     /****
-     *初始化
-     * @param context   上下文
-     * @param uri  视频的地址
-     * ***/
-    public ExoPlayerMediaSourceBuilder(Context context, String uri) {
-        this.context = context;
-        this.bandwidthMeter = new DefaultBandwidthMeter();
-        Uri mSecondVideoUri = Uri.parse(uri);
-        this.streamType = Util.inferContentType(Uri.parse(uri).getLastPathSegment());
-        initData(mSecondVideoUri, streamType);
-    }
-
-    /****
      *初始化多个视频源，无缝衔接
      * @param firstVideoUri  第一个视频， 例如例如广告视频
      *  @param   secondVideoUri   第二个视频
