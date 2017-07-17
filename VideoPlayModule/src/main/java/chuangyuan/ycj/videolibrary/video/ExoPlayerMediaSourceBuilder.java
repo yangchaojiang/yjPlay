@@ -5,9 +5,7 @@ package chuangyuan.ycj.videolibrary.video;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
-
 import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSourceFactory;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -20,9 +18,8 @@ import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-
-import okhttp3.OkHttpClient;
 
 /**
  * Created by yangc on 2017/2/28.
@@ -35,7 +32,6 @@ public class ExoPlayerMediaSourceBuilder {
     private Context context;
     private int streamType;
     private Handler mainHandler = new Handler();
-    private OkHttpClient okHttpClient;
     private MediaSource mediaSource;
 
     /****
@@ -155,9 +151,9 @@ public class ExoPlayerMediaSourceBuilder {
      * 初始化数据源工厂
      * **/
     private DataSource.Factory getHttpDataSourceFactory() {
-        // return new DefaultHttpDataSourceFactory(Util.getUserAgent(context, "yjPlay"), bandwidthMeter);
-        okHttpClient = new OkHttpClient();
-        return new OkHttpDataSourceFactory(okHttpClient, Util.getUserAgent(context, context.getApplicationContext().getPackageName()), bandwidthMeter);
+         return new DefaultHttpDataSourceFactory(Util.getUserAgent(context, "yjPlay"), bandwidthMeter);
+        //okHttpClient = new OkHttpClient();
+        //return new OkHttpDataSourceFactory(okHttpClient, Util.getUserAgent(context, context.getApplicationContext().getPackageName()), bandwidthMeter);
     }
 
 
@@ -171,9 +167,6 @@ public class ExoPlayerMediaSourceBuilder {
 
 
     public void release() {
-        if (okHttpClient != null) {
-            okHttpClient = null;
-        }
         if (mediaSource != null) {
             mediaSource.releaseSource();
             mediaSource = null;

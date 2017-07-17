@@ -2,13 +2,10 @@ package chuangyuan.ycj.videolibrary.video;
 
 import android.app.Activity;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import android.widget.ImageButton;
 import com.google.android.exoplayer2.util.Util;
 import chuangyuan.ycj.videolibrary.R;
-import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 
 /**
  * Created by yangc on 2017/2/27.
@@ -18,28 +15,51 @@ import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 public class ManualPlayer extends GestureVideoPlayer {
     public static final String TAG = "ManualPlayer";
     private boolean isLoad = false;//已经加载
-
+   private ImageButton exoBtn,temptyBtn;
     public ManualPlayer(Activity activity, String url) {
         super(activity, url);
-        setExoPlayWatermarkImg(R.mipmap.watermark_big);
+        intiView();
     }
     public ManualPlayer(Activity activity) {
         super(activity);
-        setExoPlayWatermarkImg(R.mipmap.watermark_big);
+        intiView();
     }
 
+    private  void intiView(){
+        setExoPlayWatermarkImg(R.mipmap.watermark_big);
+        exoBtn= (ImageButton) playerView.findViewById(R.id.exo_play);
+        temptyBtn=(ImageButton) playerView.findViewById(R.id.exo_play_btn);
+        exoBtn.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (exoBtn!=null) {
+                    exoBtn.setVisibility(View.GONE);
+                    exoBtn.removeCallbacks(this);
+                }
+            }
+        },100);
+        temptyBtn.setVisibility(View.VISIBLE);
+        temptyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                temptyBtn.setVisibility(View.GONE);
+                exoBtn.setVisibility(View.VISIBLE);
+                isLoad=true;
+                createPlayers();
+                hslHideView();
+                registerReceiverNet();
+            }
+        });
+
+    }
     @Override
     public void setPlayUri(Uri uri) {
         this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), uri);
     }
 
     @Override
-    public void onStart() {
-        if (Util.SDK_INT > 23 && isLoad) {
-            createPlayers();
-        } else {
-            createPlayersPlay();
-        }
+    public void setPlayUri(String firstVideoUri, String secondVideoUri) {
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
     }
 
     @Override
@@ -48,52 +68,6 @@ public class ManualPlayer extends GestureVideoPlayer {
             createPlayers();
         } else {
             createPlayersPlay();
-        }
-    }
-
-    @Override
-    public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-        Log.d(TAG, "onPlayerStateChanged:+playWhenReady:" + playWhenReady);
-        switch (playbackState) {
-            case ExoPlayer.STATE_BUFFERING:
-                Log.d(TAG, "onPlayerStateChanged:加载中。。。");
-                if (playWhenReady) {
-                    showLoadStateView(View.VISIBLE);
-                }
-                break;
-            case ExoPlayer.STATE_ENDED:
-                Log.d(TAG, "onPlayerStateChanged:ended。。。");
-                showReplayView(View.VISIBLE);
-                if (videoInfoListener != null) {
-                    videoInfoListener.onPlayEnd();
-                }
-                break;
-            case ExoPlayer.STATE_IDLE://空的
-                Log.d(TAG, "onPlayerStateChanged:请检查网络。。。");
-                if (VideoPlayUtils.isNetworkAvailable(activity)) {
-                    if (!isLoad) {
-                        playVideo();
-                        isLoad = true;
-                    } else {
-                        if (!playerNeedsSource) {
-                            showErrorStateView(View.VISIBLE);
-                            updateResumePosition();
-                        }
-                    }
-                } else {
-                    showErrorStateView(View.VISIBLE);
-                    updateResumePosition();
-                }
-                break;
-            case ExoPlayer.STATE_READY:
-                Log.d(TAG, "onPlayerStateChanged:ready。。。");
-                showLoadStateView(View.GONE);
-                if (videoInfoListener != null) {
-                    videoInfoListener.onPlayStart();
-                }
-                break;
-            default:
-                break;
         }
     }
 }

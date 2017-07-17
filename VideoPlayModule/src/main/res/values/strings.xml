@@ -2,5 +2,8 @@
     <string name="app_name">yjPlay</string>
 
     <string name="exo_play_error_hint">播放异常,视频地址异常，或者网络不可用</string>
+    <string name="exo_play_btn_hnt">继续播放</string>
     <string name="net_network_no_hint">您当前网络不可用,请检查你网络</string>
+    <string name="exo_play_reminder">提示</string>
+    <string name="exo_play_wifi_hint_no">您当前网络不是wifi，是否继续观看</string>
 </resources>

@@ -67,6 +67,21 @@ public class VideoPlayUtils {
         }
         return false;
     }
+    /**
+     * 检查当前网络是否可用
+     *@param mContext  活动
+     * @return boolean
+     */
+    public static boolean isWifi(Context mContext) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+        if (activeNetInfo != null
+                && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+            return true;
+        }
+        return false;
+    }
     /***
      *
      *是否TYPE_SOURCE 异常

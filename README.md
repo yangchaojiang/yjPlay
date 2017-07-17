@@ -25,7 +25,7 @@
     
 dependencies {
 
-   compile 'com.ycjiang:VideoPlayModule:1.2.7'
+   compile 'com.ycjiang:VideoPlayModule:1.3.0'
 
 }
 
@@ -34,7 +34,7 @@ dependencies {
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>VideoPlayModule</artifactId>
-  <version>1.2.7/version>
+  <version>1.3.0/version>
   <type>pom</type>
 </dependency>
 
@@ -52,6 +52,22 @@ dependencies {
             app:resize_mode="fit"
             app:surface_type="texture_view"
             app:use_artwork="true" />
+
+```
+ * 1     //   default_artwork  占位图
+ * 2     //   player_layout_id  播放器布局， controller_layout_id  控制器布局`
+ * 2     //   resize_mode  视频渲染模式 fit,fill,fixed_width,fixed_height
+ * 3     //  surface_type 视频渲染类型 //texture_view 和surface_view
+ * 4     //  show_timeout  超时时间
+ * 5     //  paddingEnd，paddingStart 设置边距
+ * 6     //  fastforward_increment  设置快进增量,以毫秒为单位。
+ * 7     //  rewind_increment  设置快退增量,以毫秒为单位。
+ * 8     //  use_controller   控制器
+ * 在你app的strings.xml  可以替换对框框提示标题和内容
+```
+ app.strings.xml
+     <string name="exo_play_reminder">您当前网络不是wifi，是否继续观看视频</string>
+     <string name="exo_play_wifi_hint_no">提示</string>
  ```
  ###  JAVA
  ```
@@ -103,3 +119,12 @@ dependencies {
         exoPlayerManager.onBackPressed();
     }
  ```
+
+ ## 1.3.0
+ 1。增加播放数据流量提醒框，增加网络变化监听
+ 2。toobar状态的隐藏和显示,  增加v7依赖
+ 3。直播隐藏进度条
+ 4。两个视频切换，广告视频，进度处理
+ 5。修复已知bug.简化处理
+
+

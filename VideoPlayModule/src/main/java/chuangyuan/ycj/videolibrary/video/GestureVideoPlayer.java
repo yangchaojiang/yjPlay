@@ -2,6 +2,7 @@ package chuangyuan.ycj.videolibrary.video;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
     private float brightness = -1;//亮度
     private int volume = -1;//音量
     private long newPosition = -1;//动画
+    protected AudioManager audioManager;//音量管理
     private View exo_video_audio_brightness_layout;//控制音频和亮度布局
     private ImageView exo_video_audio_brightness_img;//显示音频和亮度布图片
     private ProgressBar exo_video_audio_brightness_pro;//显示音频和亮度
@@ -48,16 +50,8 @@ public class GestureVideoPlayer extends ExoUserPlayer {
         super(activity);
         intiView();
     }
-    /****
-     * @param activity   活动对象
-     * @param firstVideoUri        开始地址
-     * @param secondVideoUri   第二个视频
-     **/
-    public GestureVideoPlayer(Activity activity, String firstVideoUri, String secondVideoUri) {
-        super(activity, firstVideoUri, secondVideoUri);
-        intiView();
-    }
     private void intiView() {
+        audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
         mMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         exo_video_audio_brightness_layout = activity.findViewById(R.id.exo_video_audio_brightness_layout);
         exo_video_audio_brightness_img = (ImageView) activity.findViewById(R.id.exo_video_audio_brightness_img);

@@ -13,26 +13,24 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
          >
-
         <View
             android:id="@id/exo_shutter"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <ImageView
+            android:layout_gravity="center"
             android:id="@id/exo_artwork"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:contentDescription="@null"
-            android:scaleType="fitXY" />
-
+            android:scaleType="center" />
         <com.google.android.exoplayer2.ui.SubtitleView
             android:id="@id/exo_subtitles"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
     </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
-
 
     <View
         android:id="@id/exo_controller_placeholder"
@@ -58,7 +56,8 @@
     <include layout="@layout/simple_exo_video_progress_dialog" />
     <!--手势页-->
     <include layout="@layout/simple_video_audio_brightness_dialog" />
-
+    <!--手势页-->
+    <include layout="@layout/simple_exo_play_btn_hint" />
     <ImageView
         android:id="@id/exo_play_watermark"
         android:layout_width="50dp"

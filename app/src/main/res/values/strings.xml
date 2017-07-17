@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">yjPlayVideo</string>
     <string name="url_hls">http://ivi.bupt.edu.cn/hls/cctv2.m3u8</string>
+    <string name="exo_play_wifi_hint_no">您当前网络不是wifi，是否继续观看视频</string>
+    <string name="exo_play_reminder">提示</string>
 </resources>

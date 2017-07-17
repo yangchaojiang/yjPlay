@@ -9,4 +9,6 @@
     <item name="exo_loading_layout" type="id"/>
     <item name="exo_loading_show_text" type="id"/>
     <item name="exo_play_watermark" type="id"/>
+    <item name="exo_play_btn_hint" type="id"/>
+    <item name="exo_play_btn_hint_layout" type="id"/>
 </resources>

@@ -44,11 +44,20 @@
         android:visibility="visible">
 
         <ImageButton
-            android:id="@+id/exo_play"
+            android:id="@id/exo_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="@null"
+            android:visibility="gone"
+            android:src="@drawable/exo_controls_play" />
+        <ImageButton
+            android:id="@+id/exo_play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@null"
+            android:visibility="gone"
             android:src="@drawable/exo_controls_play" />
 
         <ImageButton
