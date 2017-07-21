@@ -8,6 +8,7 @@
  3 ManualPlayer  默认手动播放，增加默认图
  4 支持自定义ui
  5 增加广广告视频预览
+ 6 增加视频清洗区切换
 
  ## gif 显示有点卡，帧数低，实际很流畅
 
@@ -71,14 +72,23 @@ dependencies {
  ```
  ###  JAVA
  ```
-    播放代码
-    ManualPlayer exoPlayerManager = new ManualPlayer(this);
+    //播放代码
+
+
+     ManualPlayer exoPlayerManager = new ManualPlayer(this);
       exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
-    布局引用
+     //布局引用
      <include layout="@layout/simple_exo_video_play"/>
      或者是
-     播放代码
-     ManualPlayer exoPlayerManager = new ManualPlayer(this,getString(R.string.url_hls));
+
+    // 播放代码
+     ManualPlayer exoPlayerManager = new ManualPlayer(this);
+    // exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
+    //下面开启多线路播放
+    //  exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
+    //String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
+    // String[] name={"超清","高清","标清"};
+    //exoPlayerManager.setPlaySwitchUri(test,name);
  ```
  ```
    @Override
@@ -119,6 +129,10 @@ dependencies {
         exoPlayerManager.onBackPressed();
     }
  ```
+ ### 1.3.1
+ * 1 增加视频清晰度切换，在横屏的
+ * 2 修改手势类，之间业务剥离出来
+ * 3  修复其他问题
 
  ### 1.3.0
  * 1.增加播放数据流量提醒框，增加网络变化监听

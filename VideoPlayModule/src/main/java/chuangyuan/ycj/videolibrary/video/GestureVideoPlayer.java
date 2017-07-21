@@ -4,16 +4,19 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
-import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-
+import java.util.Formatter;
+import java.util.Locale;
 import chuangyuan.ycj.videolibrary.R;
 
 /**
@@ -21,7 +24,7 @@ import chuangyuan.ycj.videolibrary.R;
  * E-Mail:1007181167@qq.com
  * Description：增加手势播放器
  */
-public class GestureVideoPlayer extends ExoUserPlayer {
+public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchListener {
     public static final String TAG = "GestureVideoPlayer";
     private int mMaxVolume;//音量的最大值
     private float brightness = -1;//亮度
@@ -34,23 +37,29 @@ public class GestureVideoPlayer extends ExoUserPlayer {
     private View exo_video_dialog_pro_layout;//控制进度布局
     private ImageView exo_video_dialog_pro_img;//显示进度
     private TextView exo_video_dialog_pro_text, exo_video_dialog_duration_text;//显示进度是text
+    private GestureDetector gestureDetector;
+    private int screenWidthPixels;
+    private StringBuilder formatBuilder;
+    private Formatter formatter;
 
-
-    public GestureVideoPlayer(Activity activity,String url) {
+    public GestureVideoPlayer(@NonNull Activity activity, @NonNull String url) {
         super(activity, url);
         intiView();
     }
 
-    public GestureVideoPlayer(Activity activity, SimpleExoPlayerView playerView) {
+    public GestureVideoPlayer(@NonNull Activity activity, @NonNull SimpleExoPlayerView playerView) {
         super(activity, playerView);
         intiView();
     }
 
-    public GestureVideoPlayer(Activity activity) {
+    public GestureVideoPlayer(@NonNull Activity activity) {
         super(activity);
         intiView();
     }
+
     private void intiView() {
+        formatBuilder = new StringBuilder();
+        formatter = new Formatter(formatBuilder, Locale.getDefault());
         audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
         mMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         exo_video_audio_brightness_layout = activity.findViewById(R.id.exo_video_audio_brightness_layout);
@@ -60,7 +69,55 @@ public class GestureVideoPlayer extends ExoUserPlayer {
         exo_video_dialog_pro_img = (ImageView) activity.findViewById(R.id.exo_video_dialog_pro_img);
         exo_video_dialog_pro_text = (TextView) activity.findViewById(R.id.exo_video_dialog_pro_text);
         exo_video_dialog_duration_text = (TextView) activity.findViewById(R.id.exo_video_dialog_duration_text);
+        screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
+        gestureDetector = new GestureDetector(activity, new PlayerGestureListener());
+    }
 
+    @Override
+    void playVideoUri() {
+        super.playVideoUri();
+        playerView.setOnTouchListener(this);
+    }
+
+    @Override
+    void showReplayView(int state) {
+        super.showReplayView(state);
+        if (state == View.VISIBLE) {
+            playerView.setOnTouchListener(null);
+        } else {
+            playerView.setOnTouchListener(this);
+        }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (gestureDetector.onTouchEvent(event))
+            return true;
+        // 处理手势结束
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_UP:
+                endGesture();
+                break;
+        }
+        return false;
+    }
+
+
+    /***
+     * 格式化时间
+     * @param timeMs 数
+     * **/
+    private String stringForTime(long timeMs) {
+        if (timeMs == C.TIME_UNSET) {
+            timeMs = 0;
+        }
+        long totalSeconds = (timeMs + 500) / 1000;
+        long seconds = totalSeconds % 60;
+        long minutes = (totalSeconds / 60) % 60;
+        long hours = totalSeconds / 3600;
+        formatBuilder.setLength(0);
+        return hours > 0 ? formatter.format("%d:%02d:%02d", hours, minutes, seconds).toString()
+                : formatter.format("%02d:%02d", minutes, seconds).toString();
     }
 
     /**
@@ -159,5 +216,67 @@ public class GestureVideoPlayer extends ExoUserPlayer {
         exo_video_audio_brightness_pro.setProgress((int) (lpa.screenBrightness * 100));
     }
 
+    /****
+     * 手势监听类
+     *****/
+    private class PlayerGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private boolean firstTouch;
+        private boolean volumeControl;
+        private boolean toSeek;
+
+        /**
+         * 双击
+         */
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            firstTouch = true;
+            return super.onDown(e);
+
+        }
+
+        /**
+         * 滑动
+         */
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            float mOldX = e1.getX(), mOldY = e1.getY();
+            float deltaY = mOldY - e2.getY();
+            float deltaX = mOldX - e2.getX();
+            if (firstTouch) {
+                toSeek = Math.abs(distanceX) >= Math.abs(distanceY);
+                volumeControl = mOldX > screenWidthPixels * 0.5f;
+                firstTouch = false;
+            }
+            if (toSeek) {
+                if (mediaSourceBuilder == null) return false;
+                if (mediaSourceBuilder.getStreamType() == C.TYPE_HLS)
+                    return super.onScroll(e1, e2, distanceX, distanceY);//直播隐藏进度条
+                deltaX = -deltaX;
+                long position = player.getCurrentPosition();
+                long duration = player.getDuration();
+                long newPosition = (int) (position + deltaX * duration / screenWidthPixels);
+                if (newPosition > duration) {
+                    newPosition = duration;
+                } else if (newPosition <= 0) {
+                    newPosition = 0;
+                }
+                showProgressDialog(deltaX, stringForTime(newPosition), newPosition, stringForTime(duration), duration);
+            } else {
+                float percent = deltaY / playerView.getHeight();
+                if (volumeControl) {
+                    showVolumeDialog(percent);
+                } else {
+                    showBrightnessDialog(percent);
+                }
+            }
+            return super.onScroll(e1, e2, distanceX, distanceY);
+        }
+
+    }
 
 }

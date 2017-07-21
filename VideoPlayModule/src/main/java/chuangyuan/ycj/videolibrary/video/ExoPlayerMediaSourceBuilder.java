@@ -59,6 +59,12 @@ public class ExoPlayerMediaSourceBuilder {
         initData(uri, streamType);
     }
 
+    public void  setMediaSourceUri(Uri uri) {
+        this.bandwidthMeter = new DefaultBandwidthMeter();
+        this.streamType = Util.inferContentType(uri.getLastPathSegment());
+        initData(uri, streamType);
+    }
+
     /****
      *初始化多个视频源，无缝衔接
      * @param firstVideoUri  第一个视频， 例如例如广告视频

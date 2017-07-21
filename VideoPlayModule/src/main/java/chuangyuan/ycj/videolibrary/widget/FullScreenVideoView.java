@@ -5,8 +5,6 @@ import android.util.AttributeSet;
 import android.widget.VideoView;
 
 /**
- * Created by Sunmeng on 12/29/2016.
- * E-Mail:Sunmeng1995@outlook.com
  * Description:全屏VideoView
  */
 public class FullScreenVideoView extends VideoView {

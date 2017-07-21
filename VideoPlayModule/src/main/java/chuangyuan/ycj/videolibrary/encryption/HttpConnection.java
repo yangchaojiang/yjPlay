@@ -20,9 +20,7 @@ public class HttpConnection extends Thread {
     private   IHttpStream mStream;
     private    InputStream mInputStream;
     private   OutputStream mOutputStream;
- private    final static boolean mIsDebug = false;
     public static final String KEY = "547fedc3a4bff6c8758987daa2a1cb84";
-
     HttpConnection(IHttpStream stream, Socket c) throws IOException {
         mSocket = c;
         mStream = stream;

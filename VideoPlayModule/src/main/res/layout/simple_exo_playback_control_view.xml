@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_video_top_color"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/relativeLayout">
 
         <ImageView
             android:id="@id/exo_controls_back"
@@ -67,6 +68,7 @@
             android:layout_weight="0"
             android:background="@null"
             android:src="@drawable/exo_controls_pause"
+
             android:visibility="gone" />
 
         <LinearLayout
@@ -112,7 +114,21 @@
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
         </LinearLayout>
-
+        <TextView
+            android:contentDescription="@null"
+            android:id="@+id/exo_video_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_weight="0"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="高清"
+            android:visibility="gone"
+            android:gravity="center"
+            android:textColor="@color/exo_exo_video_switch_selector"
+            android:background="@null"
+           />
         <ImageButton
             android:contentDescription="@null"
             android:id="@id/exo_video_fullscreen"
@@ -124,4 +140,5 @@
             android:background="@null"
             android:src="@drawable/ic_fullscreen_white" />
     </LinearLayout>
+
 </RelativeLayout>

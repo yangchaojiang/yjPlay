@@ -1,7 +1,6 @@
 
 package chuangyuan.ycj.videolibrary.video;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,18 +9,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.media.MediaCodec;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -42,14 +38,12 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.ui.TimeBar;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.util.Util;
 
 import java.text.DecimalFormat;
-import java.util.Formatter;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.locks.Lock;
@@ -58,17 +52,16 @@ import java.util.concurrent.locks.ReentrantLock;
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.utils.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
+import chuangyuan.ycj.videolibrary.widget.BelowView;
 
-public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListener, OnTouchListener, SimpleExoPlayer.VideoListener {
+public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListener, SimpleExoPlayer.VideoListener {
 
-    private static final String TAG = "ExoPlayerManager";
+    private static final String TAG = ExoUserPlayer.class.getName();
     private int video_height;//视频布局高度
     private long lastTotalRxBytes = 0;//获取网速大小
     private long lastTimeStamp = 0;
     private long resumePosition;//进度
     private int resumeWindow;
-    private StringBuilder formatBuilder;
-    private Formatter formatter;
     private Timer timer;//定时任务类
     private VideoInfoListener videoInfoListener;//回调信息
     protected ExoPlayerMediaSourceBuilder mediaSourceBuilder;//加载多媒体载体
@@ -76,26 +69,25 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     protected SimpleExoPlayer player;
     protected Activity activity;
     private ImageButton exo_video_fullscreen; //全屏或者竖屏
-    private TextView exo_controls_title; //视视频标题
-    private View exo_loading_layout;//视频加载页
-    private TextView exo_loading_show_text;//实时视频加载速度显示
-    private View exo_play_error_layout;//错误页
+    protected TextView exo_controls_title, exo_video_switch, exo_loading_show_text; //视视频标题,清晰度切换,实时视频加载速度显示
+    private View exo_loading_layout, exo_play_error_layout, timeBar;//视频加载页,错误页,进度控件
     private View exo_play_replay_layout, exo_play_btn_hint_layout;//播放结束，提示布局
     private ImageView exoPlayWatermark;// 水印
-    private int screenWidthPixels;
-    private GestureDetector gestureDetector;
     private OnBackLListener mOnBackLListener;
-    protected boolean playerNeedsSource;
+    private boolean playerNeedsSource;
     private NetworkBroadcastReceiver mNetworkBroadcastReceiver;
     private AlertDialog alertDialog;
-    private View timeBar;
     private Lock lock = new ReentrantLock();
+    private boolean isShowVideoSwitch;//是否切换按钮
+    private BelowView belowView;
+    protected String[] videoUri;
+    protected String[] nameUri;
 
     /****
      * @param activity 活动对象
      * @param uri      地址
      **/
-    public ExoUserPlayer(Activity activity, String uri) {
+    public ExoUserPlayer(@NonNull Activity activity, @NonNull String uri) {
         this.activity = activity;
         initView();
         setPlayUri(uri);
@@ -105,31 +97,41 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
      * @param activity   活动对象
      * @param playerView 播放控件
      **/
-    public ExoUserPlayer(Activity activity, SimpleExoPlayerView playerView) {
+    public ExoUserPlayer(@NonNull Activity activity, SimpleExoPlayerView playerView) {
         this.playerView = playerView;
         this.activity = activity;
         initView();
     }
 
-    public ExoUserPlayer(Activity activity) {
+    public ExoUserPlayer(@NonNull Activity activity) {
         this.activity = activity;
         initView();
     }
 
-
-    @SuppressLint("InflateParams")
     private void initView() {
         if (playerView == null) {
             this.playerView = (SimpleExoPlayerView) activity.findViewById(R.id.player_view);
         }
+        playerView.setControllerVisibilityListener(new PlaybackControlView.VisibilityListener() {
+            @Override
+            public void onVisibilityChange(int visibility) {
+                Log.d(TAG, "onVisibilityChange:" + visibility + "");
+                if (belowView != null && visibility == View.GONE) {
+                    belowView.dismissBelowView();
+                }
+            }
+        });
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//防锁屏
-        screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
+        View exo_controls_back = playerView.findViewById(R.id.exo_controls_back);
+        exo_play_btn_hint_layout = playerView.findViewById(R.id.exo_play_btn_hint_layout);
+        exo_play_replay_layout = playerView.findViewById(R.id.exo_play_replay_layout);
+        exo_play_error_layout = playerView.findViewById(R.id.exo_play_error_layout);
         exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_play_watermark);
         exo_video_fullscreen = (ImageButton) playerView.findViewById(R.id.exo_video_fullscreen);
-        View exo_controls_back = playerView.findViewById(R.id.exo_controls_back);
         exo_controls_title = (TextView) playerView.findViewById(R.id.exo_controls_title);
+        exo_loading_show_text = (TextView) playerView.findViewById(R.id.exo_loading_show_text);
+        exo_video_switch = (TextView) playerView.findViewById(R.id.exo_video_switch);
         exo_loading_layout = playerView.findViewById(R.id.exo_loading_layout);
-        exo_play_btn_hint_layout = playerView.findViewById(R.id.exo_play_btn_hint_layout);
         playerView.findViewById(R.id.exo_play_btn_hint).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,20 +139,13 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
             }
         });
         timeBar = playerView.findViewById(R.id.exo_progress);
-        exo_loading_show_text = (TextView) playerView.findViewById(R.id.exo_loading_show_text);
-        exo_play_replay_layout = playerView.findViewById(R.id.exo_play_replay_layout);
-        exo_play_error_layout = playerView.findViewById(R.id.exo_play_error_layout);
         playerView.findViewById(R.id.exo_play_error_btn).setOnClickListener(this);
         playerView.findViewById(R.id.exo_video_replay).setOnClickListener(this);
         exo_video_fullscreen.setOnClickListener(this);
         exo_controls_back.setOnClickListener(this);
         timer = new Timer();
         video_height = playerView.getLayoutParams().height;
-        formatBuilder = new StringBuilder();
-        formatter = new Formatter(formatBuilder, Locale.getDefault());
         timer.schedule(task, 0, 1000); // 1s后启动任务，每2s执行一次
-        gestureDetector = new GestureDetector(activity, new PlayerGestureListener());
-
     }
 
     /***
@@ -169,7 +164,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     /**
      * 设置播放路径
      ***/
-    public void setPlayUri(String uri) {
+    public void setPlayUri(@NonNull String uri) {
         setPlayUri(Uri.parse(uri));
     }
 
@@ -177,8 +172,24 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
      * @param firstVideoUri  预览的视频
      * @param secondVideoUri 第二个视频
      **/
-    public void setPlayUri(String firstVideoUri, String secondVideoUri) {
+    public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
         this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
+        createPlayers();
+        hslHideView();
+        registerReceiverNet();
+    }
+
+    /**
+     * 设置多线路播放
+     *
+     * @param videoUri 视频地址
+     * @param name     清清晰度显示名称
+     **/
+    public void setPlaySwitchUri(@NonNull String[] videoUri, @NonNull String[] name) {
+        this.videoUri = videoUri;
+        this.nameUri = name;
+        exo_video_switch.setText(nameUri[0]);
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), Uri.parse(videoUri[0]));
         createPlayers();
         hslHideView();
         registerReceiverNet();
@@ -187,13 +198,12 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     /**
      * 设置播放路径
      ***/
-    public void setPlayUri(Uri uri) {
+    public void setPlayUri(@NonNull Uri uri) {
         this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), uri);
         createPlayers();
         hslHideView();
         registerReceiverNet();
     }
-
 
     public void onStart() {
 
@@ -260,13 +270,12 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
             playerNeedsSource = true;
         }
         playVideo();
-
     }
 
     /****
      * 创建
      **/
-    protected void createPlayersPlay() {
+    void createPlayersPlay() {
         player = createFullPlayer();
     }
 
@@ -283,7 +292,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
      * 播放视频
      **/
     protected void playVideo() {
-        if (VideoPlayUtils.isWifi(activity)) {
+        if (!VideoPlayUtils.isWifi(activity)) {
             playVideoUri();
         } else {
             showDialog();
@@ -293,7 +302,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     /***
      * 播放视频
      **/
-    private void playVideoUri() {
+    void playVideoUri() {
         if (player == null) {
             createPlayersPlay();
         }
@@ -303,7 +312,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
                 player.seekTo(resumeWindow, resumePosition);
             }
             player.setPlayWhenReady(true);
-            playerView.setOnTouchListener(this);
+
             player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
             player.addListener(this);
             playerNeedsSource = false;
@@ -328,7 +337,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-                    showbtnHinttateView(View.VISIBLE);
+                    showBtnContinueHintView(View.VISIBLE);
 
                 }
             });
@@ -336,7 +345,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-                    showbtnHinttateView(View.GONE);
+                    showBtnContinueHintView(View.GONE);
                     playVideoUri();
                 }
             });
@@ -357,6 +366,9 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         }
     }
 
+    /**
+     * 清除进度
+     ***/
     private void clearResumePosition() {
         resumeWindow = C.INDEX_UNSET;
         resumePosition = C.TIME_UNSET;
@@ -525,6 +537,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
             //skin的宽高
         }
         scaleLayout(newConfig);
+        showSwitchView(newConfig);
     }
 
     //设置videoFrame的大小
@@ -574,6 +587,23 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
                 Toast.makeText(activity, R.string.net_network_no_hint, Toast.LENGTH_SHORT).show();
             }
 
+        } else if (v.getId() == R.id.exo_video_switch) {
+            if (belowView == null) {
+                belowView = new BelowView(activity);
+                belowView.setOnItemClickListener(new BelowView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position, String name) {
+                        belowView.dismissBelowView();
+                        if (mediaSourceBuilder != null) {
+                            mediaSourceBuilder.setMediaSourceUri(Uri.parse(videoUri[position]));
+                            exo_video_switch.setText(name);
+                            updateResumePosition();
+                            playVideoUri();
+                        }
+                    }
+                });
+            }
+            belowView.showBelowView(v, true);
         }
     }
 
@@ -650,6 +680,21 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
     }
 
     /***
+     * 是否显示切换清晰按钮
+     *
+     * @param newConfig 是否横竖屏
+     **/
+    private void showSwitchView(int newConfig) {
+        if (!isShowVideoSwitch) return;
+        if (newConfig == Configuration.ORIENTATION_LANDSCAPE) {//横屏
+            exo_video_switch.setVisibility(View.VISIBLE);
+            exo_video_switch.setOnClickListener(this);
+        } else {
+            exo_video_switch.setVisibility(View.GONE);
+        }
+    }
+
+    /***
      * 显示隐藏加载页
      *
      * @param state 状态
@@ -693,9 +738,6 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         if (state == View.VISIBLE) {
             showLoadStateView(View.GONE);
             showErrorStateView(View.GONE);
-            playerView.setOnTouchListener(null);
-        } else {
-            playerView.setOnTouchListener(this);
         }
     }
 
@@ -704,7 +746,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
      *
      * @param state 状态
      ***/
-    protected void showbtnHinttateView(int state) {
+    protected void showBtnContinueHintView(int state) {
         if (state == View.VISIBLE) {
             showLoadStateView(View.GONE);
             showReplayView(View.GONE);
@@ -715,24 +757,10 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         }
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (gestureDetector.onTouchEvent(event))
-            return true;
-        // 处理手势结束
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_UP:
-                endGesture();
-                break;
-        }
-        return false;
-    }
 
     @Override
     public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
         Log.d(TAG, "onVideoSizeChanged:" + width + "height:" + height);
-        //  FrameLayout.LayoutParams layoutParams=new FrameLayout.LayoutParams(width,height);
-        // playerView.getVideoSurfaceView().setLayoutParams(layoutParams);
     }
 
     @Override
@@ -740,75 +768,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
 
     }
 
-    /****
-     * 手势监听类
-     *****/
-    private class PlayerGestureListener extends GestureDetector.SimpleOnGestureListener {
-        private boolean firstTouch;
-        private boolean volumeControl;
-        private boolean toSeek;
 
-        /**
-         * 双击
-         */
-        @Override
-        public boolean onDoubleTap(MotionEvent e) {
-            return true;
-        }
-
-        @Override
-        public boolean onDown(MotionEvent e) {
-            firstTouch = true;
-            return super.onDown(e);
-
-        }
-
-        /**
-         * 滑动
-         */
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            float mOldX = e1.getX(), mOldY = e1.getY();
-            float deltaY = mOldY - e2.getY();
-            float deltaX = mOldX - e2.getX();
-            if (firstTouch) {
-                toSeek = Math.abs(distanceX) >= Math.abs(distanceY);
-                volumeControl = mOldX > screenWidthPixels * 0.5f;
-                firstTouch = false;
-            }
-            if (toSeek) {
-                if (mediaSourceBuilder == null) return false;
-                if (mediaSourceBuilder.getStreamType() == C.TYPE_HLS)
-                    return super.onScroll(e1, e2, distanceX, distanceY);//直播隐藏进度条
-                deltaX = -deltaX;
-                long position = player.getCurrentPosition();
-                long duration = player.getDuration();
-                long newPosition = (int) (position + deltaX * duration / screenWidthPixels);
-                if (newPosition > duration) {
-                    newPosition = duration;
-                } else if (newPosition <= 0) {
-                    newPosition = 0;
-                }
-                showProgressDialog(deltaX, stringForTime(newPosition), newPosition, stringForTime(duration), duration);
-            } else {
-                float percent = deltaY / playerView.getHeight();
-                if (volumeControl) {
-                    showVolumeDialog(percent);
-                } else {
-                    showBrightnessDialog(percent);
-                }
-            }
-            return super.onScroll(e1, e2, distanceX, distanceY);
-        }
-
-
-    }
-
-    /****
-     * 滑动亮度
-     *
-     * @param percent 滑动
-     **/
     protected void showBrightnessDialog(float percent) {
     }
 
@@ -837,22 +797,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
      * @param percent 滑动
      **/
     protected void showVolumeDialog(float percent) {
-
     }
-
-    private String stringForTime(long timeMs) {
-        if (timeMs == C.TIME_UNSET) {
-            timeMs = 0;
-        }
-        long totalSeconds = (timeMs + 500) / 1000;
-        long seconds = totalSeconds % 60;
-        long minutes = (totalSeconds / 60) % 60;
-        long hours = totalSeconds / 3600;
-        formatBuilder.setLength(0);
-        return hours > 0 ? formatter.format("%d:%02d:%02d", hours, minutes, seconds).toString()
-                : formatter.format("%02d:%02d", minutes, seconds).toString();
-    }
-
 
     /***
      * 显示水印图
@@ -894,6 +839,10 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         void onBack();
     }
 
+    public void setShowVideoSwitch(boolean showVideoSwitch) {
+        isShowVideoSwitch = showVideoSwitch;
+    }
+
     /***
      * 注册广播监听
      **/
@@ -914,9 +863,7 @@ public class ExoUserPlayer implements ExoPlayer.EventListener, View.OnClickListe
         }
     }
 
-
     private class NetworkBroadcastReceiver extends BroadcastReceiver {
-
         long is = 0;
 
         @Override

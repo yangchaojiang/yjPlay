@@ -2,6 +2,7 @@ package chuangyuan.ycj.videolibrary.video;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageButton;
 import com.google.android.exoplayer2.util.Util;
@@ -16,11 +17,11 @@ public class ManualPlayer extends GestureVideoPlayer {
     public static final String TAG = "ManualPlayer";
     private boolean isLoad = false;//已经加载
    private ImageButton exoBtn,temptyBtn;
-    public ManualPlayer(Activity activity, String url) {
+    public ManualPlayer(@NonNull Activity activity,@NonNull String url) {
         super(activity, url);
         intiView();
     }
-    public ManualPlayer(Activity activity) {
+    public ManualPlayer(@NonNull Activity activity) {
         super(activity);
         intiView();
     }
@@ -53,12 +54,20 @@ public class ManualPlayer extends GestureVideoPlayer {
 
     }
     @Override
-    public void setPlayUri(Uri uri) {
+    public void setPlayUri(@NonNull Uri uri) {
         this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), uri);
     }
 
     @Override
-    public void setPlayUri(String firstVideoUri, String secondVideoUri) {
+    public void setPlaySwitchUri(@NonNull String[] videoUri, @NonNull String[] nameUri) {
+        this.videoUri=videoUri;
+        this.nameUri=nameUri;
+        exo_video_switch.setText(nameUri[0]);
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(),Uri.parse(videoUri[0]));
+    }
+
+    @Override
+    public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
         this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
     }
 
