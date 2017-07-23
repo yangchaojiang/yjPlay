@@ -6,18 +6,19 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/player_view"
+    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+        android:id="@+id/exo_play_context_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        app:controller_layout_id="@layout/simple_exo_playback_control_view"
-        app:player_layout_id="@layout/simple_exo_view"
         app:resize_mode="fit"
-        app:show_timeout="5000"
+        app:show_timeout="3000"
         app:surface_type="texture_view"
-        app:paddingEnd="-20dp"
-        app:paddingStart="-20dp"
+        app:use_artwork="true"
+        app:paddingEnd="0dp"
+        app:paddingStart="0dp"
+        app:fastforward_increment="0"
+        app:rewind_increment="0"
         app:use_controller="true" />
 
 </LinearLayout>

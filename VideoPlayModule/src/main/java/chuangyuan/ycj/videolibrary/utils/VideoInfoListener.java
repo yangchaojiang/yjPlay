@@ -28,4 +28,6 @@ public interface VideoInfoListener {
      * **/
     void onPlayEnd();
 
+    void   onBack();
+
 }

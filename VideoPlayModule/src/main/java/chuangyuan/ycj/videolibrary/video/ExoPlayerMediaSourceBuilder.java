@@ -32,7 +32,8 @@ public class ExoPlayerMediaSourceBuilder {
     private Context context;
     private int streamType;
     private Handler mainHandler = new Handler();
-    private MediaSource mediaSource;
+    private
+    MediaSource mediaSource;
 
     /****
      *初始化多个视频源，无缝衔接
@@ -157,7 +158,7 @@ public class ExoPlayerMediaSourceBuilder {
      * 初始化数据源工厂
      * **/
     private DataSource.Factory getHttpDataSourceFactory() {
-         return new DefaultHttpDataSourceFactory(Util.getUserAgent(context, "yjPlay"), bandwidthMeter);
+         return new DefaultHttpDataSourceFactory(Util.getUserAgent(context, context.getPackageName()), bandwidthMeter);
         //okHttpClient = new OkHttpClient();
         //return new OkHttpDataSourceFactory(okHttpClient, Util.getUserAgent(context, context.getApplicationContext().getPackageName()), bandwidthMeter);
     }

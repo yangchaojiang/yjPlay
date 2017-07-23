@@ -6,9 +6,8 @@
  1 ExoUserPlayer  基本播放器
  2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势
  3 ManualPlayer  默认手动播放，增加默认图
- 4 支持自定义ui
  5 增加广广告视频预览
- 6 增加视频清洗区切换
+ 6 增加视频清晰度切换
 
  ## gif 显示有点卡，帧数低，实际很流畅
 
@@ -26,7 +25,7 @@
     
 dependencies {
 
-   compile 'com.ycjiang:VideoPlayModule:1.3.0'
+   compile 'com.ycjiang:VideoPlayModule:1.4.0'
 
 }
 
@@ -35,7 +34,7 @@ dependencies {
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>VideoPlayModule</artifactId>
-  <version>1.3.0/version>
+  <version>1.4.0/version>
   <type>pom</type>
 </dependency>
 
@@ -43,22 +42,26 @@ dependencies {
 
 
  ###布局引用
- ```<com.google.android.exoplayer2.ui.SimpleExoPlayerView
-            android:id="@+id/player_view"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:controller_layout_id="@layout/simple_exo_playback_control_view"
-            app:default_artwork="@mipmap/video_def"
-            app:player_layout_id="@layout/simple_exo_view"
-            app:resize_mode="fit"
-            app:surface_type="texture_view"
-            app:use_artwork="true" />
+ ```
+   <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+        android:id="@+id/exo_play_context_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        app:resize_mode="fit"
+        app:show_timeout="3000"
+        app:surface_type="texture_view"
+        app:use_artwork="true"
+        app:paddingEnd="0dp"
+        app:paddingStart="0dp"
+        app:fastforward_increment="0"
+        app:rewind_increment="0"
+        app:use_controller="true" />
 
 ```
  * 1     //   default_artwork  占位图
- * 2     //   player_layout_id  播放器布局， controller_layout_id  控制器布局`
  * 2     //   resize_mode  视频渲染模式 fit,fill,fixed_width,fixed_height
- * 3     //  surface_type 视频渲染类型 //texture_view 和surface_view
+ * 3     //  surface_type 视频渲染类型 //默认 texture_view
  * 4     //  show_timeout  超时时间
  * 5     //  paddingEnd，paddingStart 设置边距
  * 6     //  fastforward_increment  设置快进增量,以毫秒为单位。
@@ -75,13 +78,8 @@ dependencies {
     //播放代码
 
 
-     ManualPlayer exoPlayerManager = new ManualPlayer(this);
-      exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
-     //布局引用
-     <include layout="@layout/simple_exo_video_play"/>
-     或者是
-
-    // 播放代码
+    ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
+    exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
      ManualPlayer exoPlayerManager = new ManualPlayer(this);
     // exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
     //下面开启多线路播放
@@ -91,12 +89,6 @@ dependencies {
     //exoPlayerManager.setPlaySwitchUri(test,name);
  ```
  ```
-   @Override
-    public void onStart() {
-        super.onStart();
-        exoPlayerManager.onStart();
-        Log.d(TAG, "onStart");
-    }
 
     @Override
     public void onResume() {
@@ -130,10 +122,12 @@ dependencies {
     }
  ```
 
- ### 1.3.1(有问题，正在修复中，请使用1.3.0版本)
- * 1 增加视频清晰度切换，在横屏的
+ ### 1.4.0
+ * 1 增加视频清晰度切换，在横屏
  * 2 修改手势类，之间业务剥离出来
- * 3  修复其他问题
+ * 3 修复其他问题,
+ * 4 升级内核版本，布局和业务分离处理
+ * 5 重新整理项目结构，不兼容1.4.0 版本之前
 
  ### 1.3.0
  * 1.增加播放数据流量提醒框，增加网络变化监听

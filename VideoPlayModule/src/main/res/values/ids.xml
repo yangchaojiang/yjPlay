@@ -11,4 +11,6 @@
     <item name="exo_play_watermark" type="id"/>
     <item name="exo_play_btn_hint" type="id"/>
     <item name="exo_play_btn_hint_layout" type="id"/>
+    <item name="exo_play_context_id" type="id"/>
+    <item name="player_view" type="id"/>
 </resources>

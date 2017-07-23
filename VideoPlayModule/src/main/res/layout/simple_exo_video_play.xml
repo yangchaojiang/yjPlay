@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chuangyuan.ycj.videolibrary.widget.VideoPlayerView  xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.exoplayer2.ui.SimpleExoPlayerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@id/player_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:controller_layout_id="@layout/simple_exo_playback_control_view"
+    app:player_layout_id="@layout/simple_exo_view"
     app:resize_mode="fit"
     app:show_timeout="3000"
     app:surface_type="texture_view"

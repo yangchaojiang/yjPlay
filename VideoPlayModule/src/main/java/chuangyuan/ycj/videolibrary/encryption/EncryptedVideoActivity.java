@@ -9,18 +9,14 @@ import android.os.Environment;
 
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-
 import chuangyuan.ycj.videolibrary.R;
-import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 
 /**
@@ -62,14 +58,9 @@ public class EncryptedVideoActivity extends Activity {
             Toast.makeText(this, "文件不存在", Toast.LENGTH_LONG).show();
             return;
         }
-        gestureVideoPlayer = new GestureVideoPlayer(this, simpleExoPlayerView);
+        gestureVideoPlayer = new GestureVideoPlayer(this,R.id.player_view);
         gestureVideoPlayer.setPlayUri(uri);
-        gestureVideoPlayer.setmOnBackLListener(new ExoUserPlayer.OnBackLListener() {
-            @Override
-            public void onBack() {
-                finish();
-            }
-        });
+
     }
 
 
@@ -157,15 +148,6 @@ public class EncryptedVideoActivity extends Activity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        if (gestureVideoPlayer != null) {
-            gestureVideoPlayer.onStart();
-        }
-        Log.d(TAG, "onStart");
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
@@ -191,14 +173,10 @@ public class EncryptedVideoActivity extends Activity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (gestureVideoPlayer != null)
-            gestureVideoPlayer.onConfigurationChanged(newConfig);
     }
 
     @Override
     public void onBackPressed() {
-        if (gestureVideoPlayer != null)
-            gestureVideoPlayer.onBackPressed();
     }
 
 }
