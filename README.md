@@ -25,7 +25,7 @@
     
 dependencies {
 
-   compile 'com.ycjiang:VideoPlayModule:1.4.0'
+   compile 'com.ycjiang:VideoPlayModule:1.4.1'
 
 }
 
@@ -34,7 +34,7 @@ dependencies {
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>VideoPlayModule</artifactId>
-  <version>1.4.0/version>
+  <version>1.4.1/version>
   <type>pom</type>
 </dependency>
 
@@ -50,6 +50,8 @@ dependencies {
         android:background="@android:color/transparent"
         app:resize_mode="fit"
         app:show_timeout="3000"
+        app:controller_layout_id="@layout/simple_exo_playback_control_view"
+        app:player_layout_id="@layout/simple_exo_view"
         app:surface_type="texture_view"
         app:use_artwork="true"
         app:paddingEnd="0dp"
@@ -60,8 +62,9 @@ dependencies {
 
 ```
  * 1     //   default_artwork  占位图
+ * 2     //   player_layout_id  播放器布局， controller_layout_id  控制器布局`
  * 2     //   resize_mode  视频渲染模式 fit,fill,fixed_width,fixed_height
- * 3     //  surface_type 视频渲染类型 //默认 texture_view
+ * 3     //  surface_type 视频渲染类型 //texture_view 和surface_view
  * 4     //  show_timeout  超时时间
  * 5     //  paddingEnd，paddingStart 设置边距
  * 6     //  fastforward_increment  设置快进增量,以毫秒为单位。
@@ -103,11 +106,10 @@ dependencies {
         Log.d(TAG, "onPause");
         exoPlayerManager.onPause();
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        exoPlayerManager.onStop();
+   @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        exoPlayerManager.onDestroy();
     }
 
     @Override
@@ -121,7 +123,9 @@ dependencies {
         exoPlayerManager.onBackPressed();
     }
  ```
-
+### 1.4.1
+ * 1 修复其他问题,
+ * 2 还原 自定义属性
  ### 1.4.0
  * 1 增加视频清晰度切换，在横屏
  * 2 修改手势类，之间业务剥离出来

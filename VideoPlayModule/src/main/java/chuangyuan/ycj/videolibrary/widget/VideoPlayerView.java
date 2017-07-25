@@ -6,13 +6,11 @@ import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -56,11 +54,9 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     private AlertDialog alertDialog;
     private Lock lock = new ReentrantLock();
     private boolean isShowVideoSwitch;//是否切换按钮
-    private ExoPlayerListener mExoPlayerListener;
-    private final ComponentListener componentListener = new ComponentListener();
+    protected ExoPlayerListener mExoPlayerListener;
     private int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT;
-    private int defaultArtworkId;
-    protected boolean controllerHideOnTouch;
+    private final ComponentListener componentListener = new ComponentListener();
     public VideoPlayerView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
         activity = (Activity) context;
@@ -70,25 +66,12 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     public VideoPlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         activity = (Activity) context;
-        LayoutInflater.from(activity).inflate(R.layout.simple_exo_video_play, this);
-        playerView = (SimpleExoPlayerView) this.findViewById(R.id.player_view);
+        playerView =new SimpleExoPlayerView(getContext(),attrs);
+        addView(playerView);
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VideoPlayerView, 0, 0);
             try {
-                boolean useArtwork = a.getBoolean(R.styleable.VideoPlayerView_use_artwork, false);
-                defaultArtworkId = a.getResourceId(R.styleable.VideoPlayerView_default_artwork,0);
-                boolean useController = a.getBoolean(R.styleable.VideoPlayerView_use_controller, false);
                 resizeMode = a.getInt(R.styleable.VideoPlayerView_resize_mode, resizeMode);
-                int controllerShowTimeoutMs = a.getInt(R.styleable.VideoPlayerView_show_timeout, PlaybackControlView.DEFAULT_SHOW_TIMEOUT_MS);
-                controllerHideOnTouch = a.getBoolean(R.styleable.VideoPlayerView_hide_on_touch, false);
-                int ssf=a.getInt(R.styleable.VideoPlayerView_fastforward_increment,0);
-                int ss=a.getInt(R.styleable.VideoPlayerView_rewind_increment,0);
-                playerView.setUseArtwork(useArtwork);
-                playerView.setUseController(useController);
-                playerView.setControllerShowTimeoutMs(controllerShowTimeoutMs);
-                playerView.setControllerHideOnTouch(controllerHideOnTouch);
-                playerView.setFastForwardIncrementMs(ssf);
-                playerView.setRewindIncrementMs(ss);
             } finally {
                 a.recycle();
             }
@@ -104,10 +87,6 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     }
 
     private void intiView() {
-        playerView.setResizeMode(resizeMode);
-        if (defaultArtworkId != 0) {
-            playerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), defaultArtworkId));
-        }
         playerView.setControllerVisibilityListener(this);
         exo_play_btn_hint_layout = playerView.findViewById(R.id.exo_play_btn_hint_layout);
         exo_play_replay_layout = playerView.findViewById(R.id.exo_play_replay_layout);

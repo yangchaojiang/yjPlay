@@ -62,6 +62,7 @@ public class ExoUserPlayer {
     protected Activity activity;
     private ComponentListener componentListener;
     private PlayComponentListener playComponentListener;
+    private boolean isPause;
 
     /****
      * @param activity 活动对象
@@ -167,15 +168,13 @@ public class ExoUserPlayer {
 
     public void onPause() {
         if (player != null) {
+            isPause = !player.getPlayWhenReady();
             releasePlayers();
         }
     }
 
-    public void onStop() {
-        if (Util.SDK_INT > 23) {
-            releasePlayers();
-        }
-        unNetworkBroadcastReceiver();
+    public void onDestroy() {
+        releasePlayers();
     }
 
     public void releasePlayers() {
@@ -183,8 +182,9 @@ public class ExoUserPlayer {
             updateResumePosition();
             player.stop();
             player.release();
-            player.clearVideoSurface();
             player.removeListener(componentListener);
+            player.clearVideoSurface();
+            unNetworkBroadcastReceiver();
             player = null;
         }
         if (activity.isFinishing()) {
@@ -264,7 +264,11 @@ public class ExoUserPlayer {
             if (haveResumePosition) {
                 player.seekTo(resumeWindow, resumePosition);
             }
-            player.setPlayWhenReady(true);
+            if (isPause) {
+                player.setPlayWhenReady(false);
+            }else {
+                player.setPlayWhenReady(true);
+            }
             player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, true);
             player.addListener(componentListener);
             playerNeedsSource = false;
@@ -439,6 +443,7 @@ public class ExoUserPlayer {
     private void unNetworkBroadcastReceiver() {
         if (mNetworkBroadcastReceiver != null) {
             activity.unregisterReceiver(mNetworkBroadcastReceiver);
+            mNetworkBroadcastReceiver = null;
         }
     }
 
@@ -505,8 +510,8 @@ public class ExoUserPlayer {
         }
 
         @Override
-        public SimpleExoPlayer getPlay() {
-            return player;
+        public ExoUserPlayer getPlay() {
+            return ExoUserPlayer.this;
         }
 
         @Override

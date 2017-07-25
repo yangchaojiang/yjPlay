@@ -11,14 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        app:resize_mode="fit"
-        app:show_timeout="3000"
-        app:surface_type="texture_view"
-        app:use_artwork="true"
+        app:controller_layout_id="@layout/simple_exo_playback_control_view"
+        app:fastforward_increment="0"
         app:paddingEnd="0dp"
         app:paddingStart="0dp"
-        app:fastforward_increment="0"
+        app:player_layout_id="@layout/simple_exo_view"
+        app:resize_mode="fit"
         app:rewind_increment="0"
+        app:show_timeout="3000"
+        app:surface_type="surface_view"
+        app:use_artwork="true"
         app:use_controller="true" />
 
 </LinearLayout>

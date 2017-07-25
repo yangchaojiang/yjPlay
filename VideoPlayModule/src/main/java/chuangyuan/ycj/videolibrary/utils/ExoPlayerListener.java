@@ -1,7 +1,8 @@
 package chuangyuan.ycj.videolibrary.utils;
 
 
-import com.google.android.exoplayer2.SimpleExoPlayer;
+
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
  * Created by yangc on 2017/7/21.
@@ -21,10 +22,11 @@ public interface ExoPlayerListener {
 
     void playVideoUri();
 
-    SimpleExoPlayer getPlay();
-
     void   showReplayViewChange(int visibility);
 
     void  onBack();
+
+    ExoUserPlayer getPlay();
+
 
 }

@@ -164,10 +164,10 @@ public class EncryptedVideoActivity extends Activity {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         if (gestureVideoPlayer != null)
-            gestureVideoPlayer.onStop();
+            gestureVideoPlayer.onDestroy();
     }
 
     @Override

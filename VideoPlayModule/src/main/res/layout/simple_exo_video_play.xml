@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:controller_layout_id="@layout/simple_exo_playback_control_view"
     app:player_layout_id="@layout/simple_exo_view"
-    app:resize_mode="fit"
+    app:resize_mode="fixed_height"
     app:show_timeout="3000"
     app:surface_type="texture_view"
     app:use_artwork="true"

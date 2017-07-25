@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Listvideoplayer/Listvideoplayer.iml" filepath="$PROJECT_DIR$/Listvideoplayer/Listvideoplayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" filepath="$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jarvisvideoplayer/jarvisvideoplayer.iml" filepath="$PROJECT_DIR$/jarvisvideoplayer/jarvisvideoplayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appText/appText.iml" filepath="$PROJECT_DIR$/appText/appText.iml" />
       <module fileurl="file://$PROJECT_DIR$/listvideo/listvideo.iml" filepath="$PROJECT_DIR$/listvideo/listvideo.iml" />
       <module fileurl="file://$PROJECT_DIR$/videoplaylist/videoplaylist.iml" filepath="$PROJECT_DIR$/videoplaylist/videoplaylist.iml" />
       <module fileurl="file://$PROJECT_DIR$/vitamioRecorderLibrary/vitamioRecorderLibrary.iml" filepath="$PROJECT_DIR$/vitamioRecorderLibrary/vitamioRecorderLibrary.iml" />
