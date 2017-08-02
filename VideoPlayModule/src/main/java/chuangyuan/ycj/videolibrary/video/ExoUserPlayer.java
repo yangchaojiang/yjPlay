@@ -115,10 +115,22 @@ public class ExoUserPlayer {
      * @param secondVideoUri 第二个视频
      **/
     public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
+        if (mediaSourceBuilder != null) {
+            mediaSourceBuilder.release();
+        }
         this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
         createPlayers();
         hslHideView();
         registerReceiverNet();
+    }
+
+    /***
+     * 设置进度
+     *
+     * @param resumePosition 毫秒
+     **/
+    public void setPosition(long resumePosition) {
+        this.resumePosition = resumePosition;
     }
 
     /***
@@ -153,6 +165,9 @@ public class ExoUserPlayer {
      * 设置播放路径
      ***/
     public void setPlayUri(@NonNull Uri uri) {
+        if (mediaSourceBuilder != null) {
+            mediaSourceBuilder.release();
+        }
         this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), uri);
         createPlayers();
         hslHideView();
@@ -266,7 +281,7 @@ public class ExoUserPlayer {
             }
             if (isPause) {
                 player.setPlayWhenReady(false);
-            }else {
+            } else {
                 player.setPlayWhenReady(true);
             }
             player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, true);
@@ -388,7 +403,7 @@ public class ExoUserPlayer {
 
     }
 
-    public VideoPlayerView getmPlayerView() {
+    public VideoPlayerView getPlayerView() {
         return mPlayerView;
     }
 

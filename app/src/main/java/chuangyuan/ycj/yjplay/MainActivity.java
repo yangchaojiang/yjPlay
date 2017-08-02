@@ -1,17 +1,29 @@
 package chuangyuan.ycj.yjplay;
 
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import chuangyuan.ycj.videolibrary.utils.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
+import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
+
 public class MainActivity extends AppCompatActivity {
 
     private ManualPlayer exoPlayerManager;
+    private VideoPlayerView  videoPlayerView;
     private static final String TAG = "MainActivity";
     @Override
 
@@ -19,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.layout);
-        exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
+        videoPlayerView= (VideoPlayerView) findViewById(R.id.exo_play_context_id);
+        exoPlayerManager = new ManualPlayer(this,videoPlayerView);
        // exoPlayerManager = new ManualPlayer(this, "/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
-       //   exoPlayerManager = new ExoUserPlayerTest(this,"http://61.240.143.212/251/4/75/letv-uts/14/ver_00_22-1104623442-avc-796490-aac-64000-3731920-407135057-88958e5c503076b4883b08e4866463e4-1496634082010.m3u8?crypt=84aa7f2e693&b=872&nlh=4096&nlt=60&bf=64&p2p=1&video_type=mp4&termid=2&tss=ios&platid=3&splatid=347&its=12346160&qos=5&fcheck=0&amltag=19650&mltag=19650&proxy=1039176421,1039176777,467476745&uid=2099409483.rp&keyitem=GOw_33YJAAbXYE-cnQwpfLlv_b2zAkYctFVqe5bsXQpaGNn3T1-vhw..&ntm=1496842800&nkey=d38915daa2cd661bc151a8932c741d7d&nkey2=69fa0c372fb90864946f04872d9da4ce&geo=CN-1-5-2&mmsid=65215193&tm=1496824407&key=6fed92c452fd91044819bf7b79986f27&playid=0&vtype=22&cvid=613150880745&payff=1&sign=mb&dname=mobile&p1=0&p2=00&p3=003&tag=mobile&pid=10037084&pay=0&ostype=android&hwtype=iphone&uidx=0&errc=0&gn=1190&ndtype=0&vrtmcd=106&buss=19650&cips=125.34.114.75");
         //  Log.d(TAG, UtilityAdapter.FFmpegVideoGetInfo("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"));
         exoPlayerManager.setShowVideoSwitch(true);
         //exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
@@ -30,6 +42,23 @@ public class MainActivity extends AppCompatActivity {
         String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
         String[] name={"超清","高清","标清"};
         exoPlayerManager.setPlaySwitchUri(test,name);
+        exoPlayerManager.setPosition(10000);
+     Glide.with(this).load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg").asBitmap().fitCenter().into(new SimpleTarget<Bitmap>() {
+        @Override
+        public void onLoadStarted(Drawable placeholder) {
+
+        }
+
+        @Override
+        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+        }
+
+        @Override
+        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+            videoPlayerView.setArtwork(resource);
+
+        }
+    });
         exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
             @Override
             public void onPlayStart() {

@@ -3,17 +3,26 @@
     android:id="@id/exo_play_replay_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="#80000000"
     android:gravity="center"
     android:clickable="true"
     android:orientation="vertical"
     android:visibility="visible">
     <ImageView
         android:id="@id/exo_video_replay"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@null"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_play_circle_outline_white_48px"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_replay"
         android:visibility="visible" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/replay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="@string/hint_replay_list"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"/>
 </LinearLayout>

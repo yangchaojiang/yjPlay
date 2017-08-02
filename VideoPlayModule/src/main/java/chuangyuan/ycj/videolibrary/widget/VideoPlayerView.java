@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
@@ -19,15 +19,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.util.Assertions;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.utils.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.utils.ExoPlayerViewListener;
@@ -49,14 +48,14 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     private View exo_loading_layout, exo_play_error_layout, timeBar;//视频加载页,错误页,进度控件
     private View exo_play_replay_layout, exo_play_btn_hint_layout;//播放结束，提示布局
     private ImageView exoPlayWatermark;// 水印
-    private BelowView belowView;
+    private BelowView belowView;//切换
     protected int videoHeight;//视频布局高度
     private AlertDialog alertDialog;
     private Lock lock = new ReentrantLock();
     private boolean isShowVideoSwitch;//是否切换按钮
     protected ExoPlayerListener mExoPlayerListener;
-    private int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT;
     private final ComponentListener componentListener = new ComponentListener();
+
     public VideoPlayerView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
         activity = (Activity) context;
@@ -66,16 +65,8 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     public VideoPlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         activity = (Activity) context;
-        playerView =new SimpleExoPlayerView(getContext(),attrs);
+        playerView = new SimpleExoPlayerView(getContext(), attrs);
         addView(playerView);
-        if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VideoPlayerView, 0, 0);
-            try {
-                resizeMode = a.getInt(R.styleable.VideoPlayerView_resize_mode, resizeMode);
-            } finally {
-                a.recycle();
-            }
-        }
         intiView();
     }
 
@@ -103,6 +94,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         playerView.findViewById(R.id.exo_play_error_btn).setOnClickListener(componentListener);
         playerView.findViewById(R.id.exo_video_replay).setOnClickListener(componentListener);
         exo_video_fullscreen.setOnClickListener(componentListener);
+
     }
 
 
@@ -112,6 +104,9 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         }
         if (lock != null) {
             lock = null;
+        }
+        if (belowView != null) {
+            belowView = null;
         }
     }
 
@@ -180,14 +175,11 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         if (newConfig == Configuration.ORIENTATION_PORTRAIT) {//shiping
             params.height = videoHeight;
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            playerView.setResizeMode(resizeMode);
         } else {
             WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
             DisplayMetrics outMetrics = new DisplayMetrics();
             wm.getDefaultDisplay().getMetrics(outMetrics);
             params.height = outMetrics.heightPixels;
-            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
         }
         setLayoutParams(params);
     }
@@ -243,6 +235,12 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         exo_controls_title.setText(title);
     }
 
+    public void setArtwork(Bitmap defaultArtwork) {
+        playerView.setDefaultArtwork(defaultArtwork);
+    }
+    public void setUseArtwork(boolean useArtwork) {
+        playerView.setUseArtwork(useArtwork);
+    }
     /***
      * 显示隐藏重播页
      *
@@ -341,6 +339,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         playerView.setPlayer(player);
 
     }
+
 
     public SimpleExoPlayerView getPlayerView() {
         return playerView;
