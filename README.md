@@ -25,7 +25,7 @@
     
 dependencies {
 
-   compile 'com.ycjiang:VideoPlayModule:1.4.1'
+   compile 'com.ycjiang:VideoPlayModule:1.4.3'
 
 }
 
@@ -34,7 +34,7 @@ dependencies {
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>VideoPlayModule</artifactId>
-  <version>1.4.1/version>
+  <version>1.4.3/version>
   <type>pom</type>
 </dependency>
 
