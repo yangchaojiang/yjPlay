@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
@@ -27,6 +29,7 @@ import com.google.android.exoplayer2.util.Assertions;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.utils.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.utils.ExoPlayerViewListener;
@@ -67,7 +70,19 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         activity = (Activity) context;
         playerView = new SimpleExoPlayerView(getContext(), attrs);
         addView(playerView);
+        int userWatermark = 0;
+        if (attrs != null) {
+            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VideoPlayerView, 0, 0);
+            try {
+                userWatermark = a.getResourceId(R.styleable.VideoPlayerView_user_watermark, 0);
+            } finally {
+                a.recycle();
+            }
+        }
         intiView();
+        if (userWatermark != 0) {
+            exoPlayWatermark.setImageResource(userWatermark);
+        }
     }
 
 
@@ -238,9 +253,11 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     public void setArtwork(Bitmap defaultArtwork) {
         playerView.setDefaultArtwork(defaultArtwork);
     }
+
     public void setUseArtwork(boolean useArtwork) {
         playerView.setUseArtwork(useArtwork);
     }
+
     /***
      * 显示隐藏重播页
      *
@@ -392,6 +409,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
                         @Override
                         public void onItemClick(int position, String name) {
                             belowView.dismissBelowView();
+                            exo_video_switch.setText(name);
                             mExoPlayerListener.switchUri(position, name);
                         }
                     });

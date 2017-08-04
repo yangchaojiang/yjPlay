@@ -127,7 +127,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
      * 手势结束
      */
     @Override
-    public void endGesture() {
+    protected void endGesture() {
         volume = -1;
         brightness = -1f;
         if (newPosition >= 0) {
@@ -145,7 +145,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
      **/
     @SuppressLint("SetTextI18n")
     @Override
-    public void showProgressDialog(float deltaX, String seekTime, long seekTimePosition,
+    protected void showProgressDialog(float deltaX, String seekTime, long seekTimePosition,
                                    String totalTime, long totalTimeDuration) {
         super.showProgressDialog(deltaX, seekTime, seekTimePosition, totalTime, totalTimeDuration);
         Log.d(TAG, "currentTimeline:" + player.getDuration() + "");
@@ -164,7 +164,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
      * @param percent percent 滑动
      */
     @Override
-    public void showVolumeDialog(float percent) {
+    protected void showVolumeDialog(float percent) {
         super.showVolumeDialog(percent);
         if (volume == -1) {
             volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -193,7 +193,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
      * @param percent 值大小
      */
     @Override
-    public synchronized void showBrightnessDialog(float percent) {
+    protected synchronized void showBrightnessDialog(float percent) {
         if (brightness < 0) {
             brightness = activity.getWindow().getAttributes().screenBrightness;
             if (brightness <= 0.00f) {

@@ -17,6 +17,7 @@
         <attr name="rewind_increment" format="integer" />
         <attr name="fastforward_increment" format="integer"/>
         <attr name="player_layout_id"  format="reference"/>
+        <attr name="user_watermark"  format="reference"/>
         <attr name="controller_layout_id"  format="reference"/>
     </declare-styleable>
 </resources>

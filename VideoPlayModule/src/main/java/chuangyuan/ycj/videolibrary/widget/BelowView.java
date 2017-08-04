@@ -56,7 +56,7 @@ public class BelowView {
                 });
             }
         }
-        this.pw.showAsDropDown(view, -view.getWidth() / 4, 0);
+        this.pw.showAsDropDown(view, -view.getWidth() / 4-20, 0);
     }
 
     public void setAnimation(int animationStyle) {

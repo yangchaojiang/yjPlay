@@ -8,6 +8,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import com.google.android.exoplayer2.util.Util;
+
+import java.util.List;
+
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 /**
@@ -33,10 +36,7 @@ public class ManualPlayer extends GestureVideoPlayer {
         super(activity, reId);
         intiView();
     }
-
-
     private  void intiView(){
-        setExoPlayWatermarkImg(R.mipmap.watermark_big);
         exoBtn= (ImageButton) mPlayerView.findViewById(R.id.exo_play);
         exoBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -58,17 +58,14 @@ public class ManualPlayer extends GestureVideoPlayer {
         this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), uri);
         createPlayersNo();
     }
-
-
     @Override
-    public void setPlaySwitchUri(@NonNull String[] videoUri, @NonNull String[] nameUri) {
+    public void setPlaySwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
         this.videoUri=videoUri;
-        this.nameUri=nameUri;
-       // exo_video_switch.setText(nameUri[0]);
-        mPlayerViewListener.showSwitchName(nameUri[0]);
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(),Uri.parse(videoUri[0]));
+        mPlayerViewListener.showSwitchName(name.get(index));
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(),Uri.parse(videoUri.get(index)));
         createPlayersNo();
     }
+
 
     @Override
     public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {

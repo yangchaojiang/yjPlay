@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         String[] name={"超清","高清","标清"};
         exoPlayerManager.setPlaySwitchUri(test,name);
         exoPlayerManager.setPosition(10000);
-     Glide.with(this).load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg").asBitmap().fitCenter().into(new SimpleTarget<Bitmap>() {
+       Glide.with(this).load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg").asBitmap().fitCenter().into(new SimpleTarget<Bitmap>() {
         @Override
         public void onLoadStarted(Drawable placeholder) {
 

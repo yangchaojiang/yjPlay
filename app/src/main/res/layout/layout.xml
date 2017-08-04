@@ -21,6 +21,7 @@
         app:show_timeout="3000"
         app:surface_type="surface_view"
         app:use_artwork="true"
+        app:user_watermark="@mipmap/watermark_big"
         app:use_controller="true" />
 
 </LinearLayout>

@@ -58,6 +58,7 @@ dependencies {
         app:paddingStart="0dp"
         app:fastforward_increment="0"
         app:rewind_increment="0"
+          app:user_watermark="@mipmap/watermark_big"
         app:use_controller="true" />
 
 ```
@@ -70,6 +71,7 @@ dependencies {
  * 6     //  fastforward_increment  设置快进增量,以毫秒为单位。
  * 7     //  rewind_increment  设置快退增量,以毫秒为单位。
  * 8     //  use_controller   控制器
+ * 9    //  user_watermark    水印图片
  * 在你app的strings.xml  可以替换对框框提示标题和内容
 ```
  app.strings.xml
@@ -90,6 +92,7 @@ dependencies {
     //String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
     // String[] name={"超清","高清","标清"};
     //exoPlayerManager.setPlaySwitchUri(test,name);
+    // exoPlayerManager.setExoPlayWatermarkImg();//添加水印
  ```
  ```
 
@@ -123,6 +126,10 @@ dependencies {
         exoPlayerManager.onBackPressed();
     }
  ```
+   ### 1.4.4
+   * 1  修复线路切换文字不改变稳定
+   * 2  增加线路提供方法。集合和数组
+   * 3  提供布局设置水印,修复水印方法，去掉默认水印
   ### 1.4.3
   * 1  修改重新播放页面
   * 2  增加进度默认设置
@@ -140,13 +147,9 @@ dependencies {
 
  ### 1.3.0
  * 1.增加播放数据流量提醒框，增加网络变化监听
-
  * 2.toobar状态的隐藏和显示,  增加v7依赖
-
  * 3.直播隐藏进度条
-
  * 4.两个视频切换，广告视频，进度处理
-
  * 5.修复已知bug.简化处理
 
 

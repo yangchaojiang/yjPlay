@@ -33,6 +33,8 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.util.Util;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,8 +59,8 @@ public class ExoUserPlayer {
     protected ExoPlayerMediaSourceBuilder mediaSourceBuilder;//加载多媒体载体
     private boolean playerNeedsSource;
     private NetworkBroadcastReceiver mNetworkBroadcastReceiver;
-    protected String[] videoUri;
-    protected String[] nameUri;
+    protected List<String> videoUri;
+    protected List<String> nameUri;
     protected Activity activity;
     private ComponentListener componentListener;
     private PlayComponentListener playComponentListener;
@@ -152,10 +154,42 @@ public class ExoUserPlayer {
      * @param name     清清晰度显示名称
      **/
     public void setPlaySwitchUri(@NonNull String[] videoUri, @NonNull String[] name) {
+        setPlaySwitchUri(Arrays.asList(videoUri), Arrays.asList(name));
+    }
+
+    /**
+     * 设置多线路播放
+     *
+     * @param videoUri 视频地址
+     * @param name     清清晰度显示名称
+     * @param index    选中播放线路
+     **/
+    public void setPlaySwitchUri(@NonNull String[] videoUri, @NonNull String[] name, int index) {
+        setPlaySwitchUri(Arrays.asList(videoUri), Arrays.asList(name), index);
+    }
+
+    /**
+     * 设置多线路播放
+     *
+     * @param videoUri 视频地址
+     * @param name     清清晰度显示名称
+     **/
+    public void setPlaySwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name) {
+        setPlaySwitchUri(videoUri, name, 0);
+    }
+
+    /**
+     * 设置多线路播放
+     *
+     * @param videoUri 视频地址
+     * @param name     清清晰度显示名称
+     * @param index    选中播放线路
+     **/
+    public void setPlaySwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
         this.videoUri = videoUri;
         this.nameUri = name;
-        mPlayerViewListener.showSwitchName(nameUri[0]);
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), Uri.parse(videoUri[0]));
+        mPlayerViewListener.showSwitchName(nameUri.get(index));
+        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), Uri.parse(videoUri.get(index)));
         createPlayers();
         hslHideView();
         registerReceiverNet();
@@ -421,7 +455,7 @@ public class ExoUserPlayer {
      *
      * @param res 资源
      ***/
-    protected void setExoPlayWatermarkImg(int res) {
+    public void setExoPlayWatermarkImg(int res) {
         mPlayerViewListener.setWatermarkImage(res);
     }
 
@@ -512,7 +546,7 @@ public class ExoUserPlayer {
         @Override
         public void switchUri(int position, String name) {
             if (mediaSourceBuilder != null) {
-                mediaSourceBuilder.setMediaSourceUri(Uri.parse(videoUri[position]));
+                mediaSourceBuilder.setMediaSourceUri(Uri.parse(videoUri.get(position)));
                 updateResumePosition();
                 onPlayNoAlertVideo();
             }

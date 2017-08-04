@@ -4,25 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#80000000"
-    android:gravity="center"
     android:clickable="true"
+    android:gravity="center"
     android:orientation="vertical"
     android:visibility="visible">
+
     <ImageView
         android:id="@id/exo_video_replay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_replay"
+        android:src="@drawable/ic_replay_"
         android:visibility="visible" />
+
     <TextView
-        android:layout_marginTop="5dp"
         android:id="@+id/replay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:text="@string/hint_replay_list"
         android:textColor="@android:color/white"
-        android:textSize="14sp"/>
+        android:textSize="14sp" />
 </LinearLayout>

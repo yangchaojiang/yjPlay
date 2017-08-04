@@ -12,5 +12,5 @@
         <item>高清</item>
         <item>标清</item>
     </array>
-    <dimen name="dp30">30dp</dimen>
+    <dimen name="dp30">35dp</dimen>
 </resources>
