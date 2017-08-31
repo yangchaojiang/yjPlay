@@ -3,7 +3,6 @@ package chuangyuan.ycj.videolibrary.video;
 import android.app.Activity;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,16 +22,13 @@ public class ManualPlayer extends GestureVideoPlayer {
     private boolean isLoad = false;//已经加载
    private ImageButton exoBtn;
 
-    public ManualPlayer(@NonNull Activity activity, VideoPlayerView playerView, @NonNull String uri) {
-        super(activity, playerView, uri);
-        intiView();
-    }
+
 
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         super(activity, playerView);
         intiView();
     }
-    public ManualPlayer(@NonNull Activity activity,@Nullable int reId) {
+    public ManualPlayer(@NonNull Activity activity, int reId) {
         super(activity, reId);
         intiView();
     }
@@ -55,21 +51,21 @@ public class ManualPlayer extends GestureVideoPlayer {
     }
     @Override
     public void setPlayUri(@NonNull Uri uri) {
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), uri);
+        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(),uri);
         createPlayersNo();
     }
     @Override
     public void setPlaySwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
         this.videoUri=videoUri;
         mPlayerViewListener.showSwitchName(name.get(index));
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(),Uri.parse(videoUri.get(index)));
+        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(),Uri.parse(videoUri.get(index)));
         createPlayersNo();
     }
 
 
     @Override
     public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
+        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
         createPlayersNo();
     }
 

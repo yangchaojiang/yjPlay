@@ -105,7 +105,9 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         exo_loading_layout = playerView.findViewById(R.id.exo_loading_layout);
         timeBar = playerView.findViewById(R.id.exo_progress);
         playerView.findViewById(R.id.exo_play_btn_hint).setOnClickListener(componentListener);
-        playerView.findViewById(R.id.exo_controls_back).setOnClickListener(componentListener);
+        if (  playerView.findViewById(R.id.exo_controls_back)!=null) {
+            playerView.findViewById(R.id.exo_controls_back).setOnClickListener(componentListener);
+        }
         playerView.findViewById(R.id.exo_play_error_btn).setOnClickListener(componentListener);
         playerView.findViewById(R.id.exo_video_replay).setOnClickListener(componentListener);
         exo_video_fullscreen.setOnClickListener(componentListener);
@@ -116,9 +118,6 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     public void onDestroy() {
         if (alertDialog != null) {
             alertDialog = null;
-        }
-        if (lock != null) {
-            lock = null;
         }
         if (belowView != null) {
             belowView = null;
@@ -136,7 +135,6 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
             belowView.dismissBelowView();
         }
     }
-
     /***
      * 判断是横屏,竖屏
      *
@@ -330,7 +328,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
             });
             alertDialog.show();
         } finally {
-            lock.tryLock();
+                lock.tryLock();
         }
     }
 

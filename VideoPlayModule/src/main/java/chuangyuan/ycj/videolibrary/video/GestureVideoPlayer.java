@@ -46,16 +46,11 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     private Formatter formatter;
 
 
-    public GestureVideoPlayer(@NonNull Activity activity, VideoPlayerView playerView, @NonNull String uri) {
-        super(activity, playerView, uri);
-        intiView();
-    }
-
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         super(activity, playerView);
         intiView();
     }
-    public GestureVideoPlayer(@NonNull Activity activity,@Nullable int reId) {
+    public GestureVideoPlayer(@NonNull Activity activity, int reId) {
         super(activity, reId);
         intiView();
     }
@@ -256,8 +251,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
                 firstTouch = false;
             }
             if (toSeek) {
-                if (mediaSourceBuilder == null) return false;
-                if (mediaSourceBuilder.getStreamType() == C.TYPE_HLS)
+                if (MediaSourceBuilder.getInstance().getStreamType() == C.TYPE_HLS)
                     return super.onScroll(e1, e2, distanceX, distanceY);//直播隐藏进度条
                 deltaX = -deltaX;
                 long position = player.getCurrentPosition();

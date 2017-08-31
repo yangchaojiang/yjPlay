@@ -15,7 +15,7 @@ import chuangyuan.ycj.videolibrary.R;
 
 
 public class ExoVideoAnim extends View {
-    private ParamsCreator paramsCreator = new ParamsCreator(this.getContext());
+
     private List<CircleWrapper> wrappers;
     private int[] colors = new int[]{0xFFFFC600, 0xFF14C878, 0xFF02D9FF};
     private Paint paint = new Paint();
@@ -32,6 +32,7 @@ public class ExoVideoAnim extends View {
 
     public ExoVideoAnim(Context context, AttributeSet attrs) {
         super(context, attrs);
+        ParamsCreator paramsCreator = new ParamsCreator(this.getContext());
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.exoVideoAnim);
         circleRadius = (int) a.getDimension(R.styleable.exoVideoAnim_circleRadius, paramsCreator.getDefaultCircleRadius());
         circleSpacing = (int) a.getDimension(R.styleable.exoVideoAnim_circleSpacing, paramsCreator.getDefaultCircleSpacing());
@@ -47,7 +48,7 @@ public class ExoVideoAnim extends View {
      * 创建wrappers
      */
     private void createWrappers() {
-        wrappers = new ArrayList<CircleWrapper>();
+        wrappers = new ArrayList<>();
         int diameter = this.circleRadius * 2;//直径
         //第一个圆
         CircleWrapper wrapper = new CircleWrapper();

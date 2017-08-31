@@ -18,8 +18,6 @@ android {
     lintOptions {
         abortOnError false
     }
-
-
 }
 
 dependencies {
@@ -28,8 +26,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.google.android.exoplayer:exoplayer:r2.4.4'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.google.android.exoplayer:exoplayer:r2.5.1'
 }
 /** 以下开始是将Android Library上传到jcenter的相关配置**/
 apply plugin: 'com.github.dcendents.android-maven'
@@ -44,7 +42,7 @@ group ="com.ycjiang"
 //发布到JCenter上的项目名字，必须填写
 def libName = "VideoPlayModule"
 // 版本号，下次更新是只需要更改版本号即可
-version = "1.4.4"
+version = "1.4.5"
 /**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
 
 //生成源文件

@@ -5,6 +5,8 @@ package chuangyuan.ycj.videolibrary.video;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
+import android.util.Log;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
@@ -16,33 +18,39 @@ import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource;
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+
+import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
+import chuangyuan.ycj.videolibrary.utils.DataSourceListener;
 
 /**
  * Created by yangc on 2017/2/28.
  * E-Mail:1007181167@qq.com
  * Description：数据源处理类
  */
-public class ExoPlayerMediaSourceBuilder {
-    private static final String TAG = "ExoPlayerMediaSourceBuilder";
-    private DefaultBandwidthMeter bandwidthMeter;
+public  final  class MediaSourceBuilder {
+    private  String TAG=MediaSourceBuilder.class.getName();
     private Context context;
     private int streamType;
     private Handler mainHandler = new Handler();
-    private
-    MediaSource mediaSource;
-
+    private   MediaSource mediaSource;
+    private   DataSourceListener listener;
+    public static MediaSourceBuilder getInstance() {
+        return Holder.instance;
+    }
+    private  MediaSourceBuilder(){
+    }
+    private static class Holder {
+          static MediaSourceBuilder instance = new MediaSourceBuilder();
+    }
     /****
      *初始化多个视频源，无缝衔接
      * @param firstVideoUri  第一个视频， 例如例如广告视频
      *  @param   secondVideoUri   第二个视频
      * ***/
-    public ExoPlayerMediaSourceBuilder(Context context, String firstVideoUri, String secondVideoUri) {
+      void setMediaSourceUri(Context context, String firstVideoUri, String secondVideoUri) {
         this.context = context;
-        this.bandwidthMeter = new DefaultBandwidthMeter();
         Uri mSecondVideoUri = Uri.parse(secondVideoUri);
         this.streamType = Util.inferContentType(mSecondVideoUri.getLastPathSegment());
         initDataConcatenatingMediaSource(Uri.parse(firstVideoUri), mSecondVideoUri);
@@ -53,18 +61,12 @@ public class ExoPlayerMediaSourceBuilder {
      * @param context   上下文
      * @param uri  视频的地址
      * ***/
-    public ExoPlayerMediaSourceBuilder(Context context, Uri uri) {
+      void setMediaSourceUri(Context context, Uri uri) {
         this.context = context;
-        this.bandwidthMeter = new DefaultBandwidthMeter();
         this.streamType = Util.inferContentType(uri.getLastPathSegment());
         initData(uri, streamType);
     }
 
-    public void  setMediaSourceUri(Uri uri) {
-        this.bandwidthMeter = new DefaultBandwidthMeter();
-        this.streamType = Util.inferContentType(uri.getLastPathSegment());
-        initData(uri, streamType);
-    }
 
     /****
      *初始化多个视频源，无缝衔接
@@ -75,26 +77,24 @@ public class ExoPlayerMediaSourceBuilder {
         MediaSource firstSource = initData(firstVideoUri, Util.inferContentType(firstVideoUri.getLastPathSegment()));
         switch (streamType) {
             case C.TYPE_SS:
-                MediaSource secondSource = new SsMediaSource(secondVideoUri, new DefaultDataSourceFactory(context, null,
-                        getHttpDataSourceFactory()),
-                        new DefaultSsChunkSource.Factory(getDataSourceFactory()),
+                MediaSource secondSource = new SsMediaSource(secondVideoUri, new DefaultDataSourceFactory(context, null,getDataSource()),
+                        new DefaultSsChunkSource.Factory(getDataSource()),
                         mainHandler, null);
                 mediaSource = new ConcatenatingMediaSource(firstSource, secondSource);
                 break;
             case C.TYPE_DASH:
                 secondSource = new DashMediaSource(secondVideoUri,
-                        new DefaultDataSourceFactory(context, null,
-                                getHttpDataSourceFactory()),
-                        new DefaultDashChunkSource.Factory(getDataSourceFactory()),
+                        new DefaultDataSourceFactory(context, null, getDataSource()),
+                        new DefaultDashChunkSource.Factory(getDataSource()),
                         mainHandler, null);
                 mediaSource = new ConcatenatingMediaSource(firstSource, secondSource);
                 break;
             case C.TYPE_HLS:
-                secondSource = new HlsMediaSource(secondVideoUri, getDataSourceFactory(), mainHandler, null);
+                secondSource = new HlsMediaSource(secondVideoUri, getDataSource(), mainHandler, null);
                 mediaSource = new ConcatenatingMediaSource(firstSource, secondSource);
                 break;
             case C.TYPE_OTHER:
-                secondSource = new ExtractorMediaSource(secondVideoUri, getDataSourceFactory(),
+                secondSource = new ExtractorMediaSource(secondVideoUri, getDataSource(),
                         new DefaultExtractorsFactory(), mainHandler, null);
                 //  LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
                 mediaSource = new ConcatenatingMediaSource(firstSource, secondSource);
@@ -105,6 +105,8 @@ public class ExoPlayerMediaSourceBuilder {
         }
     }
 
+
+
     /****
      *初始化视频源，无缝衔接
      * @param uri  视频的地址
@@ -114,22 +116,22 @@ public class ExoPlayerMediaSourceBuilder {
         switch (streamType) {
             case C.TYPE_SS:
                 mediaSource = new SsMediaSource(uri, new DefaultDataSourceFactory(context, null,
-                        getHttpDataSourceFactory()),
-                        new DefaultSsChunkSource.Factory(getDataSourceFactory()),
+                        getDataSource()),
+                        new DefaultSsChunkSource.Factory(getDataSource()),
                         mainHandler, null);
                 break;
             case C.TYPE_DASH:
                 mediaSource = new DashMediaSource(uri,
                         new DefaultDataSourceFactory(context, null,
-                                getHttpDataSourceFactory()),
-                        new DefaultDashChunkSource.Factory(getDataSourceFactory()),
+                                getDataSource()),
+                        new DefaultDashChunkSource.Factory(getDataSource()),
                         mainHandler, null);
                 break;
             case C.TYPE_HLS:
-                mediaSource = new HlsMediaSource(uri, getDataSourceFactory(), mainHandler, null);
+                mediaSource = new HlsMediaSource(uri, getDataSource(), mainHandler, null);
                 break;
             case C.TYPE_OTHER:
-                mediaSource = new ExtractorMediaSource(uri, getDataSourceFactory(),
+                mediaSource = new ExtractorMediaSource(uri, getDataSource(),
                         new DefaultExtractorsFactory(), mainHandler, null);
                 //  LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
                 break;
@@ -142,41 +144,47 @@ public class ExoPlayerMediaSourceBuilder {
     /***
      * 获取视频类型
      * **/
-    public MediaSource getMediaSource() {
+      MediaSource getMediaSource() {
         return mediaSource;
     }
-
-    /***
-     * 初始化数据源工厂
-     * **/
-    private DataSource.Factory getDataSourceFactory() {
-        return new DefaultDataSourceFactory(context, bandwidthMeter,
-                getHttpDataSourceFactory());
-    }
-
-    /***
-     * 初始化数据源工厂
-     * **/
-    private DataSource.Factory getHttpDataSourceFactory() {
-         return new DefaultHttpDataSourceFactory(Util.getUserAgent(context, context.getPackageName()), bandwidthMeter);
-        //okHttpClient = new OkHttpClient();
-        //return new OkHttpDataSourceFactory(okHttpClient, Util.getUserAgent(context, context.getApplicationContext().getPackageName()), bandwidthMeter);
-    }
-
-
     /***
      * 获取链接类型
      * @return int
      ***/
-    public int getStreamType() {
+    int getStreamType() {
         return streamType;
     }
 
+    /***
+     * 初始化数据源工厂
+     * **/
+    private DataSource.Factory getDataSource() {
+      Log.d(TAG,"Factory:"+(listener==null));
+        if(listener!=null){
+            return listener.getDataSourceFactory();
+        } else {
+            return new JDefaultDataSourceFactory(context);
+        }
+
+    }
+
+    /****
+     * 自定义data数据源
+     * @param  listener  接口实现
+     * **/
+    public void setListener(DataSourceListener listener) {
+        this.listener = listener;
+    }
 
     public void release() {
         if (mediaSource != null) {
             mediaSource.releaseSource();
             mediaSource = null;
         }
+        if (mainHandler!=null){
+            mainHandler=null;
+        }
     }
+
+
 }

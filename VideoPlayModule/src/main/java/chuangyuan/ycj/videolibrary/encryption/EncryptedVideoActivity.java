@@ -45,8 +45,8 @@ public class EncryptedVideoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_encryption_exo_video_play);
         simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.player_view);
-        String filePath = Environment.getExternalStorageDirectory().getPath()+"/VID_20170304_175413.mp4";
-    //    String filePath = getIntent().getStringExtra("key");
+        //String filePath = Environment.getExternalStorageDirectory().getPath()+"/VID_20170304_175413.mp4";
+      String filePath = getIntent().getStringExtra("key");
         Log.i(TAG, "加密视频路径：" + filePath);
         initServer(filePath);
     }

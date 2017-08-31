@@ -19,5 +19,8 @@
         <attr name="player_layout_id"  format="reference"/>
         <attr name="user_watermark"  format="reference"/>
         <attr name="controller_layout_id"  format="reference"/>
+        <attr name="repeat_toggle_modes"  />
+       <attr name="auto_show" format="boolean"/>
+       />
     </declare-styleable>
 </resources>

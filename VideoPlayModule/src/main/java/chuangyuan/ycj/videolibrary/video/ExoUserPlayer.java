@@ -21,6 +21,7 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
@@ -56,7 +57,6 @@ public class ExoUserPlayer {
     protected VideoPlayerView mPlayerView;
     protected ExoPlayerViewListener mPlayerViewListener;
     private VideoInfoListener videoInfoListener;//回调信息
-    protected ExoPlayerMediaSourceBuilder mediaSourceBuilder;//加载多媒体载体
     private boolean playerNeedsSource;
     private NetworkBroadcastReceiver mNetworkBroadcastReceiver;
     protected List<String> videoUri;
@@ -65,17 +65,6 @@ public class ExoUserPlayer {
     private ComponentListener componentListener;
     private PlayComponentListener playComponentListener;
     private boolean isPause;
-
-    /****
-     * @param activity 活动对象
-     * @param uri      地址
-     **/
-    public ExoUserPlayer(@NonNull Activity activity, VideoPlayerView playerView, @NonNull String uri) {
-        this.mPlayerView = playerView;
-        this.activity = activity;
-        initView();
-        setPlayUri(uri);
-    }
 
     /****
      * @param activity   活动对象
@@ -102,7 +91,6 @@ public class ExoUserPlayer {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//防锁屏
         timer = new Timer();
         timer.schedule(task, 0, 1000); // 1s后启动任务，每2s执行一次
-
     }
 
     /**
@@ -110,20 +98,6 @@ public class ExoUserPlayer {
      ***/
     public void setPlayUri(@NonNull String uri) {
         setPlayUri(Uri.parse(uri));
-    }
-
-    /****
-     * @param firstVideoUri  预览的视频
-     * @param secondVideoUri 第二个视频
-     **/
-    public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
-        if (mediaSourceBuilder != null) {
-            mediaSourceBuilder.release();
-        }
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
-        createPlayers();
-        hslHideView();
-        registerReceiverNet();
     }
 
     /***
@@ -139,8 +113,7 @@ public class ExoUserPlayer {
      * 是否云隐藏
      **/
     void hslHideView() {
-        if (mediaSourceBuilder != null && mediaSourceBuilder.getStreamType() == C.TYPE_HLS) {//直播隐藏进度条
-            Log.d(TAG, "getStreamType：" + mediaSourceBuilder.getStreamType());
+        if (MediaSourceBuilder.getInstance().getStreamType() == C.TYPE_HLS) {//直播隐藏进度条
             mPlayerViewListener.showHidePro(View.INVISIBLE);
         } else {
             mPlayerViewListener.showHidePro(View.VISIBLE);
@@ -189,7 +162,20 @@ public class ExoUserPlayer {
         this.videoUri = videoUri;
         this.nameUri = name;
         mPlayerViewListener.showSwitchName(nameUri.get(index));
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), Uri.parse(videoUri.get(index)));
+        MediaSourceBuilder.getInstance().release();
+        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(), Uri.parse(videoUri.get(index)));
+        createPlayers();
+        hslHideView();
+        registerReceiverNet();
+    }
+
+    /****
+     * @param firstVideoUri  预览的视频
+     * @param secondVideoUri 第二个视频
+     **/
+    public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
+        MediaSourceBuilder.getInstance().release();
+        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
         createPlayers();
         hslHideView();
         registerReceiverNet();
@@ -199,15 +185,12 @@ public class ExoUserPlayer {
      * 设置播放路径
      ***/
     public void setPlayUri(@NonNull Uri uri) {
-        if (mediaSourceBuilder != null) {
-            mediaSourceBuilder.release();
-        }
-        this.mediaSourceBuilder = new ExoPlayerMediaSourceBuilder(activity.getApplicationContext(), uri);
+        MediaSourceBuilder.getInstance().release();
+        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(), uri);
         createPlayers();
         hslHideView();
         registerReceiverNet();
     }
-
 
     public void onResume() {
         if ((Util.SDK_INT <= 23 || player == null)) {
@@ -243,14 +226,13 @@ public class ExoUserPlayer {
             if (task != null) {
                 task.cancel();
             }
-            if (mediaSourceBuilder != null) {
-                mediaSourceBuilder.release();
+            if (MediaSourceBuilder.getInstance() != null) {
+                MediaSourceBuilder.getInstance().release();
             }
             mPlayerView.setExoPlayerListener(null);
             playComponentListener = null;
         }
     }
-
 
     /****
      * 创建
@@ -283,8 +265,7 @@ public class ExoUserPlayer {
     private SimpleExoPlayer createFullPlayer() {
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(new DefaultBandwidthMeter());
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
-        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(activity,
-                trackSelector);
+        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(activity,  trackSelector);
         mPlayerView.setPlayer(player);
         return player;
     }
@@ -308,20 +289,18 @@ public class ExoUserPlayer {
         if (player == null) {
             createPlayersPlay();
         }
-        if (mediaSourceBuilder != null) {
-            boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
-            if (haveResumePosition) {
-                player.seekTo(resumeWindow, resumePosition);
-            }
-            if (isPause) {
-                player.setPlayWhenReady(false);
-            } else {
-                player.setPlayWhenReady(true);
-            }
-            player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, true);
-            player.addListener(componentListener);
-            playerNeedsSource = false;
+        boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
+        if (haveResumePosition) {
+            player.seekTo(resumeWindow, resumePosition);
         }
+        if (isPause) {
+            player.setPlayWhenReady(false);
+        } else {
+            player.setPlayWhenReady(true);
+        }
+        player.prepare(MediaSourceBuilder.getInstance().getMediaSource(), !haveResumePosition, true);
+        player.addListener(componentListener);
+        playerNeedsSource = false;
     }
 
     /****
@@ -545,11 +524,9 @@ public class ExoUserPlayer {
 
         @Override
         public void switchUri(int position, String name) {
-            if (mediaSourceBuilder != null) {
-                mediaSourceBuilder.setMediaSourceUri(Uri.parse(videoUri.get(position)));
+              MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(),Uri.parse(videoUri.get(position)));
                 updateResumePosition();
                 onPlayNoAlertVideo();
-            }
         }
 
         @Override
@@ -617,7 +594,7 @@ public class ExoUserPlayer {
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             Log.d(TAG, "onPlayerStateChanged:+playWhenReady:" + playWhenReady);
             switch (playbackState) {
-                case ExoPlayer.STATE_BUFFERING:
+                case Player.STATE_BUFFERING:
                     Log.d(TAG, "onPlayerStateChanged:加载中。。。");
                     if (playWhenReady) {
                         mPlayerViewListener.showLoadStateView(View.VISIBLE);
@@ -626,14 +603,14 @@ public class ExoUserPlayer {
                         videoInfoListener.onLoadingChanged();
                     }
                     break;
-                case ExoPlayer.STATE_ENDED:
+                case Player.STATE_ENDED:
                     Log.d(TAG, "onPlayerStateChanged:ended。。。");
                     mPlayerViewListener.showReplayView(View.VISIBLE);
                     if (videoInfoListener != null) {
                         videoInfoListener.onPlayEnd();
                     }
                     break;
-                case ExoPlayer.STATE_IDLE://空的
+                case Player.STATE_IDLE://空的
                     Log.d(TAG, "onPlayerStateChanged::网络状态差，请检查网络。。。");
                     updateResumePosition();
                     if (!VideoPlayUtils.isNetworkAvailable(activity)) {
@@ -644,7 +621,7 @@ public class ExoUserPlayer {
                         mPlayerViewListener.showErrorStateView(View.VISIBLE);
                     }
                     break;
-                case ExoPlayer.STATE_READY:
+                case Player.STATE_READY:
                     Log.d(TAG, "onPlayerStateChanged:ready。。。");
                     mPlayerViewListener.showLoadStateView(View.GONE);
                     if (videoInfoListener != null) {
@@ -655,7 +632,13 @@ public class ExoUserPlayer {
                     break;
             }
         }
+        @Override
+        public void onRepeatModeChanged(int repeatMode) {
+            if (videoInfoListener!=null){
+                videoInfoListener.onRepeatModeChanged(repeatMode);
+            }
 
+        }
         @Override
         public void onPlayerError(ExoPlaybackException e) {
             Log.d(TAG, "onPlayerError:" + e.getLocalizedMessage());
