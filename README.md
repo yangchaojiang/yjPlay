@@ -1,15 +1,15 @@
 # yjPlay
  
  
- 基于ExoPlayer自定义播放器 支持直播
+ ###基于ExoPlayer自定义播放器 支持直播
   
- 1 ExoUserPlayer  基本播放器
- 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势
- 3 ManualPlayer  默认手动播放，增加默认图
- 5 增加广告视频预览
- 6 增加视频清晰度切换
- 7 增加缓存视频功能
- 8 支持自定义各种数据源加载 okttp,rtmp, 缓存，Cronet 等
+ * 1 ExoUserPlayer  基本播放器
+ * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势
+ * 3 ManualPlayer  默认手动播放，增加默认图
+ * 5 增加广告视频预览
+ * 6 增加视频清晰度切换
+ * 7 增加缓存视频功能
+ * 8 支持自定义各种数据源加载 okttp,rtmp, 缓存，Cronet 等
 
  ## gif 显示有点卡，帧数低，实际很流畅
 
