@@ -145,7 +145,7 @@ dependencies {
         exoPlayerManager.onBackPressed();
     }
  ```
-### 3.JAVA代码 列表播放
+### 4.JAVA代码 列表播放
   * 列表播放，只能使用ManualPlayer 不允许使用 GestureVideoPlayer，ExoUserPlayer。在你的VideoHolder
   * 在列表控件使用属性 ”app:controller_layout_id="@layout/simple_exo_playback＿list_view"“ //提供默列表控制布局
   *  实例化控件如下
@@ -224,7 +224,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         }
     }
  ```
-### 4 使用自定义控制布局
+### 5.使用自定义控制布局
    * 使用自定义控制布局  custom_playback_list_view.xml 详细demo测试
 ```
 <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
@@ -250,7 +250,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
   * 注意自定义控制布局事项 不能改变控件类型，
      可以改变控件的样式，位置，属性等
 
-### 5.数据源工厂类
+### 6.数据源工厂类
 #### 1 默认数据源
   * 缓存 : CacheDataSinkFactory,CacheDataSourceFactory
   * http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
