@@ -1,4 +1,4 @@
-package chuangyuan.ycj.videolibrary.encryption;
+package com.example.listvideo.encryption;
 
 import java.io.BufferedReader;
 import java.io.IOException;

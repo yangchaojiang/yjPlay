@@ -18,7 +18,6 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
-
         <ImageView
             android:id="@+id/exo_video_audio_brightness_img"
             android:layout_width="36dp"
@@ -26,7 +25,6 @@
             android:src="@drawable/ic_brightness_6_white_48px"
             android:layout_marginBottom="10dp"
             android:contentDescription="@null" />
-
         <ProgressBar
             android:id="@+id/exo_video_audio_brightness_pro"
             style="@android:style/Widget.ProgressBar.Horizontal"

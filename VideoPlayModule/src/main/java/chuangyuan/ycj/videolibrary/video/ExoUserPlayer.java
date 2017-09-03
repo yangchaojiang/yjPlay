@@ -10,12 +10,11 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -32,19 +31,16 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.util.Util;
-
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import chuangyuan.ycj.videolibrary.utils.ExoPlayerListener;
-import chuangyuan.ycj.videolibrary.utils.ExoPlayerViewListener;
-import chuangyuan.ycj.videolibrary.utils.VideoInfoListener;
+import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
+import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
+import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
-
 public class ExoUserPlayer {
 
     private static final String TAG = ExoUserPlayer.class.getName();
@@ -70,13 +66,13 @@ public class ExoUserPlayer {
      * @param activity   活动对象
      * @param playerView 播放控件
      **/
-    public ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
+      ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this.mPlayerView = playerView;
         this.activity = activity;
         initView();
     }
 
-    public ExoUserPlayer(@NonNull Activity activity, @Nullable int reId) {
+      ExoUserPlayer(@NonNull Activity activity,@IdRes int reId) {
         this.activity = activity;
         mPlayerView = (VideoPlayerView) activity.findViewById(reId);
         initView();
@@ -85,7 +81,6 @@ public class ExoUserPlayer {
     private void initView() {
         playComponentListener = new PlayComponentListener();
         componentListener = new ComponentListener();
-        mPlayerView.setVideoHeight(mPlayerView.getLayoutParams().height);
         mPlayerView.setExoPlayerListener(playComponentListener);
         mPlayerViewListener = mPlayerView.getComponentListener();
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//防锁屏
@@ -110,7 +105,7 @@ public class ExoUserPlayer {
     }
 
     /***
-     * 是否云隐藏
+     * 是否隐藏
      **/
     void hslHideView() {
         if (MediaSourceBuilder.getInstance().getStreamType() == C.TYPE_HLS) {//直播隐藏进度条
@@ -119,7 +114,6 @@ public class ExoUserPlayer {
             mPlayerViewListener.showHidePro(View.VISIBLE);
         }
     }
-
     /**
      * 设置多线路播放
      *
@@ -191,13 +185,19 @@ public class ExoUserPlayer {
         hslHideView();
         registerReceiverNet();
     }
-
+    /***
+     * 页面恢复处理
+     * **/
     public void onResume() {
         if ((Util.SDK_INT <= 23 || player == null)) {
             createPlayers();
+            player.getBufferedPosition();
         }
     }
 
+    /***
+     * 页面暂停处理
+     * **/
     public void onPause() {
         if (player != null) {
             isPause = !player.getPlayWhenReady();
@@ -205,29 +205,34 @@ public class ExoUserPlayer {
         }
     }
 
+    /**
+     *  页面销毁处理
+     * **/
     public void onDestroy() {
         releasePlayers();
     }
 
+
+    /***
+     * 释放资源
+     * **/
     public void releasePlayers() {
         if (player != null) {
             updateResumePosition();
+            unNetworkBroadcastReceiver();
             player.stop();
             player.release();
             player.removeListener(componentListener);
             player.clearVideoSurface();
-            unNetworkBroadcastReceiver();
             player = null;
         }
+        MediaSourceBuilder.getInstance().release();
         if (activity.isFinishing()) {
             if (timer != null) {
                 timer.cancel();
             }
             if (task != null) {
                 task.cancel();
-            }
-            if (MediaSourceBuilder.getInstance() != null) {
-                MediaSourceBuilder.getInstance().release();
             }
             mPlayerView.setExoPlayerListener(null);
             playComponentListener = null;
@@ -453,6 +458,27 @@ public class ExoUserPlayer {
     public SimpleExoPlayer getPlayer() {
         return player;
     }
+    /**
+     *返回视频总进度  以毫秒为单位
+     * @return  long
+     * **/
+    public long getDuration() {
+        return player==null?0:player.getDuration();
+    }
+    /**
+     *返回视频当前播放进度  以毫秒为单位
+     * @return  long
+     * **/
+    public long getCurrentPosition() {
+        return player==null?0:player.getCurrentPosition();
+    }
+    /**
+     *返回视频当前播放d缓冲进度  以毫秒为单位
+     * @return  long
+     * **/
+    public long getBufferedPosition() {
+        return player==null?0:player.getBufferedPosition();
+    }
 
     /***
      * 注册广播监听
@@ -474,7 +500,9 @@ public class ExoUserPlayer {
             mNetworkBroadcastReceiver = null;
         }
     }
-
+    /***
+     *网络监听类
+     * ***/
     private class NetworkBroadcastReceiver extends BroadcastReceiver {
         long is = 0;
 
@@ -503,7 +531,6 @@ public class ExoUserPlayer {
 
         }
     }
-
     private class PlayComponentListener implements ExoPlayerListener {
         @Override
         public void onCreatePlayers() {
@@ -641,7 +668,7 @@ public class ExoUserPlayer {
         }
         @Override
         public void onPlayerError(ExoPlaybackException e) {
-            Log.d(TAG, "onPlayerError:" + e.getLocalizedMessage());
+            Log.e(TAG, "onPlayerError:" + e.getLocalizedMessage());
             playerNeedsSource = true;
             if (VideoPlayUtils.isBehindLiveWindow(e)) {
                 clearResumePosition();

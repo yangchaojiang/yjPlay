@@ -10,7 +10,7 @@
     android:visibility="visible">
 
     <ImageView
-        android:id="@id/exo_video_replay"
+        android:id="@+id/exo_video_replay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
@@ -19,7 +19,7 @@
         android:visibility="visible" />
 
     <TextView
-        android:id="@+id/replay"
+        android:id="@+id/exo_video_replay_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"

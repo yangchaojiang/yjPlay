@@ -2,9 +2,16 @@ package chuangyuan.ycj.videolibrary.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.TrafficStats;
+import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
+import android.view.WindowManager;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
@@ -15,8 +22,6 @@ import com.google.android.exoplayer2.source.BehindLiveWindowException;
  * Description：
  */
 public class VideoPlayUtils {
-    public static final String TAG = "VideoPlayUtils";
-
     /***
      * 获取地当前网速
      *
@@ -102,4 +107,75 @@ public class VideoPlayUtils {
         return false;
     }
 
+
+    /***
+     * 得到活动对象
+     * @param  context  上下文
+     * @return  Activity
+     * **/
+    public static Activity scanForActivity(Context context) {
+        if (context == null) return null;
+        if (context instanceof Activity) {
+            return (Activity) context;
+        } else if (context instanceof ContextWrapper) {
+            return scanForActivity(((ContextWrapper) context).getBaseContext());
+        }
+        return null;
+    }
+    /***
+     * 得到活动对象
+     * @param  context  上下文
+     * @return  AppCompatActivity
+     * **/
+    public static AppCompatActivity getAppCompActivity(Context context) {
+        if (context == null) return null;
+        if (context instanceof AppCompatActivity) {
+            return (AppCompatActivity) context;
+        } else if (context instanceof ContextThemeWrapper) {
+            return getAppCompActivity(((ContextThemeWrapper) context).getBaseContext());
+        }
+        return null;
+    }
+    /***
+     * 得到活动对象
+     * @param  context  上下文
+     * **/
+    public static void showActionBar(Context context) {
+        if (getAppCompActivity(context) != null) {
+            ActionBar ab = getAppCompActivity(context).getSupportActionBar();
+            if (ab!=null) {
+                ab.setShowHideAnimationEnabled(false);
+                ab.show();
+            }
+        }
+        scanForActivity(context)
+                .getWindow()
+                .clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    /***
+     * 隐藏标题栏
+     * @param context 上下文
+     * **/
+    public static void hideActionBar(Context context) {
+        if (getAppCompActivity(context) != null) {
+            ActionBar ab = getAppCompActivity(context).getSupportActionBar();
+            if (ab != null) {
+                ab.setShowHideAnimationEnabled(false);
+                ab.hide();
+            }
+        }
+        scanForActivity(context)
+                .getWindow()
+                .setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    /***
+     * 获取当前手机横屏状态
+     * @return int
+     * ***/
+    public static   int   getOrientation(@NonNull  Activity activity){
+        return  activity.getResources().getConfiguration().orientation;
+    }
 }

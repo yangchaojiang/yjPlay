@@ -3,9 +3,12 @@ package chuangyuan.ycj.videolibrary.video;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.media.AudioManager;
+import android.net.Uri;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -18,9 +21,11 @@ import android.widget.TextView;
 import com.google.android.exoplayer2.C;
 
 import java.util.Formatter;
+import java.util.List;
 import java.util.Locale;
 
 import chuangyuan.ycj.videolibrary.R;
+import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
@@ -50,7 +55,8 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         super(activity, playerView);
         intiView();
     }
-    public GestureVideoPlayer(@NonNull Activity activity, int reId) {
+
+    public GestureVideoPlayer(@NonNull Activity activity, @IdRes int reId) {
         super(activity, reId);
         intiView();
     }
@@ -78,6 +84,18 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     }
 
     @Override
+    public void setPlaySwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
+        super.setPlaySwitchUri(videoUri, name, index);
+        gestureDetector = new GestureDetector(activity, new PlayerGestureListener());
+    }
+
+    @Override
+    public void setPlayUri(@NonNull Uri uri) {
+        super.setPlayUri(uri);
+
+    }
+
+    @Override
     void showReplay(int state) {
         if (state == View.VISIBLE) {
             mPlayerView.getPlayerView().setOnTouchListener(null);
@@ -88,6 +106,9 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if (getPlayerView().isListPlayer()&&VideoPlayUtils.getOrientation(activity) == Configuration.ORIENTATION_PORTRAIT) {//竖屏
+            return false;//列表竖屏不执行手势
+        }
         if (gestureDetector.onTouchEvent(event))
             return true;
         // 处理手势结束
@@ -141,7 +162,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     @SuppressLint("SetTextI18n")
     @Override
     protected void showProgressDialog(float deltaX, String seekTime, long seekTimePosition,
-                                   String totalTime, long totalTimeDuration) {
+                                      String totalTime, long totalTimeDuration) {
         super.showProgressDialog(deltaX, seekTime, seekTimePosition, totalTime, totalTimeDuration);
         Log.d(TAG, "currentTimeline:" + player.getDuration() + "");
         Log.d(TAG, "newPosition:" + player.getDuration() + "");

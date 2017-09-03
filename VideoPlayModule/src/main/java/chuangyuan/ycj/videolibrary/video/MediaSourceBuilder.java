@@ -14,6 +14,7 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
+import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource;
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
@@ -22,7 +23,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
-import chuangyuan.ycj.videolibrary.utils.DataSourceListener;
+import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 
 /**
  * Created by yangc on 2017/2/28.
@@ -33,7 +34,7 @@ public  final  class MediaSourceBuilder {
     private  String TAG=MediaSourceBuilder.class.getName();
     private Context context;
     private int streamType;
-    private Handler mainHandler = new Handler();
+    private Handler mainHandler = null;
     private   MediaSource mediaSource;
     private   DataSourceListener listener;
     public static MediaSourceBuilder getInstance() {
@@ -96,7 +97,6 @@ public  final  class MediaSourceBuilder {
             case C.TYPE_OTHER:
                 secondSource = new ExtractorMediaSource(secondVideoUri, getDataSource(),
                         new DefaultExtractorsFactory(), mainHandler, null);
-                //  LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
                 mediaSource = new ConcatenatingMediaSource(firstSource, secondSource);
                 break;
             default: {
@@ -121,19 +121,14 @@ public  final  class MediaSourceBuilder {
                         mainHandler, null);
                 break;
             case C.TYPE_DASH:
-                mediaSource = new DashMediaSource(uri,
-                        new DefaultDataSourceFactory(context, null,
-                                getDataSource()),
-                        new DefaultDashChunkSource.Factory(getDataSource()),
-                        mainHandler, null);
+                mediaSource = new DashMediaSource(uri,new DefaultDataSourceFactory(context, null,getDataSource()),
+                        new DefaultDashChunkSource.Factory(getDataSource()),mainHandler, null);
                 break;
             case C.TYPE_HLS:
-                mediaSource = new HlsMediaSource(uri, getDataSource(), mainHandler, null);
+                mediaSource=new HlsMediaSource(uri,new DefaultHlsDataSourceFactory(getDataSource()),5,mainHandler,null);
                 break;
             case C.TYPE_OTHER:
-                mediaSource = new ExtractorMediaSource(uri, getDataSource(),
-                        new DefaultExtractorsFactory(), mainHandler, null);
-                //  LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
+                mediaSource = new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null);
                 break;
             default:
                 throw new IllegalStateException("Unsupported type: " + streamType);
@@ -176,10 +171,12 @@ public  final  class MediaSourceBuilder {
         this.listener = listener;
     }
 
+    /****
+     * 释放资源
+     * **/
     public void release() {
         if (mediaSource != null) {
             mediaSource.releaseSource();
-            mediaSource = null;
         }
         if (mainHandler!=null){
             mainHandler=null;

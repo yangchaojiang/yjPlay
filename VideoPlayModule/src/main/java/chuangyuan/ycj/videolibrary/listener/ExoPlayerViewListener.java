@@ -1,4 +1,4 @@
-package chuangyuan.ycj.videolibrary.utils;
+package chuangyuan.ycj.videolibrary.listener;
 
 /**
  * Created by yangc on 2017/7/21.
@@ -8,9 +8,7 @@ package chuangyuan.ycj.videolibrary.utils;
 
 public interface ExoPlayerViewListener {
 
-
     void showAlertDialog();
-
 
     void showHidePro(int visibility);
 
@@ -24,8 +22,8 @@ public interface ExoPlayerViewListener {
 
     void showErrorStateView(int visibility);
 
-
     void setTitle(String title);
+
       void showNetSpeed(final String netSpeed);
 
     void onConfigurationChanged(int newConfig);

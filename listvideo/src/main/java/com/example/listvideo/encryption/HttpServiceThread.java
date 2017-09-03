@@ -1,4 +1,4 @@
-package chuangyuan.ycj.videolibrary.encryption;
+package com.example.listvideo.encryption;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;

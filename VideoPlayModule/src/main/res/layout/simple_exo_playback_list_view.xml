@@ -6,7 +6,6 @@
     android:layout_gravity="bottom"
     android:background="@android:color/transparent"
     android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +19,7 @@
             android:layout_height="36dp"
             android:layout_centerVertical="true"
             android:contentDescription="@null"
+            android:visibility="gone"
             android:src="@drawable/ic_chevron_left_white_48px" />
 
         <TextView
@@ -33,13 +33,6 @@
             android:lines="1"
             android:textColor="@android:color/white" />
     </RelativeLayout>
-    <ImageView
-        android:id="@id/exo_preview_image"
-        android:layout_width="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:visibility="gone"
-        android:layout_height="match_parent" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -51,23 +44,6 @@
         android:orientation="horizontal"
         android:visibility="visible">
 
-        <ImageButton
-            android:id="@id/exo_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:background="@null"
-            android:visibility="gone"
-            android:src="@drawable/exo_controls_play" />
-
-        <ImageButton
-            android:id="@+id/exo_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:background="@null"
-            android:src="@drawable/exo_controls_pause"
-            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,20 +51,8 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_weight="1">
-
-            <chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar
-                android:id="@id/exo_progress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                app:played_color="#FF7000"
-                app:bar_height="5dp"
-                app:unplayed_color="#a5ffffff"
-                app:buffered_color="@android:color/white"
-               />
-
             <TextView
+                android:layout_marginLeft="10dp"
                 android:layout_weight="0"
                 android:id="@id/exo_position"
                 android:layout_width="wrap_content"
@@ -113,7 +77,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:textColor="@android:color/white"
+                android:text="06:21"
                 android:textSize="12sp" />
+            <chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar
+                android:id="@id/exo_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:played_color="#FF7000"
+                app:bar_height="5dp"
+                app:unplayed_color="#a5ffffff"
+                app:buffered_color="@android:color/white"
+                app:ad_marker_width="@dimen/dp30"
+                android:layout_weight="1"
+                android:max="800" />
+
+
         </LinearLayout>
         <TextView
             android:contentDescription="@null"
@@ -141,5 +120,36 @@
             android:background="@null"
             android:src="@drawable/ic_fullscreen_white" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@id/exo_preview_image"
+        android:layout_width="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:clickable="true"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="match_parent" />
+    <ImageButton
+        android:id="@id/exo_play"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_weight="0"
+        android:background="@null"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/exo_controls_play" />
+
+    <ImageButton
+        android:id="@id/exo_pause"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_weight="0"
+        android:background="@null"
+        android:src="@drawable/exo_controls_pause"
+        android:visibility="gone" />
 
 </RelativeLayout>

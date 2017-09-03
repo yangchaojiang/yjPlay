@@ -1,11 +1,10 @@
-package chuangyuan.ycj.videolibrary.encryption;
+package com.example.listvideo.encryption;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -18,6 +17,7 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
+import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
  * Created by yangc on 2017/2/25.
@@ -27,7 +27,7 @@ import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 
 public class EncryptedVideoActivity extends Activity {
     private static final String TAG = "EncryptedVideoActivity";
-    SimpleExoPlayerView simpleExoPlayerView;
+    VideoPlayerView simpleExoPlayerView;
     private HttpServer httpServer;
     GestureVideoPlayer gestureVideoPlayer;
 
@@ -44,14 +44,12 @@ public class EncryptedVideoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_encryption_exo_video_play);
-        simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.player_view);
+        simpleExoPlayerView = (VideoPlayerView) findViewById(R.id.player_view);
         //String filePath = Environment.getExternalStorageDirectory().getPath()+"/VID_20170304_175413.mp4";
       String filePath = getIntent().getStringExtra("key");
         Log.i(TAG, "加密视频路径：" + filePath);
         initServer(filePath);
     }
-
-
     private void playVideo(Uri uri) {
         File file = new File(uri.getPath());
         if (!file.exists()) {
@@ -62,7 +60,6 @@ public class EncryptedVideoActivity extends Activity {
         gestureVideoPlayer.setPlayUri(uri);
 
     }
-
 
     void initServer(final String filePath) {
         File file = new File(filePath);

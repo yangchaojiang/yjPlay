@@ -1,4 +1,4 @@
-package chuangyuan.ycj.videolibrary.utils;
+package chuangyuan.ycj.videolibrary.listener;
 
 
 
@@ -27,6 +27,4 @@ public interface ExoPlayerListener {
     void  onBack();
 
     ExoUserPlayer getPlay();
-
-
 }

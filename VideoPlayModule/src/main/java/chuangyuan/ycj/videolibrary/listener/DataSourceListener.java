@@ -1,4 +1,4 @@
-package chuangyuan.ycj.videolibrary.utils;
+package chuangyuan.ycj.videolibrary.listener;
 
 import com.google.android.exoplayer2.upstream.DataSource;
 
