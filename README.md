@@ -9,14 +9,15 @@
  * 5 增加广告视频预览
  * 6 增加视频清晰度切换
  * 7 增加缓存视频功能
- * 8 支持自定义各种数据源加载 okttp,rtmp, 缓存，Cronet 等
+ * 8 支持自定义各种数据源加载 okttp,rtmp, 缓存，Cronet等协议
+ * 9 支持列表播放视频
 
  ## gif 显示有点卡，帧数低，实际很流畅
 
  ![](sss.gif)
 
  ### 1.Import
- use     import dependency in gradle
+ use   import dependency in gradle
  
 ```
  repositories {
@@ -26,7 +27,7 @@
     
 dependencies {
 
-   compile 'com.ycjiang:VideoPlayModule:1.4.5'
+   compile 'com.ycjiang:VideoPlayModule:1.4.6'
 
 }
 
@@ -35,14 +36,14 @@ dependencies {
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>VideoPlayModule</artifactId>
-  <version>1.4.5/version>
+  <version>1.4.6/version>
   <type>pom</type>
 </dependency>
 
 ```
 
 
- ### 2.布局引用
+ ### 2.布局属性解说
  ```
    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
         android:id="@+id/exo_play_context_id"
@@ -60,36 +61,47 @@ dependencies {
         app:fastforward_increment="0"
         app:rewind_increment="0"
         app:user_watermark="@mipmap/watermark_big"
-        app:auto_show="true"
+        app:player_list="true"
         app:use_controller="true" />
 
 ```
- * 1    default_artwork  占位图  //必选
- * 2   player_layout_id  播放器布局， controller_layout_id  控制器布局` //必选
- * 3   use_controller   控制器   //必选
- * 4   resize_mode  视频渲染模式 fit,fill,fixed_width,fixed_height //可选
- * 5   surface_type 视频渲染类型 //texture_view 和surface_view //必选
- * 6   show_timeout  超时时间
- * 7   paddingEnd，paddingStart 设置边距
+ * 1   player_layout_id  播放器布局， controller_layout_id  控制器布局` //必选
+ * 2   use_controller   控制器   //必选
+ * 3   surface_type 视频渲染类型 //texture_view 和surface_view //必选
+ * 4   resize_mode  视频渲染显示模式 fit,fill,fixed_width,fixed_height //可选
+ * 5   default_artwork  占位图  //可选
+ * 6   show_timeout  控制类超时时间隐藏时间  默认值为3秒
+ * 7   paddingEnd，paddingStart 设置边距  默认值为0
  * 8   fastforward_increment  设置快进增量,以毫秒为单位。
- * 9   rewind_increment  设置快退增量,以毫秒为单位。
- * 10   user_watermark    水印图片
- * 11   auto_show     播放控制是否允许自动显示
+ * 9   rewind_increment   设置快退增量,以毫秒为单位。
+ * 10  user_watermark    水印图片
+ * 11  player_list      是否指定列表播放  默认false  true 列表播放
  *    在你app的strings.xml  可以替换对框框提示标题和内容
 
+####  自定义修改提示文字
 ```
  app.strings.xml
      <string name="exo_play_reminder">您当前网络不是wifi，是否继续观看视频</string>
      <string name="exo_play_wifi_hint_no">提示</string>
  ```
- ### 3.JAVA代码
+
+####  在功能清单申明 AndroidManifest.xml
+
+ 在activity节点上
+ 加上“android:configChanges="orientation|keyboardHidden|screenSize"”
+ 如下实例：
+ ```
+ <activity   android:name="chuangyuan.ycj.yjplay.MainListActivity"
+             android:configChanges="orientation|keyboardHidden|screenSize"
+             android:screenOrientation="portrait">
+ ```
+
+ ### 3.JAVA代码 详情播放
  ```
     //播放代码
     //ManualPlayer  点击开始按钮播放   具有手势操作。
     //GestureVideoPlayer  具有手势操作播放（调节亮度和视频进度，和音量）
     //ExoUserPlayer 没有手势操作播放 基本播放
-
-
      ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
     //是否开启缓存功能
      exoPlayerManager.setCache(true);//该方法是否setPlayUri 方法之前调用的setCache
@@ -98,16 +110,11 @@ dependencies {
     // exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
     //下面开启多线路播放
     //  exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
-
     //String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
     // String[] name={"超清","高清","标清"};
-
     //exoPlayerManager.setPlaySwitchUri(test,name);
     //添加水印
     // exoPlayerManager.setExoPlayWatermarkImg();
- ```
- ```
-
     @Override
     public void onResume() {
         super.onResume();
@@ -138,21 +145,127 @@ dependencies {
         exoPlayerManager.onBackPressed();
     }
  ```
- #### 1 默认数据源
+### 3.JAVA代码 列表播放
+  * 列表播放，只能使用ManualPlayer 不允许使用 GestureVideoPlayer，ExoUserPlayer。在你的VideoHolder
+  * 在列表控件使用属性 ”app:controller_layout_id="@layout/simple_exo_playback＿list_view"“ //提供默列表控制布局
+  *  实例化控件如下
+
+```
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
+
+    private Context mContext;
+    private List<String> mVideoList;
+    public VideoAdapter(Context context, List<String> videoList) {
+        mContext = context;
+        mVideoList = videoList;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mVideoList.size();
+    }
+    @Override
+    public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_video1, parent, false);
+        return new VideoViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(VideoViewHolder holder, int position) {
+        String video = mVideoList.get(position);
+        holder.bindData(video);
+    }
+
+    public class VideoViewHolder extends RecyclerView.ViewHolder {
+        ManualPlayer userPlayer;
+        VideoPlayerView playerView;
+        public VideoViewHolder(View itemView) {
+            super(itemView);
+            //初始化控件
+            playerView = (VideoPlayerView) itemView.findViewById(R.id.item_exo_player_view);
+            userPlayer = new ManualPlayer((Activity) mContext, playerView);
+        }
+
+       /**
+       *绑定数据源
+       ***/
+        public void bindData(String videoBean) {
+            userPlayer.setTitle("" + getAdapterPosition());
+            userPlayer.setPlayUri(videoBean);
+            Glide.with(mContext)
+            .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
+            .into(playerView.getPreviewImage());
+        }
+    }
+```
+ * 2 在你的activity或者Fragment 实现相应周期方法
+     VideoPlayerManager 类是视频播放列表，控制类。
+ ```
+   @Override
+    protected void onPause() {
+        super.onPause();
+        VideoPlayerManager.getInstance().onPause();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        VideoPlayerManager.getInstance().onResume();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        VideoPlayerManager.getInstance().onDestroy();
+    }
+    @Override
+    public void onBackPressed() {
+        //返回监听类
+        if (!VideoPlayerManager.getInstance().onBackPressed()){
+            finish();
+        }
+    }
+ ```
+### 4 使用自定义控制布局
+   * 使用自定义控制布局  custom_playback_list_view.xml 详细demo测试
+```
+<chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+        android:id="@+id/exo_play_context_id"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/transparent"
+        app:controller_layout_id="@layout/custom_playback_list_view"
+        app:fastforward_increment="0"
+        app:paddingEnd="0dp"
+        app:paddingStart="0dp"
+        app:player_layout_id="@layout/simple_exo_view"
+        app:resize_mode="fit"
+        app:rewind_increment="0"
+        app:show_timeout="3000"
+        app:surface_type="texture_view"
+        app:use_artwork="true"
+        app:auto_show="true"
+        app:user_watermark="@mipmap/watermark_big"
+        app:use_controller="true" />
+
+```
+  * 注意自定义控制布局事项 不能改变控件类型，
+     可以改变控件的样式，位置，属性等
+
+### 5.数据源工厂类
+#### 1 默认数据源
   * 缓存 : CacheDataSinkFactory,CacheDataSourceFactory
   * http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
   * file : FileDataSourceFactory
   * Priority : PriorityDataSourceFactory
- #### 2 自定义数据源引用
+
+#### 2 自定义数据源引用
  ````
      compile 'com.google.android.exoplayer:extension-okhttp:r2.5.1'
      compile 'com.google.android.exoplayer:extension-rtmp:r2.5.1'
 
  ````
-
- ### 4.自定义数据源工厂类
+#### 3.自定义数据源工厂类
  * 1.实现接口 DataSourceListener  然后在getDataSourceFactory方法里 自定义 数据源
- * 2.在你app 中 实例化类
+ * 2.在你App中实例化类
 ```
 public class App extends Application {
     public static final String TAG = "App";
@@ -165,7 +278,7 @@ public class App extends Application {
 }
 
 ```
-  自定义类DataSource
+ * 3.自定义类DataSource
 ```
 public class DataSource implements DataSourceListener {
     public static final String TAG = "DataSource";
@@ -196,6 +309,12 @@ public class DataSource implements DataSourceListener {
 }
 ```
 
+## 升级日志
+
+  ### 1.4.6
+   * 1 增加视频列表播放支持
+   * 2 增加VideoPlayerManager 列表播放管理类
+   * 3 增加自定义进度条控件
 
   ### 1.4.5
    * 1 增加视频缓存功能

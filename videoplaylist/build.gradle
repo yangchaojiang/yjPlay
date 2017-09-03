@@ -1,10 +1,9 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion project.ext.compileSdkVersion
     buildToolsVersion project.ext.buildToolsVersion
     defaultConfig {
-        applicationId "chuangyuan.xiangjiang.yjplay"
         minSdkVersion project.ext.minSdkVersion
         targetSdkVersion  project.ext.targetSdkVersion
         versionCode 1
@@ -18,24 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    // 保证其他的lib没有被preDex
-    dexOptions {
-        preDexLibraries = false
-    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    compile 'com.android.support:recyclerview-v7:23.1.1'
     testCompile 'junit:junit:4.12'
-    compile project(':VideoPlayModule')
-    compile 'com.google.android.exoplayer:extension-okhttp:r2.5.1'
-    compile 'com.google.android.exoplayer:extension-rtmp:r2.5.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.jude:easyrecyclerview:4.4.0'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-
-
 }
