@@ -27,7 +27,7 @@
     
 dependencies {
 
-   compile 'com.ycjiang:VideoPlayModule:1.4.6'
+   compile 'com.ycjiang:VideoPlayModule:1.4.7'
 
 }
 
@@ -36,7 +36,7 @@ dependencies {
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>VideoPlayModule</artifactId>
-  <version>1.4.6/version>
+  <version>1.4.7/version>
   <type>pom</type>
 </dependency>
 
@@ -311,11 +311,11 @@ public class DataSource implements DataSourceListener {
 
 ## 升级日志
 
-  ### 1.4.6
+  ### 1.4.7
    * 1 增加视频列表播放支持
    * 2 增加VideoPlayerManager 列表播放管理类
    * 3 增加自定义进度条控件
-
+   * 4 修复bug
   ### 1.4.5
    * 1 增加视频缓存功能
    * 2 去掉ExoUserPlayer 构造方法设置uri

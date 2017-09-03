@@ -497,8 +497,8 @@ public class ExoUserPlayer {
     private void unNetworkBroadcastReceiver() {
         if (mNetworkBroadcastReceiver != null) {
             activity.unregisterReceiver(mNetworkBroadcastReceiver);
-            mNetworkBroadcastReceiver = null;
         }
+        mNetworkBroadcastReceiver = null;
     }
     /***
      *网络监听类

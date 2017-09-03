@@ -122,15 +122,6 @@
             android:src="@drawable/ic_fullscreen_white" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@id/exo_preview_image"
-        android:layout_width="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:clickable="true"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_height="match_parent" />
     <ImageButton
         android:id="@id/exo_play"
         android:layout_width="60dp"

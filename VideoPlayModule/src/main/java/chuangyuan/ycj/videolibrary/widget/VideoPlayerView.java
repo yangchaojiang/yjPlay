@@ -129,13 +129,19 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
             getPlaybackControlView().show();
             getPlaybackControlView().onDetachedFromWindow();
         }
-        exo_preview_image.setVisibility(VISIBLE);
+        if (exo_preview_image!=null){
+            exo_preview_image.setVisibility(VISIBLE);
+        }
         if (alertDialog != null) {
             alertDialog.dismiss();
             alertDialog = null;
         }
         if (belowView != null) {
             belowView = null;
+        }
+        if (activity.isFinishing()){
+            removeAllViews();
+            activity=null;
         }
     }
     /***
@@ -145,6 +151,9 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     public void onVisibilityChange(int visibility) {
         if (belowView != null && visibility == View.GONE) {
             belowView.dismissBelowView();
+            if (exo_preview_image!=null){
+                exo_preview_image.setVisibility(GONE);
+            }
         }
     }
 

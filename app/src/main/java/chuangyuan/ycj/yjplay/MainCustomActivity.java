@@ -108,8 +108,8 @@ public class MainCustomActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         exoPlayerManager.onDestroy();
+        super.onDestroy();
     }
 
     @Override

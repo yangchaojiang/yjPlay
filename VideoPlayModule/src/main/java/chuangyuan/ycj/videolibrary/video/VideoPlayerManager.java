@@ -67,6 +67,7 @@ public class VideoPlayerManager {
     public void onDestroy(){
         if (mVideoPlayer != null) {
             mVideoPlayer.onDestroy();
+            mVideoPlayer=null;
         }
     }
 

@@ -41,7 +41,9 @@ public class ManualPlayer extends GestureVideoPlayer {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction()==MotionEvent.ACTION_UP) {
                     isLoad = true;
-                    VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
+                    if (getPlayerView().isListPlayer()) {
+                        VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
+                    }
                     mPlayerView.getPreviewImage().setVisibility(View.GONE);
                     mPlayerView.getPlayerView().setControllerHideOnTouch(true);
                     createPlayers();
