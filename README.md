@@ -314,7 +314,7 @@
    * 实现接口 DataSourceListener  然后在getDataSourceFactory方法里 自定义 数据源
    * 在你使用播放控件时中实例化类
 
-### [自定义数据源和自定义控制布局用法-戳我](http://yangchaojiang.cn/2017/09/05/jPlayer-blog/)
+### [自定义数据源和自定义控制布局用法-戳我](http://yangchaojiang.cn/2017/09/05/jPlayer-blog/#四-数据源工厂类)
 ## 升级日志
  ### 1.4.8
    * 1 修改自定义加载源类，不再用单利模式,采用控件实使用进行调用
