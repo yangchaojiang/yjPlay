@@ -65,7 +65,8 @@ dependencies {
         app:use_controller="true" />
 
 ```
- * 1   player_layout_id  播放器布局， controller_layout_id  控制器布局` //必选
+ * 1   player_layout_id  播放器布局，//必选
+ * 2    controller_layout_id  控制器布局` //必选
  * 2   use_controller   控制器   //必选
  * 3   surface_type 视频渲染类型 //texture_view 和surface_view //必选
  * 4   resize_mode  视频渲染显示模式 fit,fill,fixed_width,fixed_height //可选
