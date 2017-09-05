@@ -66,17 +66,17 @@ dependencies {
 
 ```
  * 1   player_layout_id  播放器布局，//必选
- * 2    controller_layout_id  控制器布局` //必选
- * 2   use_controller   控制器   //必选
- * 3   surface_type 视频渲染类型 //texture_view 和surface_view //必选
- * 4   resize_mode  视频渲染显示模式 fit,fill,fixed_width,fixed_height //可选
- * 5   default_artwork  占位图  //可选
- * 6   show_timeout  控制类超时时间隐藏时间  默认值为3秒
- * 7   paddingEnd，paddingStart 设置边距  默认值为0
- * 8   fastforward_increment  设置快进增量,以毫秒为单位。
- * 9   rewind_increment   设置快退增量,以毫秒为单位。
- * 10  user_watermark    水印图片
- * 11  player_list      是否指定列表播放  默认false  true 列表播放
+ * 2   controller_layout_id  控制器布局` //必选
+ * 3   use_controller   控制器   //必选
+ * 4   surface_type 视频渲染类型 //texture_view 和surface_view //必选
+ * 5   resize_mode  视频渲染显示模式 fit,fill,fixed_width,fixed_height //可选
+ * 6   default_artwork  占位图  //可选
+ * 7   show_timeout  控制类超时时间隐藏时间  默认值为3秒
+ * 8   paddingEnd，paddingStart 设置边距  默认值为0
+ * 9   fastforward_increment  设置快进增量,以毫秒为单位。
+ * 10   rewind_increment   设置快退增量,以毫秒为单位。
+ * 11  user_watermark    水印图片
+ * 12  player_list      是否指定列表播放  默认false  true 列表播放
  *    在你app的strings.xml  可以替换对框框提示标题和内容
 
 ####  自定义修改提示文字
