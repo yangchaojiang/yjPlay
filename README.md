@@ -109,7 +109,7 @@ dependencies {
      exoPlayerManager.setCache(true);//该方法是否setPlayUri 方法之前调用的setCache
      //加载m3u8
      exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
-     //架子ts.文件
+     //加载ts.文件
      exoPlayerManager.setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts");
      //播放本地视频
     // exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
