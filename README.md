@@ -27,7 +27,7 @@
     
 dependencies {
 
-   compile 'com.ycjiang:VideoPlayModule:1.4.7'
+   compile 'com.ycjiang:VideoPlayModule:1.4.8'
 
 }
 
@@ -36,7 +36,7 @@ dependencies {
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>VideoPlayModule</artifactId>
-  <version>1.4.7/version>
+  <version>1.4.8/version>
   <type>pom</type>
 </dependency>
 
@@ -103,11 +103,17 @@ dependencies {
     //GestureVideoPlayer  具有手势操作播放（调节亮度和视频进度，和音量）
     //ExoUserPlayer 没有手势操作播放 基本播放
      ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
+     //自定义你的数据源
+     // ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this) );
     //是否开启缓存功能
      exoPlayerManager.setCache(true);//该方法是否setPlayUri 方法之前调用的setCache
+     //加载m3u8
      exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
+     //架子ts.文件
+     exoPlayerManager.setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts");
      //播放本地视频
     // exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
+
     //下面开启多线路播放
     //  exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
     //String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
@@ -115,6 +121,7 @@ dependencies {
     //exoPlayerManager.setPlaySwitchUri(test,name);
     //添加水印
     // exoPlayerManager.setExoPlayWatermarkImg();
+    //实现相应周期方法
     @Override
     public void onResume() {
         super.onResume();
@@ -265,17 +272,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
  ````
 #### 3.自定义数据源工厂类
  * 1.实现接口 DataSourceListener  然后在getDataSourceFactory方法里 自定义 数据源
- * 2.在你App中实例化类
+ * 2.在你使用播放控件时中实例化类
 ```
-public class App extends Application {
-    public static final String TAG = "App";
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        MediaSourceBuilder.getInstance().setListener(new DataSource(this));
-    }
-}
+    exoPlayerManager = new GestureVideoPlayer(this,videoPlayerView,new DataSource(this));
+    exoPlayerManager = new GestureVideoPlayer(this,(R.id.exo_play_context_id,new DataSource(this));
 
 ```
  * 3.自定义类DataSource
@@ -310,13 +310,16 @@ public class DataSource implements DataSourceListener {
 ```
 
 ## 升级日志
-
-  ### 1.4.7
+ ### 1.4.8
+   * 1 修改自定义加载源类，不再用单利模式,采用控件实使用进行调用
+ ### 1.4.7
+   * 1 修复1.4.6切换bug
+ ### 1.4.6
    * 1 增加视频列表播放支持
    * 2 增加VideoPlayerManager 列表播放管理类
    * 3 增加自定义进度条控件
    * 4 修复bug
-  ### 1.4.5
+ ### 1.4.5
    * 1 增加视频缓存功能
    * 2 去掉ExoUserPlayer 构造方法设置uri
    * 3 修复已知问题

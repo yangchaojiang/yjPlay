@@ -36,6 +36,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
@@ -61,20 +63,41 @@ public class ExoUserPlayer {
     private ComponentListener componentListener;
     private PlayComponentListener playComponentListener;
     private boolean isPause;
-
+       MediaSourceBuilder mediaSourceBuilder;
     /****
+     * 初始化
      * @param activity   活动对象
      * @param playerView 播放控件
      **/
-      ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
-        this.mPlayerView = playerView;
-        this.activity = activity;
-        initView();
+    public   ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
+          this(activity,playerView,null);
     }
-
-      ExoUserPlayer(@NonNull Activity activity,@IdRes int reId) {
+    /****
+     * @param activity   活动对象
+     * @param reId 播放控件id
+     **/
+    public    ExoUserPlayer(@NonNull Activity activity,@IdRes int reId) {
+          this(activity, (VideoPlayerView) activity.findViewById(reId));
+    }
+    /****
+     * 初始化
+     * @param activity   活动对象
+     * @param reId 播放控件id
+     *  @param listener 自定义数据源类
+     **/
+    public   ExoUserPlayer(@NonNull Activity activity,@IdRes int reId,DataSourceListener listener) {
+        this(activity, (VideoPlayerView) activity.findViewById(reId),listener);
+    }
+    /****
+     * 初始化
+     * @param activity   活动对象
+     * @param playerView 播放控件
+     *  @param listener 自定义数据源类
+     **/
+   public  ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView,DataSourceListener listener) {
         this.activity = activity;
-        mPlayerView = (VideoPlayerView) activity.findViewById(reId);
+        this.mPlayerView = playerView;
+        mediaSourceBuilder=new MediaSourceBuilder(listener);
         initView();
     }
 
@@ -108,7 +131,7 @@ public class ExoUserPlayer {
      * 是否隐藏
      **/
     void hslHideView() {
-        if (MediaSourceBuilder.getInstance().getStreamType() == C.TYPE_HLS) {//直播隐藏进度条
+        if (mediaSourceBuilder.getStreamType() == C.TYPE_HLS) {//直播隐藏进度条
             mPlayerViewListener.showHidePro(View.INVISIBLE);
         } else {
             mPlayerViewListener.showHidePro(View.VISIBLE);
@@ -156,8 +179,10 @@ public class ExoUserPlayer {
         this.videoUri = videoUri;
         this.nameUri = name;
         mPlayerViewListener.showSwitchName(nameUri.get(index));
-        MediaSourceBuilder.getInstance().release();
-        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(), Uri.parse(videoUri.get(index)));
+        if (mediaSourceBuilder!=null){
+            mediaSourceBuilder.release();
+        }
+        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), Uri.parse(videoUri.get(index)));
         createPlayers();
         hslHideView();
         registerReceiverNet();
@@ -168,8 +193,10 @@ public class ExoUserPlayer {
      * @param secondVideoUri 第二个视频
      **/
     public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
-        MediaSourceBuilder.getInstance().release();
-        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
+        if (mediaSourceBuilder!=null){
+            mediaSourceBuilder.release();
+        }
+        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
         createPlayers();
         hslHideView();
         registerReceiverNet();
@@ -179,8 +206,10 @@ public class ExoUserPlayer {
      * 设置播放路径
      ***/
     public void setPlayUri(@NonNull Uri uri) {
-        MediaSourceBuilder.getInstance().release();
-        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(), uri);
+        if (mediaSourceBuilder!=null){
+            mediaSourceBuilder.release();
+        }
+        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), uri);
         createPlayers();
         hslHideView();
         registerReceiverNet();
@@ -226,7 +255,9 @@ public class ExoUserPlayer {
             player.clearVideoSurface();
             player = null;
         }
-        MediaSourceBuilder.getInstance().release();
+        if (mediaSourceBuilder!=null){
+            mediaSourceBuilder.release();
+        }
         if (activity.isFinishing()) {
             if (timer != null) {
                 timer.cancel();
@@ -303,7 +334,7 @@ public class ExoUserPlayer {
         } else {
             player.setPlayWhenReady(true);
         }
-        player.prepare(MediaSourceBuilder.getInstance().getMediaSource(), !haveResumePosition, true);
+        player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, true);
         player.addListener(componentListener);
         playerNeedsSource = false;
     }
@@ -364,8 +395,6 @@ public class ExoUserPlayer {
         }
         return netSpeed;
     }
-
-
     /****
      * 监听返回键
      ***/
@@ -380,47 +409,13 @@ public class ExoUserPlayer {
             return false;
         }
     }
-
-    /****
-     * 滑动进度
-     *
-     * @param percent           滑动
-     * @param seekTime          滑动的时间
-     * @param seekTimePosition  滑动的时间 int
-     * @param totalTime         视频总长
-     * @param totalTimeDuration 视频总长 int
-     **/
-    protected void showProgressDialog(float percent, String seekTime, long seekTimePosition,
-                                      String totalTime, long totalTimeDuration) {
-    }
-
-    protected void showBrightnessDialog(float percent) {
-    }
-
-    /****
-     * 手势结束
-     **/
-    protected void endGesture() {
-    }
-
-    /****
-     * 滑动音量
-     *
-     * @param percent 滑动
-     **/
-    protected void showVolumeDialog(float percent) {
-    }
-
-
     /****
      * 滑动音量
      *
      * @param state 完成是否
      **/
     void showReplay(int state) {
-
     }
-
     public VideoPlayerView getPlayerView() {
         return mPlayerView;
     }
@@ -551,7 +546,10 @@ public class ExoUserPlayer {
 
         @Override
         public void switchUri(int position, String name) {
-              MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(),Uri.parse(videoUri.get(position)));
+            if (mediaSourceBuilder!=null){
+                mediaSourceBuilder.release();
+            }
+            mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(),Uri.parse(videoUri.get(position)));
                 updateResumePosition();
                 onPlayNoAlertVideo();
         }

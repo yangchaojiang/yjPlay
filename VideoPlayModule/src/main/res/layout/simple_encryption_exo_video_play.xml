@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chuangyuan.ycj.videolibrary.widget.VideoPlayerView  xmlns:android="http://schemas.android.com/apk/res/android"
+<chuangyuan.ycj.exoplayer.widget.VideoPlayerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/player_view"
     android:layout_width="match_parent"

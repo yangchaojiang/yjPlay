@@ -1,9 +1,7 @@
 package chuangyuan.ycj.videolibrary.video;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -17,14 +15,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.android.exoplayer2.C;
-
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
-
 import chuangyuan.ycj.videolibrary.R;
+import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
@@ -50,19 +46,23 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     private StringBuilder formatBuilder;
     private Formatter formatter;
 
-
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
-        super(activity, playerView);
-        intiView();
+        this(activity,playerView,null);
     }
 
     public GestureVideoPlayer(@NonNull Activity activity, @IdRes int reId) {
-        super(activity, reId);
-        intiView();
+        this(activity, (VideoPlayerView) activity.findViewById(reId));
     }
 
+    public   GestureVideoPlayer(@NonNull Activity activity,@IdRes int reId,DataSourceListener listener) {
+        this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
+    }
 
-    private void intiView() {
+    public  GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView,DataSourceListener listener) {
+        super(activity,playerView,listener);
+        intiViews();
+    }
+    private void intiViews() {
         formatBuilder = new StringBuilder();
         formatter = new Formatter(formatBuilder, Locale.getDefault());
         audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
@@ -142,8 +142,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     /**
      * 手势结束
      */
-    @Override
-    protected void endGesture() {
+    private void endGesture() {
         volume = -1;
         brightness = -1f;
         if (newPosition >= 0) {
@@ -153,17 +152,17 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         exo_video_audio_brightness_layout.setVisibility(View.GONE);
         exo_video_dialog_pro_layout.setVisibility(View.GONE);
     }
-
     /****
-     * 改变进度
+     * 滑动进度
      *
-     * @param deltaX 滑动
+     * @param deltaX           滑动
+     * @param seekTime          滑动的时间
+     * @param seekTimePosition  滑动的时间 int
+     * @param totalTime         视频总长
+     * @param totalTimeDuration 视频总长 int
      **/
-    @SuppressLint("SetTextI18n")
-    @Override
-    protected void showProgressDialog(float deltaX, String seekTime, long seekTimePosition,
+    private void showProgressDialog(float deltaX, String seekTime, long seekTimePosition,
                                       String totalTime, long totalTimeDuration) {
-        super.showProgressDialog(deltaX, seekTime, seekTimePosition, totalTime, totalTimeDuration);
         Log.d(TAG, "currentTimeline:" + player.getDuration() + "");
         Log.d(TAG, "newPosition:" + player.getDuration() + "");
         Log.d(TAG, seekTime);
@@ -179,9 +178,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
      *
      * @param percent percent 滑动
      */
-    @Override
-    protected void showVolumeDialog(float percent) {
-        super.showVolumeDialog(percent);
+    private void showVolumeDialog(float percent) {
         if (volume == -1) {
             volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
             if (volume < 0)
@@ -208,8 +205,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
      *
      * @param percent 值大小
      */
-    @Override
-    protected synchronized void showBrightnessDialog(float percent) {
+    private synchronized void showBrightnessDialog(float percent) {
         if (brightness < 0) {
             brightness = activity.getWindow().getAttributes().screenBrightness;
             if (brightness <= 0.00f) {
@@ -218,7 +214,6 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
                 brightness = 0.01f;
             }
         }
-        //    $.id(R.id.app_video_brightness_box).visible();
         WindowManager.LayoutParams lpa = activity.getWindow().getAttributes();
         lpa.screenBrightness = brightness + percent;
         if (lpa.screenBrightness > 1.0f) {
@@ -272,7 +267,8 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
                 firstTouch = false;
             }
             if (toSeek) {
-                if (MediaSourceBuilder.getInstance().getStreamType() == C.TYPE_HLS)
+                assert  mediaSourceBuilder!=null;
+                if (mediaSourceBuilder.getStreamType() == C.TYPE_HLS)
                     return super.onScroll(e1, e2, distanceX, distanceY);//直播隐藏进度条
                 deltaX = -deltaX;
                 long position = player.getCurrentPosition();

@@ -2,7 +2,6 @@ package chuangyuan.ycj.yjplay;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
@@ -11,6 +10,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
+
 
 /**
  * Created by yangc on 2017/7/21.

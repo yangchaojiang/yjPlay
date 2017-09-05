@@ -17,10 +17,11 @@ import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
+
 public class MainCustomActivity extends AppCompatActivity {
 
     private GestureVideoPlayer exoPlayerManager;
-    private VideoPlayerView  videoPlayerView;
+    private VideoPlayerView videoPlayerView;
     private static final String TAG = "MainDetailedActivity";
     @Override
 
@@ -28,7 +29,7 @@ public class MainCustomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom);
         videoPlayerView= (VideoPlayerView) findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new GestureVideoPlayer(this,videoPlayerView);
+        exoPlayerManager = new GestureVideoPlayer(this,videoPlayerView,new DataSource(this));
        // exoPlayerManager.setShowVideoSwitch(true);
         //exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         //exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");

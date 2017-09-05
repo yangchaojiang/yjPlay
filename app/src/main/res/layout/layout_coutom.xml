@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+    <chuangyuan.ycj.exoplayer.widget.VideoPlayerView
         android:id="@+id/exo_play_context_id"
         android:layout_width="match_parent"
         android:layout_height="200dp"

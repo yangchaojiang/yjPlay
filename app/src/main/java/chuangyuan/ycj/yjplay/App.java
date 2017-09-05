@@ -2,7 +2,6 @@ package chuangyuan.ycj.yjplay;
 
 import android.app.Application;
 
-import chuangyuan.ycj.videolibrary.video.MediaSourceBuilder;
 
 
 /**
@@ -17,6 +16,5 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        MediaSourceBuilder.getInstance().setListener(new DataSource(this));
     }
 }

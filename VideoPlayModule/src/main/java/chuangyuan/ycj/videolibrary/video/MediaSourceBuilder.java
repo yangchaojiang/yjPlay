@@ -37,13 +37,12 @@ public  final  class MediaSourceBuilder {
     private Handler mainHandler = null;
     private   MediaSource mediaSource;
     private   DataSourceListener listener;
-    public static MediaSourceBuilder getInstance() {
-        return Holder.instance;
-    }
-    private  MediaSourceBuilder(){
-    }
-    private static class Holder {
-          static MediaSourceBuilder instance = new MediaSourceBuilder();
+
+    /***
+     * 初始化
+     * **/
+    public MediaSourceBuilder(DataSourceListener listener){
+        this.listener=listener;
     }
     /****
      *初始化多个视频源，无缝衔接

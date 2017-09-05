@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.exoplayer2.ExoPlaybackException;
+
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -18,7 +19,7 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 public class MainDetailedActivity extends AppCompatActivity {
 
     private GestureVideoPlayer exoPlayerManager;
-    private VideoPlayerView  videoPlayerView;
+    private VideoPlayerView videoPlayerView;
     private static final String TAG = "MainDetailedActivity";
     @Override
 
@@ -26,7 +27,7 @@ public class MainDetailedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
         videoPlayerView= (VideoPlayerView) findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new GestureVideoPlayer(this,videoPlayerView);
+        exoPlayerManager = new GestureVideoPlayer(this,videoPlayerView,new DataSource(this));
        // exoPlayerManager.setShowVideoSwitch(true);
         //exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         //exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");

@@ -12,6 +12,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.util.Util;
 import java.util.List;
 import chuangyuan.ycj.videolibrary.R;
+import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 /**
  * Created by yangc on 2017/2/27.
@@ -23,15 +24,22 @@ public class ManualPlayer extends GestureVideoPlayer {
     private boolean isLoad = false;//已经加载
    private ImageButton exoBtn,exoPause;
     private View.OnTouchListener onTouchListener;
+
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
-        super(activity, playerView);
-        intiView();
+        this(activity,playerView,null);
     }
     public ManualPlayer(@NonNull Activity activity,@IdRes int reId) {
-        super(activity, reId);
-        exoBtn = (ImageButton) mPlayerView.findViewById(R.id.exo_play);
+        this(activity,(VideoPlayerView)activity.findViewById(reId),null);
+    }
+    public   ManualPlayer(@NonNull Activity activity,@IdRes int reId,DataSourceListener listener) {
+        this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
+    }
+
+    public  ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView,DataSourceListener listener) {
+        super(activity,playerView,listener);
         intiView();
     }
+
     private  void intiView() {
         exoBtn = (ImageButton) mPlayerView.findViewById(R.id.exo_play);
         exoPause=(ImageButton) mPlayerView.findViewById(R.id.exo_pause);
@@ -59,7 +67,7 @@ public class ManualPlayer extends GestureVideoPlayer {
     @Override
     public void setPlayUri(@NonNull Uri uri) {
         exoBtn.setOnTouchListener(onTouchListener);
-        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(),uri);
+        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(),uri);
         createPlayersNo();
     }
     @Override
@@ -67,13 +75,13 @@ public class ManualPlayer extends GestureVideoPlayer {
         exoBtn.setOnTouchListener(onTouchListener);
         this.videoUri=videoUri;
         mPlayerViewListener.showSwitchName(name.get(index));
-        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(),Uri.parse(videoUri.get(index)));
+        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(),Uri.parse(videoUri.get(index)));
         createPlayersNo();
     }
     @Override
     public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
         exoBtn.setOnTouchListener(onTouchListener);
-        MediaSourceBuilder.getInstance().setMediaSourceUri(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
+        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
         createPlayersNo();
     }
     @Override

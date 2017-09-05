@@ -1,13 +1,11 @@
 package chuangyuan.ycj.yjplay;
 
 import android.content.Context;
-import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.util.Util;
 
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
-import okhttp3.OkHttpClient;
+
+
 /**
  * Created by yangc on 2017/8/31.
  * E-Mail:yangchaojiang@outlook.com
