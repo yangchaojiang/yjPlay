@@ -3,6 +3,7 @@ package chuangyuan.ycj.yjplay;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +12,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.exoplayer2.ExoPlaybackException;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
@@ -28,11 +33,16 @@ public class MainDetailedActivity extends AppCompatActivity {
         setContentView(R.layout.layout);
         videoPlayerView= (VideoPlayerView) findViewById(R.id.exo_play_context_id);
         exoPlayerManager = new GestureVideoPlayer(this,videoPlayerView,new DataSource(this));
+        //设置视频标题
+        exoPlayerManager.setTitle("视频标题");
+        exoPlayerManager.setExoPlayWatermarkImg(R.mipmap.watermark_big);
+        //设置开始播放进度
+      //  exoPlayerManager.setPosition(1000);
        // exoPlayerManager.setShowVideoSwitch(true);
         //exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         //exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
         //String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
-        // String[] name={"超清","高清","标清"};
+         String[] name={"超清","高清","标清"};
         //exoPlayerManager.setPlaySwitchUri(test,name);
         //exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.h264");
         //exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");

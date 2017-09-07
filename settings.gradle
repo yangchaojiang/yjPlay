@@ -1,1 +1,1 @@
-include ':app', ':VideoPlayModule', ':vitamioRecorderLibrary', ':listvideo', ':listvideoplayer'
+include ':app', ':VideoPlayModule', ':vitamioRecorderLibrary'

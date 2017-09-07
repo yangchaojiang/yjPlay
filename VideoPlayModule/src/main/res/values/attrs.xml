@@ -11,9 +11,9 @@
         <attr name="default_artwork" format="reference" />
         <attr name="use_controller" format="boolean" />
         <attr name="hide_on_touch" format="boolean" />
-        <attr name="resize_mode" />
-        <attr name="surface_type" />
-        <attr name="show_timeout" />
+        <attr name="resize_mode"  />
+        <attr name="surface_type"   />
+        <attr name="show_timeout" format="integer"/>
         <attr name="rewind_increment" format="integer" />
         <attr name="fastforward_increment" format="integer"/>
         <attr name="player_layout_id"  format="reference"/>

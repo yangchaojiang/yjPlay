@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@android:color/transparent"
-        app:controller_layout_id="@layout/custom_playback_list_view"
+        app:controller_layout_id="@layout/custom_playback_view"
         app:fastforward_increment="0"
         app:paddingEnd="0dp"
         app:paddingStart="0dp"
