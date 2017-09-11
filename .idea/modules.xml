@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" filepath="$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vitamioRecorderLibrary/vitamioRecorderLibrary.iml" filepath="$PROJECT_DIR$/vitamioRecorderLibrary/vitamioRecorderLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/yjPlay.iml" filepath="$PROJECT_DIR$/yjPlay.iml" />
     </modules>
   </component>
