@@ -24,7 +24,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.4.8'
+     compile 'com.ycjiang:VideoPlayModule:1.4.9'
 
   }
   ````
