@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\nav_left_nor.png",
+        "source": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\nav_left_nor.png"
+    },
+    {
+        "merged": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\icon_recording_cancel.png",
+        "source": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\icon_recording_cancel.png"
+    },
+    {
+        "merged": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\icon_recording_play_pre.png",
+        "source": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\icon_recording_play_pre.png"
+    },
+    {
+        "merged": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\icon_recording_play.png",
+        "source": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\icon_recording_play.png"
+    },
+    {
+        "merged": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\icon_camera_focus.png",
+        "source": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\icon_camera_focus.png"
+    },
+    {
+        "merged": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\icon_recording_ok.png",
+        "source": "D:\\project\\2017-03-07\\yjPlay\\vitamioRecorderLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\icon_recording_ok.png"
+    }
+]
