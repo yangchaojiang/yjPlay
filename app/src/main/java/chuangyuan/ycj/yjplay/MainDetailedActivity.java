@@ -42,12 +42,13 @@ public class MainDetailedActivity extends AppCompatActivity {
         //exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         //exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
         //String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
-         String[] name={"超清","高清","标清"};
+       //  String[] name={"超清","高清","标清"};
         //exoPlayerManager.setPlaySwitchUri(test,name);
         //exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.h264");
         exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         //exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
        // exoPlayerManager.setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts");
+       // videoPlayerView.getTimeBar().setListener(null);
        Glide.with(this).load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg").asBitmap().fitCenter().into(new SimpleTarget<Bitmap>() {
         @Override
         public void onLoadStarted(Drawable placeholder) {

@@ -666,7 +666,7 @@ public class ExoUserPlayer {
         }
         @Override
         public void onPlayerError(ExoPlaybackException e) {
-            Log.e(TAG, "onPlayerError:" + e.getLocalizedMessage());
+            Log.e(TAG, "onPlayerError:" + e.getMessage());
             playerNeedsSource = true;
             if (VideoPlayUtils.isBehindLiveWindow(e)) {
                 clearResumePosition();

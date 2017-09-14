@@ -7,8 +7,6 @@ import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.util.Util;
 import java.util.List;
 import chuangyuan.ycj.videolibrary.R;

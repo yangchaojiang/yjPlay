@@ -21,7 +21,7 @@
         <activity
             android:name="chuangyuan.ycj.yjplay.MainListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true"
+
             android:screenOrientation="portrait">
 
         </activity>

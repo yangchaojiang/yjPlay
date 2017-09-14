@@ -132,24 +132,24 @@
         android:layout_height="match_parent" />
     <ImageButton
         android:id="@id/exo_play"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_weight="0"
         android:background="@null"
         android:visibility="visible"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/exo_controls_play" />
+        android:src="@drawable/ic_exo_start" />
 
     <ImageButton
         android:id="@id/exo_pause"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_weight="0"
         android:background="@null"
-        android:src="@drawable/exo_controls_pause"
+        android:src="@drawable/ic_exo_paues"
         android:visibility="gone" />
 
 </RelativeLayout>
