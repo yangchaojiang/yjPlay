@@ -39,7 +39,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
    // compile project(':VideoPlayModule')
 
-       compile 'com.ycjiang:VideoPlayModule:1.5.3.6'
+       compile 'com.ycjiang:VideoPlayModule:1.5.4'
     compile 'com.google.android.exoplayer:extension-okhttp:r2.5.2'
     compile 'com.google.android.exoplayer:extension-rtmp:r2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
