@@ -19,7 +19,7 @@
             android:layout_height="36dp"
             android:layout_centerVertical="true"
             android:contentDescription="@null"
-            android:visibility="gone"
+            android:visibility="visible"
             android:src="@drawable/ic_chevron_left_white_48px" />
 
         <TextView

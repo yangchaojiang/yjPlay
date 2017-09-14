@@ -37,12 +37,13 @@ public class VideoPlayerManager {
     }
     /***
      * 设置返回建监听
+     * @return boolean
      * **/
     public boolean onBackPressed() {
         if (mVideoPlayer != null) {
             return mVideoPlayer.onBackPressed();
         }
-        return false;
+        return true;
     }
     /**
      * 页面暂停播放暂停
@@ -72,6 +73,7 @@ public class VideoPlayerManager {
 
     /**
      * 获取当前播放类
+     * @return  ManualPlayer
      * **/
     public ManualPlayer getVideoPlayer() {
         return mVideoPlayer;

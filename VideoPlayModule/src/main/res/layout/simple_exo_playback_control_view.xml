@@ -8,11 +8,11 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_video_top_color"
-        android:orientation="horizontal"
-        android:id="@+id/relativeLayout">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@id/exo_controls_back"
@@ -24,22 +24,27 @@
 
         <TextView
             android:id="@+id/exo_controls_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/exo_controls_back"
             android:ellipsize="end"
             android:lines="1"
             android:textColor="@android:color/white" />
     </RelativeLayout>
+
     <ImageView
         android:id="@id/exo_preview_image"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:visibility="gone"
-        android:layout_height="match_parent" />
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -57,8 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="@null"
-            android:visibility="gone"
-            android:src="@drawable/exo_controls_play" />
+            android:src="@drawable/exo_controls_play"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/exo_pause"
@@ -72,9 +77,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:layout_weight="1">
+            android:paddingTop="4dp"
+            android:orientation="horizontal">
 
             <chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar
                 android:id="@id/exo_progress"
@@ -82,63 +88,66 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                app:played_color="#FF7000"
-                app:bar_height="5dp"
-                app:unplayed_color="#a5ffffff"
+                app:bar_height="2dp"
                 app:buffered_color="@android:color/white"
-               />
+                app:played_color="#FF7000"
+                app:ad_marker_width="4dp"
+                app:unplayed_color="#a5ffffff" />
 
             <TextView
-                android:layout_weight="0"
                 android:id="@id/exo_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0"
                 android:text="06:21"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
+
             <TextView
-                android:layout_weight="0"
                 android:id="@+id/ycj_video_timeSpan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:textColor="@android:color/white"
-                android:text="/"
-                android:textSize="12sp" />
-            <TextView
                 android:layout_weight="0"
+                android:text="/"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+
+            <TextView
                 android:id="@id/exo_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
+                android:layout_weight="0"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
         </LinearLayout>
+
         <TextView
-            android:contentDescription="@null"
             android:id="@+id/exo_video_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="0"
+            android:background="@null"
+            android:contentDescription="@null"
+            android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="高清"
-            android:visibility="gone"
-            android:gravity="center"
             android:textColor="@color/exo_exo_video_switch_selector"
-            android:background="@null"
-           />
+            android:visibility="gone" />
+
         <ImageButton
-            android:contentDescription="@null"
             android:id="@id/exo_video_fullscreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="0"
-            android:padding="5dp"
             android:background="@null"
+            android:contentDescription="@null"
+            android:padding="5dp"
             android:src="@drawable/ic_fullscreen_white" />
     </LinearLayout>
 

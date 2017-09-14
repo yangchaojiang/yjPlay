@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" filepath="$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VideoUi/VideoUi.iml" filepath="$PROJECT_DIR$/VideoUi/VideoUi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ui/ui.iml" filepath="$PROJECT_DIR$/ui/ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/yjPlay.iml" filepath="$PROJECT_DIR$/yjPlay.iml" />
     </modules>
   </component>

@@ -1,11 +1,13 @@
 package chuangyuan.ycj.yjplay;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,13 @@ public class MainListActivity extends AppCompatActivity {
             list.add("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         }
         adapter.addAll(list);
+        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent=new Intent(MainListActivity.this,MainDetailedActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     protected void onPause() {
@@ -49,7 +58,7 @@ public class MainListActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        if (!VideoPlayerManager.getInstance().onBackPressed()){
+        if (VideoPlayerManager.getInstance().onBackPressed()){
             finish();
         }
     }

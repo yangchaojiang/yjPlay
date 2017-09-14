@@ -22,6 +22,7 @@
         app:surface_type="texture_view"
         app:use_artwork="true"
         app:auto_show="true"
+        app:player_list="false"
         app:user_watermark="@mipmap/watermark_big"
         app:use_controller="true" />
 

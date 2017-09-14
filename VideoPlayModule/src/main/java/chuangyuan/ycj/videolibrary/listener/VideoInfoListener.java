@@ -28,12 +28,6 @@ public interface VideoInfoListener {
      * **/
     void onPlayEnd();
 
-    /**
-     * 返回
-     *
-     * **/
-    void   onBack();
-
     /***
      *模式发生改变
      * @param  repeatMode  { int REPEAT_MODE_OFF = 0; int REPEAT_MODE_ONE = 1,REPEAT_MODE_ALL = 2}

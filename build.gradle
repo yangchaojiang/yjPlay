@@ -6,12 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.novoda:bintray-release:0.4.0'
     }
 }
 
@@ -19,11 +14,8 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" } //审核后可使用
-        maven {
-            url "https://maven.google.com"
-        }
+        mavenCentral(url: "https://dl.bintray.com/ycjiang/ycjiang")
     }
-
     project.ext {
         compileSdkVersion=25
         targetSdkVersion=25
@@ -33,7 +25,7 @@ allprojects {
         versionName = "3.0"
     }
     tasks.withType(Javadoc) {
-        options {
+        options{
             encoding "UTF-8"
             charSet 'UTF-8'
             links "http://docs.oracle.com/javase/7/docs/api"

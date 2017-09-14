@@ -24,7 +24,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.1'
+     compile 'com.ycjiang:VideoPlayModule:1.5.4'
 
   }
   ````
@@ -176,14 +176,6 @@
                        public void onPlayEnd() {
                               //播放结束
                        }
-
-                       @Override
-                       public void onBack() {
-                           //返回回调
-                           Toast.makeText(MainDetailedActivity.this,"f返回",Toast.LENGTH_LONG).show();
-                           finish();
-
-                       }
                        @Override
                        public void onRepeatModeChanged(int repeatMode) {
                            //模式变化
@@ -220,8 +212,11 @@
                 }
 
                 @Override
-                public void onBackPressed() {//使用播放返回键监听
-                   exoPlayerManager.onBackPressed();
+                public void onBackPressed() {
+                //使用播放返回键监听
+                 if(exoPlayerManager.onBackPressed()){
+                     finish();
+                 }
                 }
 
 
@@ -295,7 +290,7 @@
                       @Override
                       public void onBackPressed() {
                           //返回监听类
-                          if (!VideoPlayerManager.getInstance().onBackPressed()){
+                          if (VideoPlayerManager.getInstance().onBackPressed()){
                               finish();
                           }
                       }
@@ -316,6 +311,11 @@
 
 ### [自定义数据源和自定义控制布局用法-戳我](http://yangchaojiang.cn/2017/09/05/jPlayer-blog/#四-数据源工厂类)
 ## 升级日志
+ #### 1.5.4
+   * 1.优化不播放的息屏
+   * 2.调整返回返回键处理 exoPlayerManager.onBackPressed()和VideoPlayerManager.getInstance().onBackPressed()  返回为true 退出界面
+   * 3.删除返回事件回调处理 改用 onBackPressed() 返回处理， true 正常出退出界面 false 切换到竖屏
+   * 4 修复 1.5.2 和 1.5.1 无法引用问题
  #### 1.5.1
    * 1.修复列表播放缓慢滑动销毁，造成黑屏和控制布局错误等问题
    * 2.暴露获取进度条控件方法getTimeBar()

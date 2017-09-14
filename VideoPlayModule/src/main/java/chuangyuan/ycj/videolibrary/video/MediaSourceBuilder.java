@@ -39,6 +39,7 @@ public  final  class MediaSourceBuilder {
 
     /***
      * 初始化
+     * @param listener 自定义数源工厂接口
      * **/
     public MediaSourceBuilder(DataSourceListener listener){
         this.listener=listener;

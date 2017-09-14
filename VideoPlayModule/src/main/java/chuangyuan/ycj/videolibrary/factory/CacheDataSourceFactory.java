@@ -46,7 +46,7 @@ public  class CacheDataSourceFactory implements DataSource.Factory {
      * @param  context 上下问
      * @param maxCacheSize 缓存大小
      * @param maxFileSize  最大文件大小
-     * @param    cachePath  注意sd设置权限  设置视频缓存路径 {  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}
+     * @param    cachePath  注意sd设置权限  设置视频缓存路径
      ***/
     public CacheDataSourceFactory(Context context, long maxCacheSize, long maxFileSize,String cachePath) {
         super();

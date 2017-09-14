@@ -171,6 +171,7 @@ public class VideoPlayUtils {
 
     /***
      * 获取当前手机横屏状态
+     * @param  activity 活动
      * @return int
      * ***/
     public static   int   getOrientation(@NonNull  Activity activity){

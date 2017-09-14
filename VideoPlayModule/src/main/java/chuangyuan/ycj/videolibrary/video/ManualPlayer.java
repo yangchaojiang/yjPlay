@@ -90,11 +90,6 @@ public class ManualPlayer extends GestureVideoPlayer {
             createPlayersPlay();
         }
     }
-
-    @Override
-    public boolean onBackPressed() {
-        return super.onBackPressed();
-    }
     /**
      重置
      * **/

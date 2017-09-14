@@ -29,7 +29,7 @@ public class MainCustomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom);
         videoPlayerView= (VideoPlayerView) findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new GestureVideoPlayer(this,videoPlayerView,new DataSource(this));
+        exoPlayerManager = new GestureVideoPlayer(this,videoPlayerView,new DataSource(getApplication()));
        // exoPlayerManager.setShowVideoSwitch(true);
         //exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         //exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
@@ -38,7 +38,6 @@ public class MainCustomActivity extends AppCompatActivity {
         //exoPlayerManager.setPlaySwitchUri(test,name);
         //exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.h264");
       exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
-      // exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
        // exoPlayerManager.setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts");
        Glide.with(this).load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg").asBitmap().fitCenter().into(new SimpleTarget<Bitmap>() {
         @Override
@@ -71,19 +70,10 @@ public class MainCustomActivity extends AppCompatActivity {
             public void onPlayerError(ExoPlaybackException e) {
 
             }
-
             @Override
             public void onPlayEnd() {
 
             }
-
-            @Override
-            public void onBack() {
-                Toast.makeText(MainCustomActivity.this,"f返回",Toast.LENGTH_LONG).show();
-                finish();
-
-            }
-
             @Override
             public void onRepeatModeChanged(int repeatMode) {
 
@@ -121,7 +111,11 @@ public class MainCustomActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        exoPlayerManager.onBackPressed();//使用播放返回键监听
+        if (exoPlayerManager.onBackPressed()){//使用播放返回键监听
+            Toast.makeText(MainCustomActivity.this,"f返回",Toast.LENGTH_LONG).show();
+          finish();
+        }
+
     }
 
 

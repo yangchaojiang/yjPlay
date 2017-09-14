@@ -65,40 +65,6 @@ public class MainDetailedActivity extends AppCompatActivity {
 
         }
     });
-        exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
-            @Override
-            public void onPlayStart() {
-
-            }
-
-            @Override
-            public void onLoadingChanged() {
-
-            }
-
-            @Override
-            public void onPlayerError(ExoPlaybackException e) {
-
-            }
-
-            @Override
-            public void onPlayEnd() {
-
-            }
-
-            @Override
-            public void onBack() {
-                Toast.makeText(MainDetailedActivity.this,"f返回",Toast.LENGTH_LONG).show();
-                finish();
-
-            }
-
-            @Override
-            public void onRepeatModeChanged(int repeatMode) {
-
-            }
-        });
-
     }
 
     @Override
@@ -131,7 +97,10 @@ public class MainDetailedActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        exoPlayerManager.onBackPressed();//使用播放返回键监听
+        if (exoPlayerManager.onBackPressed()){
+          finish();
+        }
+
     }
 
 

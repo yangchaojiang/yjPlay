@@ -112,6 +112,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
     /****
      * 获取控制类
+     * @return PlaybackControlView
      ***/
     public PlaybackControlView getPlaybackControlView() {
         if (playerView != null)
@@ -421,6 +422,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
     /***
      * 获取当前布局
+     * @return  View
      */
     public View getExoLoadingLayout() {
         return exo_loading_layout;
@@ -444,6 +446,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
     /***
      * 获取预览图
+     * @return ImageView
      ***/
     public ImageView getPreviewImage() {
         return exo_preview_image;
@@ -451,6 +454,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
     /***
      * 获取内核播放view
+     * @return SimpleExoPlayerView
      **/
     public SimpleExoPlayerView getPlayerView() {
         return playerView;
@@ -458,6 +462,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
     /**
      * 获取进度条
+     * @return ExoDefaultTimeBar
      **/
     public ExoDefaultTimeBar getTimeBar() {
         return timeBar;
@@ -465,6 +470,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
     /***
      * 获取监听事件
+     * @return  ComponentListener
      ***/
     public ComponentListener getComponentListener() {
         return componentListener;
@@ -489,7 +495,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
                 }
 
             } else if (v.getId() == R.id.exo_controls_back) {
-                mExoPlayerListener.onBack();
+                    mExoPlayerListener.onBack();
             } else if (v.getId() == R.id.exo_play_error_btn) {
                 if (VideoPlayUtils.isNetworkAvailable(activity)) {
                     showErrorStateView(View.GONE);
