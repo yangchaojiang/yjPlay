@@ -24,7 +24,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.0'
+     compile 'com.ycjiang:VideoPlayModule:1.5.1'
 
   }
   ````
@@ -316,7 +316,7 @@
 
 ### [自定义数据源和自定义控制布局用法-戳我](http://yangchaojiang.cn/2017/09/05/jPlayer-blog/#四-数据源工厂类)
 ## 升级日志
- #### 1.5.0
+ #### 1.5.1
    * 1.修复列表播放缓慢滑动销毁，造成黑屏和控制布局错误等问题
    * 2.暴露获取进度条控件方法getTimeBar()
    * 3.修复其他问题等
