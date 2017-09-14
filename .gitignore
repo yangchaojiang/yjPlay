@@ -7,3 +7,6 @@
 /build
 /captures
 .externalNativeBuild
+/videoplaylist
+/listvideo
+/vitamioRecorderLibrary

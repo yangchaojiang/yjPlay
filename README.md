@@ -24,7 +24,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.4.9'
+     compile 'com.ycjiang:VideoPlayModule:1.5.0'
 
   }
   ````
@@ -316,6 +316,10 @@
 
 ### [自定义数据源和自定义控制布局用法-戳我](http://yangchaojiang.cn/2017/09/05/jPlayer-blog/#四-数据源工厂类)
 ## 升级日志
+ #### 1.5.0
+   * 1.修复列表播放缓慢滑动销毁，造成黑屏和控制布局错误等问题
+   * 2.暴露获取进度条控件方法getTimeBar()
+   * 3.修复其他问题等
  #### 1.4.9
    * 1.升级内核为[r.2.5.2](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#r252)
    * 2.对齐android 依赖库版本对齐，移除"25.4.0"对齐"25.3.1"版本， "25.4.0"导致部分用户无法引用

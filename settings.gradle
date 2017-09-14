@@ -1,1 +1,1 @@
-include ':app', ':VideoPlayModule'
+include ':app', ':VideoPlayModule', ':ui'
