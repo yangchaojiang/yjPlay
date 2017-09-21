@@ -28,7 +28,9 @@
 
   }
   ````
-
+  >>> 提示：无法正常引用请在 repositories{ }添加已下代码
+  >>> mavenCentral(url: "https://dl.bintray.com/ycjiang/ycjiang")
+  >>>
  ### 二.控件属性
 
 
