@@ -78,12 +78,12 @@
  ````
  >> #### 2.属性说明
    * 必选
-
+   >
     1.   player_layout_id  播放器布局， //必选
          player_layout_id 目前支持指定布局simple_exo_playback_control_view 后续版本，开放自定义使用
 
    * 必选
-
+   >
     2. controller_layout_id  控制器布局`  默认有三种布局
         1.simple_exo_playback_control_view.xml  //视频封面控制布局下面，比较常规使用
         2.simple_exo_playback_list_view.xml.xml //在列表播放使用控制布局
