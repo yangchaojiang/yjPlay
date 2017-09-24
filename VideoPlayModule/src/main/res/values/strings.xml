@@ -13,4 +13,5 @@
         <item>标清</item>
     </array>
     <dimen name="dp30">35dp</dimen>
+    <dimen name="controls_title__marginRight">60dp</dimen>
 </resources>

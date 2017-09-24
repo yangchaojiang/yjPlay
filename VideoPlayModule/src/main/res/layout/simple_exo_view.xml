@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    >
+    android:background="@android:color/black">
 
     <com.google.android.exoplayer2.ui.AspectRatioFrameLayout
         android:id="@id/exo_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-         >
+        android:background="@android:color/black"
+        android:layout_gravity="center">
+
         <View
             android:id="@id/exo_shutter"
             android:layout_width="match_parent"
@@ -19,17 +18,19 @@
 
         <com.google.android.exoplayer2.ui.SubtitleView
             android:id="@id/exo_subtitles"
+            android:background="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
         <ImageView
-            android:layout_gravity="center"
             android:id="@id/exo_artwork"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="fitXY"
+            android:layout_gravity="center"
             android:adjustViewBounds="true"
-            />
+            android:background="@android:color/transparent"
+            android:contentDescription="@null"
+             />
     </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
 
     <View
@@ -37,34 +38,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent" />
+
     <FrameLayout
         android:id="@id/exo_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent" />
-    <!--加载进度页-->
-    <include layout="@layout/simple_exo_play_load" />
-    <!--错误页-->
-    <include
-        layout="@layout/simple_exo_play_error"
-        android:visibility="gone" />
-    <!--重播页-->
-    <include
-        layout="@layout/simple_exo_play_replay"
-        android:visibility="gone" />
-    <!--手势页-->
+    <!--手势页进度音量-->
     <include layout="@layout/simple_exo_video_progress_dialog" />
-    <!--手势页-->
+    <!--手势亮度-->
     <include layout="@layout/simple_video_audio_brightness_dialog" />
-    <!--手势页-->
-    <include layout="@layout/simple_exo_play_btn_hint" />
+
     <!--水印图-->
     <ImageView
-        android:id="@id/exo_play_watermark"
+        android:id="@id/exo_player_watermark"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end|right"
         android:layout_margin="7dp"
         android:contentDescription="@null" />
 
-</FrameLayout>
+</merge>

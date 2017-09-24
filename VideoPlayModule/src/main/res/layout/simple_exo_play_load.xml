@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:my="http://schemas.android.com/apk/res-auto"
-    android:id="@id/exo_loading_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#33000000"
     android:gravity="center"
     android:orientation="vertical"
-    android:visibility="gone">
+     >
 
 
     <chuangyuan.ycj.videolibrary.widget.ExoVideoAnim

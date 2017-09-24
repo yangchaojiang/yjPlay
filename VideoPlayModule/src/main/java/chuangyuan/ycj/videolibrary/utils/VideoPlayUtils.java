@@ -3,6 +3,7 @@ package chuangyuan.ycj.videolibrary.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.TrafficStats;
@@ -11,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.view.WindowManager;
+
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 
@@ -35,7 +37,7 @@ public class VideoPlayUtils {
      * kb 转换mb
      *
      * @param k 该参数表示kb的值
-     * @return  double
+     * @return double
      */
     public static double getM(long k) {
         double m;
@@ -45,7 +47,8 @@ public class VideoPlayUtils {
 
     /**
      * 检查当前网络是否可用
-     *@param activity  活动
+     *
+     * @param activity 活动
      * @return boolean
      */
     public static boolean isNetworkAvailable(Activity activity) {
@@ -60,9 +63,9 @@ public class VideoPlayUtils {
             // 获取NetworkInfo对象
             NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
             if (networkInfo != null && networkInfo.length > 0) {
-                for (int i = 0; i < networkInfo.length; i++) {
+                for (NetworkInfo aNetworkInfo : networkInfo) {
                     // 判断当前网络状态是否为连接状态
-                    if (networkInfo[i].getState() == NetworkInfo.State.CONNECTED) {
+                    if (aNetworkInfo.getState() == NetworkInfo.State.CONNECTED) {
                         return true;
                     }
                 }
@@ -70,27 +73,27 @@ public class VideoPlayUtils {
         }
         return false;
     }
+
     /**
      * 检查当前网络是否可用
-     *@param mContext  活动
+     *
+     * @param mContext 活动
      * @return boolean
      */
     public static boolean isWifi(Context mContext) {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-        if (activeNetInfo != null
-                && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-            return true;
-        }
-        return false;
+        return activeNetInfo != null
+                && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI;
     }
+
     /***
+     * 是否TYPE_SOURCE 异常
      *
-     *是否TYPE_SOURCE 异常
-     * @param e  异常
-     * @return  boolean
-     * ***/
+     * @param e 异常
+     * @return boolean
+     ***/
     public static boolean isBehindLiveWindow(ExoPlaybackException e) {
         if (e.type != ExoPlaybackException.TYPE_SOURCE) {
             return false;
@@ -108,9 +111,10 @@ public class VideoPlayUtils {
 
     /***
      * 得到活动对象
-     * @param  context  上下文
-     * @return  Activity
-     * **/
+     *
+     * @param context 上下文
+     * @return Activity
+     **/
     public static Activity scanForActivity(Context context) {
         if (context == null) return null;
         if (context instanceof Activity) {
@@ -120,11 +124,13 @@ public class VideoPlayUtils {
         }
         return null;
     }
+
     /***
      * 得到活动对象
-     * @param  context  上下文
-     * @return  AppCompatActivity
-     * **/
+     *
+     * @param context 上下文
+     * @return AppCompatActivity
+     **/
     public static AppCompatActivity getAppCompActivity(Context context) {
         if (context == null) return null;
         if (context instanceof AppCompatActivity) {
@@ -134,14 +140,16 @@ public class VideoPlayUtils {
         }
         return null;
     }
+
     /***
      * 得到活动对象
-     * @param  context  上下文
-     * **/
+     *
+     * @param context 上下文
+     **/
     public static void showActionBar(Context context) {
         if (getAppCompActivity(context) != null) {
             ActionBar ab = getAppCompActivity(context).getSupportActionBar();
-            if (ab!=null) {
+            if (ab != null) {
                 ab.setShowHideAnimationEnabled(false);
                 ab.show();
             }
@@ -153,8 +161,9 @@ public class VideoPlayUtils {
 
     /***
      * 隐藏标题栏
+     *
      * @param context 上下文
-     * **/
+     **/
     public static void hideActionBar(Context context) {
         if (getAppCompActivity(context) != null) {
             ActionBar ab = getAppCompActivity(context).getSupportActionBar();
@@ -171,10 +180,31 @@ public class VideoPlayUtils {
 
     /***
      * 获取当前手机横屏状态
-     * @param  activity 活动
+     *
+     * @param activity 活动
      * @return int
-     * ***/
-    public static   int   getOrientation(@NonNull  Activity activity){
-        return  activity.getResources().getConfiguration().orientation;
+     ***/
+    public static boolean isLand(@NonNull Activity activity) {
+        return activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    /***
+     * 获取当前手机状态
+     *
+     * @param activity 活动
+     * @return int
+     ***/
+    public static int getOrientation(@NonNull Activity activity) {
+        return activity.getResources().getConfiguration().orientation;
+    }
+
+    /**
+     * dp转px
+     *
+     * @param dpValue dp单位
+     */
+    public static int dip2px(@NonNull Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

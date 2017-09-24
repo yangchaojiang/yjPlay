@@ -7,33 +7,53 @@
     </declare-styleable>
 
     <declare-styleable name="VideoPlayerView">
-        <attr name="use_artwork" format="boolean" />
+        <!--默认展位图-->
         <attr name="default_artwork" format="reference" />
+        <!--用户控制布局-->
         <attr name="use_controller" format="boolean" />
+        <!--预览是否有touch事件-->
         <attr name="hide_on_touch" format="boolean" />
-        <attr name="resize_mode"  />
-        <attr name="surface_type"   />
-        <attr name="show_timeout" format="integer"/>
+        <!--视频渲染方式-->
+        <attr name="resize_mode" />
+        <!--view渲染方式-->
+        <attr name="surface_type" />
+        <!--水印占位图-->
+        <attr name="user_watermark" format="reference" />
+        <attr name="auto_show" format="boolean" />
+        <!--设置控制布局显示时间-->
+        <attr name="show_timeout" format="integer" />
+        <!--播放进度倒退增量-->
         <attr name="rewind_increment" format="integer" />
-        <attr name="fastforward_increment" format="integer"/>
-        <attr name="player_layout_id"  format="reference"/>
-        <attr name="user_watermark"  format="reference"/>
-        <attr name="controller_layout_id"  format="reference"/>
-       <attr name="auto_show" format="boolean"/>
-        <attr name="player_list" format="boolean"/>
+        <!--播放进度增量-->
+        <attr name="fastforward_increment" format="integer" />
+        <!--播放核心布局-->
+        <attr name="player_layout_id" format="reference" />
+        <!---->
+        <attr name="controller_layout_id" format="reference" />
+        <!--设置列表播放-->
+        <attr name="player_list" format="boolean" />
+        <!--自定义重播放布局-->
+        <attr name="player_replay_layout_id" format="reference" />
+        <!--自定义错误布局-->
+        <attr name="player_error_layout_id" format="reference" />
+        <!--自定义流量布局-->
+        <attr name="player_hint_layout_id" format="reference" />
+        <!--自定义加载布局-->
+        <attr name="player_load_layout_id" format="reference" />
     </declare-styleable>
+
     <declare-styleable name="ExoDefaultTimeBar">
-        <attr name="bar_height" format="dimension"/>
-        <attr name="touch_target_height" format="dimension"/>
-        <attr name="ad_marker_width" format="dimension"/>
-        <attr name="scrubber_enabled_size" format="dimension"/>
-        <attr name="scrubber_disabled_size" format="dimension"/>
-        <attr name="scrubber_dragged_size" format="dimension"/>
-        <attr name="played_color" format="color"/>
-        <attr name="scrubber_color" format="color"/>
-        <attr name="buffered_color" format="color"/>
-        <attr name="unplayed_color" format="color"/>
-        <attr name="ad_marker_color" format="color"/>
-        <attr name="played_ad_marker_color" format="color"/>
+        <attr name="bar_height" format="dimension" />
+        <attr name="touch_target_height" format="dimension" />
+        <attr name="ad_marker_width" format="dimension" />
+        <attr name="scrubber_enabled_size" format="dimension" />
+        <attr name="scrubber_disabled_size" format="dimension" />
+        <attr name="scrubber_dragged_size" format="dimension" />
+        <attr name="played_color" format="color" />
+        <attr name="scrubber_color" format="color" />
+        <attr name="buffered_color" format="color" />
+        <attr name="unplayed_color" format="color" />
+        <attr name="ad_marker_color" format="color" />
+        <attr name="played_ad_marker_color" format="color" />
     </declare-styleable>
 </resources>

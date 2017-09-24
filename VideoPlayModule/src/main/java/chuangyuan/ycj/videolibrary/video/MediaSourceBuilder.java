@@ -22,6 +22,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 
 /**
@@ -29,39 +30,44 @@ import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
  * E-Mail:1007181167@qq.com
  * Description：数据源处理类
  */
-public  final  class MediaSourceBuilder {
-    private  String TAG=MediaSourceBuilder.class.getName();
+public final class MediaSourceBuilder {
+    private String TAG = MediaSourceBuilder.class.getName();
     private Context context;
     private int streamType;
     private Handler mainHandler = null;
-    private   MediaSource mediaSource;
-    private   DataSourceListener listener;
+    private MediaSource mediaSource;
+    private DataSourceListener listener;
 
     /***
      * 初始化
+     *
      * @param listener 自定义数源工厂接口
-     * **/
-    public MediaSourceBuilder(DataSourceListener listener){
-        this.listener=listener;
+     **/
+    public MediaSourceBuilder(DataSourceListener listener) {
+        this.listener = listener;
     }
+
     /****
-     *初始化多个视频源，无缝衔接
+     * 初始化多个视频源，无缝衔接
+     *
      * @param firstVideoUri  第一个视频， 例如例如广告视频
-     *  @param   secondVideoUri   第二个视频
-     * ***/
-      void setMediaSourceUri(Context context, String firstVideoUri, String secondVideoUri) {
+     * @param secondVideoUri 第二个视频
+     ***/
+    void setMediaSourceUri(Context context, String firstVideoUri, String secondVideoUri) {
         this.context = context;
+        mainHandler = new Handler();
         Uri mSecondVideoUri = Uri.parse(secondVideoUri);
         this.streamType = Util.inferContentType(mSecondVideoUri.getLastPathSegment());
         initDataConcatenatingMediaSource(Uri.parse(firstVideoUri), mSecondVideoUri);
     }
 
     /****
-     *初始化
-     * @param context   上下文
-     * @param uri  视频的地址
-     * ***/
-      void setMediaSourceUri(Context context, Uri uri) {
+     * 初始化
+     *
+     * @param context 上下文
+     * @param uri     视频的地址
+     ***/
+    void setMediaSourceUri(Context context, Uri uri) {
         this.context = context;
         this.streamType = Util.inferContentType(uri.getLastPathSegment());
         initData(uri, streamType);
@@ -69,15 +75,16 @@ public  final  class MediaSourceBuilder {
 
 
     /****
-     *初始化多个视频源，无缝衔接
-     * @param firstVideoUri  第一个视频， 例如例如广告视频
-     *  @param   secondVideoUri   第二个视频
-     * ***/
+     * 初始化多个视频源，无缝衔接
+     *
+     * @param firstVideoUri  第一个视频， 例如广告视频
+     * @param secondVideoUri 第二个视频
+     ***/
     private void initDataConcatenatingMediaSource(Uri firstVideoUri, Uri secondVideoUri) {
         MediaSource firstSource = initData(firstVideoUri, Util.inferContentType(firstVideoUri.getLastPathSegment()));
         switch (streamType) {
             case C.TYPE_SS:
-                MediaSource secondSource = new SsMediaSource(secondVideoUri, new DefaultDataSourceFactory(context, null,getDataSource()),
+                MediaSource secondSource = new SsMediaSource(secondVideoUri, new DefaultDataSourceFactory(context, null, getDataSource()),
                         new DefaultSsChunkSource.Factory(getDataSource()),
                         mainHandler, null);
                 mediaSource = new ConcatenatingMediaSource(firstSource, secondSource);
@@ -105,12 +112,12 @@ public  final  class MediaSourceBuilder {
     }
 
 
-
     /****
-     *初始化视频源，无缝衔接
-     * @param uri  视频的地址
-     *  @param   streamType    视频类型
-     * ***/
+     * 初始化视频源，无缝衔接
+     *
+     * @param uri        视频的地址
+     * @param streamType 视频类型
+     ***/
     private MediaSource initData(Uri uri, int streamType) {
         switch (streamType) {
             case C.TYPE_SS:
@@ -120,11 +127,11 @@ public  final  class MediaSourceBuilder {
                         mainHandler, null);
                 break;
             case C.TYPE_DASH:
-                mediaSource = new DashMediaSource(uri,new DefaultDataSourceFactory(context, null,getDataSource()),
-                        new DefaultDashChunkSource.Factory(getDataSource()),mainHandler, null);
+                mediaSource = new DashMediaSource(uri, new DefaultDataSourceFactory(context, null, getDataSource()),
+                        new DefaultDashChunkSource.Factory(getDataSource()), mainHandler, null);
                 break;
             case C.TYPE_HLS:
-                mediaSource=new HlsMediaSource(uri,new DefaultHlsDataSourceFactory(getDataSource()),5,mainHandler,null);
+                mediaSource = new HlsMediaSource(uri, new DefaultHlsDataSourceFactory(getDataSource()), 5, mainHandler, null);
                 break;
             case C.TYPE_OTHER:
                 mediaSource = new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null);
@@ -137,12 +144,14 @@ public  final  class MediaSourceBuilder {
 
     /***
      * 获取视频类型
-     * **/
-      MediaSource getMediaSource() {
+     **/
+    MediaSource getMediaSource() {
         return mediaSource;
     }
+
     /***
      * 获取链接类型
+     *
      * @return int
      ***/
     int getStreamType() {
@@ -151,34 +160,35 @@ public  final  class MediaSourceBuilder {
 
     /***
      * 初始化数据源工厂
-     * **/
+     **/
     private DataSource.Factory getDataSource() {
-      Log.d(TAG,"Factory:"+(listener==null));
-        if(listener!=null){
+        Log.d(TAG, "Factory:" + (listener == null));
+        if (listener != null) {
             return listener.getDataSourceFactory();
         } else {
-            return new DefaultHttpDataSourceFactory(context.getPackageName(),null,10000,1000,true);
+            return new DefaultHttpDataSourceFactory(context.getPackageName(), null, 10000, 1000, true);
         }
 
     }
 
     /****
      * 自定义data数据源
-     * @param  listener  接口实现
-     * **/
+     *
+     * @param listener 接口实现
+     **/
     public void setListener(DataSourceListener listener) {
         this.listener = listener;
     }
 
     /****
      * 释放资源
-     * **/
+     **/
     public void release() {
         if (mediaSource != null) {
             mediaSource.releaseSource();
         }
-        if (mainHandler!=null){
-            mainHandler=null;
+        if (mainHandler != null) {
+            mainHandler = null;
         }
     }
 

@@ -1,7 +1,6 @@
 package chuangyuan.ycj.videolibrary.listener;
 
 
-
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
@@ -18,13 +17,13 @@ public interface ExoPlayerListener {
 
     void replayPlayers();
 
-    void switchUri(int position,String name);
+    void switchUri(int position, String name);
 
     void playVideoUri();
 
-    void   showReplayViewChange(int visibility);
+    void showReplayViewChange(int visibility);
 
-    void  onBack();
+    void onBack();
 
     ExoUserPlayer getPlay();
 }

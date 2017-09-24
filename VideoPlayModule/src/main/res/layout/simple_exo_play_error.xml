@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/exo_play_error_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/exo_error_bg"
     android:clickable="true"
     android:gravity="center"
     android:orientation="vertical"
-    android:visibility="gone">
+    >
 
     <TextView
-        android:id="@id/exo_play_error_btn"
+        android:clickable="false"
+        android:id="@id/exo_player_error_btn_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableBottom="@drawable/ic_sentiment_very_dissatisfied_white_48px"
         android:drawablePadding="5dp"
         android:gravity="center"
-        android:shadowColor="@color/colorAccent"
+        android:shadowColor="@color/simple_exo_style_Accent"
         android:text="@string/exo_play_error_hint"
         android:textColor="@android:color/white" />
 </LinearLayout>

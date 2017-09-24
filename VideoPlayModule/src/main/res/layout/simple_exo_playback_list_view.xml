@@ -7,46 +7,17 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_video_top_color"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@id/exo_controls_back"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_centerVertical="true"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_chevron_left_white_48px"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/exo_controls_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_toRightOf="@id/exo_controls_back"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textColor="@android:color/white" />
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/bg_video_bottom_color"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingTop="5dp"
         android:visibility="visible">
 
 
@@ -55,8 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="10dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@id/exo_position"
@@ -91,7 +61,6 @@
 
             <chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar
                 android:id="@id/exo_progress"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -139,7 +108,8 @@
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:clickable="true"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:visibility="visible" />
 
     <ImageButton
         android:id="@id/exo_play"
@@ -160,7 +130,20 @@
         android:layout_centerVertical="true"
         android:layout_weight="0"
         android:background="@null"
-        android:src="@drawable/ic_exo_paues"
+        android:src="@drawable/ic_exo_pause"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/exo_controls_title"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_video_top_color"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:paddingLeft="15dp"
+        android:paddingRight="@dimen/controls_title__marginRight"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

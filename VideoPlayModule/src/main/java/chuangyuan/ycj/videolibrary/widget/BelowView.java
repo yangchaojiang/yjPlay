@@ -27,10 +27,10 @@ public class BelowView {
 
     public BelowView(Context c) {
         this.context = c;
-        this.convertView = View.inflate(c, R.layout.exo_belowview, null);
+        this.convertView = View.inflate(c, R.layout.simple_exo_belowview, null);
         String[] datas = c.getResources().getStringArray(R.array.exo_video_switch_text);
         listView = (ListView) convertView.findViewById(R.id.list_item);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(c, R.layout.exo_belowview_item, datas);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(c, R.layout.simple_exo_belowview_item, datas);
         listView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         listView.setAdapter(adapter);
     }

@@ -12,9 +12,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -53,15 +55,15 @@ public class ExoUserPlayer {
     private long resumePosition;//进度
     private int resumeWindow;
     private Timer timer;//定时任务类
-    protected SimpleExoPlayer player;
-    protected VideoPlayerView mPlayerView;
-    protected ExoPlayerViewListener mPlayerViewListener;
+    SimpleExoPlayer player;
+    VideoPlayerView mPlayerView;
+    ExoPlayerViewListener mPlayerViewListener;
     private VideoInfoListener videoInfoListener;//回调信息
     private boolean playerNeedsSource;
     private NetworkBroadcastReceiver mNetworkBroadcastReceiver;
-    protected List<String> videoUri;
-    protected List<String> nameUri;
-    protected Activity activity;
+    List<String> videoUri;
+    List<String> nameUri;
+    Activity activity;
     private ComponentListener componentListener;
     private PlayComponentListener playComponentListener;
     private boolean isPause;
@@ -92,7 +94,7 @@ public class ExoUserPlayer {
      * @param reId     播放控件id
      * @param listener 自定义数据源类
      **/
-    public ExoUserPlayer(@NonNull Activity activity, @IdRes int reId, DataSourceListener listener) {
+    public ExoUserPlayer(@NonNull Activity activity, @IdRes int reId, @Nullable DataSourceListener listener) {
         this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
     }
 
@@ -103,7 +105,7 @@ public class ExoUserPlayer {
      * @param playerView 播放控件
      * @param listener   自定义数据源类
      **/
-    public ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, DataSourceListener listener) {
+    public ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         this.activity = activity;
         this.mPlayerView = playerView;
         mediaSourceBuilder = new MediaSourceBuilder(listener);
@@ -115,7 +117,6 @@ public class ExoUserPlayer {
         componentListener = new ComponentListener();
         mPlayerView.setExoPlayerListener(playComponentListener);
         mPlayerViewListener = mPlayerView.getComponentListener();
-
         timer = new Timer();
         timer.schedule(task, 0, 1000); // 1s后启动任务，每1s执行一次
     }
@@ -294,6 +295,7 @@ public class ExoUserPlayer {
             playerNeedsSource = true;
         }
         playVideo();
+
     }
 
     /****
@@ -379,7 +381,7 @@ public class ExoUserPlayer {
     private TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            if (mPlayerView.getExoLoadingLayout().getVisibility() == View.VISIBLE) {
+            if (mPlayerView.isLoadingLayoutShow()) {
                 mPlayerViewListener.showNetSpeed(getNetSpeed());
             }
         }
@@ -413,6 +415,7 @@ public class ExoUserPlayer {
 
     /****
      * 监听返回键 true 可以正常返回处理，false 切换到竖屏
+     *
      * @return boolean
      ***/
     public boolean onBackPressed() {
@@ -454,7 +457,7 @@ public class ExoUserPlayer {
         mPlayerViewListener.setWatermarkImage(res);
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NonNull String title) {
         mPlayerViewListener.setTitle(title);
     }
 
@@ -643,7 +646,7 @@ public class ExoUserPlayer {
          */
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-            if (playWhenReady){
+            if (playWhenReady) {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//防锁屏
 
             } else {
