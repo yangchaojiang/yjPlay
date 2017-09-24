@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_play.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\src\\main\\res\\drawable-ldpi\\exo_controls_play.png"
+    },
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_edit_mode_logo.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\exo_edit_mode_logo.png"
+    },
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_pause.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\src\\main\\res\\drawable-ldpi\\exo_controls_pause.png"
+    },
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_rewind.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\src\\main\\res\\drawable-ldpi\\exo_controls_rewind.png"
+    },
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_next.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\src\\main\\res\\drawable-ldpi\\exo_controls_next.png"
+    },
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_fastforward.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\src\\main\\res\\drawable-ldpi\\exo_controls_fastforward.png"
+    },
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_repeat_one.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\src\\main\\res\\drawable-ldpi\\exo_controls_repeat_one.png"
+    },
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_previous.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\src\\main\\res\\drawable-ldpi\\exo_controls_previous.png"
+    },
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_repeat_off.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\src\\main\\res\\drawable-ldpi\\exo_controls_repeat_off.png"
+    },
+    {
+        "merged": "D:\\project\\2017-06-10\\yjPlay\\ui\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_repeat_all.png",
+        "source": "D:\\project\\2017-06-10\\yjPlay\\ui\\src\\main\\res\\drawable-ldpi\\exo_controls_repeat_all.png"
+    }
+]

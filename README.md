@@ -1,10 +1,10 @@
 # yjPlay
  
- ## gif 显示有点卡，帧数低，实际很流畅
+  ### gif 显示有点卡，帧数低，实际很流畅
 
  ![](sss.gif)
 
- ### 基于exoPlayer 自定义播放器 Jplayer支持功能：
+ ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    * 1 ExoUserPlayer  基本播放
    * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势
    * 3 ManualPlayer  默认手动播放，增加默认图
@@ -15,7 +15,11 @@
    * 9 支持列表播放视频
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8 等
    * 11 支持网络类型 提示是否播放
+   * 12 **1.5.4**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式
  <!--more-->
+
+ ### [更新日志→》戳我查看](RELEASENOTES.md)
+
  ### 一.引用类库
   ````
    repositories {
@@ -24,17 +28,18 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.4'
+     compile 'com.ycjiang:VideoPlayModule:1.5.5'
 
   }
   ````
   >>> 提示：无法正常引用请在 repositories{ }添加已下代码
   >>> mavenCentral(url: "https://dl.bintray.com/ycjiang/ycjiang")
-  >>>
+
  ### 二.控件属性
 
 
- > #### 1.控件属性引用
+ >>  #### 1.控件属性
+  >>>>控件自定义属性
  ````
    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
          android:id="@+id/exo_play_context_id"
@@ -46,43 +51,98 @@
          app:controller_layout_id="@layout/simple_exo_playback_control_view"
          app:player_layout_id="@layout/simple_exo_view"
          app:surface_type="texture_view"
-         app:use_artwork="true"
          app:paddingEnd="0dp"
          app:paddingStart="0dp"
          app:fastforward_increment="0"
          app:rewind_increment="0"
          app:user_watermark="@mipmap/watermark_big"
          app:player_list="true"
-         app:use_controller="true" />
+         app:use_controller="true"
+         app:player_replay_layout_id="@layout/custom_play_replay"
+         app:player_error_layout_id="@layout/custom_play_error"
+         app:player_hint_layout_id="@layout/custom_play_btn_hint"
+         app:player_load_layout_id="@layout/custom_exo_play_load"
+          />
+   ````
+   >>>> 基本使用如下
+   ````
+         <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+                 android:id="@+id/exo_play_context_id"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@android:color/transparent"
+                 app:controller_layout_id="@layout/simple_exo_playback_control_view"
+                 app:player_layout_id="@layout/simple_exo_view"
+                 app:resize_mode="fit"
+                 app:surface_type="surface_view" />
  ````
- > #### 2.属性说明
+ >> #### 2.属性说明
+   * 必选
+
     1.   player_layout_id  播放器布局， //必选
-        player_layout_id 目前支持指定布局simple_exo_playback_control_view 后续版本，开放自定义使用这自定义
-    2.   controller_layout_id  控制器布局` //必选
-        controller_layout_id  支持自定义布局
-    3.   surface_type 视频渲染类型 //texture_view 和surface_view //枚举类型。默认surface_view
-            列表播放只能选择texture_view 不能选择surface_view，详情页面播放推荐surface_view
+         player_layout_id 目前支持指定布局simple_exo_playback_control_view 后续版本，开放自定义使用
+
+   * 必选
+
+    2. controller_layout_id  控制器布局`  默认有三种布局
+        1.simple_exo_playback_control_view.xml  //视频封面控制布局下面，比较常规使用
+        2.simple_exo_playback_list_view.xml.xml //在列表播放使用控制布局
+        3.simple_exo_playback_top_view.xml.xml  //视频封面控制布局上面
+
+   * 可选 **注意： 列表播放只能选择texture_view 不能选择surface_view，详情页面播放推荐surface_view**
+   >
+    3.    surface_type 视频渲染类型 //texture_view 和surface_view //枚举类型。默认surface_view
+
+
+   >
     4.   use_controller   是否用户控制控制器  布尔类型
+
+   >
     5.   resize_mode  视频缩放渲染显示方式一共4种 //可选 美剧类型
             1.fit          //正常模式
             2.fixed_width  //保持的是视频宽度，拉伸视频高度
             3.fixed_height //保持的是视频高度，拉伸视频宽度
             4.fill          //全屏模式，拉伸视频宽高
+   >
     6.   default_artwork  占位图  //可选
-         占位图 注意在控制布局后下面
+
+   >
     7.   show_timeout  控制布局隐藏时间  默认值为3秒  //可选
+
+   >
     8.   paddingEnd，paddingStart 设置边距  默认值为0  //可选
+
+   >
     9.   fastforward_increment  设置快进增量,以毫秒为单位。 //可选
+
+   >
     10.  rewind_increment   设置快退增量,以毫秒为单位。  //可选
+
+   >
     11.  user_watermark    水印图片 默认在右上角  //可选
+
+   >
     12.  player_list      是否指定列表播放   //可选 默认 false  true 列表播放
 
- >#### 3.修改网络对话框提示文字内容
+   >
+    13.  player_replay_layout_id  自定义重播布局文件
+
+   >
+    14.  player_error_layout_id   自定义错误布局文件
+
+   >
+    15.  player_hint_layout_id   自定义非wifi提示布局文件
+
+   >
+    16.  player_load_layout_id   自定义视频加载布局文件
+
+
+ >> #### 3.修改网络对话框提示文字内容
       app.strings.xml
       <string name="exo_play_reminder">您当前网络不是wifi，是否继续观看视频</string>
       <string name="exo_play_wifi_hint_no">提示</string>
 
- >#### 4.在功能清单声明 AndroidManifest.xml
+ >> #### 4.在功能清单声明 AndroidManifest.xml
     在activity节点 加上“android:configChanges="orientation|keyboardHidden|screenSize"”
      如下实例：
             <activity android:name="chuangyuan.ycj.yjplay.MainListActivity"
@@ -138,13 +198,17 @@
 
          exoPlayerManager.setPosition(1000)
 
-   6.设置视频路径
+   6.设置封面图
+
+           videoPlayerView.setPreviewImage(bimtap);或者 videoPlayerView.getPreviewImage())
+
+   7.设置视频路径
 
          exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
          exoPlayerManager.setPlayUri(Uri.parse("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8"));
          exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.h264"); //本地视频
 
-   7.设置多线路播放
+   8.设置多线路播放
 
           //开启多线路设置，默认关闭
           exoPlayerManager.setShowVideoSwitch(true);
@@ -156,7 +220,7 @@
            exoPlayerManager.setPlaySwitchUri(test,name);
     >>
 
-   8.设置监听回调VideoInfoListener
+   9.设置监听回调VideoInfoListener
 
          exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
                        @Override
@@ -183,7 +247,7 @@
                            //模式变化
                        }
                    });
-   9.覆写Activity和Fragment周期方法
+   10.覆写Activity和Fragment周期方法
 
                 Override
                 public void onResume() {
@@ -302,69 +366,32 @@
           缓存 : CacheDataSinkFactory,CacheDataSourceFactory
           http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
           Priority : PriorityDataSourceFactory
-#### 2 自定义数据源引用
-
+ #### 2 自定义数据源引用
       compile 'com.google.android.exoplayer:extension-okhttp:r2.5.1'
       compile 'com.google.android.exoplayer:extension-rtmp:r2.5.1'
 
->>#### 3.自定义数据源工厂类:
-   * 实现接口 DataSourceListener  然后在getDataSourceFactory方法里 自定义 数据源
-   * 在你使用播放控件时中实例化类
+### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
+### 六.[自定义布局用法-戳我](READMELAYUOT.md)
 
-### [自定义数据源和自定义控制布局用法-戳我](http://yangchaojiang.cn/2017/09/05/jPlayer-blog/#四-数据源工厂类)
-## 升级日志
- #### 1.5.4
-   * 1.优化不播放的息屏
-   * 2.调整返回返回键处理 exoPlayerManager.onBackPressed()和VideoPlayerManager.getInstance().onBackPressed()  返回为true 退出界面
-   * 3.删除返回事件回调处理 改用 onBackPressed() 返回处理， true 正常出退出界面 false 切换到竖屏
-   * 4 修复 1.5.2 和 1.5.1 无法引用问题
- #### 1.5.1
-   * 1.修复列表播放缓慢滑动销毁，造成黑屏和控制布局错误等问题
-   * 2.暴露获取进度条控件方法getTimeBar()
-   * 3.修复其他问题等
- #### 1.4.9
-   * 1.升级内核为[r.2.5.2](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#r252)
-   * 2.对齐android 依赖库版本对齐，移除"25.4.0"对齐"25.3.1"版本， "25.4.0"导致部分用户无法引用
- ### 1.4.8
-   * 1 修改自定义加载源类，不再用单利模式,采用控件实使用进行调用
- ### 1.4.7
-   * 1 修复1.4.6切换bug
- ### 1.4.6
-   * 1 增加视频列表播放支持
-   * 2 增加VideoPlayerManager 列表播放管理类
-   * 3 增加自定义进度条控件
-   * 4 修复bug
- ### 1.4.5
-   * 1 增加视频缓存功能
-   * 2 去掉ExoUserPlayer 构造方法设置uri
-   * 3 修复已知问题
-   * 4 增加自定义数据源工厂类，实现自己文件数据源类型
-   * 5 升级内核版本
-   ### 1.4.4
-   * 1  修复线路切换文字不改变稳定
-   * 2  增加线路提供方法。集合和数组
-   * 3  提供布局设置水印,修复水印方法，去掉默认水印
-  ### 1.4.3
-  * 1  修改重新播放页面
-  * 2  增加进度默认设置
-  * 3  增加占位图设置
-  * 4  修复全屏事问题
- ###  1.4.1
- * 1 修复其他问题,
- * 2 还原 自定义属性
- ### 1.4.0
- * 1 增加视频清晰度切换，在横屏
- * 2 修改手势类，之间业务剥离出来
- * 3 修复其他问题,
- * 4 升级内核版本，布局和业务分离处理
- * 5 重新整理项目结构，不兼容1.4.0 版本之前
 
- ### 1.3.0
- * 1.增加播放数据流量提醒框，增加网络变化监听
- * 2.toobar状态的隐藏和显示,  增加v7依赖
- * 3.直播隐藏进度条
- * 4.两个视频切换，广告视频，进度处理
- * 5.修复已知bug.简化处理
+
+## [License](https://github.com/yangchaojiang/yjPlay/blob/master/LICENSE)
+
+ The GNU General Public License is a free, copyleft license for
+software and other kinds of works.
+
+  The licenses for most software and other practical works are designed
+to take away your freedom to share and change the works.  By contrast,
+the GNU General Public License is intended to guarantee your freedom to
+share and change all versions of a program--to make sure it remains free
+software for all its users.  We, the Free Software Foundation, use the
+GNU General Public License for most of our software; it applies also to
+any other work released this way by its authors.  You can apply it to
+your programs, too.
+
+
+
+
 
 
 

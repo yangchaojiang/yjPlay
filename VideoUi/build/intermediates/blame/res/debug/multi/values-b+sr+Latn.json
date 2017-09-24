@@ -1,0 +1,596 @@
+[
+    {
+        "outputFile": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 108,
+                    "endOffset": 159
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 108,
+                        "endOffset": 159
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 164,
+                    "endColumn": 107,
+                    "endOffset": 267
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 164,
+                        "endColumn": 107,
+                        "endOffset": 267
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 272,
+                    "endColumn": 122,
+                    "endOffset": 390
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 272,
+                        "endColumn": 122,
+                        "endOffset": 390
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 395,
+                    "endColumn": 103,
+                    "endOffset": 494
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 395,
+                        "endColumn": 103,
+                        "endOffset": 494
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 499,
+                    "endColumn": 105,
+                    "endOffset": 600
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 499,
+                        "endColumn": 105,
+                        "endOffset": 600
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 605,
+                    "endColumn": 85,
+                    "endOffset": 686
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 605,
+                        "endColumn": 85,
+                        "endOffset": 686
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 691,
+                    "endColumn": 103,
+                    "endOffset": 790
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 691,
+                        "endColumn": 103,
+                        "endOffset": 790
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 795,
+                    "endColumn": 117,
+                    "endOffset": 908
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 795,
+                        "endColumn": 117,
+                        "endOffset": 908
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 913,
+                    "endColumn": 81,
+                    "endOffset": 990
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 913,
+                        "endColumn": 81,
+                        "endOffset": 990
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 995,
+                    "endColumn": 80,
+                    "endOffset": 1071
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 995,
+                        "endColumn": 80,
+                        "endOffset": 1071
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1076,
+                    "endColumn": 87,
+                    "endOffset": 1159
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1076,
+                        "endColumn": 87,
+                        "endOffset": 1159
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1164,
+                    "endColumn": 105,
+                    "endOffset": 1265
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1164,
+                        "endColumn": 105,
+                        "endOffset": 1265
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1270,
+                    "endColumn": 107,
+                    "endOffset": 1373
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1270,
+                        "endColumn": 107,
+                        "endOffset": 1373
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1378,
+                    "endColumn": 100,
+                    "endOffset": 1474
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1378,
+                        "endColumn": 100,
+                        "endOffset": 1474
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1479,
+                    "endColumn": 104,
+                    "endOffset": 1579
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1479,
+                        "endColumn": 104,
+                        "endOffset": 1579
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1584,
+                    "endColumn": 107,
+                    "endOffset": 1687
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1584,
+                        "endColumn": 107,
+                        "endOffset": 1687
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1692,
+                    "endColumn": 100,
+                    "endOffset": 1788
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1692,
+                        "endColumn": 100,
+                        "endOffset": 1788
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1793,
+                    "endColumn": 127,
+                    "endOffset": 1916
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1793,
+                        "endColumn": 127,
+                        "endOffset": 1916
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1921,
+                    "endColumn": 96,
+                    "endOffset": 2013
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1921,
+                        "endColumn": 96,
+                        "endOffset": 2013
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 2018,
+                    "endColumn": 83,
+                    "endOffset": 2097
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 2,
+                        "startOffset": 1117,
+                        "endColumn": 81,
+                        "endOffset": 1196
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2102,
+                    "endColumn": 73,
+                    "endOffset": 2171
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 2,
+                        "startOffset": 768,
+                        "endColumn": 71,
+                        "endOffset": 837
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2176,
+                    "endColumn": 66,
+                    "endOffset": 2238
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 2,
+                        "startOffset": 841,
+                        "endColumn": 64,
+                        "endOffset": 903
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2243,
+                    "endColumn": 65,
+                    "endOffset": 2304
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 2,
+                        "startOffset": 907,
+                        "endColumn": 63,
+                        "endOffset": 968
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2309,
+                    "endColumn": 79,
+                    "endOffset": 2384
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 2,
+                        "startOffset": 689,
+                        "endColumn": 77,
+                        "endOffset": 764
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2389,
+                    "endColumn": 76,
+                    "endOffset": 2461
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 2,
+                        "startOffset": 1200,
+                        "endColumn": 74,
+                        "endOffset": 1272
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 2466,
+                    "endColumn": 86,
+                    "endOffset": 2548
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 2,
+                        "startOffset": 1276,
+                        "endColumn": 84,
+                        "endOffset": 1358
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2553,
+                    "endColumn": 78,
+                    "endOffset": 2627
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 2,
+                        "startOffset": 1362,
+                        "endColumn": 76,
+                        "endOffset": 1436
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2632,
+                    "endColumn": 77,
+                    "endOffset": 2705
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 2,
+                        "startOffset": 1040,
+                        "endColumn": 75,
+                        "endOffset": 1113
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 2710,
+                    "endColumn": 68,
+                    "endOffset": 2774
+                },
+                "from": {
+                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-b+sr+Latn\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 2,
+                        "startOffset": 972,
+                        "endColumn": 66,
+                        "endOffset": 1036
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 2779,
+                    "endColumn": 83,
+                    "endOffset": 2858
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 2018,
+                        "endColumn": 83,
+                        "endOffset": 2097
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 2863,
+                    "endColumn": 100,
+                    "endOffset": 2959
+                },
+                "from": {
+                    "file": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 2102,
+                        "endColumn": 100,
+                        "endOffset": 2198
+                    }
+                }
+            }
+        ]
+    }
+]

@@ -87,7 +87,7 @@
                 app:played_color="#FF7000"
                 app:bar_height="5dp"
                 app:unplayed_color="@color/colorPrimaryDark"
-                app:buffered_color="@color/colorAccent"
+                app:buffered_color="@color/simple_exo_style_Accent"
                 app:ad_marker_color="@color/colorPrimary"
                 app:ad_marker_width="@dimen/dp30"
                 android:layout_weight="1"

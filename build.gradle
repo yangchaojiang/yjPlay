@@ -14,7 +14,7 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" } //审核后可使用
-        mavenCentral(url: "https://dl.bintray.com/ycjiang/ycjiang")
+      //  mavenCentral();
     }
     project.ext {
         compileSdkVersion=25

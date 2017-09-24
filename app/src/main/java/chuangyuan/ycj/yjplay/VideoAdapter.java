@@ -50,7 +50,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         public void bindData(String videoBean) {
             userPlayer.setTitle("" + getAdapterPosition());
             userPlayer.setPlayUri(videoBean);
-            Glide.with(mContext).load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
+            Glide.with(mContext)
+                    .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
+                    .placeholder(R.mipmap.test)
                     .into(playerView.getPreviewImage());
         }
     }

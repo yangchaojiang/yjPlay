@@ -6,14 +6,18 @@ android {
     defaultConfig {
         applicationId "chuangyuan.xiangjiang.yjplay"
         minSdkVersion project.ext.minSdkVersion
-        targetSdkVersion  project.ext.targetSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        android.defaultConfig.vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -37,13 +41,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-   // compile project(':VideoPlayModule')
-
-       compile 'com.ycjiang:VideoPlayModule:1.5.4'
-    compile 'com.google.android.exoplayer:extension-okhttp:r2.5.2'
+  // compile project(':VideoPlayModule')
+  compile 'com.ycjiang:VideoPlayModule:1.5.5'
+    /* compile 'com.google.android.exoplayer:extension-okhttp:r2.5.2'*/
     compile 'com.google.android.exoplayer:extension-rtmp:r2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.jude:easyrecyclerview:4.4.0'
     compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.wang.avi:library:2.1.3'
 
 }

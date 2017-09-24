@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="chuangyuan.ycj.yjplay">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,8 +16,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainDetailedActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:configChanges=
+                "screenSize|smallestScreenSize|screenLayout|orientation|screenSize"
             android:theme="@style/AppTheme">
+
         </activity>
         <activity
             android:name="chuangyuan.ycj.yjplay.MainListActivity"

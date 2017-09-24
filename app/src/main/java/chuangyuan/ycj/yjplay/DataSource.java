@@ -1,16 +1,10 @@
 package chuangyuan.ycj.yjplay;
 
 import android.content.Context;
-
-import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
+import android.graphics.RectF;
 
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
-import okhttp3.OkHttpClient;
 
 
 /**
@@ -30,12 +24,12 @@ public class DataSource implements DataSourceListener {
      }
     @Override
     public com.google.android.exoplayer2.upstream.DataSource.Factory getDataSourceFactory() {
-       OkHttpClient okHttpClient = new OkHttpClient();
-       OkHttpDataSourceFactory OkHttpDataSourceFactory=    new OkHttpDataSourceFactory(okHttpClient, Util.getUserAgent(context, context.getApplicationContext().getPackageName()),new DefaultBandwidthMeter() );
+      // OkHttpClient okHttpClient = new OkHttpClient();
+      // OkHttpDataSourceFactory OkHttpDataSourceFactory=    new OkHttpDataSourceFactory(okHttpClient, Util.getUserAgent(context, context.getApplicationContext().getPackageName()),new DefaultBandwidthMeter() );
          //使用OkHttpClient 数据源工厂
-        return  OkHttpDataSourceFactory;
+     //   return  OkHttpDataSourceFactory;
           //默认数据源工厂
-    //    return new JDefaultDataSourceFactory(context);
+    return new JDefaultDataSourceFactory(context);
           // Rtmp数据源工厂 对 Rtmp 协议支持
           // return  new RtmpDataSourceFactory();
           //缓存使用和组合使用
