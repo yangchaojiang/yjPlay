@@ -6,8 +6,8 @@
 /build
 /captures
 .externalNativeBuild
-/videoplaylist
 VideoUi
+/VideoUi
 vitamioRecorderLibrary
 .idea/inspectionProfiles/
 app/app-release.apk
