@@ -7,10 +7,8 @@
 /captures
 .externalNativeBuild
 /videoplaylist
-/VideoUi
-/vitamioRecorderLibrary
-/VdeioUi/
+VideoUi
+vitamioRecorderLibrary
 .idea/inspectionProfiles/
-VideoPlayModule/src/androidTest/
 app/app-release.apk
 
