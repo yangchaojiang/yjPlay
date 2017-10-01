@@ -1,7 +1,7 @@
 # yjPlay
  
   ### gif 显示有点卡，帧数低，实际很流畅
-  #### [下载预览apk](app-debug.apk)
+  #### [下载预览apk](https://github.com/yangchaojiang/yjPlay/blob/master/app-debug.apk)
 
  ![](test.gif)
 
