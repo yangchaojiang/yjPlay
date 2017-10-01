@@ -8,108 +8,16 @@
     android:orientation="vertical">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/bg_video_bottom_color"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingTop="5dp"
-        android:visibility="visible">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@id/exo_position"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0"
-                android:text="06:21"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/ycj_video_timeSpan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_weight="0"
-                android:text="/"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@id/exo_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_weight="0"
-                android:text="06:21"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-
-            <chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar
-                android:id="@id/exo_progress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                app:bar_height="2dp"
-                app:buffered_color="@android:color/white"
-                app:played_color="#FF7000"
-                app:unplayed_color="#a5ffffff" />
-
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/exo_video_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="0"
-            android:background="@null"
-            android:contentDescription="@null"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="高清"
-            android:textColor="@color/exo_exo_video_switch_selector"
-            android:visibility="gone" />
-
-        <ImageButton
-            android:id="@id/exo_video_fullscreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="0"
-            android:background="@null"
-            android:contentDescription="@null"
-            android:padding="5dp"
-            android:src="@drawable/ic_fullscreen_white" />
-    </LinearLayout>
-
     <ImageView
         android:id="@id/exo_preview_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:clickable="true"
-        android:scaleType="fitXY"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
     <ImageButton
@@ -140,7 +48,6 @@
         android:layout_height="35dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_video_top_color"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:lines="1"

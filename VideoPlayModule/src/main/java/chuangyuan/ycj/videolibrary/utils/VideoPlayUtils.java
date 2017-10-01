@@ -201,7 +201,9 @@ public class VideoPlayUtils {
     /**
      * dp转px
      *
+     * @param context 山下文
      * @param dpValue dp单位
+     * @return     int
      */
     public static int dip2px(@NonNull Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;

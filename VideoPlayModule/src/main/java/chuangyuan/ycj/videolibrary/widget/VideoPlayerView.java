@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,20 +23,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 
 /**
@@ -47,8 +42,9 @@ import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 public class VideoPlayerView extends FrameLayout implements PlaybackControlView.VisibilityListener {
     public static final String TAG = VideoPlayerView.class.getName();
     protected Activity activity;
+    private ExoDefaultTimeBar timeBar;
+    private ImageButton exoFullscreen;
     protected SimpleExoPlayerView playerView;///播放view
-    private ImageButton exo_video_fullscreen; //全屏或者竖屏
     protected TextView controlsTitleText, videoSwitchText, videoLoadingShowText, videoDialogProText; //视视频标题,清晰度切换,实时视频加载速度显示,//控制进度布局
     private View exo_loading_layout, exo_play_error_layout, exo_controls_back;//视频加载页,错误页,进度控件//返回按钮
     private View playReplayLayout, playBtnHintLayout, dialogProLayout, exoAudioBrightnessLayout;//播放结束，提示布局,//调整进度布局,//控制音频和亮度布局
@@ -57,14 +53,12 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     private ImageView videoAudioBrightnessImg;//显示音频和亮度布图片
     private ProgressBar videoAudioBrightnessPro;//显示音频和亮度
     private AlertDialog alertDialog;
-    private ExoDefaultTimeBar timeBar;
-    private Lock lock = new ReentrantLock();
     private boolean isShowVideoSwitch;//是否切换按钮
     protected ExoPlayerListener mExoPlayerListener;
     private boolean isListPlayer;//是否列表播放// 默认false
     private boolean isPreViewTop;
-    private int getPaddingLeft;
-    private final ComponentListener componentListener = new ComponentListener();
+    private int getPaddingLeft;//标题做表间距
+    private ComponentListener componentListener = new ComponentListener();
 
     public VideoPlayerView(Context context) {
         super(context, null);
@@ -85,8 +79,13 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         int playerHintId = 0;
         int defaultArtworkId = 0;
         int loadId = 0;
+        int back = R.layout.simple_exo_back_view;
+        LayoutParams params = new LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
         playerView = new SimpleExoPlayerView(getContext(), attrs);
-        addView(playerView);
+        addView(playerView,params);
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VideoPlayerView, 0, 0);
             try {
@@ -116,17 +115,17 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         exo_play_error_layout = LayoutInflater.from(context).inflate(errorId, null);
         playReplayLayout = LayoutInflater.from(context).inflate(replayId, null);
         playBtnHintLayout = LayoutInflater.from(context).inflate(playerHintId, null);
-        exo_controls_back = LayoutInflater.from(context).inflate(R.layout.simple_exo_back_view, null);
+        exo_controls_back = LayoutInflater.from(context).inflate(back, null);
         exo_loading_layout = LayoutInflater.from(context).inflate(loadId, null);
         intiView();
         if (userWatermark != 0) {
             exoPlayWatermark.setImageResource(userWatermark);
         }
         if (defaultArtworkId != 0) {
-             setPreviewImage(BitmapFactory.decodeResource(getResources(), defaultArtworkId));
+            setPreviewImage(BitmapFactory.decodeResource(getResources(), defaultArtworkId));
         } else {
             if (!isPreViewTop) {
-              setPreviewImage(BitmapFactory.decodeResource(getResources(), R.drawable.ic_black));
+                setPreviewImage(BitmapFactory.decodeResource(getResources(), R.drawable.ic_black));
             }
         }
     }
@@ -146,7 +145,6 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         frameLayout.addView(playBtnHintLayout, frameLayout.getChildCount());
         frameLayout.addView(exo_controls_back, frameLayout.getChildCount(), layoutParams);
         exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_player_watermark);
-        exo_video_fullscreen = (ImageButton) playerView.findViewById(R.id.exo_video_fullscreen);
         controlsTitleText = (TextView) playerView.findViewById(R.id.exo_controls_title);
         videoLoadingShowText = (TextView) playerView.findViewById(R.id.exo_loading_show_text);
         videoSwitchText = (TextView) playerView.findViewById(R.id.exo_video_switch);
@@ -156,6 +154,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         videoAudioBrightnessPro = (ProgressBar) playerView.findViewById(R.id.exo_video_audio_brightness_pro);
         dialogProLayout = playerView.findViewById(R.id.exo_video_dialog_pro_layout);
         videoDialogProText = (TextView) playerView.findViewById(R.id.exo_video_dialog_pro_text);
+        exoFullscreen = (ImageButton) findViewById(R.id.exo_video_fullscreen);
         if (playerView.findViewById(R.id.exo_player_replay_btn_id) != null)
             playerView.findViewById(R.id.exo_player_replay_btn_id).setOnClickListener(componentListener);
         if (playerView.findViewById(R.id.exo_player_error_btn_id) != null)
@@ -170,7 +169,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
             exo_preview_image = playerView.getPreviewImageView();
         }
         exo_controls_back.setOnClickListener(componentListener);
-        exo_video_fullscreen.setOnClickListener(componentListener);
+        playerView.findViewById(R.id.exo_video_fullscreen).setOnClickListener(componentListener);
         playerView.setControllerVisibilityListener(this);
         if (isListPlayer && !VideoPlayUtils.isLand(activity)) {
             exo_controls_back.setVisibility(GONE);
@@ -188,18 +187,11 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         return null;
     }
 
+    /***
+     * 销毁处理
+     * **/
     public void onDestroy() {
-        showReplay(GONE);
-        showLoadState(GONE);
-        showErrorState(GONE);
-        showBtnContinueHint(GONE);
-        if (exo_preview_image != null) {
-            exo_preview_image.setVisibility(VISIBLE);
-        }
-        if (getPlaybackControlView() != null) {
-            getPlaybackControlView().showNo();
-            getPlaybackControlView().onDetachedFromWindow();
-        }
+
         if (activity.isFinishing()) {
             removeAllViews();
             activity = null;
@@ -211,6 +203,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         if (belowView != null) {
             belowView = null;
         }
+        componentListener = null;
 
     }
 
@@ -219,6 +212,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      ***/
     @Override
     public void onVisibilityChange(int visibility) {
+        if (activity==null)return;
         showBackView(visibility);
         if (belowView != null && visibility == View.GONE) {
             belowView.dismissBelowView();
@@ -267,11 +261,12 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         super.onDetachedFromWindow();
         if (getPlay() != null && VideoPlayerManager.getInstance().getVideoPlayer() != null) {
             if (getPlay().toString().equals(VideoPlayerManager.getInstance().getVideoPlayer().toString())) {
-                ((ManualPlayer) getPlay()).reset();
+                Log.d(TAG,"onDetachedFromWindow");
+                VideoPlayerManager.getInstance().getVideoPlayer().reset();
             }
         }
-    }
 
+    }
     /***
      * 设置内容横竖屏内容
      *
@@ -288,14 +283,13 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
             );
-            this.addView(playerView, params);
+             addView(playerView, params);
         } else {
-            ViewGroup parent = (ViewGroup) playerView.getParent();
+             ViewGroup parent = (ViewGroup) playerView.getParent();
             if (parent != null) {
                 parent.removeView(playerView);
             }
-            ViewGroup contentView = (ViewGroup) VideoPlayUtils.scanForActivity(activity)
-                    .findViewById(android.R.id.content);
+            ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
             LayoutParams params = new LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
@@ -312,10 +306,9 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      ***/
     private void showLoadState(int visibility) {
         if (visibility == View.VISIBLE) {
-            showBackView(GONE);
+            playerView.hideController();
             showErrorState(View.GONE);
             showReplay(View.GONE);
-            playerView.hideController();
         }
         if (exo_loading_layout != null) {
             exo_loading_layout.setVisibility(visibility);
@@ -329,9 +322,10 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      ***/
     private void showErrorState(int visibility) {
         if (visibility == View.VISIBLE) {
-            showBackView(VISIBLE);
+            playerView.hideController();
             showLoadState(View.GONE);
             showReplay(View.GONE);
+            showBackView(VISIBLE);
             playerView.setOnTouchListener(null);
         }
         if (exo_play_error_layout != null) {
@@ -347,11 +341,11 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      ***/
     private void showReplay(int visibility) {
         if (visibility == View.VISIBLE) {
-            showBackView(VISIBLE);
+            playerView.hideController();
             showLoadState(View.GONE);
             showErrorState(View.GONE);
             showBtnContinueHint(GONE);
-            playerView.hideController();
+            showBackView(VISIBLE);
         }
         if (playReplayLayout != null) {
             playReplayLayout.setVisibility(visibility);
@@ -409,7 +403,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      ***/
     public void exitFullView() {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_white);
+        exoFullscreen.setImageResource(R.drawable.ic_fullscreen_white);
         doOnConfigurationChanged(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
@@ -417,35 +411,30 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      * 显示网络提示框
      ***/
     private void showDialog() {
-        try {
-            lock.lock();
-            if (alertDialog != null && alertDialog.isShowing()) {
-                return;
-            }
-            alertDialog = new AlertDialog.Builder(activity).create();
-            alertDialog.setTitle(activity.getString(R.string.exo_play_reminder));
-            alertDialog.setMessage(activity.getString(R.string.exo_play_wifi_hint_no));
-            alertDialog.setCancelable(false);
-            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, activity.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    showBtnContinueHint(View.VISIBLE);
-
-                }
-            });
-            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, activity.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    showBtnContinueHint(View.GONE);
-                    mExoPlayerListener.playVideoUri();
-                }
-            });
-            alertDialog.show();
-        } finally {
-            lock.tryLock();
+        if (alertDialog != null && alertDialog.isShowing()) {
+            return;
         }
+        alertDialog = new AlertDialog.Builder(activity).create();
+        alertDialog.setTitle(activity.getString(R.string.exo_play_reminder));
+        alertDialog.setMessage(activity.getString(R.string.exo_play_wifi_hint_no));
+        alertDialog.setCancelable(false);
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, activity.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                showBtnContinueHint(View.VISIBLE);
+
+            }
+        });
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, activity.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                showBtnContinueHint(View.GONE);
+                mExoPlayerListener.playVideoUri();
+            }
+        });
+        alertDialog.show();
     }
 
 
@@ -636,11 +625,11 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
             if (v.getId() == R.id.exo_video_fullscreen) {
                 if (VideoPlayUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE) {//横屏
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                    exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_white);
+                    exoFullscreen.setImageResource(R.drawable.ic_fullscreen_white);
                     doOnConfigurationChanged(Configuration.ORIENTATION_PORTRAIT);
                 } else if (VideoPlayUtils.getOrientation(activity) == Configuration.ORIENTATION_PORTRAIT) {//竖屏
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                    exo_video_fullscreen.setImageResource(R.drawable.ic_fullscreen_exit_white);
+                    exoFullscreen.setImageResource(R.drawable.ic_fullscreen_exit_white);
                     doOnConfigurationChanged(Configuration.ORIENTATION_LANDSCAPE);
                 }
             } else if (v.getId() == R.id.exo_controls_back) {
@@ -688,7 +677,9 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
         @Override
         public void showHidePro(int visibility) {
-            timeBar.setVisibility(visibility);
+            if (timeBar != null) {
+                timeBar.setVisibility(visibility);
+            }
 
         }
 
@@ -775,5 +766,95 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
                 videoAudioBrightnessPro.setProgress(currIndex);
             }
         }
+
+        @Override
+        public void next() {
+            if (playerView.getUseControllerView() != null) {
+                playerView.getUseControllerView().next();
+            }
+        }
+
+        @Override
+        public void previous() {
+            if (playerView.getUseControllerView() != null) {
+                playerView.getUseControllerView().previous();
+            }
+        }
+
+        @Override
+        public void hideController() {
+            if (playerView != null) {
+                playerView.hideController();
+                playerView.setControllerHideOnTouch(false);
+            }
+        }
+
+        @Override
+        public void setControllerHideOnTouch(boolean onTouch) {
+            if (playerView != null) {
+                playerView.setControllerHideOnTouch(onTouch);
+            }
+        }
+
+        @Override
+        public void showPreview(int visibility) {
+            getPreviewImage().setVisibility(visibility);
+        }
+
+        @Override
+        public void setPlayerBtnOnTouchListener(OnTouchListener listener) {
+            if (playerView != null) {
+                playerView.getUseControllerView().getPlayButton().setOnTouchListener(listener);
+            }
+        }
+
+        @Override
+        public void reset() {
+            if (playReplayLayout != null) {
+                playReplayLayout.setVisibility(GONE);
+            }
+            if (exo_loading_layout != null) {
+                exo_loading_layout.setVisibility(GONE);
+            }
+            if (exo_play_error_layout != null) {
+                exo_play_error_layout.setVisibility(GONE);
+            }
+            if (playBtnHintLayout != null) {
+                playBtnHintLayout.setVisibility(GONE);
+            }
+             onDestroy();
+            if (getPlaybackControlView() != null) {
+                getPlaybackControlView().showNo();
+
+            }
+             playerView.setOnTouchListener(null);
+
+        }
+
+        @Override
+        public int getHeight() {
+            return playerView.getHeight();
+        }
+
+        @Override
+        public void setPlatViewOnTouchListener(OnTouchListener listener) {
+            playerView.setOnTouchListener(listener);
+        }
+
+        @Override
+        public void setShowWitch(boolean showVideoSwitch) {
+            setShowVideoSwitch(showVideoSwitch);
+        }
+
+        @Override
+        public void setSeekBarOpenSeek(boolean isOpenSeek) {
+            getTimeBar().setOpenSeek(isOpenSeek);
+        }
+
+        @Override
+        public boolean isList() {
+            return isListPlayer();
+        }
+
     }
 }

@@ -40,6 +40,8 @@
         <attr name="player_hint_layout_id" format="reference" />
         <!--自定义加载布局-->
         <attr name="player_load_layout_id" format="reference" />
+        <!--自定义预览布局-->
+        <attr name="player_preview_layout_id" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ExoDefaultTimeBar">

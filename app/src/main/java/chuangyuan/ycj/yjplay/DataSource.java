@@ -1,7 +1,6 @@
 package chuangyuan.ycj.yjplay;
 
 import android.content.Context;
-import android.graphics.RectF;
 
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
@@ -20,7 +19,6 @@ public class DataSource implements DataSourceListener {
 
      public   DataSource (Context context){
          this.context=context;
-
      }
     @Override
     public com.google.android.exoplayer2.upstream.DataSource.Factory getDataSourceFactory() {
@@ -29,16 +27,15 @@ public class DataSource implements DataSourceListener {
          //使用OkHttpClient 数据源工厂
      //   return  OkHttpDataSourceFactory;
           //默认数据源工厂
-    return new JDefaultDataSourceFactory(context);
+        return new JDefaultDataSourceFactory(context);
           // Rtmp数据源工厂 对 Rtmp 协议支持
           // return  new RtmpDataSourceFactory();
-          //缓存使用和组合使用
-        //  LeastRecentlyUsedCacheEvictor evictor = new LeastRecentlyUsedCacheEvictor(1000000000);
-         //  SimpleCache   simpleCache = new SimpleCache(new File(context.getCacheDir(), "media"), evictor);
+           //缓存使用和组合使用
+        //   LeastRecentlyUsedCacheEvictor evictor = new LeastRecentlyUsedCacheEvictor(1000000000);
+         //  SimpleCache simpleCache = new SimpleCache(new File(context.getCacheDir(), "media"), evictor);
          //缓存数据源使用，内部使用DefaultDataSourceFactory数据源工厂类
-         // return  new CacheDataSinkFactory(simpleCache,10000);
          // 配合okHttp数据源工厂类
-         //return  new CacheDataSourceFactory(simpleCache, OkHttpDataSourceFactory);
+        //return  new CacheDataSourceFactory(context,100L, 10000L);
          //使用配合默认数据源红工厂类
          // return  new CacheDataSourceFactory(simpleCache, new JDefaultDataSourceFactory(context));
         }

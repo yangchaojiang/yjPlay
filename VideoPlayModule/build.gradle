@@ -24,15 +24,15 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-   // compile project(':VideoUi')
-   compile 'com.ycjiang:VideoUi:1.0.2'
+   /*compile project(':VideoUi')*/
+   compile 'com.ycjiang:VideoUi:1.0.3'
 }
 apply plugin: 'com.novoda.bintray-release'
 publish {
     userOrg = 'ycjiang'      //bintray注册的用户名
     groupId = 'com.ycjiang'         //compile引用时的第1部分groupId
     artifactId = 'VideoPlayModule'     //compile引用时的第2部分项目名
-    publishVersion = '1.5.5'    //compile引用时的第3部分版本号
+    publishVersion = '1.5.6'    //compile引用时的第3部分版本号
     desc = 'Video player support live '//d项目描述
     repoName="ycjiang" //你的仓库名称，没有填写默认仓库是maven//这也是很多人上传仓库不对名问题最多情况，
     website = 'https://github.com/yangchaojiang/yjPlay' //github 托管地址

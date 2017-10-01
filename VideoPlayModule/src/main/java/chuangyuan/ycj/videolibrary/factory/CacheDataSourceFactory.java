@@ -28,7 +28,7 @@ public  class CacheDataSourceFactory implements DataSource.Factory {
     private final long maxFileSize, maxCacheSize;
      private String cachePath;//缓存路径
     /***
-     * @param  context 上下问
+     * @param  context 上下文
      * @param maxCacheSize 缓存大小
      * @param maxFileSize  最大文件大小
      ***/
@@ -43,7 +43,7 @@ public  class CacheDataSourceFactory implements DataSource.Factory {
                 new DefaultHttpDataSourceFactory(userAgent, bandwidthMeter));
     }
     /***
-     * @param  context 上下问
+     * @param  context 上下文
      * @param maxCacheSize 缓存大小
      * @param maxFileSize  最大文件大小
      * @param    cachePath  注意sd设置权限  设置视频缓存路径

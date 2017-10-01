@@ -27,9 +27,7 @@ public class VideoPlayerManager {
      * @param videoPlayer 播放页
      **/
     public void setCurrentVideoPlayer(ManualPlayer videoPlayer) {
-        if (mVideoPlayer != null) {
-            releaseVideoPlayer();
-        }
+        releaseVideoPlayer();
         this.mVideoPlayer = videoPlayer;
     }
 
@@ -39,8 +37,8 @@ public class VideoPlayerManager {
     public void releaseVideoPlayer() {
         if (mVideoPlayer != null) {
             mVideoPlayer.reset();
-            mVideoPlayer = null;
         }
+
     }
 
     /***
@@ -49,10 +47,7 @@ public class VideoPlayerManager {
      * @return boolean
      **/
     public boolean onBackPressed() {
-        if (mVideoPlayer != null) {
-            return mVideoPlayer.onBackPressed();
-        }
-        return true;
+        return mVideoPlayer == null || mVideoPlayer.onBackPressed();
     }
 
     /**
@@ -60,7 +55,7 @@ public class VideoPlayerManager {
      **/
     public void onPause() {
         if (mVideoPlayer != null) {
-            mVideoPlayer.onPause();
+            mVideoPlayer.onListPause();
         }
     }
 
@@ -82,7 +77,6 @@ public class VideoPlayerManager {
             mVideoPlayer = null;
         }
     }
-
     /**
      * 获取当前播放类
      *

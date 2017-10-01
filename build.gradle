@@ -13,14 +13,13 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url "https://jitpack.io" } //审核后可使用
-      //  mavenCentral();
+       mavenCentral();
     }
     project.ext {
         compileSdkVersion=25
         targetSdkVersion=25
         buildToolsVersion='25.0.3'
-        minSdkVersion=16
+        minSdkVersion=17
         versionCode = 17
         versionName = "3.0"
     }

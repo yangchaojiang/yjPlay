@@ -1,12 +1,19 @@
  ## 更新日志
-
+  ### 1.5.6
+   * 1.增加新api方法（循环播放， 集合和数组，视频组合播放，播放状态，控制布局操作，等）。
+   * 2.增加点击开始按钮自定义事件，（需求开始自己业务处理后，开始播放视频）。
+   * 3.修复列表点击再次播放视频控制布局展示错误**bug**。
+   * 4.优化默认数据源支持本地视频的资源。
+   * 5.优化控制类和播放View的之间代码解耦,更简洁[ManualPlayer](https://github.com/yangchaojiang/yjPlay/blob/master/VideoPlayModule/src/main/java/chuangyuan/ycj/videolibrary/video/ManualPlayer.java)
+   * 6.支持选择广告出现视频位置（不限于开头，也可以视频末尾）。
+   * 7.修复其他已知问题(重播布局返回按钮不显示**bug**)，提高稳定性。
    ### 1.5.5
    * 1.升级内核版本[r.2.5.3](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#r253)
-   * 2.优化全屏切换代码处理，切回竖屏虚拟导航键不现实按钮问题
-   * 3.增加错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式
-   * 4.优化GestureVideoPlayer 业务和view 解耦处理，更简洁，业务更清晰。
-   * 5.优化视频封面图问题，支持封面图 在控制布局下面和上面，有开发者自己选择合适
-   * 6.增加默认封面图在控制布局上面
+   * 2.优化全屏切换代码处理，切回竖屏虚拟导航键不现实按钮问题。
+   * 3.增加错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
+   * 4.优化GestureVideoPlayer 业务和view 解耦处理，更简洁，业务更清晰.。
+   * 5.优化视频封面图问题，支持封面图 在控制布局下面和上面，自己选择合适.。
+   * 6.增加默认封面图在控制布局上面。
    ### 1.5.4
    * 1.优化不播放的息屏
    * 2.调整返回返回键处理 exoPlayerManager.onBackPressed()和VideoPlayerManager.getInstance().onBackPressed()  返回为true 退出界面

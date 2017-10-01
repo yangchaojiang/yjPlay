@@ -4,16 +4,16 @@ import android.app.Activity;
 import android.net.Uri;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.google.android.exoplayer2.util.Util;
 
 import java.util.List;
 
-import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
+import chuangyuan.ycj.videolibrary.listener.ItemVideo;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
@@ -22,96 +22,156 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * Description： 手动控制播放播放器
  */
 public class ManualPlayer extends GestureVideoPlayer {
-    private boolean isLoad = false;//已经加载
-    private ImageButton exoBtn, exoPause;
+    /*** 已经加载 ***/
+    private boolean isLoad = false;
     private View.OnTouchListener onTouchListener;
+    private View.OnClickListener onClickListener;
 
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this(activity, playerView, null);
     }
 
     public ManualPlayer(@NonNull Activity activity, @IdRes int reId) {
-        this(activity, (VideoPlayerView) activity.findViewById(reId), null);
+        this(activity, reId, null);
     }
 
-    public ManualPlayer(@NonNull Activity activity, @IdRes int reId, DataSourceListener listener) {
+    public ManualPlayer(@NonNull Activity activity, @IdRes int reId, @Nullable DataSourceListener listener) {
         this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
     }
 
-    public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, DataSourceListener listener) {
+    public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         super(activity, playerView, listener);
         intiView();
     }
 
     private void intiView() {
-        exoBtn = (ImageButton) mPlayerView.findViewById(R.id.exo_play);
-        exoPause = (ImageButton) mPlayerView.findViewById(R.id.exo_pause);
-        mPlayerView.getPlayerView().setControllerHideOnTouch(false);
+        mPlayerViewListener.setControllerHideOnTouch(false);
         onTouchListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    isLoad = true;
-                    if (getPlayerView().isListPlayer()) {
-                        VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v);
+                    } else {
+                        startPlayer();
                     }
-                    if (mPlayerView.getPreviewImage() != null) {
-                        mPlayerView.getPreviewImage().setVisibility(View.GONE);
-                    }
-                    mPlayerView.getPlayerView().setControllerHideOnTouch(true);
-                    createPlayers();
-                    hslHideView();
-                    registerReceiverNet();
-                    exoBtn.setOnTouchListener(null);
                 }
                 return false;
             }
         };
-        exoBtn.setOnTouchListener(onTouchListener);
+        mPlayerViewListener.setControllerHideOnTouch(false);
+        mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
+    }
+
+    /***
+     * 启动播放视频
+     * */
+    public void startPlayer() {
+        isLoad = true;
+        if (getPlayerView().isListPlayer()) {
+            handPause = false;
+            VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
+        }
+        mPlayerViewListener.showPreview(View.GONE);
+        mPlayerViewListener.setPlayerBtnOnTouchListener(null);
+        mPlayerViewListener.setControllerHideOnTouch(true);
+        createPlayers();
+        registerReceiverNet();
     }
 
     @Override
     public void setPlayUri(@NonNull Uri uri) {
-        exoBtn.setOnTouchListener(onTouchListener);
+        mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
         mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), uri);
         createPlayersNo();
     }
 
     @Override
     public void setPlaySwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
-        exoBtn.setOnTouchListener(onTouchListener);
+        mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
         this.videoUri = videoUri;
+        this.nameUri = name;
         mPlayerViewListener.showSwitchName(name.get(index));
         mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), Uri.parse(videoUri.get(index)));
         createPlayersNo();
     }
 
     @Override
-    public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
-        exoBtn.setOnTouchListener(onTouchListener);
+    public void setPlayUri(@NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri, int indexType) {
+        this.indexType = indexType;
+        mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
         mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
+        createPlayersNo();
+    }
+
+    @Override
+    public void setPlayUri(@NonNull Uri... uris) {
+        mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
+        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), uris);
+        createPlayersNo();
+    }
+
+    @Override
+    public void setPlayUri(@NonNull List<ItemVideo> uris) {
+        mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
+        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), uris);
         createPlayersNo();
     }
 
     @Override
     public void onResume() {
         if ((Util.SDK_INT <= 23 || player == null) && isLoad) {
-            createPlayers();
+            if (getPlayerView().isListPlayer()) {
+                mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
+            } else {
+                createPlayers();
+            }
         } else {
             createPlayersPlay();
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    /**
+     * 列表暂停
+     **/
+    void onListPause() {
+        isPause = true;
+        if (player != null) {
+            handPause = !player.getPlayWhenReady();
+            reset();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        onTouchListener = null;
+        onClickListener = null;
+    }
+
     /**
      * 重置
      **/
+
     public void reset() {
-        exoBtn.setVisibility(View.VISIBLE);
-        exoPause.setVisibility(View.GONE);
-        exoBtn.setOnTouchListener(onTouchListener);
-        if (getPlayerView() != null) {
-            getPlayerView().onDestroy();
-        }
         releasePlayers();
+        if (mPlayerViewListener != null) {
+            mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
+            mPlayerViewListener.showPreview(View.VISIBLE);
+            mPlayerViewListener.reset();
+        }
+    }
+
+    /****
+     * 设置点击播放按钮回调, 交给用户处理
+     * @param onClickListener 回调实例
+     * ***/
+    public void setOnPlayClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 }

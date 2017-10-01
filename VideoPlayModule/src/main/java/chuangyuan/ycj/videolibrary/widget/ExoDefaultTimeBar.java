@@ -2,6 +2,7 @@ package chuangyuan.ycj.videolibrary.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import com.google.android.exoplayer2.ui.DefaultTimeBar;
 
@@ -12,10 +13,22 @@ import com.google.android.exoplayer2.ui.DefaultTimeBar;
  */
 
 public class ExoDefaultTimeBar extends DefaultTimeBar {
-    public static final String TAG = "ExoDefaultTimeBar";
-
+    private  boolean  openSeek=true;
+    public ExoDefaultTimeBar(Context context) {
+        super(context, null);
+        new DefaultTimeBar(context,null);
+    }
     public ExoDefaultTimeBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         new DefaultTimeBar(context,attrs);
+        }
+
+    public void setOpenSeek(boolean openSeek) {
+        this.openSeek = openSeek;
+    }
+
+    @Override
+    public boolean isOpenSeek() {
+        return openSeek;
     }
 }

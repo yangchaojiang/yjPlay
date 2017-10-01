@@ -1,8 +1,9 @@
 # yjPlay
  
   ### gif 显示有点卡，帧数低，实际很流畅
+  #### [下载预览apk](app-debug.apk)
 
- ![](sss.gif)
+ ![](test.gif)
 
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    * 1 ExoUserPlayer  基本播放
@@ -15,20 +16,22 @@
    * 9 支持列表播放视频
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8 等
    * 11 支持网络类型 提示是否播放
-   * 12 **1.5.4**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式
+   * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式
  <!--more-->
 
  ### [更新日志→》戳我查看](RELEASENOTES.md)
-
+ 
+   >> [查看1.5.6升级日志](RELEASENOTES.md#156)
+   
  ### 一.引用类库
   ````
    repositories {
           jcenter()
-          maven { url "https://jitpack.io" }
+          mavenCentral();
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.5'
+     compile 'com.ycjiang:VideoPlayModule:1.5.6'
 
   }
   ````
@@ -157,7 +160,7 @@
     2.GestureVideoPlayer  具有手势操作播放（调节亮度和视频进度，和音量）会自动加载播放
     2.ManualPlayer  点击开始按钮播放,具有手势功能，和列表播放
 
- > #### 2 播放
+ > #### 2 播放代码 
          //实例化播放控制类
           ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
          //自定义你的数据源，后面详细介绍如何自定义数据源类
@@ -169,12 +172,34 @@
           //播放本地视频
           // exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
           //下面开启多线路播放
-          //  exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
-          //String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
-          // String[] name={"超清","高清","标清"};
-          //exoPlayerManager.setPlaySwitchUri(test,name);
+            exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
+           String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
+           String[] name={"超清","高清","标清"};
+           exoPlayerManager.setPlaySwitchUri(test,name);
           //添加水印图片
           // exoPlayerManager.setExoPlayWatermarkImg();
+          //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
+           exoPlayerManager.setSeekBarSeek(false);
+           //设置视循环播放
+           exoPlayerManager.setLooping(10);
+           //d隐藏控制布局
+           exoPlayerManager.hideControllerView();
+            //隐藏进度条
+           exoPlayerManager.hideSeekBar();
+            //显示进度条
+           exoPlayerManager.showSeekBar();
+            //是否播放
+           exoPlayerManager.isPlaying(); 
+           //设置点击播放按钮需要处理业务
+           exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
+                          @Override
+                          public void onClick(View v) {
+                              Toast.makeText(MainCustomActivity.this,"定义点击播放事件",Toast.LENGTH_LONG).show();
+                               //处理业务操作 完成后，
+                               //方法实现setOnPlayClickListener（)， 需要手动调用
+                               exoPlayerManager.startPlayer();//开始播放
+                          }
+             }); 
 
    1.实例化播放控制类
 
@@ -389,23 +414,5 @@ GNU General Public License for most of our software; it applies also to
 any other work released this way by its authors.  You can apply it to
 your programs, too.
 
-
-
-
-
-
-
-## [License](https://github.com/yangchaojiang/yjPlay/blob/master/LICENSE)
-
- The GNU General Public License is a free, copyleft license for
-software and other kinds of works.
-
-  The licenses for most software and other practical works are designed
-to take away your freedom to share and change the works.  By contrast,
-the GNU General Public License is intended to guarantee your freedom to
-share and change all versions of a program--to make sure it remains free
-software for all its users.  We, the Free Software Foundation, use the
-GNU General Public License for most of our software; it applies also to
-any other work released this way by its authors.  You can apply it to
-your programs, too. 
+ 
 

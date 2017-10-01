@@ -1,6 +1,7 @@
 package chuangyuan.ycj.videolibrary.listener;
 
 import android.text.SpannableString;
+import android.view.View;
 
 /**
  * Created by yangc on 2017/7/21.
@@ -10,7 +11,7 @@ import android.text.SpannableString;
 
 public interface ExoPlayerViewListener {
     /***
-     * 显示费wifi提示框
+     * 显示wifi提示框
      ***/
     void showAlertDialog();
 
@@ -107,4 +108,72 @@ public interface ExoPlayerViewListener {
      * @param currIndex  当前音量
      **/
     void setBrightnessPosition(int mMaxVolume, int currIndex);
+
+    /**
+     * 下一步
+     **/
+    void next();
+
+    /**
+     * 上一部
+     **/
+    void previous();
+
+    /***
+     * 隐藏控制布局操作不会显示
+     * **/
+    void hideController();
+
+    /***
+     * 控制布局操作
+     * @param  onTouch 启用控制布局点击事件 true 启用 反则  false;
+     * **/
+    void setControllerHideOnTouch(boolean onTouch);
+
+    /***
+     * 控制布局操作
+     * @param  visibility  类型
+     * **/
+    void showPreview(int visibility);
+
+    /***
+     * 设置开始播放OnTouch布局事件
+     * @param  listener  实例
+     * **/
+    void setPlayerBtnOnTouchListener(View.OnTouchListener listener);
+
+    /***
+     * 重置布局
+     * **/
+    void reset();
+
+    /***
+     * 获取view 高度
+     * @return int
+     * **/
+    int getHeight();
+
+    /***
+     * 手势操作OnTouch 事件
+     * @param listener   实例
+     * **/
+    void setPlatViewOnTouchListener(View.OnTouchListener listener);
+
+    /***
+     * 设置显示多线路图标
+     * @param showVideoSwitch true 显示 false 不现实
+     * **/
+    void setShowWitch(boolean showVideoSwitch);
+
+    /***
+     * 设置显示多线路图标
+     * @param isOpenSeek true 启用 false 不启用
+     * **/
+    void setSeekBarOpenSeek(boolean isOpenSeek);
+
+    /***
+     * 是否列表
+     * @return  boolean
+     * ***/
+    boolean  isList();
 }

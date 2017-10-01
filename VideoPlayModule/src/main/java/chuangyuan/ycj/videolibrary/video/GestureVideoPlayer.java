@@ -3,9 +3,9 @@ package chuangyuan.ycj.videolibrary.video;
 import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -15,10 +15,12 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+
 import com.google.android.exoplayer2.C;
+
 import java.util.Formatter;
-import java.util.List;
 import java.util.Locale;
+
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
@@ -31,14 +33,23 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  */
 public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchListener {
     private static final String TAG = GestureVideoPlayer.class.getName();
-    private int mMaxVolume;//音量的最大值
-    private float brightness = -1;//亮度
-    private int volume = -1;//音量
-    private long newPosition = -1;//动画
-    private AudioManager audioManager;//音量管理
+    /***音量的最大值***/
+    private int mMaxVolume;
+    /*** 亮度值 ***/
+    private float brightness = -1;//
+    /**** 当前音量  ***/
+    private int volume = -1;//
+    /*** 新的播放进度 ***/
+    private long newPosition = -1;//
+    /*** 音量管理 ***/
+    private AudioManager audioManager;//
+    /*** 手势操作管理 ***/
     private GestureDetector gestureDetector;
+    /*** 屏幕最大宽度 ****/
     private int screenWidthPixels;
+    /***格式字符 ****/
     private StringBuilder formatBuilder;
+    /****格式化类 ***/
     private Formatter formatter;
 
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
@@ -46,14 +57,14 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     }
 
     public GestureVideoPlayer(@NonNull Activity activity, @IdRes int reId) {
-        this(activity, (VideoPlayerView) activity.findViewById(reId));
+        this(activity, reId, null);
     }
 
-    public GestureVideoPlayer(@NonNull Activity activity, @IdRes int reId, DataSourceListener listener) {
+    public GestureVideoPlayer(@NonNull Activity activity, @IdRes int reId, @Nullable DataSourceListener listener) {
         this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
     }
 
-    public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, DataSourceListener listener) {
+    public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         super(activity, playerView, listener);
         intiViews();
     }
@@ -70,28 +81,8 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     @Override
     public void onPlayNoAlertVideo() {
         super.onPlayNoAlertVideo();
-        mPlayerView.getPlayerView().setOnTouchListener(this);
-    }
+        mPlayerViewListener.setPlatViewOnTouchListener(this);
 
-    @Override
-    public void setPlaySwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
-        super.setPlaySwitchUri(videoUri, name, index);
-        gestureDetector = new GestureDetector(activity, new PlayerGestureListener());
-    }
-
-    @Override
-    public void setPlayUri(@NonNull Uri uri) {
-        super.setPlayUri(uri);
-
-    }
-
-    @Override
-    void showReplay(int state) {
-        if (state == View.VISIBLE) {
-            mPlayerView.getPlayerView().setOnTouchListener(null);
-        } else {
-            mPlayerView.getPlayerView().setOnTouchListener(this);
-        }
     }
 
     @Override
@@ -169,8 +160,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         if (mPlayerViewListener != null) {
             mPlayerViewListener.setTimePosition(spannableString);
         }
-        stringBuilder = null;
-        spannableString = null;
+        stringBuilder=null;
     }
 
     /**
@@ -180,7 +170,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
      */
     private void showVolumeDialog(float percent) {
         if (volume == -1) {
-            volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            volume = (int) player.getVolume();
             if (volume < 0)
                 volume = 0;
         }
@@ -228,14 +218,12 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     }
 
     @Override
-    public void releasePlayers() {
-        super.releasePlayers();
-        if (activity.isFinishing()) {
-            audioManager = null;
-            gestureDetector = null;
-            formatBuilder = null;
-            formatter = null;
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        audioManager = null;
+        gestureDetector = null;
+        formatBuilder = null;
+        formatter = null;
     }
 
     /****
@@ -258,7 +246,6 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         public boolean onDown(MotionEvent e) {
             firstTouch = true;
             return super.onDown(e);
-
         }
 
         /**
@@ -289,7 +276,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
                 }
                 showProgressDialog(deltaX, stringForTime(newPosition), newPosition, stringForTime(duration), duration);
             } else {
-                float percent = deltaY / mPlayerView.getHeight();
+                float percent = deltaY / mPlayerViewListener.getHeight();
                 if (volumeControl) {
                     showVolumeDialog(percent);
                 } else {

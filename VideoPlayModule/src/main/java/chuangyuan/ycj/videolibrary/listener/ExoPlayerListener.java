@@ -21,9 +21,10 @@ public interface ExoPlayerListener {
 
     void playVideoUri();
 
-    void showReplayViewChange(int visibility);
-
     void onBack();
 
     ExoUserPlayer getPlay();
+
+    void onDetachedFromWindow();
+
 }

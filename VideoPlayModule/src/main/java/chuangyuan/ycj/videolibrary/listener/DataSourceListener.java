@@ -9,5 +9,9 @@ import com.google.android.exoplayer2.upstream.DataSource;
  */
 
 public interface DataSourceListener {
+       /***
+        * 自定义数据源工厂
+        * @return   DataSource.Factory
+        * **/
        DataSource.Factory getDataSourceFactory();
 }
