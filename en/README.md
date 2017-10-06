@@ -3,7 +3,7 @@
   ### gif The display has the point card, the frame number is low, actually very fluent
   #### [Download preview apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-debug.apk)
 
- ![](test.gif)
+ ![](../test.gif)
 
  ### Based on exo Player custom Player J Player support function：
    * 1 ExoUserPlayer  Basic play

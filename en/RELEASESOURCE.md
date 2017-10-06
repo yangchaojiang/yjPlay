@@ -1,6 +1,6 @@
  ### Data source factory class
  ####  1.Default data source
-  >>         缓存 : CacheDataSinkFactory,CacheDataSourceFactory
+  >>        cache : CacheDataSinkFactory,CacheDataSourceFactory
   >>         http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
   >>         Priority : PriorityDataSourceFactory
 #### 2 Customize the data source reference

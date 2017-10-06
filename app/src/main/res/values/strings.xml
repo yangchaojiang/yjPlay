@@ -3,4 +3,10 @@
     <string name="url_hls">http://ivi.bupt.edu.cn/hls/cctv2.m3u8</string>
     <string name="exo_play_wifi_hint_no">您当前网络不是wifi，是否继续观看视频</string>
     <string name="exo_play_reminder">提示</string>
+    <string name="Detailed_play">详细播放</string>
+    <string name="The_list_of_play">列表播放</string>
+    <string name="Custom_layout">自定义布局</string>
+    <string name="Customize_the_start_button_event">自定义开始按钮事件</string>
+    <string name="_15m">Continue playing (15 m)</string>
+    <string name="error_hint">出错了</string>
 </resources>

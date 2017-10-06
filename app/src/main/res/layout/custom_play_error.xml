@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="出错了"
+        android:text="@string/error_hint"
         android:textColor="@android:color/white" />
 
 

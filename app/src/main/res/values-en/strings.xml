@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">yjPlayVideo</string>
+    <string name="url_hls">http://ivi.bupt.edu.cn/hls/cctv2.m3u8</string>
+    <string name="exo_play_wifi_hint_no">Your current network is not wifi, do you continue to watch video</string>
+    <string name="exo_play_reminder">hint</string>
+    <string name="Detailed_play">Detailed play</string>
+    <string name="The_list_of_play">The list of play</string>
+    <string name="Custom_layout">Custom layout</string>
+    <string name="Customize_the_start_button_event">Customize the start button event</string>
+    <string name="_15m">Continue playing (15 m)</string>
+    <string name="error_hint">there was an error</string>
+</resources>

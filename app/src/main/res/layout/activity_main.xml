@@ -13,27 +13,27 @@
     tools:context="chuangyuan.ycj.yjplay.MainActivity">
 
     <Button
-        android:text="详细播放"
+        android:text="@string/Detailed_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:id="@+id/button" />
     <Button
-        android:text="列表播放"
+        android:text="@string/The_list_of_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:id="@+id/button2"
           />
     <Button
-        android:text="自定义布局"
+        android:text="@string/Custom_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:id="@+id/button3"
         />
     <Button
-        android:text="自定义开始按钮事件"
+        android:text="@string/Customize_the_start_button_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
