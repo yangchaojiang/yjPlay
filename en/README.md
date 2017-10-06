@@ -1,31 +1,29 @@
 # yjPlay
  
-  ### [View English instructions→Poking me ](en/README.md)
-
-  ### gif 显示有点卡，帧数低，实际很流畅
-  #### [下载预览apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-debug.apk)
+  ### gif The display has the point card, the frame number is low, actually very fluent
+  #### [Download preview apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-debug.apk)
 
  ![](test.gif)
 
- ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
-   * 1 ExoUserPlayer  基本播放
-   * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势
-   * 3 ManualPlayer  默认手动播放，增加默认图
-   * 5 增加广告视频预览切换
-   * 6 增加视频清晰度切换
-   * 7 增加缓存视频功能
-   * 8 支持自定义各种数据源加载 Okttp,Rtmp, 缓存，Cronet等协议,
-   * 9 支持列表播放视频
-   * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8 等
-   * 11 支持网络类型 提示是否播放
-   * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式
+ ### Based on exo Player custom Player J Player support function：
+   * 1 ExoUserPlayer  Basic play
+   * 2 GestureVideoPlayer   Increase gesture brightness, volume, fast forward, etc
+   * 3 ManualPlayer  By default manual playback, increase the default diagram
+   * 5 Add AD video preview switch
+   * 6 Add video clarity switch
+   * 7 Increase the cache video function
+   * 8 Support for custom data source loading Okttp, Rtmp, cache, Cronet and other protocols.
+   * 9 Support list to play video
+   * 10 Supports multiple file types, MP 4, M 4 A, Web M, Matroska, Ogg, WAV, MP 3, mpeg-ts, mpeg-ps, FLV, ADTS (AAC), Flac, M 3 U 8, etc
+   * 11 Support network type prompts for playback
+   * 12 **1.5.5**Add video loading layout, error layout, replay layout, prompt layout customization, more flexible implementation of layout style
  <!--more-->
 
- ### [更新日志→》戳我查看](RELEASENOTES.md)
+ ### [Update log→》Poking me see](RELEASENOTES.md)
  
-   >> [查看1.5.6升级日志](RELEASENOTES.md#156)
+   >> [See the 1.5.6 upgrade log](RELEASENOTES.md#156)
    
- ### 一.引用类库
+ ### 一.Reference library
   ````
    repositories {
           jcenter()
@@ -37,14 +35,14 @@
 
   }
   ````
-  >>> 提示：无法正常引用请在 repositories{ }添加已下代码
+  >>> Tip: you can't use a normal reference to add the code to the repositories {}
   >>> mavenCentral(url: "https://dl.bintray.com/ycjiang/ycjiang")
 
- ### 二.控件属性
+ ### 二.Control properties
 
 
- >>  #### 1.控件属性
-  >>>>控件自定义属性
+ >>  #### 1.Control properties
+  >>>>Control custom properties
  ````
    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
          android:id="@+id/exo_play_context_id"
@@ -69,7 +67,7 @@
          app:player_load_layout_id="@layout/custom_exo_play_load"
           />
    ````
-   >>>> 基本使用如下
+   >>>> Basic use is as follows
    ````
          <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
                  android:id="@+id/exo_play_context_id"
@@ -81,165 +79,165 @@
                  app:resize_mode="fit"
                  app:surface_type="surface_view" />
  ````
- >> #### 2.属性说明
-   * 必选
+ >> #### 2.attribute specification
+   * required
    >
     1.   player_layout_id  播放器布局， //必选
          player_layout_id 目前支持指定布局simple_exo_playback_control_view 后续版本，开放自定义使用
 
-   * 必选
+   * required
    >
     2. controller_layout_id  控制器布局`  默认有三种布局
         1.simple_exo_playback_control_view.xml  //视频封面控制布局下面，比较常规使用
         2.simple_exo_playback_list_view.xml.xml //在列表播放使用控制布局
         3.simple_exo_playback_top_view.xml.xml  //视频封面控制布局上面
 
-   * 可选 **注意： 列表播放只能选择texture_view 不能选择surface_view，详情页面播放推荐surface_view**
+   * optional **Note: only texture view cannot select the surface view, and the details page plays the recommended surface view**
    >
-    3.    surface_type 视频渲染类型 //texture_view 和surface_view //枚举类型。默认surface_view
+    3.    surface_type Video render type //texture_view and surface_view //enumeration type。default surface_view
 
-
-   >
-    4.   use_controller   是否用户控制控制器  布尔类型
 
    >
-    5.   resize_mode  视频缩放渲染显示方式一共4种 //可选  
-            1.fit          //正常模式
-            2.fixed_width  //保持的是视频宽度，拉伸视频高度
-            3.fixed_height //保持的是视频高度，拉伸视频宽度
-            4.fill          //全屏模式，拉伸视频宽高
-   >
-    6.   default_artwork  占位图  //可选
+    4.   use_controller   Whether the user controls the controller  Boolean type
 
    >
-    7.   show_timeout  控制布局隐藏时间  默认值为3秒  //可选
+    5.   resize_mode  Video zooming display mode has 4 kinds //optional  
+            1.fit          //normal mode
+            2.fixed_width   
+            3.fixed_height  
+            4.fill          
+   >
+    6.   default_artwork  Placeholder figure //optional
 
    >
-    8.   paddingEnd，paddingStart 设置边距  默认值为0  //可选
+    7.   show_timeout  Control layout hides time by default of 3 seconds  //optional
 
    >
-    9.   fastforward_increment  设置快进增量,以毫秒为单位。 //可选
+    8.   paddingEnd，paddingStart Set the margin default value of 0 //optional
 
    >
-    10.  rewind_increment   设置快退增量,以毫秒为单位。  //可选
+    9.   fastforward_increment  Set fast forward increments, in milliseconds。 //optional
 
    >
-    11.  user_watermark    水印图片 默认在右上角  //可选
+    10.  rewind_increment  Set the fast back increment, in milliseconds。  //optional
 
    >
-    12.  player_list      是否指定列表播放   //可选 默认 false  true 列表播放
+    11.  user_watermark    Watermark image defaults to the upper right corner  //optional
 
    >
-    13.  player_replay_layout_id  自定义重播布局文件
+    12.  player_list      Whether to specify a list to play   // default false  true The list of play
 
    >
-    14.  player_error_layout_id   自定义错误布局文件
+    13.  player_replay_layout_id  Customize the replay layout file
 
    >
-    15.  player_hint_layout_id   自定义非wifi提示布局文件
+    14.  player_error_layout_id   Custom error layout file
 
    >
-    16.  player_load_layout_id   自定义视频加载布局文件
+    15.  player_hint_layout_id   Customize non-wifi prompt layout files
+
+   >
+    16.  player_load_layout_id   Customize video to load the layout file
 
 
- >> #### 3.修改网络对话框提示文字内容
+ >> #### 3.Modify the network dialog box to prompt text content
       app.strings.xml
-      <string name="exo_play_reminder">您当前网络不是wifi，是否继续观看视频</string>
-      <string name="exo_play_wifi_hint_no">提示</string>
+      <string name="exo_play_reminder">Your current network is not wifi, do you continue to watch video</string>
+      <string name="exo_play_wifi_hint_no">hint</string>
 
- >> #### 4.在功能清单声明 AndroidManifest.xml
-    在activity节点 加上“android:configChanges="orientation|keyboardHidden|screenSize"”
-     如下实例：
+ >> #### 4.In the functional manifest declaration AndroidManifest.xml
+     activity  tag add“android:configChanges="orientation|keyboardHidden|screenSize"”
+     The following example：
             <activity android:name="chuangyuan.ycj.yjplay.MainListActivity"
              android:configChanges="orientation|keyboardHidden|screenSize"
              android:screenOrientation="portrait">
 
 
- ### 3.JAVA 代码
+ ### 3.JAVA  
 
- > #### 1 播放控制类
-    1.ExoUserPlayer 基本播放父类，实现基本播放,设置setPlayUri();会自动加载播放
-    2.GestureVideoPlayer  具有手势操作播放（调节亮度和视频进度，和音量）会自动加载播放
-    2.ManualPlayer  点击开始按钮播放,具有手势功能，和列表播放
+ > #### 1 Play control class
+    1.ExoUserPlayer Basic play the parent, implementation basic play, setPlayUri();The playback is automatically loaded
+    2.GestureVideoPlayer  The display (adjust the brightness and video progress, and volume) will be automatically loaded
+    2.ManualPlayer  Click on the start button to play, with gestures and playlists
 
- > #### 2 播放代码 
-         //实例化播放控制类
+ > #### 2 Play the code
+         //instantiate the play control class
           ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
-         //自定义你的数据源，后面详细介绍如何自定义数据源类
+         //Customize your data source, and then detail how to customize the data source class
           // ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this));
-          //加载m3u8
+          //Load m 3 u 8
           exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
-          //加载ts.文件
+          //Load ts. file
           exoPlayerManager.setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts");
-          //播放本地视频
+          //Play local video
           // exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
-          //下面开启多线路播放
+          //Open multiple lines below
             exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
            String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
            String[] name={"超清","高清","标清"};
            exoPlayerManager.setPlaySwitchUri(test,name);
-          //添加水印图片
+          //Add watermark images
           // exoPlayerManager.setExoPlayWatermarkImg();
-          //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
+          //whether to block the progress control drag and drop to video (for example, video, (not allowed))
            exoPlayerManager.setSeekBarSeek(false);
-           //设置视循环播放
+           //Set the visual loop to play
            exoPlayerManager.setLooping(10);
-           //d隐藏控制布局
+           //Hidden control layout
            exoPlayerManager.hideControllerView();
-            //隐藏进度条
+            //Hidden progress bar
            exoPlayerManager.hideSeekBar();
-            //显示进度条
+            //Display progress bar
            exoPlayerManager.showSeekBar();
-            //是否播放
+            //Whether to play
            exoPlayerManager.isPlaying(); 
-           //设置点击播放按钮需要处理业务
+           //Click the play button to handle the business
            exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
                           @Override
                           public void onClick(View v) {
-                              Toast.makeText(MainCustomActivity.this,"定义点击播放事件",Toast.LENGTH_LONG).show();
-                               //处理业务操作 完成后，
-                               //方法实现setOnPlayClickListener（)， 需要手动调用
-                               exoPlayerManager.startPlayer();//开始播放
+                              Toast.makeText(MainCustomActivity.this,"Define the click broadcast event",Toast.LENGTH_LONG).show();
+                               //After the business operation is completed，
+                               //Method implementation setOnPlayClickListener（)，You need to call it manually
+                               exoPlayerManager.startPlayer();//Start playing
                           }
              }); 
 
-   1.实例化播放控制类
+   1.Instantiate the play control class
 
           ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
           ManualPlayer exoPlayerManager = new ManualPlayer(this,videoPlayerView);
 
-   2.自定义你的数据源，后面详细介绍如何自定义数据源类
+   2.Customize your data source, and then detail how to customize the data source class
 
          ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this));
          ManualPlayer exoPlayerManager = new ManualPlayer(this,videoPlayerView,new DataSource(this));
 
-   3.设置视频标题
+   3.Set the video title
 
           exoPlayerManager.setTitle("视频标题");
 
-   4.添加水印图片
+   4.Add watermark images
 
          exoPlayerManager.setExoPlayWatermarkImg(R.mipmap.watermark_big);
 
-   5.设置开始播放进度
+   5.Set the play progress
 
          exoPlayerManager.setPosition(1000)
 
-   6.设置封面图
+   6.Cover drawing
 
            videoPlayerView.setPreviewImage(bimtap);或者 videoPlayerView.getPreviewImage())
 
-   7.设置视频路径
+   7.Set the video path
 
          exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
          exoPlayerManager.setPlayUri(Uri.parse("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8"));
          exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.h264"); //本地视频
 
-   8.设置多线路播放
+   8.Set multiple lines to play
 
-          //开启多线路设置，默认关闭
+          //Open multi-line Settings, default shutdown
           exoPlayerManager.setShowVideoSwitch(true);
-          //支持List列表
+          //List of supported List
           String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
           "http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
            http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
@@ -247,34 +245,34 @@
            exoPlayerManager.setPlaySwitchUri(test,name);
     >>
 
-   9.设置监听回调VideoInfoListener
+   9.Set the Listener callback Video Info Listener
 
          exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
                        @Override
                        public void onPlayStart() {
-                             //开始播放
+                             //Start playing
                        }
 
                        @Override
                        public void onLoadingChanged() {
-                                 //加载变化
+                                 //Load changes
                        }
 
                        @Override
                        public void onPlayerError(ExoPlaybackException e) {
-                                 //加载错误
+                                 //Load error
                       }
 
                        @Override
                        public void onPlayEnd() {
-                              //播放结束
+                              //End of the play
                        }
                        @Override
                        public void onRepeatModeChanged(int repeatMode) {
-                           //模式变化
+                           //Schema changes
                        }
                    });
-   10.覆写Activity和Fragment周期方法
+   10.Overwrite Activity and Fragment cycle methods
 
                 Override
                 public void onResume() {
@@ -306,17 +304,17 @@
 
                 @Override
                 public void onBackPressed() {
-                //使用播放返回键监听
+                //play back button to listen
                  if(exoPlayerManager.onBackPressed()){
                      finish();
                  }
                 }
 
 
- ### 三.列表
-   1.列表播放，只能使用ManualPlayer,在你的VideoHolder
-   *  1在列表控件使用属性 ”app:controller_layout_id="@layout/simple_exo_playback＿list_view"“  //提供默列表控制布局
-   *  2.player_list="true" 设置为true 开启列表模式
+ ### 三.list
+   1.The list is played, only Manual Player, in your Video Holder
+   *  1.Use properties in the list control”app:controller_layout_id="@layout/simple_exo_playback＿list_view"“  //Provides a list control layout
+   *  2.player_list="true" Set to true to open the list mode
    *  3.demo:
               public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
     
@@ -348,13 +346,13 @@
                   VideoPlayerView playerView;
                   public VideoViewHolder(View itemView) {
                       super(itemView);
-                      //初始化控件
+                      //Initial chemical control unit
                       playerView = (VideoPlayerView) itemView.findViewById(R.id.item_exo_player_view);
                       userPlayer = new ManualPlayer((Activity) mContext, playerView);
                   }
 
                  /**
-                 *绑定数据源
+                 *Bind data source
                  ***/
                   public void bindData(String videoBean) {
                       userPlayer.setTitle("" + getAdapterPosition());
@@ -364,7 +362,7 @@
                       .into(playerView.getPreviewImage());
                   }
               }
-  2.列表播放周期方法 列表在Activity或者Fragment  实现相应周期方法
+  2.The list playback cycle method list implements the corresponding periodic method in the Activity or Fragment
 
                       protected void onPause() {
                           super.onPause();
@@ -388,17 +386,17 @@
                           }
                       }
 
-### 四.数据源工厂类
- ####  1.默认数据源
+### 四.Data source factory class
+ ####  1 Default data source
           缓存 : CacheDataSinkFactory,CacheDataSourceFactory
           http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
           Priority : PriorityDataSourceFactory
- #### 2 自定义数据源引用
+ #### 2 Customize the data source reference
       compile 'com.google.android.exoplayer:extension-okhttp:r2.5.1'
       compile 'com.google.android.exoplayer:extension-rtmp:r2.5.1'
 
-### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
-### 六.[自定义布局用法-戳我](READMELAYUOT.md)
+### 五.[Custom data source usage-Poking me](RELEASESOURCE.md)
+### 六.[Custom layout usage-Poking me](READMELAYUOT.md)
 
 
 
