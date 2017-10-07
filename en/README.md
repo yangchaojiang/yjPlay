@@ -14,7 +14,7 @@
    * 7 Increase the cache video function
    * 8 Support for custom data source loading Okttp, Rtmp, cache, Cronet and other protocols.
    * 9 Support list to play video
-   * 10 Supports multiple file types, MP 4, M 4 A, Web M, Matroska, Ogg, WAV, MP 3, mpeg-ts, mpeg-ps, FLV, ADTS (AAC), Flac, M 3 U 8, etc
+   * 10 Supports multiple file types, MP 4, M 4 A, Web M, Matroska, Ogg, WAV, MP 3, mpeg-ts, mpeg-ps, FLV, ADTS (AAC), Flac, M 3 U 8,mkv, etc
    * 11 Support network type prompts for playback
    * 12 **1.5.5**Add video loading layout, error layout, replay layout, prompt layout customization, more flexible implementation of layout style
  <!--more-->
