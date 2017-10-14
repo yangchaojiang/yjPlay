@@ -16,7 +16,7 @@
    * 7 增加缓存视频功能
    * 8 支持自定义各种数据源加载 Okttp,Rtmp, 缓存，Cronet等协议,
    * 9 支持列表播放视频
-   * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8 等
+   * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等
    * 11 支持网络类型 提示是否播放
    * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式
    * 13 支持视频加载中显示模式（网速模式和百分比模式）
@@ -426,9 +426,6 @@ GNU General Public License for most of our software; it applies also to
 any other work released this way by its authors.  You can apply it to
 your programs, too.
 
-<<<<<<< HEAD
-=======
-
->>>>>>> be6eb4cae28e6c4e6034462f22c1024e8a9e2c5c
+ 
  
 
