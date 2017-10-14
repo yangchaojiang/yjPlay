@@ -6,7 +6,7 @@ import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 /**
  * Created by yangc on 2017/7/21.
  * E-Mail:yangchaojiang@outlook.com
- * Deprecated:
+ * Deprecated: view回调控制类接口
  */
 
 public interface ExoPlayerListener {

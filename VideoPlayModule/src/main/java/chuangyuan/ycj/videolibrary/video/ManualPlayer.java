@@ -68,7 +68,7 @@ public class ManualPlayer extends GestureVideoPlayer {
      * */
     public void startPlayer() {
         isLoad = true;
-        if (getPlayerView().isListPlayer()) {
+        if (mPlayerViewListener.isList()) {
             handPause = false;
             VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
         }
@@ -121,7 +121,7 @@ public class ManualPlayer extends GestureVideoPlayer {
     @Override
     public void onResume() {
         if ((Util.SDK_INT <= 23 || player == null) && isLoad) {
-            if (getPlayerView().isListPlayer()) {
+            if (mPlayerViewListener.isList()) {
                 mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
             } else {
                 createPlayers();

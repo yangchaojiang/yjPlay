@@ -19,11 +19,12 @@
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8 等
    * 11 支持网络类型 提示是否播放
    * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式
+   * 13 支持视频加载中显示模式（网速模式和百分比模式）
  <!--more-->
 
  ### [更新日志→》戳我查看](RELEASENOTES.md)
  
-   >> [查看1.5.6升级日志](RELEASENOTES.md#156)
+   >> [查看1.5.7升级日志](RELEASENOTES.md#157)
    
  ### 一.引用类库
   ````
@@ -33,7 +34,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.6'
+     compile 'com.ycjiang:VideoPlayModule:1.5.7'
 
   }
   ````
@@ -245,9 +246,17 @@
            http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
            String[] name={"超清","高清","标清"};
            exoPlayerManager.setPlaySwitchUri(test,name);
-    >>
-
-   9.设置监听回调VideoInfoListener
+    
+    
+   9.设置视频加载提示显示模式（默认LoadModelType.SPEED (网速模式)）
+     
+       /**设置加载百分比显示模式**/
+       exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
+        
+             
+      
+   
+   10.设置监听回调VideoInfoListener
 
          exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
                        @Override
@@ -274,7 +283,8 @@
                            //模式变化
                        }
                    });
-   10.覆写Activity和Fragment周期方法
+   
+   11.覆写Activity和Fragment周期方法
 
                 Override
                 public void onResume() {

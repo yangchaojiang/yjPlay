@@ -12,9 +12,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.view.WindowManager;
-
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
+
+
 
 /**
  * Created by yangc on 2017/2/25.
@@ -30,7 +31,7 @@ public class VideoPlayUtils {
      **/
     public static long getTotalRxBytes(Activity activity) {
         if (activity == null) return 0;
-        return TrafficStats.getUidRxBytes(activity.getApplicationInfo().uid) == TrafficStats.UNSUPPORTED ? 0 : (TrafficStats.getTotalRxBytes() / 1024);//转为KB
+        return TrafficStats.getUidRxBytes(activity.getApplicationInfo().uid) == TrafficStats.UNSUPPORTED ?0: (TrafficStats.getTotalRxBytes() / 1024);//转为KB
     }
 
     /****
@@ -203,7 +204,7 @@ public class VideoPlayUtils {
      *
      * @param context 山下文
      * @param dpValue dp单位
-     * @return     int
+     * @return int
      */
     public static int dip2px(@NonNull Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;

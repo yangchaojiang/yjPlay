@@ -49,9 +49,9 @@ public class MainDetailedActivity extends Activity {
         //d隐藏控制布局
         exoPlayerManager.hideControllerView();
         //隐藏进度条
-        exoPlayerManager.hideSeekBar();
+       // exoPlayerManager.hideSeekBar();
         //显示进度条
-        exoPlayerManager.showSeekBar();
+      //  exoPlayerManager.showSeekBar();
         //是否播放
         exoPlayerManager.isPlaying();
       //  exoPlayerManager.showControllerView();
@@ -118,10 +118,10 @@ public class MainDetailedActivity extends Activity {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode);
         if (isInPictureInPictureMode) {
             // Hide the controls in picture-in-picture mode.
-            exoPlayerManager.getPlayerView().getPlaybackControlView().hide();
+            videoPlayerView.getPlaybackControlView().hide();
         } else {
             // Restore the playback UI based on the playback status.
-            exoPlayerManager.getPlayerView().getPlaybackControlView().show();
+            videoPlayerView.getPlaybackControlView().show();
         }
     }
 }

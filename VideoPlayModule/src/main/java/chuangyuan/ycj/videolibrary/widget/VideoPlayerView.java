@@ -23,9 +23,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
@@ -85,7 +87,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
                 ViewGroup.LayoutParams.MATCH_PARENT
         );
         playerView = new SimpleExoPlayerView(getContext(), attrs);
-        addView(playerView,params);
+        addView(playerView, params);
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VideoPlayerView, 0, 0);
             try {
@@ -191,7 +193,6 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      * 销毁处理
      * **/
     public void onDestroy() {
-
         if (activity.isFinishing()) {
             removeAllViews();
             activity = null;
@@ -204,7 +205,6 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
             belowView = null;
         }
         componentListener = null;
-
     }
 
     /***
@@ -212,7 +212,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      ***/
     @Override
     public void onVisibilityChange(int visibility) {
-        if (activity==null)return;
+        if (activity == null) return;
         showBackView(visibility);
         if (belowView != null && visibility == View.GONE) {
             belowView.dismissBelowView();
@@ -261,12 +261,13 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         super.onDetachedFromWindow();
         if (getPlay() != null && VideoPlayerManager.getInstance().getVideoPlayer() != null) {
             if (getPlay().toString().equals(VideoPlayerManager.getInstance().getVideoPlayer().toString())) {
-                Log.d(TAG,"onDetachedFromWindow");
+                Log.d(TAG, "onDetachedFromWindow");
                 VideoPlayerManager.getInstance().getVideoPlayer().reset();
             }
         }
 
     }
+
     /***
      * 设置内容横竖屏内容
      *
@@ -283,9 +284,9 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
             );
-             addView(playerView, params);
+            addView(playerView, params);
         } else {
-             ViewGroup parent = (ViewGroup) playerView.getParent();
+            ViewGroup parent = (ViewGroup) playerView.getParent();
             if (parent != null) {
                 parent.removeView(playerView);
             }
@@ -401,7 +402,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     /****
      * 监听返回键
      ***/
-    public void exitFullView() {
+    private void exitFullView() {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         exoFullscreen.setImageResource(R.drawable.ic_fullscreen_white);
         doOnConfigurationChanged(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -437,15 +438,6 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         alertDialog.show();
     }
 
-
-    /**
-     * 关联布局播多媒体类
-     *
-     * @param player 多媒体类
-     ***/
-    public void setPlayer(SimpleExoPlayer player) {
-        playerView.setPlayer(player);
-    }
 
     /**
      * 设置标题
@@ -716,7 +708,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         }
 
         @Override
-        public void showNetSpeed(final String netSpeed) {
+        public void showNetSpeed(@NonNull final String netSpeed) {
             playerView.post(new Runnable() {
                 @Override
                 public void run() {
@@ -738,7 +730,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         }
 
         @Override
-        public void setTimePosition(SpannableString seekTime) {
+        public void setTimePosition(@NonNull SpannableString seekTime) {
             if (dialogProLayout != null) {
                 dialogProLayout.setVisibility(View.VISIBLE);
                 videoDialogProText.setText(seekTime);
@@ -790,12 +782,17 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         }
 
         @Override
+        public void showControllerView() {
+            if (playerView != null) {
+                playerView.showController();
+            }
+        }
+        @Override
         public void setControllerHideOnTouch(boolean onTouch) {
             if (playerView != null) {
                 playerView.setControllerHideOnTouch(onTouch);
             }
         }
-
         @Override
         public void showPreview(int visibility) {
             getPreviewImage().setVisibility(visibility);
@@ -822,12 +819,12 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
             if (playBtnHintLayout != null) {
                 playBtnHintLayout.setVisibility(GONE);
             }
-             onDestroy();
+                onDestroy();
             if (getPlaybackControlView() != null) {
                 getPlaybackControlView().showNo();
 
             }
-             playerView.setOnTouchListener(null);
+            playerView.setOnTouchListener(null);
 
         }
 
@@ -854,6 +851,33 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         @Override
         public boolean isList() {
             return isListPlayer();
+        }
+
+        @Override
+        public void setPlayer(@NonNull SimpleExoPlayer player) {
+            if (null != playerView) {
+                playerView.setPlayer(player);
+            }
+        }
+
+        @Override
+        public boolean isLoadingShow() {
+            return isLoadingLayoutShow();
+        }
+
+        @Override
+        public ExoDefaultTimeBar getTimeBarView() {
+            return getTimeBar();
+        }
+
+        @Override
+        public void exitFull() {
+            exitFullView();
+        }
+
+        @Override
+        public void destroy() {
+            onDestroy();
         }
 
     }

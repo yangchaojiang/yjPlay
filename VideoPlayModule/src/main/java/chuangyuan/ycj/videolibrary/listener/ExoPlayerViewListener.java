@@ -1,12 +1,17 @@
 package chuangyuan.ycj.videolibrary.listener;
 
+import android.support.annotation.NonNull;
 import android.text.SpannableString;
 import android.view.View;
+
+import com.google.android.exoplayer2.SimpleExoPlayer;
+
+import chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar;
 
 /**
  * Created by yangc on 2017/7/21.
  * E-Mail:yangchaojiang@outlook.com
- * Deprecated:
+ * Deprecated: 控制类回调view 接口
  */
 
 public interface ExoPlayerViewListener {
@@ -69,14 +74,14 @@ public interface ExoPlayerViewListener {
      *
      * @param title 标题内容
      **/
-    void setTitle(String title);
+    void setTitle(@NonNull String title);
 
     /***
      * 显示网速
      *
      * @param netSpeed 网速的值
      ***/
-    void showNetSpeed(String netSpeed);
+    void showNetSpeed(@NonNull String netSpeed);
 
     /***
      * 手机很横竖屏切换
@@ -91,7 +96,7 @@ public interface ExoPlayerViewListener {
      *
      * @param body 显示内容
      **/
-    void setTimePosition(SpannableString body);
+    void setTimePosition(@NonNull SpannableString body);
 
     /**
      * 改变声音
@@ -123,6 +128,10 @@ public interface ExoPlayerViewListener {
      * 隐藏控制布局操作不会显示
      * **/
     void hideController();
+    /***
+     * 显示控制布局操作
+     * **/
+    void showControllerView();
 
     /***
      * 控制布局操作
@@ -173,7 +182,33 @@ public interface ExoPlayerViewListener {
 
     /***
      * 是否列表
-     * @return  boolean
+     * @return boolean
      * ***/
-    boolean  isList();
+    boolean isList();
+
+    /***
+     * 设置播放播放控制类
+     * @param  player  实例
+     * ***/
+    void setPlayer(@NonNull SimpleExoPlayer player);
+
+    /***
+     * 加载布局是否显示
+     * @return boolean
+     * ***/
+    boolean isLoadingShow();
+
+    /***
+     * 获取 进度条
+     * @return boolean
+     * ***/
+    ExoDefaultTimeBar getTimeBarView();
+
+    void exitFull();
+    /***
+     * 销毁
+     * ***/
+    void destroy();
+
+
 }

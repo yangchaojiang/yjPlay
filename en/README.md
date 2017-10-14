@@ -17,11 +17,12 @@
    * 10 Supports multiple file types, MP 4, M 4 A, Web M, Matroska, Ogg, WAV, MP 3, mpeg-ts, mpeg-ps, FLV, ADTS (AAC), Flac, M 3 U 8, etc
    * 11 Support network type prompts for playback
    * 12 **1.5.5**Add video loading layout, error layout, replay layout, prompt layout customization, more flexible implementation of layout style
+   * 13 Support for video loading display mode (network speed mode and percentage mode)
  <!--more-->
 
- ### [Update log→》Poking me see](RELEASENOTES.md)
+ ### [Update log→》Poking me see](../RELEASENOTES.md)
  
-   >> [See the 1.5.6 upgrade log](RELEASENOTES.md#156)
+   >> [See the 1.5.7 upgrade log](../RELEASENOTES.md#157)
    
  ### 一.Reference library
   ````
@@ -31,7 +32,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.6'
+     compile 'com.ycjiang:VideoPlayModule:1.5.7'
 
   }
   ````
@@ -243,9 +244,17 @@
            http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
            String[] name={"超清","高清","标清"};
            exoPlayerManager.setPlaySwitchUri(test,name);
-    >>
-
-   9.Set the Listener callback Video Info Listener
+    
+ 
+   9.Set video loading prompt display mode (default Load Model Type.speed)
+       
+         /**Set load percentage display mode**/
+         exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
+          
+               
+       
+   
+   10.Set the Listener callback Video Info Listener
 
          exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
                        @Override
@@ -272,7 +281,8 @@
                            //Schema changes
                        }
                    });
-   10.Overwrite Activity and Fragment cycle methods
+  
+   11.Overwrite Activity and Fragment cycle methods
 
                 Override
                 public void onResume() {

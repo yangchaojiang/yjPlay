@@ -11,6 +11,7 @@ import android.util.Log;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.AdaptiveMediaSourceEventListener;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
@@ -44,6 +45,7 @@ public final class MediaSourceBuilder {
     private Handler mainHandler = null;
     private MediaSource mediaSource;
     private DataSourceListener listener;
+    private AdaptiveMediaSourceEventListener adaptiveMediaSourceEventListener;
 
     /***
      * 初始化
@@ -139,14 +141,14 @@ public final class MediaSourceBuilder {
             case C.TYPE_SS:
                 MediaSource secondSource = new SsMediaSource(secondVideoUri, new DefaultDataSourceFactory(context, null, getDataSource()),
                         new DefaultSsChunkSource.Factory(getDataSource()),
-                        mainHandler, null);
+                        mainHandler, adaptiveMediaSourceEventListener);
                 mediaSource = new ConcatenatingMediaSource(firstSource, secondSource);
                 break;
             case C.TYPE_DASH:
                 secondSource = new DashMediaSource(secondVideoUri,
                         new DefaultDataSourceFactory(context, null, getDataSource()),
                         new DefaultDashChunkSource.Factory(getDataSource()),
-                        mainHandler, null);
+                        mainHandler, adaptiveMediaSourceEventListener);
                 mediaSource = new ConcatenatingMediaSource(firstSource, secondSource);
                 break;
             case C.TYPE_HLS:
@@ -191,14 +193,14 @@ public final class MediaSourceBuilder {
                 mediaSource = new SsMediaSource(uri, new DefaultDataSourceFactory(context, null,
                         getDataSource()),
                         new DefaultSsChunkSource.Factory(getDataSource()),
-                        mainHandler, null);
+                        mainHandler, adaptiveMediaSourceEventListener);
                 break;
             case C.TYPE_DASH:
                 mediaSource = new DashMediaSource(uri, new DefaultDataSourceFactory(context, null, getDataSource()),
-                        new DefaultDashChunkSource.Factory(getDataSource()), mainHandler, null);
+                        new DefaultDashChunkSource.Factory(getDataSource()), mainHandler, adaptiveMediaSourceEventListener);
                 break;
             case C.TYPE_HLS:
-                mediaSource = new HlsMediaSource(uri, new DefaultHlsDataSourceFactory(getDataSource()), 5, mainHandler, null);
+                mediaSource = new HlsMediaSource(uri, new DefaultHlsDataSourceFactory(getDataSource()), 5, mainHandler, adaptiveMediaSourceEventListener);
                 break;
             case C.TYPE_OTHER:
                 mediaSource = new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null);
@@ -267,6 +269,5 @@ public final class MediaSourceBuilder {
             mainHandler = null;
         }
     }
-
 
 }

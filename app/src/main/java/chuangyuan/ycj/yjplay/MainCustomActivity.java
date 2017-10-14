@@ -9,8 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
+
+import chuangyuan.ycj.videolibrary.listener.LoadModelType;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -20,25 +23,27 @@ public class MainCustomActivity extends AppCompatActivity {
 
     private ManualPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
-    public  static  final  String VIEW_NAME_HEADER_IMAGE="123";
+    public static final String VIEW_NAME_HEADER_IMAGE = "123";
     private static final String TAG = "MainDetailedActivity";
-    private  boolean  isOnclick=false;
-    private  long currPosition=0;
-    private  boolean isEnd;
+    private boolean isOnclick = false;
+    private long currPosition = 0;
+    private boolean isEnd;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom);
-        isOnclick= getIntent().getBooleanExtra("isOnclick",false);
-        currPosition=getIntent().getLongExtra("currPosition",0);
+        isOnclick = getIntent().getBooleanExtra("isOnclick", false);
+        currPosition = getIntent().getLongExtra("currPosition", 0);
         videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
         ViewCompat.setTransitionName(videoPlayerView, VIEW_NAME_HEADER_IMAGE);
         exoPlayerManager = new ManualPlayer(this, videoPlayerView, new DataSource(getApplication()));
         exoPlayerManager.setPosition(currPosition);
-        exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         exoPlayerManager.setTitle("自定义视频标题");
-
+        /**设置加载显示模式**/
+        exoPlayerManager.setLoadModel(LoadModelType.SPEED);
+        exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         Glide.with(this)
                 .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
                 .placeholder(R.mipmap.test)
@@ -67,8 +72,8 @@ public class MainCustomActivity extends AppCompatActivity {
             exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(MainCustomActivity.this,"定义点击播放事件",Toast.LENGTH_LONG).show();
-                     //处理业务操作 完成后，
+                    Toast.makeText(MainCustomActivity.this, "定义点击播放事件", Toast.LENGTH_LONG).show();
+                    //处理业务操作 完成后，
                     exoPlayerManager.startPlayer();//开始播放
                 }
             });
@@ -91,7 +96,7 @@ public class MainCustomActivity extends AppCompatActivity {
 
             @Override
             public void onPlayEnd() {
-                isEnd=true;
+                isEnd = true;
             }
 
             @Override
@@ -132,10 +137,10 @@ public class MainCustomActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (exoPlayerManager.onBackPressed()) {//使用播放返回键监听
             Toast.makeText(MainCustomActivity.this, "返回", Toast.LENGTH_LONG).show();
-            Intent intent=new Intent();
-            intent.putExtra("isEnd",isEnd);
-            intent.putExtra("currPosition",exoPlayerManager.getCurrentPosition());
-            setResult(RESULT_OK,intent);
+            Intent intent = new Intent();
+            intent.putExtra("isEnd", isEnd);
+            intent.putExtra("currPosition", exoPlayerManager.getCurrentPosition());
+            setResult(RESULT_OK, intent);
             ActivityCompat.finishAfterTransition(this);
         }
 
