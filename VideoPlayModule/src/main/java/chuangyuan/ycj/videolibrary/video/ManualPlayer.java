@@ -2,6 +2,7 @@ package chuangyuan.ycj.videolibrary.video;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,7 +18,9 @@ import chuangyuan.ycj.videolibrary.listener.ItemVideo;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
- * Created by yangc on 2017/2/27.
+ *
+ * @author yangc
+ * date 2017/2/27
  * E-Mail:1007181167@qq.com
  * Description： 手动控制播放播放器
  */
@@ -120,7 +123,8 @@ public class ManualPlayer extends GestureVideoPlayer {
 
     @Override
     public void onResume() {
-        if ((Util.SDK_INT <= 23 || player == null) && isLoad) {
+        boolean is=(Util.SDK_INT <= Build.VERSION_CODES.M || player == null) && isLoad;
+        if (is) {
             if (mPlayerViewListener.isList()) {
                 mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
             } else {
@@ -171,7 +175,8 @@ public class ManualPlayer extends GestureVideoPlayer {
      * 设置点击播放按钮回调, 交给用户处理
      * @param onClickListener 回调实例
      * ***/
-    public void setOnPlayClickListener(View.OnClickListener onClickListener) {
+    public void setOnPlayClickListener(@Nullable View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
+
 }

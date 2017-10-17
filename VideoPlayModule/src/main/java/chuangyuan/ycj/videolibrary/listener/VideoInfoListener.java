@@ -3,12 +3,15 @@ package chuangyuan.ycj.videolibrary.listener;
 import com.google.android.exoplayer2.ExoPlaybackException;
 
 /**
- * Created by yangc on 2017/2/25.
+ *
+ * @author yangc
+ * date 2017/2/25
  * E-Mail:1007181167@qq.com
  * Description：视频视频信息回调
  */
 
 public interface VideoInfoListener {
+
     /***
      * 开始播放
      * **/

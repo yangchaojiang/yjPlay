@@ -1,9 +1,13 @@
 package chuangyuan.ycj.videolibrary.video;
 
 
+import android.support.annotation.NonNull;
+
 /**
  *
- * Created by yangc on 2017/2/27.
+ *
+ * @author yangc
+ * date 2017/2/27
  * E-Mail:1007181167@qq.com
  *  Description： video播放列表控制类
  */
@@ -26,7 +30,7 @@ public class VideoPlayerManager {
      *
      * @param videoPlayer 播放页
      **/
-    public void setCurrentVideoPlayer(ManualPlayer videoPlayer) {
+    public void setCurrentVideoPlayer(@NonNull ManualPlayer videoPlayer) {
         releaseVideoPlayer();
         this.mVideoPlayer = videoPlayer;
     }
@@ -82,6 +86,7 @@ public class VideoPlayerManager {
      *
      * @return ManualPlayer
      **/
+    @NonNull
     public ManualPlayer getVideoPlayer() {
         return mVideoPlayer;
     }

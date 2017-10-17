@@ -6,6 +6,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.Size;
 import android.util.Log;
 
 import com.google.android.exoplayer2.C;
@@ -35,12 +37,14 @@ import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ItemVideo;
 
 /**
- * Created by yangc on 2017/2/28.
+ *
+ * @author yangc
+ * date 2017/2/28
  * E-Mail:1007181167@qq.com
  * Description：数据源处理类
  */
 public final class MediaSourceBuilder {
-    private String TAG = MediaSourceBuilder.class.getName();
+    private static final String TAG = MediaSourceBuilder.class.getName();
     private Context context;
     private Handler mainHandler = null;
     private MediaSource mediaSource;
@@ -52,7 +56,7 @@ public final class MediaSourceBuilder {
      *
      * @param listener 自定义数源工厂接口
      **/
-    public MediaSourceBuilder(DataSourceListener listener) {
+    public MediaSourceBuilder(@Nullable DataSourceListener listener) {
         this.listener = listener;
     }
 
@@ -216,7 +220,7 @@ public final class MediaSourceBuilder {
      *
      * @return LoopingMediaSource
      ***/
-    public LoopingMediaSource setLooping(int loopCount) {
+     LoopingMediaSource setLooping(@Size(min = 1) int loopCount) {
         return new LoopingMediaSource(mediaSource, loopCount);
     }
 
@@ -254,7 +258,7 @@ public final class MediaSourceBuilder {
      *
      * @param listener 接口实现
      **/
-    public void setListener(DataSourceListener listener) {
+    public void setListener(@Nullable DataSourceListener listener) {
         this.listener = listener;
     }
 

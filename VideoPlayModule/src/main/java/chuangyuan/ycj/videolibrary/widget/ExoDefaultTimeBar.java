@@ -7,9 +7,11 @@ import android.view.MotionEvent;
 import com.google.android.exoplayer2.ui.DefaultTimeBar;
 
 /**
- * Created by yangc on 2017/9/3.
+ *
+ * @author yangc
+ * date 2017/9/3
  * E-Mail:yangchaojiang@outlook.com
- * Deprecated:
+ * Deprecated:  自定义进度条
  */
 
 public class ExoDefaultTimeBar extends DefaultTimeBar {

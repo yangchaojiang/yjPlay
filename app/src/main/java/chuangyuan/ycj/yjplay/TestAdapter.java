@@ -25,8 +25,7 @@ public class TestAdapter extends RecyclerArrayAdapter<String> {
 
     @Override
     public BaseViewHolder OnCreateViewHolder(final ViewGroup parent, int viewType) {
-        TestVideoHolder videoHolder= new TestVideoHolder(parent);
-        return videoHolder;
+        return new TestVideoHolder(parent);
     }
     @Override
     public void setOnItemClickListener(OnItemClickListener listener) {

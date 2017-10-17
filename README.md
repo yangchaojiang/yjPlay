@@ -24,7 +24,7 @@
 
  ### [更新日志→》戳我查看](RELEASENOTES.md)
  
-   >> [查看1.5.7升级日志](RELEASENOTES.md#157)
+   >> [查看1.5.7.2升级日志](RELEASENOTES.md#1572)
    
  ### 一.引用类库
   ````
@@ -34,7 +34,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.7'
+     compile 'com.ycjiang:VideoPlayModule:1.5.7.1'
 
   }
   ````

@@ -10,7 +10,9 @@ import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
 
 /**
- * Created by yangc on 2017/8/31.
+ *
+ * @author yangc
+ * date 2017/8/31
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated: 默认提供数据源工厂类
  */
@@ -18,6 +20,7 @@ import com.google.android.exoplayer2.util.Util;
 public  final  class JDefaultDataSourceFactory implements DataSource.Factory  {
 
     private final Context context;
+
     private final DataSource.Factory baseDataSourceFactory;
     /**
      * @param context A context.

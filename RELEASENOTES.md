@@ -1,4 +1,8 @@
  ## 更新日志
+  ### 1.5.7.2
+   * 1.修复bug#20(https://github.com/yangchaojiang/yjPlay/issues/19)
+   * 2.修复bug#19(https://github.com/yangchaojiang/yjPlay/issues/19)
+   * 3.规范代码注释doc,增加的注解检查
   ### 1.5.7
    * 1.增加加载模式类型（下载网速模式和百分比模式）。
    * 2.删除无用string资源（减小100k左右）。

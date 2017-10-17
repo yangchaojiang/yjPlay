@@ -1,7 +1,9 @@
 package chuangyuan.ycj.videolibrary.listener;
 
 /**
- * Created by yangc on 2017/10/14.
+ *
+ * @author yangc
+ * date 2017/10/14
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated: 加载类型提示枚举
  */

@@ -22,7 +22,7 @@
 
  ### [Update log→》Poking me see](../RELEASENOTES.md)
  
-   >> [See the 1.5.7 upgrade log](../RELEASENOTES.md#157)
+   >> [See the 1.5.7.2 upgrade log](../RELEASENOTES.md#1572)
    
  ### 一.Reference library
   ````

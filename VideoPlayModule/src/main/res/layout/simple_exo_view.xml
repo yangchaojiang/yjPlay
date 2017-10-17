@@ -30,6 +30,7 @@
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:contentDescription="@null"
+            android:scaleType="fitXY"
              />
     </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
 

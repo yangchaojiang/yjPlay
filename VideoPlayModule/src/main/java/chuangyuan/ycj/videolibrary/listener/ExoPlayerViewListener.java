@@ -9,12 +9,15 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar;
 
 /**
- * Created by yangc on 2017/7/21.
+ *
+ * @author yangc
+ * date 2017/7/21
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated: 控制类回调view 接口
  */
 
 public interface ExoPlayerViewListener {
+
     /***
      * 显示wifi提示框
      ***/

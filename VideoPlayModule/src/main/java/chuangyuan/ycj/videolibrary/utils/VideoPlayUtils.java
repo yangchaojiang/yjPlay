@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.TrafficStats;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
@@ -18,7 +19,9 @@ import com.google.android.exoplayer2.source.BehindLiveWindowException;
 
 
 /**
- * Created by yangc on 2017/2/25.
+ *
+ * @author yangc
+ * date 2017/2/25
  * E-Mail:1007181167@qq.com
  * Description：
  */
@@ -29,8 +32,7 @@ public class VideoPlayUtils {
      * @param activity 活动对象
      * @return long
      **/
-    public static long getTotalRxBytes(Activity activity) {
-        if (activity == null) return 0;
+    public static long getTotalRxBytes(@NonNull Activity activity) {
         return TrafficStats.getUidRxBytes(activity.getApplicationInfo().uid) == TrafficStats.UNSUPPORTED ?0: (TrafficStats.getTotalRxBytes() / 1024);//转为KB
     }
 
@@ -43,7 +45,8 @@ public class VideoPlayUtils {
     public static double getM(long k) {
         double m;
         m = k / 1024.0;
-        return m; //返回kb转换之后的M值
+        //返回kb转换之后的M值
+        return m;
     }
 
     /**
@@ -52,8 +55,7 @@ public class VideoPlayUtils {
      * @param activity 活动
      * @return boolean
      */
-    public static boolean isNetworkAvailable(Activity activity) {
-        if (activity == null) return false;
+    public static boolean isNetworkAvailable(@NonNull Activity activity) {
         Context context = activity.getApplicationContext();
         // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -116,8 +118,7 @@ public class VideoPlayUtils {
      * @param context 上下文
      * @return Activity
      **/
-    public static Activity scanForActivity(Context context) {
-        if (context == null) return null;
+    public static Activity scanForActivity(@NonNull Context context) {
         if (context instanceof Activity) {
             return (Activity) context;
         } else if (context instanceof ContextWrapper) {
@@ -132,8 +133,8 @@ public class VideoPlayUtils {
      * @param context 上下文
      * @return AppCompatActivity
      **/
-    public static AppCompatActivity getAppCompActivity(Context context) {
-        if (context == null) return null;
+    @Nullable
+    public static AppCompatActivity getAppCompActivity(@NonNull Context context) {
         if (context instanceof AppCompatActivity) {
             return (AppCompatActivity) context;
         } else if (context instanceof ContextThemeWrapper) {
@@ -147,16 +148,16 @@ public class VideoPlayUtils {
      *
      * @param context 上下文
      **/
-    public static void showActionBar(Context context) {
-        if (getAppCompActivity(context) != null) {
-            ActionBar ab = getAppCompActivity(context).getSupportActionBar();
+    public static void showActionBar(@NonNull Context context) {
+        AppCompatActivity appCompActivity= getAppCompActivity(context);
+        if ( appCompActivity!= null) {
+            ActionBar ab = appCompActivity.getSupportActionBar();
             if (ab != null) {
                 ab.setShowHideAnimationEnabled(false);
                 ab.show();
             }
         }
-        scanForActivity(context)
-                .getWindow()
+        scanForActivity(context).getWindow()
                 .clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
@@ -166,8 +167,9 @@ public class VideoPlayUtils {
      * @param context 上下文
      **/
     public static void hideActionBar(Context context) {
-        if (getAppCompActivity(context) != null) {
-            ActionBar ab = getAppCompActivity(context).getSupportActionBar();
+        AppCompatActivity appCompActivity= getAppCompActivity(context);
+        if ( appCompActivity!= null) {
+            ActionBar ab = appCompActivity.getSupportActionBar();
             if (ab != null) {
                 ab.setShowHideAnimationEnabled(false);
                 ab.hide();
