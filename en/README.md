@@ -411,22 +411,17 @@
 
 
 ## [License](https://github.com/yangchaojiang/yjPlay/blob/master/LICENSE)
+ Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
- The GNU General Public License is a free, copyleft license for
-software and other kinds of works.
+       http://www.apache.org/licenses/LICENSE-2.0
 
-  The licenses for most software and other practical works are designed
-to take away your freedom to share and change the works.  By contrast,
-the GNU General Public License is intended to guarantee your freedom to
-share and change all versions of a program--to make sure it remains free
-software for all its users.  We, the Free Software Foundation, use the
-GNU General Public License for most of our software; it applies also to
-any other work released this way by its authors.  You can apply it to
-your programs, too.
-
-<<<<<<< HEAD
-=======
-
->>>>>>> be6eb4cae28e6c4e6034462f22c1024e8a9e2c5c
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ 
  
 
