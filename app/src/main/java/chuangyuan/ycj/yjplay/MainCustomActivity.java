@@ -103,6 +103,11 @@ public class MainCustomActivity extends AppCompatActivity {
             public void onRepeatModeChanged(int repeatMode) {
 
             }
+
+            @Override
+            public void isPlaying(boolean playWhenReady) {
+                Toast.makeText(getApplication(),"playWhenReady"+playWhenReady,Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

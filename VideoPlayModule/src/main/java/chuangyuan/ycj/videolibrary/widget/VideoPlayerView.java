@@ -38,9 +38,9 @@ import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 
 /**
  * @author yangc
- * date 2017/7/21
- * E-Mail:yangchaojiang@outlook.com
- * Deprecated: 视频播放video
+ *         date 2017/7/21
+ *         E-Mail:yangchaojiang@outlook.com
+ *         Deprecated: 视频播放video
  */
 
 public class VideoPlayerView extends FrameLayout implements PlaybackControlView.VisibilityListener {
@@ -59,12 +59,10 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     private View exoLoadingLayout, exoPlayErrorLayout, exoControlsBack;
     /***播放结束，提示布局,调整进度布局,控制音频和亮度布局***/
     private View playReplayLayout, playBtnHintLayout, dialogProLayout, exoAudioBrightnessLayout;
-    /***水印,封面图占位***/
-    private ImageView exoPlayWatermark, exoPreviewImage;
+    /***水印,封面图占位,显示音频和亮度布图***/
+    private ImageView exoPlayWatermark, exoPreviewImage, videoAudioBrightnessImg;
     /***切换***/
     private BelowView belowView;
-    /***显示音频和亮度布图片***/
-    private ImageView videoAudioBrightnessImg;
     /***显示音频和亮度***/
     private ProgressBar videoAudioBrightnessPro;
     private AlertDialog alertDialog;
@@ -73,6 +71,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
     protected ExoPlayerListener mExoPlayerListener;
     /***是否列表播放 默认false***/
     private boolean isListPlayer;
+    /***谁赢图是否在上面***/
     private boolean isPreViewTop;
     /***标题做表间距***/
     private int getPaddingLeft;
@@ -99,10 +98,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         int defaultArtworkId = 0;
         int loadId = 0;
         int back = R.layout.simple_exo_back_view;
-        LayoutParams params = new LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        );
+        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         playerView = new SimpleExoPlayerView(getContext(), attrs);
         addView(playerView, params);
         if (attrs != null) {
@@ -136,6 +132,8 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         playBtnHintLayout = LayoutInflater.from(context).inflate(playerHintId, null);
         exoControlsBack = LayoutInflater.from(context).inflate(back, null);
         exoLoadingLayout = LayoutInflater.from(context).inflate(loadId, null);
+        exoAudioBrightnessLayout = LayoutInflater.from(context).inflate(R.layout.simple_video_audio_brightness_dialog, null);
+        dialogProLayout = LayoutInflater.from(context).inflate(R.layout.simple_exo_video_progress_dialog, null);
         intiView();
         if (userWatermark != 0) {
             exoPlayWatermark.setImageResource(userWatermark);
@@ -156,22 +154,24 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         playReplayLayout.setVisibility(GONE);
         playBtnHintLayout.setVisibility(GONE);
         exoLoadingLayout.setVisibility(GONE);
+        dialogProLayout.setVisibility(GONE);
+        exoAudioBrightnessLayout.setVisibility(GONE);
         exoLoadingLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.simple_exo_color_33));
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(VideoPlayUtils.dip2px(getContext(), 36f), VideoPlayUtils.dip2px(getContext(), 36f));
-        frameLayout.addView(exoLoadingLayout, frameLayout.getChildCount());
+        frameLayout.addView(exoAudioBrightnessLayout, frameLayout.getChildCount());
+        frameLayout.addView(dialogProLayout, frameLayout.getChildCount());
         frameLayout.addView(exoPlayErrorLayout, frameLayout.getChildCount());
         frameLayout.addView(playReplayLayout, frameLayout.getChildCount());
         frameLayout.addView(playBtnHintLayout, frameLayout.getChildCount());
+        frameLayout.addView(exoLoadingLayout, frameLayout.getChildCount());
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(VideoPlayUtils.dip2px(getContext(), 36f), VideoPlayUtils.dip2px(getContext(), 36f));
         frameLayout.addView(exoControlsBack, frameLayout.getChildCount(), layoutParams);
         exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_player_watermark);
         controlsTitleText = (TextView) playerView.findViewById(R.id.exo_controls_title);
         videoLoadingShowText = (TextView) playerView.findViewById(R.id.exo_loading_show_text);
         videoSwitchText = (TextView) playerView.findViewById(R.id.exo_video_switch);
         timeBar = (ExoDefaultTimeBar) playerView.findViewById(R.id.exo_progress);
-        exoAudioBrightnessLayout = playerView.findViewById(R.id.exo_video_audio_brightness_layout);
         videoAudioBrightnessImg = (ImageView) playerView.findViewById(R.id.exo_video_audio_brightness_img);
         videoAudioBrightnessPro = (ProgressBar) playerView.findViewById(R.id.exo_video_audio_brightness_pro);
-        dialogProLayout = playerView.findViewById(R.id.exo_video_dialog_pro_layout);
         videoDialogProText = (TextView) playerView.findViewById(R.id.exo_video_dialog_pro_text);
         exoFullscreen = (ImageButton) findViewById(R.id.exo_video_fullscreen);
         if (playerView.findViewById(R.id.exo_player_replay_btn_id) != null) {
@@ -188,7 +188,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
             exoPreviewImage = (ImageView) playerView.findViewById(R.id.exo_preview_image);
         } else {
             isPreViewTop = false;
-            exoPreviewImage = playerView.getPreviewImageView();
+            exoPreviewImage = (ImageView) playerView.findViewById(R.id.exo_preview_image_bottom);
         }
         exoControlsBack.setOnClickListener(componentListener);
         playerView.findViewById(R.id.exo_video_fullscreen).setOnClickListener(componentListener);
@@ -216,8 +216,8 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      * **/
     public void onDestroy() {
         if (activity.isFinishing()) {
-            removeAllViews();
             activity = null;
+            componentListener = null;
         }
         if (alertDialog != null) {
             alertDialog.dismiss();
@@ -226,7 +226,6 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
         if (belowView != null) {
             belowView = null;
         }
-        componentListener = null;
     }
 
     /***
@@ -284,7 +283,6 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
     @Override
     protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
         boolean is = getPlay() != null && VideoPlayerManager.getInstance().getVideoPlayer() != null;
         if (is) {
             if (getPlay().toString().equals(VideoPlayerManager.getInstance().getVideoPlayer().toString())) {
@@ -292,7 +290,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
                 VideoPlayerManager.getInstance().getVideoPlayer().reset();
             }
         }
-
+        super.onDetachedFromWindow();
     }
 
     /***
@@ -482,12 +480,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      * @param previewImage 预览图
      **/
     public void setPreviewImage(Bitmap previewImage) {
-        if (isPreViewTop) {
-            this.exoPreviewImage.setImageBitmap(previewImage);
-        } else {
-            setUseArtwork(true);
-            playerView.setDefaultArtwork(previewImage);
-        }
+        this.exoPreviewImage.setImageBitmap(previewImage);
     }
 
     /**
@@ -498,12 +491,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      **/
     @Deprecated
     public void setArtwork(@NonNull Bitmap previewImage) {
-        if (isPreViewTop) {
-            this.exoPreviewImage.setImageBitmap(previewImage);
-        } else {
-            setUseArtwork(true);
-            playerView.setDefaultArtwork(previewImage);
-        }
+        setPreviewImage(previewImage);
     }
 
     /**
@@ -512,7 +500,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
      * @param useArtwork true 显示  false 隐藏
      **/
     private void setUseArtwork(boolean useArtwork) {
-        playerView.setUseArtwork(useArtwork);
+        exoPreviewImage.setVisibility(useArtwork ? VISIBLE : GONE);
     }
 
     /***

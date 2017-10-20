@@ -43,6 +43,7 @@ public class VideoPlayUtils {
      * @return double
      */
     public static double getM(long k) {
+
         double m;
         m = k / 1024.0;
         //返回kb转换之后的M值

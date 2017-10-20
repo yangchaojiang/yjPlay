@@ -29,9 +29,9 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
  * @author yangc
- * date 2017/2/28
- * E-Mail:1007181167@qq.com
- * Description：增加手势播放器
+ *         date 2017/2/28
+ *         E-Mail:1007181167@qq.com
+ *         Description：增加手势播放器
  */
 public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchListener {
     private static final String TAG = GestureVideoPlayer.class.getName();
@@ -54,6 +54,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     /****格式化类 ***/
     private Formatter formatter;
 
+    private  boolean controllerHideOnTouch=true;
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this(activity, playerView, null);
     }
@@ -84,19 +85,30 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     public void onPlayNoAlertVideo() {
         super.onPlayNoAlertVideo();
         mPlayerViewListener.setPlatViewOnTouchListener(this);
+    }
+
+    /***
+     * 设置手势touch 事件
+     * @param  controllerHideOnTouch true 启用  false 关闭
+     * ***/
+    public void setPlayerGestureOnTouch(boolean controllerHideOnTouch) {
+        this.controllerHideOnTouch=controllerHideOnTouch;
 
     }
 
     @CallSuper
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if (!controllerHideOnTouch){
+            return false;
+        }
         //竖屏
         if (!VideoPlayUtils.isLand(activity)) {
             //竖屏不执行手势
             return false;
         }
         if (gestureDetector.onTouchEvent(event)) {
-            return false;
+            return true;
         }
         // 处理手势结束
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
