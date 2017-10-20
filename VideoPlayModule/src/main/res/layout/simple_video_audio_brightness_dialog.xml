@@ -17,7 +17,7 @@
         android:background="@drawable/simple_video_dialog_progress_bg"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        >
         <ImageView
             android:id="@+id/exo_video_audio_brightness_img"
             android:layout_width="36dp"

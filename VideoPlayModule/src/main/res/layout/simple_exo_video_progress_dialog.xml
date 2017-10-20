@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:background="@drawable/simple_video_dialog_progress_bg"
         android:orientation="vertical"
-        android:visibility="gone">
+         >
         <ImageView
             android:id="@+id/exo_video_dialog_pro_img"
             android:layout_width="36dp"

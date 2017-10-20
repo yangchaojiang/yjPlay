@@ -3,11 +3,10 @@ package chuangyuan.ycj.videolibrary.listener;
 import com.google.android.exoplayer2.ExoPlaybackException;
 
 /**
- *
  * @author yangc
- * date 2017/2/25
- * E-Mail:1007181167@qq.com
- * Description：视频视频信息回调
+ *         date 2017/2/25
+ *         E-Mail:1007181167@qq.com
+ *         Description：视频视频信息回调
  */
 
 public interface VideoInfoListener {
@@ -16,10 +15,12 @@ public interface VideoInfoListener {
      * 开始播放
      * **/
     void onPlayStart();
+
     /***
      * 播放是否加载中
      * **/
     void onLoadingChanged();
+
     /***
      * 播放失败
      * @param e  异常
@@ -38,6 +39,11 @@ public interface VideoInfoListener {
      * "Repeat One" mode to repeat the currently playing window infinitely. REPEAT_MODE_ONE
      * "Repeat All" mode to repeat the entire timeline infinitely.REPEAT_MODE_ALL
      * ***/
-     void onRepeatModeChanged(int repeatMode);
+    void onRepeatModeChanged(int repeatMode);
 
+/***
+ *暂停还是播放
+ * @param  playWhenReady  暂停还是播放
+ * */
+   void  isPlaying(boolean playWhenReady);
 }

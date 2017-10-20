@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
@@ -17,11 +20,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
     private Context mContext;
     private List<String> mVideoList;
+    RecyclerArrayAdapter.OnItemClickListener onItemClickListener;
     public VideoAdapter(Context context, List<String> videoList) {
         mContext = context;
         mVideoList = videoList;
     }
-
+    public VideoAdapter(Context context) {
+        mContext = context;
+        mVideoList = new ArrayList<>();
+    }
     @Override
     public int getItemCount() {
         return mVideoList.size();
@@ -38,6 +45,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         holder.bindData(video);
     }
 
+    public void addAll(List<String> list) {
+        mVideoList.addAll(list);
+    }
+
+    public void setOnItemClickListener(RecyclerArrayAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public class VideoViewHolder extends RecyclerView.ViewHolder {
         ManualPlayer userPlayer;
         VideoPlayerView playerView;
@@ -45,6 +60,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             super(itemView);
             playerView = (VideoPlayerView) itemView.findViewById(R.id.item_exo_player_view);
             userPlayer = new ManualPlayer((Activity) mContext, playerView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(getAdapterPosition());
+                }
+            });
         }
 
         public void bindData(String videoBean) {

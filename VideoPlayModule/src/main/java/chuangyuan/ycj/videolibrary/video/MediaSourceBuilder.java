@@ -119,15 +119,19 @@ public final class MediaSourceBuilder {
      * @param context 上下文
      * @param uris     视频的地址列表
      ***/
-    void setMediaSourceUri(@NonNull Context context, @NonNull List<ItemVideo> uris) {
+    @Deprecated
+    void setMediaSourceUri(@NonNull Context context, @NonNull List< ItemVideo> uris) {
         MediaSource[] firstSources = new MediaSource[uris.size()];
         this.context = context;
         mainHandler = new Handler();
         int i = 0;
-        for (ItemVideo item : uris) {
-            if (item != null && item.getVideoUri() != null) {
-                firstSources[i] = initData(Uri.parse(item.getVideoUri()));
-            }
+        for (Object item : uris) {
+             if ( item instanceof ItemVideo){
+                 ItemVideo ben= (ItemVideo) item;
+                 if ( ben.getVideoUri() != null) {
+                     firstSources[i] = initData(Uri.parse(ben.getVideoUri()));
+                 }
+             }
             i++;
         }
         mediaSource = new ConcatenatingMediaSource(firstSources);

@@ -124,7 +124,7 @@ public class ManualPlayer extends GestureVideoPlayer {
     @Override
     public void onResume() {
         boolean is=(Util.SDK_INT <= Build.VERSION_CODES.M || player == null) && isLoad;
-        if (is) {
+        if (is&&mPlayerViewListener!=null) {
             if (mPlayerViewListener.isList()) {
                 mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
             } else {
@@ -163,12 +163,12 @@ public class ManualPlayer extends GestureVideoPlayer {
      **/
 
     public void reset() {
-        releasePlayers();
         if (mPlayerViewListener != null) {
             mPlayerViewListener.setPlayerBtnOnTouchListener(onTouchListener);
             mPlayerViewListener.showPreview(View.VISIBLE);
             mPlayerViewListener.reset();
         }
+        releasePlayers();
     }
 
     /****

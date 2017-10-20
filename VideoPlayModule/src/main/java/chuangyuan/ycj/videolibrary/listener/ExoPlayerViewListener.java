@@ -7,6 +7,7 @@ import android.view.View;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 
 import chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar;
+import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
  *
@@ -212,6 +213,4 @@ public interface ExoPlayerViewListener {
      * 销毁
      * ***/
     void destroy();
-
-
 }

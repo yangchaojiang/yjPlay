@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
@@ -20,13 +21,16 @@ import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
+import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
+
+import static android.support.v4.app.ActivityOptionsCompat.*;
 
 
 public class MainListActivity extends AppCompatActivity {
 
     RecyclerView easyRecyclerView;
-    TestAdapter adapter;
+    BRVAHTestAdapter adapter;
     Toolbar toolbar;
     private LinearLayoutManager linearLayoutManager;
 
@@ -34,7 +38,7 @@ public class MainListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        toolbar= (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -51,14 +55,27 @@ public class MainListActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         easyRecyclerView.setLayoutManager(linearLayoutManager);
         easyRecyclerView.addItemDecoration(new DividerDecoration(Color.GRAY, 1));
-        adapter = new TestAdapter(this);
+        adapter = new BRVAHTestAdapter(this);
+
         easyRecyclerView.setAdapter(adapter);
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             list.add("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         }
-        adapter.addAll(list);
-        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+        adapter.addData(list);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                int firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+                if (position - firstItemPosition >= 0) {
+                    //得到要更新的item的view
+                    start(view);
+
+                }
+            }
+
+        });
+       /* adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 int firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
@@ -69,20 +86,21 @@ public class MainListActivity extends AppCompatActivity {
 
                 }
             }
-        });
+        });*/
 
     }
 
     private void start(View view) {
         //进入详细暂停视频
-        long currPosition=0;
-        if (VideoPlayerManager.getInstance().getVideoPlayer() != null) {
-            VideoPlayerManager.getInstance().getVideoPlayer().setStartOrPause(false);
-              currPosition = VideoPlayerManager.getInstance().getVideoPlayer().getCurrentPosition();
+        long currPosition = 0;
+        ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
+        if (manualPlayer != null) {
+            manualPlayer.setStartOrPause(false);
+            currPosition =manualPlayer.getCurrentPosition();
         }
         Log.d("currPosition", currPosition + "");
         Intent intent = new Intent(MainListActivity.this, MainCustomActivity.class);
-        ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+        ActivityOptionsCompat activityOptions = makeSceneTransitionAnimation(
                 this, new Pair<>(view.findViewById(R.id.item_exo_player_view),
                         MainCustomActivity.VIEW_NAME_HEADER_IMAGE));
         intent.putExtra("currPosition", currPosition);
@@ -101,14 +119,17 @@ public class MainListActivity extends AppCompatActivity {
         VideoPlayerManager.getInstance().onResume();
     }
 
+    long st;
     @Override
     protected void onDestroy() {
         super.onDestroy();
         VideoPlayerManager.getInstance().onDestroy();
+        Log.d(MainListActivity.class.getName(),"耗时："+(System.currentTimeMillis()-st));
     }
 
     @Override
     public void onBackPressed() {
+        st=System.currentTimeMillis();
         if (VideoPlayerManager.getInstance().onBackPressed()) {
             finish();
         }
@@ -117,11 +138,12 @@ public class MainListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 10 && resultCode == RESULT_OK && data != null) {
-            boolean isEnd=data.getBooleanExtra("isEnd",false);
+            boolean isEnd = data.getBooleanExtra("isEnd", false);
             if (!isEnd) {
                 long currPosition = data.getLongExtra("currPosition", 0);
-                if (  VideoPlayerManager.getInstance().getVideoPlayer()!=null) {
-                    VideoPlayerManager.getInstance().getVideoPlayer().setPosition(currPosition);
+                ManualPlayer manualPlayer= VideoPlayerManager.getInstance().getVideoPlayer();
+                if (manualPlayer!=null) {
+                    manualPlayer.setPosition(currPosition);
                 }
             }
 

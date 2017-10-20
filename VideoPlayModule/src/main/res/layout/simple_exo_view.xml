@@ -23,14 +23,12 @@
             android:layout_height="match_parent" />
 
         <ImageView
-            android:id="@id/exo_artwork"
+            android:id="@id/exo_preview_image_bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:contentDescription="@null"
-            android:scaleType="fitXY"
              />
     </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
 
@@ -45,10 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent" />
-    <!--手势页进度音量-->
-    <include layout="@layout/simple_exo_video_progress_dialog" />
-    <!--手势亮度-->
-    <include layout="@layout/simple_video_audio_brightness_dialog" />
+
 
     <!--水印图-->
     <ImageView

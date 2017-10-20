@@ -2,6 +2,7 @@ package chuangyuan.ycj.videolibrary.video;
 
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  *
@@ -86,7 +87,7 @@ public class VideoPlayerManager {
      *
      * @return ManualPlayer
      **/
-    @NonNull
+    @Nullable
     public ManualPlayer getVideoPlayer() {
         return mVideoPlayer;
     }
