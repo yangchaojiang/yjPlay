@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -32,11 +33,11 @@ public class ExoVideoAnim extends View {
     private int increment = 2;
 
 
-    public ExoVideoAnim(Context context) {
+    public ExoVideoAnim(@NonNull Context context) {
         super(context);
     }
 
-    public ExoVideoAnim(Context context, AttributeSet attrs) {
+    public ExoVideoAnim(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
         ParamsCreator paramsCreator = new ParamsCreator(this.getContext());
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.exoVideoAnim);
@@ -131,8 +132,7 @@ public class ExoVideoAnim extends View {
      * 计算默认宽度
      */
     private int getDefaultWidth() {
-        int defaultWidth = this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size() - 1) * this.circleSpacing;
-        return defaultWidth;
+        return this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size() - 1) * this.circleSpacing;
     }
 
     /**

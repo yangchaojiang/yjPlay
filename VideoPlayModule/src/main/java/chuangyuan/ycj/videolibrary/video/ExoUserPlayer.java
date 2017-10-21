@@ -68,7 +68,9 @@ public class ExoUserPlayer {
 
     private static final String TAG = ExoUserPlayer.class.getName();
     /***当前活动**/
-    Activity activity;
+    final Activity activity;
+    /*** 播放view实例***/
+    private final VideoPlayerView videoPlayerView;
     /*** 获取网速大小 ***/
     private long lastTotalRxBytes = 0;
     /*** 获取最后的时间戳 ***/
@@ -81,19 +83,18 @@ public class ExoUserPlayer {
     private ScheduledExecutorService timer;
     /*** 网络状态监听***/
     private NetworkBroadcastReceiver mNetworkBroadcastReceiver;
-    /***  视频状态回调接口 ***/
-    private ComponentListener componentListener;
     /*** view交互回调接口 ***/
     private PlayComponentListener playComponentListener;
+    /***  视频状态回调接口 ***/
+    private ComponentListener componentListener;
     /*** 视频回调信息接口 ***/
     private VideoInfoListener videoInfoListener;
     /*** 播放view交互接口 ***/
-    ExoPlayerViewListener mPlayerViewListener;
+    private ExoPlayerViewListener mPlayerViewListener;
     /*** 多个视频接口***/
     private VideoWindowListener windowListener;
     /*** 数据来源状态***/
     private boolean playerNeedsSource;
-    /*** 数据来源状态***/
     /*** 是否循环播放  0 不开启***/
     private int loopingCount = 0;
     /*** 内核播放控制**/
@@ -112,6 +113,7 @@ public class ExoUserPlayer {
     private LoadModelType modelType;
     /*** 设置播放参数***/
     private PlaybackParameters playbackParameters;
+
 
     /****
      * 初始化
@@ -152,14 +154,21 @@ public class ExoUserPlayer {
     public ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         this.activity = activity;
         mediaSourceBuilder = new MediaSourceBuilder(listener);
-        initView(playerView);
+        this.videoPlayerView = playerView;
+        componentListener = new ComponentListener();
+        playComponentListener = new PlayComponentListener();
+        videoPlayerView.setExoPlayerListener(playComponentListener);
+        getPlayerViewListener();
     }
 
-    private void initView(@NonNull VideoPlayerView playerView) {
-        playComponentListener = new PlayComponentListener();
-        componentListener = new ComponentListener();
-        playerView.setExoPlayerListener(playComponentListener);
-        mPlayerViewListener = playerView.getComponentListener();
+    /***
+     * 获取交互view接口实例
+     * **/
+    protected ExoPlayerViewListener getPlayerViewListener() {
+        if (mPlayerViewListener == null) {
+            mPlayerViewListener = videoPlayerView.getComponentListener();
+        }
+        return mPlayerViewListener;
     }
 
     /***
@@ -186,9 +195,6 @@ public class ExoUserPlayer {
      * 页面销毁处理
      **/
     public void onDestroy() {
-       /* if (mPlayerViewListener != null) {
-            mPlayerViewListener.destroy();
-        }*/
         releasePlayers();
     }
 
@@ -237,32 +243,28 @@ public class ExoUserPlayer {
      *   隐藏进度条
      **/
     public void hideSeekBar() {
-        Assertions.checkArgument(mPlayerViewListener != null);
-        mPlayerViewListener.showHidePro(View.INVISIBLE);
+        getPlayerViewListener().showHidePro(View.INVISIBLE);
     }
 
     /***
      * 显示隐藏进度条
      **/
     public void showSeekBar() {
-        Assertions.checkArgument(mPlayerViewListener != null);
-        mPlayerViewListener.showHidePro(View.VISIBLE);
+        getPlayerViewListener().showHidePro(View.VISIBLE);
     }
 
     /***
      * 下跳转下一个视频
      **/
     public void next() {
-        Assertions.checkArgument(mPlayerViewListener != null);
-        mPlayerViewListener.next();
+        getPlayerViewListener().next();
     }
 
     /***
      * 隐藏控制布局
      * ***/
     public void hideControllerView() {
-        assert mPlayerViewListener != null;
-        mPlayerViewListener.hideController();
+        getPlayerViewListener().hideController();
     }
 
     /***
@@ -275,8 +277,8 @@ public class ExoUserPlayer {
     }
 
     public void showControllerView() {
-        Assertions.checkArgument(mPlayerViewListener != null);
-        mPlayerViewListener.showControllerView();
+        Assertions.checkArgument(getPlayerViewListener() != null);
+        getPlayerViewListener().showControllerView();
     }
 
     /***
@@ -298,12 +300,12 @@ public class ExoUserPlayer {
     }
 
     /****
+     * @param  indexType 设置当前索引视频屏蔽进度
      * @param firstVideoUri  预览的视频
      * @param secondVideoUri 第二个视频
-     * @param  indexType 设置当前索引视频屏蔽进度
      **/
-    public void setPlayUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri, @Size(min = 0) int indexType) {
-        setPlayUri(Uri.parse(firstVideoUri), Uri.parse(secondVideoUri), indexType);
+    public void setPlayUri(@Size(min = 0) int indexType, @NonNull String firstVideoUri, @NonNull String secondVideoUri) {
+        setPlayUri(indexType, Uri.parse(firstVideoUri), Uri.parse(secondVideoUri));
     }
 
     /****
@@ -311,15 +313,16 @@ public class ExoUserPlayer {
      * @param secondVideoUri 第二个视频
      **/
     public void setPlayUri(@NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
-        setPlayUri(firstVideoUri, secondVideoUri, 0);
+        setPlayUri(0, firstVideoUri, secondVideoUri);
     }
 
     /****
+     * @param  indexType  设置当前索引视频屏蔽进度
      * @param firstVideoUri  预览的视频
      * @param secondVideoUri 第二个视频
-     * @param  indexType  设置当前索引视频屏蔽进度
+
      **/
-    public void setPlayUri(@NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri, @Size(min = 0) int indexType) {
+    public void setPlayUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
         if (mediaSourceBuilder != null) {
             mediaSourceBuilder.release();
         }
@@ -327,18 +330,6 @@ public class ExoUserPlayer {
         mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
         createPlayers();
         registerReceiverNet();
-    }
-
-    /****
-     * 设置视频列表播放
-     * @param uris  视频列表集合
-     **/
-    public void setPlayUri(@NonNull String... uris) {
-        Uri[] s = new Uri[uris.length];
-        for (int i = 0; i < uris.length; i++) {
-            s[i] = Uri.parse(uris[i]);
-        }
-        setPlayUri(s);
     }
 
     /****
@@ -358,8 +349,7 @@ public class ExoUserPlayer {
      * 设置视频列表播放
      * @param uris  视频列表集合
      **/
-    @Deprecated
-    public void setPlayUri(@NonNull List<ItemVideo> uris) {
+    public <T extends ItemVideo> void setPlayUri(@NonNull List<T> uris) {
         if (mediaSourceBuilder != null) {
             mediaSourceBuilder.release();
         }
@@ -409,7 +399,7 @@ public class ExoUserPlayer {
     public void setPlaySwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
         this.videoUri = videoUri;
         this.nameUri = name;
-        mPlayerViewListener.showSwitchName(nameUri.get(index));
+        getPlayerViewListener().showSwitchName(nameUri.get(index));
         if (mediaSourceBuilder != null) {
             mediaSourceBuilder.release();
         }
@@ -449,7 +439,7 @@ public class ExoUserPlayer {
      * @param configuration 旋转
      ***/
     public void onConfigurationChanged(Configuration configuration) {
-        mPlayerViewListener.onConfigurationChanged(configuration.orientation);
+        getPlayerViewListener().onConfigurationChanged(configuration.orientation);
     }
 
     /***
@@ -458,7 +448,7 @@ public class ExoUserPlayer {
      * @param res 资源
      ***/
     public void setExoPlayWatermarkImg(int res) {
-        mPlayerViewListener.setWatermarkImage(res);
+        getPlayerViewListener().setWatermarkImage(res);
     }
 
     /***
@@ -467,7 +457,7 @@ public class ExoUserPlayer {
      * @param title 名字
      ***/
     public void setTitle(@NonNull String title) {
-        mPlayerViewListener.setTitle(title);
+        getPlayerViewListener().setTitle(title);
     }
 
 
@@ -486,7 +476,7 @@ public class ExoUserPlayer {
      * @param showVideoSwitch true 显示 false 不显示
      * **/
     public void setShowVideoSwitch(boolean showVideoSwitch) {
-        mPlayerViewListener.setShowWitch(showVideoSwitch);
+        getPlayerViewListener().setShowWitch(showVideoSwitch);
     }
 
     /***
@@ -494,7 +484,7 @@ public class ExoUserPlayer {
      * @param isOpenSeek true 启用 false 不启用
      * **/
     public void setSeekBarSeek(boolean isOpenSeek) {
-        mPlayerViewListener.setSeekBarOpenSeek(isOpenSeek);
+        getPlayerViewListener().setSeekBarOpenSeek(isOpenSeek);
     }
 
     /***
@@ -557,13 +547,14 @@ public class ExoUserPlayer {
             updateResumePosition();
             unNetworkBroadcastReceiver();
             player.release();
+            player.release();
             player.removeListener(componentListener);
             player = null;
         }
         if (mediaSourceBuilder != null) {
             mediaSourceBuilder.release();
         }
-        if (activity.isFinishing()) {
+        if (activity.isDestroyed() || activity.isFinishing()) {
             isPause = null;
             handPause = null;
             indexType = -1;
@@ -579,12 +570,12 @@ public class ExoUserPlayer {
             task = null;
             mPlayerViewListener = null;
             mediaSourceBuilder = null;
-            playComponentListener = null;
             componentListener = null;
-            mPlayerViewListener = null;
             videoInfoListener = null;
+            playComponentListener = null;
         }
     }
+
 
     /****
      * 创建
@@ -641,7 +632,7 @@ public class ExoUserPlayer {
             player.setPlaybackParameters(playbackParameters);
 
         }
-        mPlayerViewListener.setPlayer(player);
+        getPlayerViewListener().setPlayer(player);
         return player;
     }
 
@@ -655,7 +646,7 @@ public class ExoUserPlayer {
             if (isPause) {
                 onPlayNoAlertVideo();
             } else {
-                mPlayerViewListener.showAlertDialog();
+                getPlayerViewListener().showAlertDialog();
             }
         }
     }
@@ -665,11 +656,12 @@ public class ExoUserPlayer {
      **/
 
     protected void onPlayNoAlertVideo() {
-      /*  if (mPlayerViewListener != null && mPlayerViewListener.getView() != null) {
-            mPlayerViewListener.getView().setPreviewImage(null);
-        }*/
+
         if (player == null) {
             createPlayersPlay();
+        }
+        if (mPlayerViewListener != null) {
+            mPlayerViewListener.showPreview(View.GONE);
         }
         boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
         if (haveResumePosition) {
@@ -714,8 +706,8 @@ public class ExoUserPlayer {
     private TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            if (mPlayerViewListener!=null&&mPlayerViewListener.isLoadingShow()) {
-                mPlayerViewListener.showNetSpeed(getNetSpeed());
+            if (getPlayerViewListener() != null && getPlayerViewListener().isLoadingShow()) {
+                getPlayerViewListener().showNetSpeed(getNetSpeed());
             }
         }
     };
@@ -753,8 +745,8 @@ public class ExoUserPlayer {
      * @return boolean
      ***/
     public boolean onBackPressed() {
-        if (mPlayerViewListener != null && activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mPlayerViewListener.exitFull();
+        if (getPlayerViewListener() != null && activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getPlayerViewListener().exitFull();
             return false;
         } else {
             return true;
@@ -804,7 +796,7 @@ public class ExoUserPlayer {
                         if (System.currentTimeMillis() - is > 500) {
                             is = System.currentTimeMillis();
                             if (!isPause) {
-                                mPlayerViewListener.showAlertDialog();
+                                getPlayerViewListener().showAlertDialog();
                             }
                         }
                     }
@@ -860,9 +852,7 @@ public class ExoUserPlayer {
 
         @Override
         public void onBack() {
-            if (activity != null) {
-                activity.onBackPressed();
-            }
+            activity.onBackPressed();
         }
     }
 
@@ -875,30 +865,56 @@ public class ExoUserPlayer {
          **/
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
-
         }
 
         @Override
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-            if (mPlayerViewListener != null && !player.getCurrentTimeline().isEmpty() && indexType > -1) {
-                if (player.getCurrentWindowIndex() == indexType) {
-                    mPlayerViewListener.getTimeBarView().setOpenSeek(false);
-                } else {
-                    mPlayerViewListener.getTimeBarView().setOpenSeek(true);
+            Log.d(TAG, "onTracksChanged:" + player.getCurrentWindowIndex() + "_:" + player.getCurrentTimeline().getWindowCount());
+
+            if (getWindowCount() > 1) {
+                if (windowListener != null && newIndex == 0) {
+                    windowListener.onCurrentIndex(newIndex, getWindowCount());
                 }
+                if (indexType < 0) {
+                    return;
+                }
+                GestureVideoPlayer gestureVideoPlayer = null;
+                if (ExoUserPlayer.this instanceof GestureVideoPlayer) {
+                    gestureVideoPlayer = (GestureVideoPlayer) ExoUserPlayer.this;
+                }
+                boolean setOpenSeek = 0 != indexType;
+                if (gestureVideoPlayer != null) {
+                    gestureVideoPlayer.setPlayerGestureOnTouch(setOpenSeek);
+                }
+                getPlayerViewListener().getTimeBarView().setOpenSeek(setOpenSeek);
             }
         }
 
-        int newIndex;
+        private int newIndex;
 
         @Override
         public void onPositionDiscontinuity() {
             Log.d(TAG, "onPositionDiscontinuity:" + player.getCurrentWindowIndex() + "_:" + player.getCurrentTimeline().getWindowCount());
-            boolean is = windowListener != null && newIndex != player.getCurrentWindowIndex();
-            if (is) {
-                newIndex = player.getCurrentWindowIndex();
-                windowListener.onCurrentIndex(player.getCurrentWindowIndex(), player.getCurrentTimeline().getWindowCount());
+            if (getWindowCount() > 1) {
+                boolean is = windowListener != null && newIndex != player.getCurrentWindowIndex();
+                if (is) {
+                    newIndex = player.getCurrentWindowIndex();
+                    windowListener.onCurrentIndex(player.getCurrentWindowIndex(), getWindowCount());
+                }
+                if (indexType < 0) {
+                    return;
+                }
+                GestureVideoPlayer gestureVideoPlayer = null;
+                if (ExoUserPlayer.this instanceof GestureVideoPlayer) {
+                    gestureVideoPlayer = (GestureVideoPlayer) ExoUserPlayer.this;
+                }
+                boolean setOpenSeek = !(indexType == newIndex & indexType > 0);
+                if (gestureVideoPlayer != null) {
+                    gestureVideoPlayer.setPlayerGestureOnTouch(setOpenSeek);
+                }
+                getPlayerViewListener().getTimeBarView().setOpenSeek(setOpenSeek);
             }
+
         }
 
         /*****
@@ -933,7 +949,7 @@ public class ExoUserPlayer {
                 case Player.STATE_BUFFERING:
                     Log.d(TAG, "onPlayerStateChanged:加载中。。。");
                     if (playWhenReady) {
-                        mPlayerViewListener.showLoadStateView(View.VISIBLE);
+                        getPlayerViewListener().showLoadStateView(View.VISIBLE);
                     }
                     if (videoInfoListener != null) {
                         videoInfoListener.onLoadingChanged();
@@ -941,25 +957,25 @@ public class ExoUserPlayer {
                     break;
                 case Player.STATE_ENDED:
                     Log.d(TAG, "onPlayerStateChanged:ended。。。");
-                    mPlayerViewListener.showReplayView(View.VISIBLE);
                     if (videoInfoListener != null) {
                         videoInfoListener.onPlayEnd();
                     }
+                    getPlayerViewListener().showReplayView(View.VISIBLE);
                     break;
                 case Player.STATE_IDLE:
                     Log.d(TAG, "onPlayerStateChanged::网络状态差，请检查网络。。。");
                     updateResumePosition();
                     if (!VideoPlayUtils.isNetworkAvailable(activity)) {
                         if (playerNeedsSource) {
-                            mPlayerViewListener.showErrorStateView(View.VISIBLE);
+                            getPlayerViewListener().showErrorStateView(View.VISIBLE);
                         }
                     } else {
-                        mPlayerViewListener.showErrorStateView(View.VISIBLE);
+                        getPlayerViewListener().showErrorStateView(View.VISIBLE);
                     }
                     break;
                 case Player.STATE_READY:
                     Log.d(TAG, "onPlayerStateChanged:ready。。。");
-                    mPlayerViewListener.showLoadStateView(View.GONE);
+                    getPlayerViewListener().showLoadStateView(View.GONE);
                     if (videoInfoListener != null) {
                         isPause = false;
                         videoInfoListener.onPlayStart();
@@ -986,7 +1002,7 @@ public class ExoUserPlayer {
                 clearResumePosition();
                 playVideo();
             } else {
-                mPlayerViewListener.showErrorStateView(View.VISIBLE);
+                getPlayerViewListener().showErrorStateView(View.VISIBLE);
                 if (videoInfoListener != null) {
                     videoInfoListener.onPlayerError(e);
                 }
@@ -999,7 +1015,7 @@ public class ExoUserPlayer {
 
         @Override
         public void onProgress(long pro) {
-            mPlayerViewListener.showNetSpeed(String.valueOf(pro) + "%");
+            getPlayerViewListener().showNetSpeed(String.valueOf(pro) + "%");
         }
     }
 }

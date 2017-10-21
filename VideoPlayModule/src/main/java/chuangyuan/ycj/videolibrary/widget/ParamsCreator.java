@@ -1,6 +1,7 @@
 package chuangyuan.ycj.videolibrary.widget;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -13,7 +14,7 @@ public class ParamsCreator {
     /***像素密度***/
     private int densityDpi;
 
-    public ParamsCreator(Context context) {
+    public ParamsCreator(@NonNull Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         screenWidth = wm.getDefaultDisplay().getWidth();
         DisplayMetrics metric = new DisplayMetrics();

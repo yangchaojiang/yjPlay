@@ -1,6 +1,14 @@
  ## 更新日志
+ ### 1.5.8
+   * 1.增加广告视频处理和UI控制。
+   * 2.增加视频倍数播放api。
+   * 3.优化全屏按钮ui控制。
+   * 4.增加手势操作设置api。
+   * 5.点击开始播放视频占位图处理（提示了非wifi 提示不隐藏占位图）
+   * 6.修复bug[ManualPlayer.reset();的时候提示错误](https://github.com/yangchaojiang/yjPlay/issues/23)
+   * 7.修复其他已知问题.
   ### 1.5.7.2
-   * 1.修复bug#20(https://github.com/yangchaojiang/yjPlay/issues/19)
+   * 1.修复bug#20(https://github.com/yangchaojiang/yjPlay/issues/20)
    * 2.修复bug#19(https://github.com/yangchaojiang/yjPlay/issues/19)
    * 3.规范代码注释doc,增加的注解检查
   ### 1.5.7

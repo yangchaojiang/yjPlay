@@ -40,7 +40,7 @@ public  class CacheDataSourceFactory implements DataSource.Factory {
         String userAgent = Util.getUserAgent(context, context.getPackageName());
         DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         defaultDatasourceFactory = new DefaultDataSourceFactory(this.context, bandwidthMeter,
-                new DefaultHttpDataSourceFactory(userAgent, bandwidthMeter));
+                new DefaultDataSourceFactory(context,userAgent));
     }
     /***
      * @param  context 上下文
@@ -65,7 +65,7 @@ public  class CacheDataSourceFactory implements DataSource.Factory {
         LeastRecentlyUsedCacheEvictor evictor = new LeastRecentlyUsedCacheEvictor(maxCacheSize);
         SimpleCache simpleCache;
         if (cachePath==null){
-              simpleCache = new SimpleCache(new File(context.getCacheDir(), "media"), evictor);
+              simpleCache = new SimpleCache(new File(context.getExternalCacheDir(), "media1"), evictor);
         }else {
               simpleCache = new SimpleCache(new File(cachePath), evictor);
         }

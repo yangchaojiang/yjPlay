@@ -10,22 +10,24 @@
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    * 1 ExoUserPlayer  基本播放
    * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势
-   * 3 ManualPlayer  默认手动播放，增加默认图
-   * 5 增加广告视频预览切换
-   * 6 增加视频清晰度切换
-   * 7 增加缓存视频功能
+   * 3 ManualPlayer  默认手动播放
+   * 5 广告视频预览(轻松实现，完美切换)
+   * 6 视频清晰度切换
+   * 7 缓存视频功能
    * 8 支持自定义各种数据源加载 Okttp,Rtmp, 缓存，Cronet等协议,
-   * 9 支持列表播放视频
+   * 9 支持列表集合数据播放视频（完美切换）
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等
    * 11 支持网络类型 提示是否播放
    * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式
    * 13 支持视频加载中显示模式（网速模式和百分比模式）
+   * 14 支持视频倍数播放 
+   * 15 支持视频封面图（两种模式封面图）
  <!--more-->
 
  ### [更新日志→》戳我查看](RELEASENOTES.md)
  
-   >> [查看1.5.7.2升级日志](RELEASENOTES.md#1572)
-   
+   >> [查看1.5.8升级日志](RELEASENOTES.md#158)
+   >>**注意以前版本：使用自定义控制布局，请重新参考新版本布局文件**
  ### 一.引用类库
   ````
    repositories {
@@ -34,7 +36,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.7.3'
+     compile 'com.ycjiang:VideoPlayModule:1.5.8'
 
   }
   ````
@@ -181,8 +183,6 @@
            exoPlayerManager.setPlaySwitchUri(test,name);
           //添加水印图片
           // exoPlayerManager.setExoPlayWatermarkImg();
-          //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
-           exoPlayerManager.setSeekBarSeek(false);
            //设置视循环播放
            exoPlayerManager.setLooping(10);
            //d隐藏控制布局
@@ -252,11 +252,38 @@
      
        /**设置加载百分比显示模式**/
        exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
+  
+   10.设置视频倍数播放）
         
-             
-      
+       //设置播放视频倍数  快放和慢放播放 小于1 慢放 大于1 快放
+       exoPlayerManager.setPlaybackParameters(2f,2f);
+        
+   11.广告视频预览(轻松实现)
+        
+          /**需要添加参数就行**/
+          //第一个参数代表是广告视频位置索引
+           exoPlayerManager.setPlayUri(0, "http://mp4.vjshi.com/2013-07-25/2013072519392517096.mp4", "http://mp4.vjshi.com/2013-11-11/1384169050648_274.mp4");       
+            //如果自己在播放视频时特出处理。实现该接口回调
+           //视频切换回调处理，进行布局处理，控制布局显示
+                 exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
+                     @Override
+                     public void onCurrentIndex(int currentIndex, int windowCount) {
+                         if (currentIndex == 0) {
+                             //屏蔽控制布局
+                             exoPlayerManager.hideControllerView();
+                             //如果屏蔽控制布局 但是需要显示全屏按钮。手动显示，播放正常时自动还原。无需里出
+                             videoPlayerView.getExoFullscreen().setVisibility(View.VISIBLE);
+                         } else {
+                             //恢复控制布局
+                             exoPlayerManager.showControllerView();
+                         }
+                     }
+                 });
+           //跳过广告视频操作
+           exoPlayerManager.next();
    
-   10.设置监听回调VideoInfoListener
+   
+   12.设置监听回调VideoInfoListener
 
          exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
                        @Override
@@ -284,7 +311,7 @@
                        }
                    });
    
-   11.覆写Activity和Fragment周期方法
+   13.覆写Activity和Fragment周期方法
 
                 Override
                 public void onResume() {
@@ -409,7 +436,7 @@
 
 ### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
 ### 六.[自定义布局用法-戳我](READMELAYUOT.md)
-
+ 
 
 
 ## [License](https://github.com/yangchaojiang/yjPlay/blob/master/LICENSE)

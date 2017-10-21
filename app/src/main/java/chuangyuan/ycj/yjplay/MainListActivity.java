@@ -2,6 +2,7 @@ package chuangyuan.ycj.yjplay;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -60,7 +61,21 @@ public class MainListActivity extends AppCompatActivity {
         easyRecyclerView.setAdapter(adapter);
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            list.add("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
+            if (Build.VERSION.SDK_INT<21) {//低版本不支持高分辨视频
+                list.add("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
+            }else {
+            if (i%5==0){
+                list.add("http://mp4.vjshi.com/2017-08-16/af83af63d018816474067b51a835f4a2.mp4");
+            }else if (i%5==1){
+                list.add("http://mp4.vjshi.com/2017-06-17/f57dd833c4dbc3eabf17ba0f0bfaf746.mp4");
+            }else if (i%5==2){
+                list.add("http://mp4.vjshi.com/2017-10-19/53bfeb9eb92c1748596eaf2a1e649020.mp4");
+            }else if (i%5==3){
+                list.add("http://mp4.vjshi.com/2016-10-23/a0511ea830bb0620f94a5340a1879800.mp4");
+            }else if (i%5==4){
+                list.add("http://mp4.vjshi.com/2016-10-21/84bafe60ef0af95a5292f66b9f692504.mp4");
+            }
+            }
         }
         adapter.addData(list);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -69,7 +84,7 @@ public class MainListActivity extends AppCompatActivity {
                 int firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
                 if (position - firstItemPosition >= 0) {
                     //得到要更新的item的view
-                    start(view);
+                    start(view,adapter.getItem(position).toString());
 
                 }
             }
@@ -90,7 +105,7 @@ public class MainListActivity extends AppCompatActivity {
 
     }
 
-    private void start(View view) {
+    private void start(View view,String uri) {
         //进入详细暂停视频
         long currPosition = 0;
         ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
@@ -104,6 +119,7 @@ public class MainListActivity extends AppCompatActivity {
                 this, new Pair<>(view.findViewById(R.id.item_exo_player_view),
                         MainCustomActivity.VIEW_NAME_HEADER_IMAGE));
         intent.putExtra("currPosition", currPosition);
+        intent.putExtra("uri", uri);
         ActivityCompat.startActivityForResult(this, intent, 10, activityOptions.toBundle());
     }
 

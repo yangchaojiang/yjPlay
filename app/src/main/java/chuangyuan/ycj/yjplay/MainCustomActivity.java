@@ -2,6 +2,7 @@ package chuangyuan.ycj.yjplay;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewCompat;
@@ -28,6 +29,7 @@ public class MainCustomActivity extends AppCompatActivity {
     private boolean isOnclick = false;
     private long currPosition = 0;
     private boolean isEnd;
+    private String url = "";
 
     @Override
 
@@ -36,19 +38,26 @@ public class MainCustomActivity extends AppCompatActivity {
         setContentView(R.layout.layout_coutom);
         isOnclick = getIntent().getBooleanExtra("isOnclick", false);
         currPosition = getIntent().getLongExtra("currPosition", 0);
+        url = getIntent().getStringExtra("uri");
         videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
         ViewCompat.setTransitionName(videoPlayerView, VIEW_NAME_HEADER_IMAGE);
         exoPlayerManager = new ManualPlayer(this, videoPlayerView, new DataSource(getApplication()));
         exoPlayerManager.setPosition(currPosition);
         exoPlayerManager.setTitle("自定义视频标题");
-        /**设置加载显示模式**/
+        //设置加载显示模式
         exoPlayerManager.setLoadModel(LoadModelType.SPEED);
-        exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
+
+        exoPlayerManager.setPlayUri(url);
+        if (currPosition > 0) {
+            exoPlayerManager.startPlayer();
+        }
         Glide.with(this)
                 .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
                 .placeholder(R.mipmap.test)
                 .fitCenter()
                 .into(videoPlayerView.getPreviewImage());
+
+        //自定义布局使用
         videoPlayerView.getReplayLayout().findViewById(R.id.replay_btn_imageView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +115,7 @@ public class MainCustomActivity extends AppCompatActivity {
 
             @Override
             public void isPlaying(boolean playWhenReady) {
-                Toast.makeText(getApplication(),"playWhenReady"+playWhenReady,Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplication(),"playWhenReady"+playWhenReady,Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,5 +1,7 @@
 package chuangyuan.ycj.videolibrary.listener;
 
+import android.support.annotation.Nullable;
+
 import com.google.android.exoplayer2.ExoPlaybackException;
 
 /**
@@ -25,7 +27,7 @@ public interface VideoInfoListener {
      * 播放失败
      * @param e  异常
      * **/
-    void onPlayerError(ExoPlaybackException e);
+    void onPlayerError(@Nullable ExoPlaybackException e);
 
     /***
      * 播放结束

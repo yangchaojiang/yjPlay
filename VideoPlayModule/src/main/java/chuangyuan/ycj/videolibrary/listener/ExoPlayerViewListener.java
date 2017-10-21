@@ -209,8 +209,5 @@ public interface ExoPlayerViewListener {
     ExoDefaultTimeBar getTimeBarView();
 
     void exitFull();
-    /***
-     * 销毁
-     * ***/
-    void destroy();
+
 }

@@ -37,11 +37,10 @@ import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ItemVideo;
 
 /**
- *
  * @author yangc
- * date 2017/2/28
- * E-Mail:1007181167@qq.com
- * Description：数据源处理类
+ *         date 2017/2/28
+ *         E-Mail:1007181167@qq.com
+ *         Description：数据源处理类
  */
 public final class MediaSourceBuilder {
     private static final String TAG = MediaSourceBuilder.class.getName();
@@ -119,19 +118,15 @@ public final class MediaSourceBuilder {
      * @param context 上下文
      * @param uris     视频的地址列表
      ***/
-    @Deprecated
-    void setMediaSourceUri(@NonNull Context context, @NonNull List< ItemVideo> uris) {
+    <T extends ItemVideo> void setMediaSourceUri(@NonNull Context context, @NonNull List<T> uris) {
         MediaSource[] firstSources = new MediaSource[uris.size()];
         this.context = context;
         mainHandler = new Handler();
         int i = 0;
-        for (Object item : uris) {
-             if ( item instanceof ItemVideo){
-                 ItemVideo ben= (ItemVideo) item;
-                 if ( ben.getVideoUri() != null) {
-                     firstSources[i] = initData(Uri.parse(ben.getVideoUri()));
-                 }
-             }
+        for (T item : uris) {
+            if (item.getVideoUri() != null) {
+                firstSources[i] = initData(Uri.parse(item.getVideoUri()));
+            }
             i++;
         }
         mediaSource = new ConcatenatingMediaSource(firstSources);
@@ -184,7 +179,7 @@ public final class MediaSourceBuilder {
                 1, // Selection flags for the track.
                 null); // The subtitle language. May be null.
         MediaSource subtitleSource = new SingleSampleMediaSource(subtitleUri, getDataSource(), subtitleFormat, C.TIME_UNSET);
-// Plays the video with the sideloaded subtitle.
+        // Plays the video with the sideloaded subtitle.
         mediaSource = new MergingMediaSource(initData(uri), subtitleSource);
     }
 
@@ -224,7 +219,7 @@ public final class MediaSourceBuilder {
      *
      * @return LoopingMediaSource
      ***/
-     LoopingMediaSource setLooping(@Size(min = 1) int loopCount) {
+    LoopingMediaSource setLooping(@Size(min = 1) int loopCount) {
         return new LoopingMediaSource(mediaSource, loopCount);
     }
 

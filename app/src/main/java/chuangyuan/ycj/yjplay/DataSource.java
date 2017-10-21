@@ -36,7 +36,7 @@ public class DataSource implements DataSourceListener {
          //  SimpleCache simpleCache = new SimpleCache(new File(context.getCacheDir(), "media"), evictor);
          //缓存数据源使用，内部使用DefaultDataSourceFactory数据源工厂类
          // 配合okHttp数据源工厂类
-        return  new CacheDataSourceFactory(context,10000L, 100000L);
+        return  new CacheDataSourceFactory(context,1000000L, 1000000L);
          //使用配合默认数据源红工厂类
          // return  new CacheDataSourceFactory(simpleCache, new JDefaultDataSourceFactory(context));
         }

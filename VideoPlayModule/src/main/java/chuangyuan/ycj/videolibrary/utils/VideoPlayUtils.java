@@ -84,7 +84,7 @@ public class VideoPlayUtils {
      * @param mContext 活动
      * @return boolean
      */
-    public static boolean isWifi(Context mContext) {
+    public static boolean isWifi(@NonNull Context mContext) {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
@@ -98,7 +98,7 @@ public class VideoPlayUtils {
      * @param e 异常
      * @return boolean
      ***/
-    public static boolean isBehindLiveWindow(ExoPlaybackException e) {
+    public static boolean isBehindLiveWindow(@NonNull ExoPlaybackException e) {
         if (e.type != ExoPlaybackException.TYPE_SOURCE) {
             return false;
         }
@@ -167,7 +167,7 @@ public class VideoPlayUtils {
      *
      * @param context 上下文
      **/
-    public static void hideActionBar(Context context) {
+    public static void hideActionBar(@NonNull Context context) {
         AppCompatActivity appCompActivity= getAppCompActivity(context);
         if ( appCompActivity!= null) {
             ActionBar ab = appCompActivity.getSupportActionBar();

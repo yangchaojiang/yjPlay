@@ -54,7 +54,8 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     /****格式化类 ***/
     private Formatter formatter;
 
-    private  boolean controllerHideOnTouch=true;
+    private boolean controllerHideOnTouch = true;
+
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this(activity, playerView, null);
     }
@@ -84,7 +85,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     @Override
     public void onPlayNoAlertVideo() {
         super.onPlayNoAlertVideo();
-        mPlayerViewListener.setPlatViewOnTouchListener(this);
+        getPlayerViewListener().setPlatViewOnTouchListener(this);
     }
 
     /***
@@ -92,14 +93,14 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
      * @param  controllerHideOnTouch true 启用  false 关闭
      * ***/
     public void setPlayerGestureOnTouch(boolean controllerHideOnTouch) {
-        this.controllerHideOnTouch=controllerHideOnTouch;
+        this.controllerHideOnTouch = controllerHideOnTouch;
 
     }
 
     @CallSuper
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (!controllerHideOnTouch){
+        if (!controllerHideOnTouch) {
             return false;
         }
         //竖屏
@@ -148,9 +149,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
             player.seekTo(newPosition);
             newPosition = -1;
         }
-        if (mPlayerViewListener != null) {
-            mPlayerViewListener.showGestureView(View.GONE);
-        }
+        getPlayerViewListener().showGestureView(View.GONE);
     }
 
     /****
@@ -176,9 +175,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         ForegroundColorSpan blueSpan = new ForegroundColorSpan(ContextCompat.getColor(activity, R.color.simple_exo_style_color));
         SpannableString spannableString = new SpannableString(stringBuilder.toString());
         spannableString.setSpan(blueSpan, 0, seekTime.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        if (mPlayerViewListener != null) {
-            mPlayerViewListener.setTimePosition(spannableString);
-        }
+        getPlayerViewListener().setTimePosition(spannableString);
         stringBuilder = null;
     }
 
@@ -205,9 +202,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         //  String s = i + "%";
         // 变更声音
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, index, 0);
-        if (mPlayerViewListener != null) {
-            mPlayerViewListener.setVolumePosition(mMaxVolume, index);
-        }
+        getPlayerViewListener().setVolumePosition(mMaxVolume, index);
     }
 
     /**
@@ -232,10 +227,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
             lpa.screenBrightness = 0.01f;
         }
         activity.getWindow().setAttributes(lpa);
-
-        if (mPlayerViewListener != null) {
-            mPlayerViewListener.setBrightnessPosition(100, (int) (lpa.screenBrightness * 100));
-        }
+        getPlayerViewListener().setBrightnessPosition(100, (int) (lpa.screenBrightness * 100));
     }
 
     @Override
@@ -299,7 +291,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
                 }
                 showProgressDialog(deltaX, stringForTime(newPosition), newPosition, stringForTime(duration), duration);
             } else {
-                float percent = deltaY / mPlayerViewListener.getHeight();
+                float percent = deltaY /  getPlayerViewListener().getHeight();
                 if (volumeControl) {
                     showVolumeDialog(percent);
                 } else {

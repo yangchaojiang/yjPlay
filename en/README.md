@@ -18,11 +18,13 @@
    * 11 Support network type prompts for playback
    * 12 **1.5.5**Add video loading layout, error layout, replay layout, prompt layout customization, more flexible implementation of layout style
    * 13 Support for video loading display mode (network speed mode and percentage mode)
+   * 14 Supports video multiple playback
+   * 15 Support for video cover image (two model covers)
  <!--more-->
 
  ### [Update log→》Poking me see](../RELEASENOTES.md)
  
-   >> [See the 1.5.7.2 upgrade log](../RELEASENOTES.md#1572)
+   >> [See the 1.5.8 upgrade log](../RELEASENOTES.md#158)
    
  ### 一.Reference library
   ````
@@ -250,11 +252,37 @@
        
          /**Set load percentage display mode**/
          exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
-          
+  
+   11.Set the video multiple to play
+         
+        //Set to play video multiple quick and slow play less than 1 slow and more than 1
+        exoPlayerManager.setPlaybackParameters(2f,2f);         
                
-       
+   11.Advertising video preview (easy to implement)
+           
+             /**You need to add parameters**/
+             //The first parameter represents the AD video location index
+              exoPlayerManager.setPlayUri(0, "http://mp4.vjshi.com/2013-07-25/2013072519392517096.mp4", "http://mp4.vjshi.com/2013-11-11/1384169050648_274.mp4");       
+               //If you're playing video. Implement the interface callback
+              //Video switch callback processing, layout processing, control layout display
+                    exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
+                        @Override
+                        public void onCurrentIndex(int currentIndex, int windowCount) {
+                            if (currentIndex == 0) {
+                                //Shielded control layout
+                                exoPlayerManager.hideControllerView();
+                                //If the shield controls the layout, you need to display the full screen button. Manual display, playback normally automatic restore. You don't have to deal with it yourself
+                                videoPlayerView.getExoFullscreen().setVisibility(View.VISIBLE);
+                            } else {
+                                //Recovery control layout
+                                exoPlayerManager.showControllerView();
+                            }
+                        }
+                    });
+              //skip the AD video operation
+              exoPlayerManager.next();    
    
-   10.Set the Listener callback Video Info Listener
+   12.Set the Listener callback Video Info Listener
 
          exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
                        @Override
@@ -282,7 +310,7 @@
                        }
                    });
   
-   11.Overwrite Activity and Fragment cycle methods
+   13.Overwrite Activity and Fragment cycle methods
 
                 Override
                 public void onResume() {

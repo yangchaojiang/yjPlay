@@ -8,8 +8,8 @@
         android:id="@id/exo_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:background="@android:color/black">
 
         <View
             android:id="@id/exo_shutter"
@@ -18,9 +18,9 @@
 
         <com.google.android.exoplayer2.ui.SubtitleView
             android:id="@id/exo_subtitles"
-            android:background="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" />
 
         <ImageView
             android:id="@id/exo_preview_image_bottom"
@@ -28,16 +28,16 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
-            android:contentDescription="@null"
-             />
+            android:contentDescription="@null" />
     </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
 
+    <!--覆盖布局占位-->
     <View
         android:id="@id/exo_controller_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent" />
-
+    <!--覆盖布局占位-->
     <FrameLayout
         android:id="@id/exo_overlay"
         android:layout_width="match_parent"
@@ -53,5 +53,15 @@
         android:layout_gravity="end|right"
         android:layout_margin="7dp"
         android:contentDescription="@null" />
-
+    <!--全屏-->
+    <ImageButton
+        android:id="@id/exo_video_fullscreen"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="5dp"
+        android:layout_weight="0"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_fullscreen_white" />
 </merge>
