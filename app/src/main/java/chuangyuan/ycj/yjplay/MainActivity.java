@@ -49,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, MainCustomActivity.class);
+                        String uri;
+                        if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
+                            uri = "http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4";
+                        } else {
+                            //1080 视频
+                            uri = "http://pic.ibaotu.com/00/34/35/51S888piCamj.mp4";
+                        }
+                        intent.putExtra("uri", uri);
                         intent.putExtra("isOnclick", true);
                         startActivity(intent);
                     }
