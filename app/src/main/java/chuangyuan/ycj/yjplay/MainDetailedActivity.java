@@ -12,11 +12,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.exoplayer2.ExoPlaybackException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.listener.ItemVideo;
+import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
@@ -57,17 +59,52 @@ public class MainDetailedActivity extends Activity {
         // exoPlayerManager.setShowVideoSwitch(true);
         //exoPlayerManager.setPlaySwitchUri(test,name);
         TestDataBean bean = new TestDataBean();
+        TestDataBean bean1 = new TestDataBean();
         List<TestDataBean> listss = new ArrayList<>();
         if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
             //exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
             bean.setUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
+            bean1.setUri("http://mp4.vjshi.com/2017-10-17/b81c7a35932c5bbacdc177534398fe87.mp4");
         } else {
             //4k 视频
             // exoPlayerManager.setPlayUri("http://mp4.vjshi.com/2016-07-13/16190d61b7dbddbeb721f1b994fd7424.mp4");
             bean.setUri("http://mp4.vjshi.com/2016-07-13/16190d61b7dbddbeb721f1b994fd7424.mp4");
+            bean1.setUri("http://mp4.vjshi.com/2017-10-17/b81c7a35932c5bbacdc177534398fe87.mp4");
         }
         listss.add(bean);
+        listss.add(bean1);
         exoPlayerManager.setPlayUri(listss);
+        exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
+            @Override
+            public void onPlayStart() {
+
+            }
+
+            @Override
+            public void onLoadingChanged() {
+
+            }
+
+            @Override
+            public void onPlayerError( ExoPlaybackException e) {
+
+            }
+
+            @Override
+            public void onPlayEnd() {
+                Toast.makeText(getApplication(),"asd",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+
+            }
+
+            @Override
+            public void isPlaying(boolean playWhenReady) {
+
+            }
+        });
         //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
         //exoPlayerManager.setSeekBarSeek(false);
         //设置视循环播放

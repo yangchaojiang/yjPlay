@@ -26,7 +26,7 @@
 
  ### [更新日志→》戳我查看](RELEASENOTES.md)
  
-   >> [查看1.5.8升级日志](RELEASENOTES.md#158)
+   >> [查看1.5.9升级日志](RELEASENOTES.md#158)
    >>**注意以前版本：使用自定义控制布局，请重新参考新版本布局文件**
  ### 一.引用类库
   ````
@@ -36,7 +36,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.8'
+     compile 'com.ycjiang:VideoPlayModule:1.5.9'
 
   }
   ````

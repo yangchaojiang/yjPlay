@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.exoplayer2.ExoPlaybackException;
 
+import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -49,6 +52,37 @@ public class GuangGaoPlayerdActivity extends Activity {
                     //恢复控制布局
                     exoPlayerManager.showControllerView();
                 }
+            }
+        });
+        exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
+            @Override
+            public void onPlayStart() {
+
+            }
+
+            @Override
+            public void onLoadingChanged() {
+
+            }
+
+            @Override
+            public void onPlayerError( ExoPlaybackException e) {
+
+            }
+
+            @Override
+            public void onPlayEnd() {
+                Toast.makeText(getApplication(),"asd",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+
+            }
+
+            @Override
+            public void isPlaying(boolean playWhenReady) {
+
             }
         });
         Glide.with(this)

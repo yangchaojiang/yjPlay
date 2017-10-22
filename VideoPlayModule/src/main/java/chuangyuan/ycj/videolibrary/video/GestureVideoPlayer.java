@@ -79,7 +79,14 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
         mMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
-        gestureDetector = new GestureDetector(activity, new PlayerGestureListener());
+        getGestureDetector();
+    }
+
+    private GestureDetector getGestureDetector() {
+        if (gestureDetector == null) {
+            gestureDetector = new GestureDetector(activity, new PlayerGestureListener());
+        }
+        return gestureDetector;
     }
 
     @Override
@@ -108,7 +115,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
             //竖屏不执行手势
             return false;
         }
-        if (gestureDetector.onTouchEvent(event)) {
+        if (getGestureDetector().onTouchEvent(event)) {
             return true;
         }
         // 处理手势结束
@@ -291,7 +298,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
                 }
                 showProgressDialog(deltaX, stringForTime(newPosition), newPosition, stringForTime(duration), duration);
             } else {
-                float percent = deltaY /  getPlayerViewListener().getHeight();
+                float percent = deltaY / getPlayerViewListener().getHeight();
                 if (volumeControl) {
                     showVolumeDialog(percent);
                 } else {

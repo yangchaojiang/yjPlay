@@ -57,8 +57,8 @@ public class MainListActivity extends AppCompatActivity {
         easyRecyclerView.setLayoutManager(linearLayoutManager);
         easyRecyclerView.addItemDecoration(new DividerDecoration(Color.GRAY, 1));
         adapter = new BRVAHTestAdapter(this);
-
         easyRecyclerView.setAdapter(adapter);
+        adapter.bindToRecyclerView(easyRecyclerView);
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             if (Build.VERSION.SDK_INT<21) {//低版本不支持高分辨视频

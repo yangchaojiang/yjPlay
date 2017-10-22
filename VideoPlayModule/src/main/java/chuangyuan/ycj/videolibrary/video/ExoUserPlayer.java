@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -86,7 +87,7 @@ public class ExoUserPlayer {
     /*** view交互回调接口 ***/
     private PlayComponentListener playComponentListener;
     /***  视频状态回调接口 ***/
-    private ComponentListener componentListener;
+    protected ComponentListener componentListener;
     /*** 视频回调信息接口 ***/
     private VideoInfoListener videoInfoListener;
     /*** 播放view交互接口 ***/
@@ -164,6 +165,7 @@ public class ExoUserPlayer {
     /***
      * 获取交互view接口实例
      * **/
+    @NonNull
     protected ExoPlayerViewListener getPlayerViewListener() {
         if (mPlayerViewListener == null) {
             mPlayerViewListener = videoPlayerView.getComponentListener();
@@ -174,6 +176,7 @@ public class ExoUserPlayer {
     /***
      * 页面恢复处理
      **/
+    @CallSuper
     public void onResume() {
         if ((Util.SDK_INT <= Build.VERSION_CODES.M || player == null)) {
             createPlayers();
@@ -183,6 +186,7 @@ public class ExoUserPlayer {
     /***
      * 页面暂停处理
      **/
+    @CallSuper
     public void onPause() {
         isPause = true;
         if (player != null) {
@@ -194,6 +198,7 @@ public class ExoUserPlayer {
     /**
      * 页面销毁处理
      **/
+    @CallSuper
     public void onDestroy() {
         releasePlayers();
     }
@@ -344,12 +349,7 @@ public class ExoUserPlayer {
         createPlayers();
         registerReceiverNet();
     }
-
-    /****
-     * 设置视频列表播放
-     * @param uris  视频列表集合
-     **/
-    public <T extends ItemVideo> void setPlayUri(@NonNull List<T> uris) {
+     public <T extends ItemVideo> void setPlayUri(@NonNull List<T> uris) {
         if (mediaSourceBuilder != null) {
             mediaSourceBuilder.release();
         }
@@ -546,7 +546,7 @@ public class ExoUserPlayer {
         if (player != null) {
             updateResumePosition();
             unNetworkBroadcastReceiver();
-            player.release();
+            player.stop();
             player.release();
             player.removeListener(componentListener);
             player = null;
@@ -684,7 +684,7 @@ public class ExoUserPlayer {
     /****
      * 重置进度
      **/
-    private void updateResumePosition() {
+    void updateResumePosition() {
         if (player != null) {
             resumeWindow = player.getCurrentWindowIndex();
             resumePosition = player.isCurrentWindowSeekable() ? Math.max(0, player.getCurrentPosition())
@@ -706,7 +706,7 @@ public class ExoUserPlayer {
     private TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            if (getPlayerViewListener() != null && getPlayerViewListener().isLoadingShow()) {
+            if (getPlayerViewListener().isLoadingShow()) {
                 getPlayerViewListener().showNetSpeed(getNetSpeed());
             }
         }
@@ -745,7 +745,7 @@ public class ExoUserPlayer {
      * @return boolean
      ***/
     public boolean onBackPressed() {
-        if (getPlayerViewListener() != null && activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getPlayerViewListener().exitFull();
             return false;
         } else {
@@ -757,7 +757,7 @@ public class ExoUserPlayer {
     /***
      * 注册广播监听
      **/
-    protected void registerReceiverNet() {
+    void registerReceiverNet() {
         if (mNetworkBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
             mNetworkBroadcastReceiver = new NetworkBroadcastReceiver();
@@ -768,7 +768,7 @@ public class ExoUserPlayer {
     /***
      * 取消广播监听
      **/
-    private void unNetworkBroadcastReceiver() {
+    void unNetworkBroadcastReceiver() {
         if (mNetworkBroadcastReceiver != null) {
             activity.unregisterReceiver(mNetworkBroadcastReceiver);
         }
@@ -957,10 +957,11 @@ public class ExoUserPlayer {
                     break;
                 case Player.STATE_ENDED:
                     Log.d(TAG, "onPlayerStateChanged:ended。。。");
+                    newIndex = 0;
+                    getPlayerViewListener().showReplayView(View.VISIBLE);
                     if (videoInfoListener != null) {
                         videoInfoListener.onPlayEnd();
                     }
-                    getPlayerViewListener().showReplayView(View.VISIBLE);
                     break;
                 case Player.STATE_IDLE:
                     Log.d(TAG, "onPlayerStateChanged::网络状态差，请检查网络。。。");

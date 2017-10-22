@@ -865,7 +865,9 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
         @Override
         public void showPreview(int visibility) {
+            showFullscreenView(visibility);
             getPreviewImage().setVisibility(visibility);
+
         }
 
         @Override
@@ -877,6 +879,7 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
         @Override
         public void reset() {
+
             if (playReplayLayout != null) {
                 playReplayLayout.setVisibility(GONE);
             }
@@ -889,11 +892,9 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
             if (playBtnHintLayout != null) {
                 playBtnHintLayout.setVisibility(GONE);
             }
-            onDestroy();
             if (getPlaybackControlView() != null) {
                 getPlaybackControlView().showNo();
             }
-            playerView.setOnTouchListener(null);
 
         }
 
