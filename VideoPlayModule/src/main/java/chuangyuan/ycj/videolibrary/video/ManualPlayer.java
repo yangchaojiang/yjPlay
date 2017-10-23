@@ -165,10 +165,9 @@ public class ManualPlayer extends GestureVideoPlayer {
      **/
 
     public void reset() {
-
         if (player != null) {
-            updateResumePosition();
             unNetworkBroadcastReceiver();
+            setPosition(0);
             player.stop();
             player.removeListener(componentListener);
             getPlayerViewListener().setPlayerBtnOnTouchListener(onTouchListener);

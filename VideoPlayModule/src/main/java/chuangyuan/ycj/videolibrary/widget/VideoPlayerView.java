@@ -865,9 +865,8 @@ public class VideoPlayerView extends FrameLayout implements PlaybackControlView.
 
         @Override
         public void showPreview(int visibility) {
-            showFullscreenView(visibility);
             getPreviewImage().setVisibility(visibility);
-
+            showFullscreenView(visibility);
         }
 
         @Override

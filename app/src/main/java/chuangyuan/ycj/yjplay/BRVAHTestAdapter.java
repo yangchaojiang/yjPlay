@@ -56,6 +56,7 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
 
             @Override
             public void onPlayEnd() {
+                helper.userPlayer.setVideoInfoListener(null);
                 if (!VideoPlayUtils.isLand(getRecyclerView().getContext())) {
                     int posss = helper.getAdapterPosition() + 1;
                     getRecyclerView().smoothScrollBy(0, helper.itemView.getBottom());
