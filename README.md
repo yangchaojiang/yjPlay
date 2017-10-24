@@ -1,5 +1,7 @@
 # yjPlay
- 
+
+ [ ![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.5.91) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.5.91/link)
+ 
   ### [View English instructions→Poking me ](en/README.md)
 
   ### gif 显示有点卡，帧数低，实际很流畅
