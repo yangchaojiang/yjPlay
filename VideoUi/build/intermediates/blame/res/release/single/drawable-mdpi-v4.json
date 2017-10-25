@@ -24,12 +24,12 @@
         "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\drawable-mdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
     },
     {
-        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_brightness_6_white_48px.png",
-        "source": "D:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-mdpi\\ic_brightness_6_white_48px.png"
-    },
-    {
         "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\exo_controls_play.png",
         "source": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-mdpi\\exo_controls_play.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_brightness_6_white_48px.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-mdpi\\ic_brightness_6_white_48px.png"
     },
     {
         "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\abc_btn_check_to_on_mtrl_015.png",

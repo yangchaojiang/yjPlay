@@ -22,6 +22,7 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * Deprecated:
  */
 
+
 public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.TestVideoHolder> {
     private Context context;
 

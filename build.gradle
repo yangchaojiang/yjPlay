@@ -18,6 +18,8 @@ allprojects {
         mavenCentral();
         maven { url "https://jitpack.io" }
     }
+
+
     project.ext {
         compileSdkVersion=25
         targetSdkVersion=25

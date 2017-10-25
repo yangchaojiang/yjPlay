@@ -14,6 +14,7 @@ import android.widget.PopupWindow;
 
 import chuangyuan.ycj.videolibrary.R;
 
+
 /**
  *
  * @author yangc
@@ -39,8 +40,6 @@ public class BelowView {
         listView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         listView.setAdapter(adapter);
     }
-
-
     public void showBelowView(@NonNull View view, boolean canceledOnTouchOutside) {
         if (pw == null) {
             int sss = (int) context.getResources().getDimension(R.dimen.dp30) * listView.getAdapter().getCount() + 40;

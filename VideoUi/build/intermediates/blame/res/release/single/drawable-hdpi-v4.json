@@ -24,12 +24,12 @@
         "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
-        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\exo_controls_repeat_all.png",
-        "source": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-hdpi\\exo_controls_repeat_all.png"
-    },
-    {
         "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
         "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\exo_controls_repeat_all.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-hdpi\\exo_controls_repeat_all.png"
     },
     {
         "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
