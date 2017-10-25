@@ -10,8 +10,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/VideoPlayModule" />
+            <option value="$PROJECT_DIR$/VideoPlayerKotlin" />
             <option value="$PROJECT_DIR$/VideoUi" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/appKotlin" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

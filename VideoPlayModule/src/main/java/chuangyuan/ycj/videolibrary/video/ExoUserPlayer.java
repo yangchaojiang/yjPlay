@@ -554,7 +554,7 @@ public class ExoUserPlayer {
         if (mediaSourceBuilder != null) {
             mediaSourceBuilder.release();
         }
-        if (activity.isDestroyed() || activity.isFinishing()) {
+        if ( activity.isFinishing()) {
             isPause = null;
             handPause = null;
             indexType = -1;

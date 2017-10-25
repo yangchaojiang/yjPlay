@@ -53,15 +53,15 @@ public class MainDetailedActivity extends Activity {
         //  exoPlayerManager.setPosition(1000);
         // exoPlayerManager.setPlayUri("http://mp4.vjshi.com/2017-10-17/b81c7a35932c5bbacdc177534398fe87.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         // exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4");
-        //String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
-        //String[] name={"超清","高清","标清"};
+        String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
+        String[] name={"超清","高清","标清"};
         //开启线路设置
-        // exoPlayerManager.setShowVideoSwitch(true);
-        //exoPlayerManager.setPlaySwitchUri(test,name);
+        exoPlayerManager.setShowVideoSwitch(true);
+        exoPlayerManager.setPlaySwitchUri(test,name);
         TestDataBean bean = new TestDataBean();
         TestDataBean bean1 = new TestDataBean();
         List<TestDataBean> listss = new ArrayList<>();
-        if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
+       /* if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
             //exoPlayerManager.setPlayUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
             bean.setUri("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
             bean1.setUri("http://mp4.vjshi.com/2017-10-17/b81c7a35932c5bbacdc177534398fe87.mp4");
@@ -70,10 +70,10 @@ public class MainDetailedActivity extends Activity {
             // exoPlayerManager.setPlayUri("http://mp4.vjshi.com/2016-07-13/16190d61b7dbddbeb721f1b994fd7424.mp4");
             bean.setUri("http://mp4.vjshi.com/2016-07-13/16190d61b7dbddbeb721f1b994fd7424.mp4");
             bean1.setUri("http://mp4.vjshi.com/2017-10-17/b81c7a35932c5bbacdc177534398fe87.mp4");
-        }
-        listss.add(bean);
-        listss.add(bean1);
-        exoPlayerManager.setPlayUri(listss);
+        }*/
+       // listss.add(bean);
+       // listss.add(bean1);
+        //exoPlayerManager.setPlayUri(listss);
         exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
             @Override
             public void onPlayStart() {
@@ -146,7 +146,6 @@ public class MainDetailedActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        exoPlayerManager.onDestroy();
         super.onDestroy();
 
     }
@@ -164,7 +163,7 @@ public class MainDetailedActivity extends Activity {
     public void onBackPressed() {
         if (exoPlayerManager.onBackPressed()) {
             ActivityCompat.finishAfterTransition(this);
-
+            exoPlayerManager.onDestroy();
         }
     }
 }

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black">
-
     <com.google.android.exoplayer2.ui.AspectRatioFrameLayout
         android:id="@id/exo_content_frame"
         android:layout_width="match_parent"
@@ -56,11 +55,11 @@
     <!--全屏-->
     <ImageButton
         android:id="@id/exo_video_fullscreen"
+        android:layout_marginTop="3dp"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="5dp"
-        android:layout_weight="0"
         android:background="@null"
         android:contentDescription="@null"
         android:src="@drawable/ic_fullscreen_white" />

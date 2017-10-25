@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" filepath="$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VideoPlayerKotlin/VideoPlayerKotlin.iml" filepath="$PROJECT_DIR$/VideoPlayerKotlin/VideoPlayerKotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/VideoUi/VideoUi.iml" filepath="$PROJECT_DIR$/VideoUi/VideoUi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appKotlin/appKotlin.iml" filepath="$PROJECT_DIR$/appKotlin/appKotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/yjPlay.iml" filepath="$PROJECT_DIR$/yjPlay.iml" />
     </modules>
   </component>

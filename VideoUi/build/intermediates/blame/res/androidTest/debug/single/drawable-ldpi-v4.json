@@ -1,0 +1,82 @@
+[
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_controls_pause.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_controls_pause.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_controls_repeat_one.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_controls_repeat_one.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_fullscreen_exit_white.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_fullscreen_exit_white.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_replay_.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_replay_.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_sentiment_very_dissatisfied_white_48px.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_sentiment_very_dissatisfied_white_48px.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_brightness_6_white_48px.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_brightness_6_white_48px.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_fullscreen_white.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_fullscreen_white.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_chevron_left_white_48px.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_chevron_left_white_48px.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_controls_next.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_controls_next.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_controls_previous.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_controls_previous.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_volume_off_white_48px.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_volume_off_white_48px.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_exo_pause.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_exo_pause.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_volume_up_white_48px.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_volume_up_white_48px.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_edit_mode_logo.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_edit_mode_logo.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_controls_fastforward.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_controls_fastforward.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_controls_play.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_controls_play.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_controls_repeat_all.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_controls_repeat_all.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_controls_repeat_off.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_controls_repeat_off.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\exo_controls_rewind.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\exo_controls_rewind.png"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_exo_start.png",
+        "source": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_exo_start.png"
+    }
+]

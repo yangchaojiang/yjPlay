@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\anim\\abc_slide_out_top.xml"
+    }
+]

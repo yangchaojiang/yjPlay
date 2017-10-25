@@ -7,7 +7,6 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
@@ -18,16 +17,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingTop="5dp"
+        android:paddingRight="35dp"
         android:visibility="visible">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingRight="35dp"
-            android:orientation="horizontal">
 
             <TextView
                 android:id="@id/exo_position"
@@ -69,28 +60,12 @@
                 app:bar_height="2dp"
                 app:buffered_color="@android:color/white"
                 app:played_color="#FF7000"
+                android:layout_marginRight="10dp"
                 app:unplayed_color="#a5ffffff" />
 
-
+            <TextView
+                style="@style/exo_text_switch"  />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/exo_video_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="0"
-            android:background="@null"
-            android:contentDescription="@null"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="高清"
-
-            android:textColor="@color/exo_exo_video_switch_selector"
-            android:visibility="gone" />
-
-    </LinearLayout>
 
     <ImageView
         android:id="@id/exo_preview_image"
@@ -109,7 +84,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_weight="0"
         android:background="@null"
         android:src="@drawable/ic_exo_start"
         android:visibility="visible" />
@@ -120,7 +94,6 @@
         android:layout_height="64dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_weight="0"
         android:background="@null"
         android:src="@drawable/ic_exo_pause"
         android:visibility="gone" />

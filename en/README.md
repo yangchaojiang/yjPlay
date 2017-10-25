@@ -26,7 +26,7 @@
 
  ### [Update log→》Poking me see](../RELEASENOTES.md)
  
-   >> [See the 1.5.91 upgrade log](../RELEASENOTES.md#158)
+   >> [See the 1.5.92 upgrade log](../RELEASENOTES.md#1592)
    
  ### 一.Reference library
   ````
@@ -36,7 +36,7 @@
       }
 
   dependencies {
-   compile 'com.ycjiang:VideoPlayModule:1.5.91'
+   compile 'com.ycjiang:VideoPlayModule:1.5.92'
 
   }
   ````
