@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\project\yjPlay\VideoUi\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="D:\project\yjPlay\VideoUi\src\release\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\project\yjPlay\VideoUi\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="E:\project\yjPlay\VideoUi\src\release\jniLibs"/></dataSet></merger>

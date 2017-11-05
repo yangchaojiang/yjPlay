@@ -5,15 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- *
- *
  * @author yangc
- * date 2017/2/27
- * E-Mail:1007181167@qq.com
- *  Description： video播放列表控制类
+ *         date 2017/2/27
+ *         E-Mail:1007181167@qq.com
+ *         Description： video播放列表控制类
  */
 public class VideoPlayerManager {
     private ManualPlayer mVideoPlayer;
+    private boolean isClick = false;
 
     private VideoPlayerManager() {
     }
@@ -31,7 +30,7 @@ public class VideoPlayerManager {
      *
      * @param videoPlayer 播放页
      **/
-    public void setCurrentVideoPlayer(@NonNull ManualPlayer videoPlayer) {
+    public synchronized void setCurrentVideoPlayer(@NonNull ManualPlayer videoPlayer) {
         releaseVideoPlayer();
         this.mVideoPlayer = videoPlayer;
     }
@@ -82,6 +81,7 @@ public class VideoPlayerManager {
             mVideoPlayer = null;
         }
     }
+
     /**
      * 获取当前播放类
      *
@@ -90,5 +90,23 @@ public class VideoPlayerManager {
     @Nullable
     public ManualPlayer getVideoPlayer() {
         return mVideoPlayer;
+    }
+
+    /**
+     * 获取当前状态
+     *
+     * @return ManualPlayer
+     **/
+    boolean isClick() {
+        return isClick;
+    }
+
+    /**
+     * 获取当前播放类
+     *
+     * @param click 实例
+     **/
+    public void setClick(boolean click) {
+        isClick = click;
     }
 }

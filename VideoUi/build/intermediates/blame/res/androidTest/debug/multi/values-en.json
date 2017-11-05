@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-en\\values-en.xml",
+        "outputFile": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-en\\values-en.xml",
         "map": [
             {
                 "to": {
@@ -12,7 +12,7 @@
                     "endOffset": 173
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -32,7 +32,7 @@
                     "endOffset": 253
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -51,7 +51,7 @@
                     "endOffset": 324
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -70,7 +70,7 @@
                     "endOffset": 391
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -89,7 +89,7 @@
                     "endOffset": 456
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -108,7 +108,7 @@
                     "endOffset": 535
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -127,7 +127,7 @@
                     "endOffset": 612
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -146,7 +146,7 @@
                     "endOffset": 690
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -165,7 +165,7 @@
                     "endOffset": 767
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -184,7 +184,7 @@
                     "endOffset": 836
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -203,7 +203,7 @@
                     "endOffset": 901
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -222,7 +222,7 @@
                     "endOffset": 963
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -241,7 +241,7 @@
                     "endOffset": 1075
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -260,7 +260,7 @@
                     "endOffset": 1126
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -279,7 +279,7 @@
                     "endOffset": 1235
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -298,7 +298,7 @@
                     "endOffset": 1287
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -317,7 +317,7 @@
                     "endOffset": 1398
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,

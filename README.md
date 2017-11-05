@@ -10,25 +10,27 @@
  ![](test.gif)
 
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
-   * 1 ExoUserPlayer  基本播放
-   * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势
-   * 3 ManualPlayer  默认手动播放
-   * 5 广告视频预览(轻松实现，完美切换)
-   * 6 视频清晰度切换
-   * 7 缓存视频功能
-   * 8 支持自定义各种数据源加载 Okttp,Rtmp, 缓存，Cronet等协议,
+   * 1 ExoUserPlayer  基本播放。
+   * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势。
+   * 3 ManualPlayer  默认手动播放。
+   * 5 广告视频预览(轻松实现，完美切换)。
+   * 6 视频清晰度切换。
+   * 7 缓存视频功能。
+   * 8 支持自定义多种 Okttp,Rtmp, 缓存，Cronet等协议,
    * 9 支持列表集合数据播放视频（完美切换）
-   * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等
-   * 11 支持网络类型 提示是否播放
-   * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式
-   * 13 支持视频加载中显示模式（网速模式和百分比模式）
-   * 14 支持视频倍数播放 
-   * 15 支持视频封面图（两种模式封面图）
+   * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
+   * 11 支持网络类型 提示是否播放。
+   * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
+   * 13 支持视频加载中显示模式（网速模式和百分比模式）。
+   * 14 支持视频倍速播放。
+   * 15 支持视频封面图（两种模式封面图）。
+   * 16 **1.7.0**支持自定义MediaSource。
+   * 17 **1.7.0**增加 手势 亮度调节，视频进度，音量 布局自定义。
  <!--more-->
 
  ### [更新日志→》戳我查看](RELEASENOTES.md)
  
-   >> [查看1.5.92升级日志](RELEASENOTES.md#1592)
+   >> [查看1.7.0升级日志](RELEASENOTES.md#170)
    >>**注意以前版本：使用自定义控制布局，请重新参考新版本布局文件**
  ### 一.引用类库
   ````
@@ -38,7 +40,7 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.5.92'
+     compile 'com.ycjiang:VideoPlayModule:1.7.0'
 
   }
   ````
@@ -72,6 +74,9 @@
          app:player_error_layout_id="@layout/custom_play_error"
          app:player_hint_layout_id="@layout/custom_play_btn_hint"
          app:player_load_layout_id="@layout/custom_exo_play_load"
+         app:player_gesture_audio_layout_id="@layout/custom_gesture_audio"
+         app:player_gesture_bright_layout_id="@layout/custom_gesture_brightness"
+         app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
           />
    ````
    >>>> 基本使用如下
@@ -145,8 +150,12 @@
 
    >
     16.  player_load_layout_id   自定义视频加载布局文件
-
-
+   >
+    17.  player_gesture_audio_layout_id   自定义手势音频调节布局
+   >
+    18.  player_gesture_bright_layout_id   自定义手势亮度调节布局
+   >
+    19.  player_gesture_progress_layout_id   自定义手势进度调节布局
  >> #### 3.修改网络对话框提示文字内容
       app.strings.xml
       <string name="exo_play_reminder">您当前网络不是wifi，是否继续观看视频</string>
@@ -438,7 +447,7 @@
 
 ### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
 ### 六.[自定义布局用法-戳我](READMELAYUOT.md)
- 
+### 七.[自定义MediaSource用法-戳我](RELEASEVIDEO.md) 
 
 
 ## [License](https://github.com/yangchaojiang/yjPlay/blob/master/LICENSE)

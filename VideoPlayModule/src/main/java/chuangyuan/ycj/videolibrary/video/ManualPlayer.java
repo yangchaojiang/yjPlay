@@ -10,11 +10,10 @@ import android.support.annotation.Size;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.util.Util;
 
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ItemVideo;
@@ -31,7 +30,6 @@ public class ManualPlayer extends GestureVideoPlayer {
     private boolean isLoad = false;
     private View.OnTouchListener onTouchListener;
     private View.OnClickListener onClickListener;
-    Lock lock = new ReentrantLock();
 
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this(activity, playerView, null);
@@ -46,8 +44,13 @@ public class ManualPlayer extends GestureVideoPlayer {
     }
 
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
-        super(activity, playerView, listener);
+        this(activity, new MediaSourceBuilder(activity, listener), playerView);
+    }
+
+    public ManualPlayer(@NonNull Activity activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
+        super(activity, mediaSourceBuilder, playerView);
         intiView();
+        createPlayersNo();
     }
 
     private void intiView() {
@@ -68,12 +71,12 @@ public class ManualPlayer extends GestureVideoPlayer {
         getPlayerViewListener().setPlayerBtnOnTouchListener(onTouchListener);
     }
 
-
     /***
      * 启动播放视频
      * */
+    @Override
     public void startPlayer() {
-        isLoad = true;
+       isLoad = true;
         if (getPlayerViewListener().isList()) {
             handPause = false;
             VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
@@ -86,41 +89,27 @@ public class ManualPlayer extends GestureVideoPlayer {
 
     @Override
     public void setPlayUri(@NonNull Uri uri) {
-        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), uri);
-        sss();
+        mediaSourceBuilder.setMediaUri(uri);
+        getPlayerViewListener().setPlayerBtnOnTouchListener(onTouchListener);
     }
 
     @Override
     public void setPlaySwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
-        this.videoUri = videoUri;
-        this.nameUri = name;
-        getPlayerViewListener().showSwitchName(name.get(index));
-        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), Uri.parse(videoUri.get(index)));
-        sss();
+        showSwitchName(name.get(index));
+        mediaSourceBuilder.setMediaSwitchUri(videoUri, name, index);
+        getPlayerViewListener().setPlayerBtnOnTouchListener(onTouchListener);
     }
 
     @Override
     public void setPlayUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
-        this.indexType = indexType;
-        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), firstVideoUri, secondVideoUri);
-        sss();
-    }
-
-    @Override
-    public void setPlayUri(@NonNull Uri... uris) {
-        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), uris);
-
+        mediaSourceBuilder.setMediaUri(indexType, firstVideoUri, secondVideoUri);
+        getPlayerViewListener().setPlayerBtnOnTouchListener(onTouchListener);
     }
 
     @Override
     public <T extends ItemVideo> void setPlayUri(@NonNull List<T> uris) {
-        mediaSourceBuilder.setMediaSourceUri(activity.getApplicationContext(), uris);
-        sss();
-    }
-
-    private void sss() {
+        mediaSourceBuilder.setMediaUri(uris);
         getPlayerViewListener().setPlayerBtnOnTouchListener(onTouchListener);
-        createPlayersNo();
     }
 
     @Override
@@ -132,8 +121,6 @@ public class ManualPlayer extends GestureVideoPlayer {
             } else {
                 createPlayers();
             }
-        } else {
-            createPlayersPlay();
         }
     }
 
@@ -167,17 +154,22 @@ public class ManualPlayer extends GestureVideoPlayer {
     public void reset() {
         if (player != null) {
             unNetworkBroadcastReceiver();
-            setPosition(0);
+            if (isEnd){
+               setPosition(0);
+            }else {
+                updateResumePosition() ;
+            }
             player.stop();
             player.removeListener(componentListener);
             getPlayerViewListener().setPlayerBtnOnTouchListener(onTouchListener);
             getPlayerViewListener().showPreview(View.VISIBLE);
             getPlayerViewListener().reset();
             player.release();
+            if (mediaSourceBuilder != null) {
+                mediaSourceBuilder.release();
+            }
             player = null;
         }
-
-
     }
 
     /****

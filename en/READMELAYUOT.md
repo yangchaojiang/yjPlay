@@ -126,3 +126,59 @@
 
 </LinearLayout>
 ```
+
+### 二.Gesture layout customization layout (layout does not need to specify control id)
+1.Layout of the reference
+````
+ <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+        android:id="@+id/exo_play_context_id"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:player_gesture_audio_layout_id="@layout/custom_gesture_audio"
+        app:player_gesture_bright_layout_id="@layout/custom_gesture_brightness"
+        app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
+        ....
+          />
+````
+2.Code using
+````
+//实现你手势信息回调接口
+  //exoPlayerManager.setOnGestureBrightnessListener();//亮度
+  //exoPlayerManager.setOnGestureProgressListener(); //进度调节
+  // exoPlayerManager.setOnGestureVolumeListener(); //音频
+  //以下示例代码  
+   exoPlayerManager.setOnGestureBrightnessListener(new OnGestureBrightnessListener() {
+            @Override
+            public void setBrightnessPosition(int mMax, int currIndex) {
+                //显示你的布局
+                videoPlayerView.getGestureBrightnessLayout().setVisibility(View.VISIBLE);
+                //为你布局显示内容自定义内容
+                videoBrightnessPro.setMax(mMax);
+                videoBrightnessImg.setImageResource(chuangyuan.ycj.videolibrary.R.drawable.ic_brightness_6_white_48px);
+                videoBrightnessPro.setProgress(currIndex);
+            }
+        });
+        exoPlayerManager.setOnGestureProgressListener(new OnGestureProgressListener() {
+            @Override
+            public void showProgressDialog(long seekTimePosition, long duration, String seekTime, String totalTime) {
+                //显示你的布局
+                videoPlayerView.getGestureProgressLayout().setVisibility(View.VISIBLE);
+                exo_video_dialog_pro_text.setTextColor(Color.RED);
+                exo_video_dialog_pro_text.setText(seekTime + "/" + totalTime);
+            }
+        });
+        exoPlayerManager.setOnGestureVolumeListener(new OnGestureVolumeListener() {
+            @Override
+            public void setVolumePosition(int mMax, int currIndex) {
+                //显示你的布局
+                videoPlayerView.getGestureAudioLayout().setVisibility(View.VISIBLE);
+                //为你布局显示内容自定义内容
+                videoAudioPro.setMax(mMax);
+                videoAudioPro.setProgress(currIndex);
+                videoAudioImg.setImageResource(currIndex == 0 ? R.drawable.ic_volume_off_white_48px : R.drawable.ic_volume_up_white_48px);
+            }
+        });
+````
+3.matters need attention：
+  * 1.You don't need to be concerned about gestures and layout hiding problems. Auto hide layout, focus on you need to display content style。
+  * 2.The gesture layout can customize any arbitrary layout. The user decides that he needs to customize the layout。

@@ -15,8 +15,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 
 import java.util.ArrayList;
@@ -24,6 +22,9 @@ import java.util.List;
 
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
+import chuangyuan.ycj.yjplay.adapter.BRVAHTestAdapter;
+import chuangyuan.ycj.yjplay.custom.MainCustomLayoutActivity;
+import chuangyuan.ycj.yjplay.custom.MainListInfoCustomActivity;
 
 import static android.support.v4.app.ActivityOptionsCompat.*;
 
@@ -114,10 +115,10 @@ public class MainListActivity extends AppCompatActivity {
             currPosition =manualPlayer.getCurrentPosition();
         }
         Log.d("currPosition", currPosition + "");
-        Intent intent = new Intent(MainListActivity.this, MainCustomActivity.class);
+        Intent intent = new Intent(MainListActivity.this, MainListInfoCustomActivity.class);
         ActivityOptionsCompat activityOptions = makeSceneTransitionAnimation(
                 this, new Pair<>(view.findViewById(R.id.item_exo_player_view),
-                        MainCustomActivity.VIEW_NAME_HEADER_IMAGE));
+                        MainCustomLayoutActivity.VIEW_NAME_HEADER_IMAGE));
         intent.putExtra("currPosition", currPosition);
         intent.putExtra("uri", uri);
         ActivityCompat.startActivityForResult(this, intent, 10, activityOptions.toBundle());

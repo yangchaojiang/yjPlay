@@ -11,6 +11,7 @@ public interface VideoWindowListener {
 
 
     /***
+     * 返回当前位置
      * @param currentIndex 当前视频窗口索引
      * @param  windowCount   总数
      * ***/

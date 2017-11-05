@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\project\yjPlay\VideoUi\src\main\assets"/><source path="D:\project\yjPlay\VideoUi\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\project\yjPlay\VideoUi\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\project\yjPlay\VideoUi\src\main\assets"/><source path="E:\project\yjPlay\VideoUi\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\project\yjPlay\VideoUi\src\debug\assets"/></dataSet></merger>

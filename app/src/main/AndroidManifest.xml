@@ -30,11 +30,21 @@
 
         </activity>
         <activity
-            android:name="chuangyuan.ycj.yjplay.MainCustomActivity"
+            android:name="chuangyuan.ycj.yjplay.custom.MainCustomLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name="chuangyuan.ycj.yjplay.custom.MainListInfoCustomActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="chuangyuan.ycj.yjplay.media.MainCustomMediaActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="chuangyuan.ycj.yjplay.GuangGaoPlayerdActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -47,6 +57,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -50,7 +50,7 @@ public class MainDetailedActivity extends Activity {
             }
         });
         //设置开始播放进度
-        //  exoPlayerManager.setPosition(1000);
+        // exoPlayerManager.setPosition(1000);
         // exoPlayerManager.setPlayUri("http://mp4.vjshi.com/2017-10-17/b81c7a35932c5bbacdc177534398fe87.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
         // exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4");
         String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
@@ -74,6 +74,26 @@ public class MainDetailedActivity extends Activity {
        // listss.add(bean);
        // listss.add(bean1);
         //exoPlayerManager.setPlayUri(listss);
+        //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
+        //exoPlayerManager.setSeekBarSeek(false);
+        //设置视循环播放
+        //exoPlayerManager.setLooping(10);
+        //d隐藏控制布局
+        // exoPlayerManager.hideControllerView();
+        //隐藏进度条
+        // exoPlayerManager.hideSeekBar();
+        //显示进度条
+        //exoPlayerManager.showSeekBar();
+        //是否播放
+        // exoPlayerManager.isPlaying();
+        //设置播放视频倍数  快进播放和慢放播放
+        //exoPlayerManager.setPlaybackParameters(2f,2f);
+        // videoPlayerView.getPreviewImage().setScaleType(ImageView.ScaleType.FIT_XY);
+        Glide.with(this)
+                .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
+                .fitCenter()
+                .placeholder(R.mipmap.test)
+                .into(videoPlayerView.getPreviewImage());
         exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
             @Override
             public void onPlayStart() {
@@ -105,27 +125,6 @@ public class MainDetailedActivity extends Activity {
 
             }
         });
-        //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
-        //exoPlayerManager.setSeekBarSeek(false);
-        //设置视循环播放
-        //exoPlayerManager.setLooping(10);
-        //d隐藏控制布局
-        // exoPlayerManager.hideControllerView();
-        //隐藏进度条
-        // exoPlayerManager.hideSeekBar();
-        //显示进度条
-        //  exoPlayerManager.showSeekBar();
-        //是否播放
-        // exoPlayerManager.isPlaying();
-        //设置播放视频倍数  快进播放和慢放播放
-        //exoPlayerManager.setPlaybackParameters(2f,2f);
-        // videoPlayerView.getPreviewImage().setScaleType(ImageView.ScaleType.FIT_XY);
-        Glide.with(this)
-                .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
-                .fitCenter()
-                .placeholder(R.mipmap.test)
-                .into(videoPlayerView.getPreviewImage());
-
 
     }
 

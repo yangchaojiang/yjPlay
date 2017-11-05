@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-en\\values-en.xml",
+        "outputFile": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-en\\values-en.xml",
         "map": [
             {
                 "to": {
@@ -12,7 +12,7 @@
                     "endOffset": 173
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 33,
                         "startColumn": 2,
@@ -32,7 +32,7 @@
                     "endOffset": 253
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 2,
@@ -51,7 +51,7 @@
                     "endOffset": 324
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 2,
@@ -70,7 +70,7 @@
                     "endOffset": 391
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 2,
@@ -89,7 +89,7 @@
                     "endOffset": 456
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 2,
@@ -108,7 +108,7 @@
                     "endOffset": 535
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 2,
@@ -127,7 +127,7 @@
                     "endOffset": 612
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 2,
@@ -146,7 +146,7 @@
                     "endOffset": 690
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 2,
@@ -165,7 +165,7 @@
                     "endOffset": 767
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 2,
@@ -184,7 +184,7 @@
                     "endOffset": 836
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 2,
@@ -203,7 +203,7 @@
                     "endOffset": 901
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 2,
@@ -222,7 +222,7 @@
                     "endOffset": 963
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 2,
@@ -241,7 +241,7 @@
                     "endOffset": 1075
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 2,
@@ -260,7 +260,7 @@
                     "endOffset": 1126
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 2,
@@ -279,7 +279,7 @@
                     "endOffset": 1235
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 2,
@@ -298,7 +298,7 @@
                     "endOffset": 1287
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 2,
@@ -317,7 +317,7 @@
                     "endOffset": 1398
                 },
                 "from": {
-                    "file": "D:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
+                    "file": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\values-en\\strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 2,

@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +23,9 @@ import java.util.Locale;
 
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
+import chuangyuan.ycj.videolibrary.listener.OnGestureBrightnessListener;
+import chuangyuan.ycj.videolibrary.listener.OnGestureProgressListener;
+import chuangyuan.ycj.videolibrary.listener.OnGestureVolumeListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
@@ -51,10 +53,15 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     private int screenWidthPixels;
     /***格式字符 ****/
     private StringBuilder formatBuilder;
-    /****格式化类 ***/
+    /***格式化类 ***/
     private Formatter formatter;
-
     private boolean controllerHideOnTouch = true;
+    /***手势进度接口实例 ***/
+    private OnGestureProgressListener onGestureProgressListener;
+    /***手势亮度接口实例 ***/
+    private OnGestureBrightnessListener onGestureBrightnessListener;
+    /***手势音频接口实例***/
+    private OnGestureVolumeListener onGestureVolumeListener;
 
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this(activity, playerView, null);
@@ -69,9 +76,14 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     }
 
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
-        super(activity, playerView, listener);
+        this(activity, new MediaSourceBuilder(activity, listener), playerView);
+    }
+
+    public GestureVideoPlayer(@NonNull Activity activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
+        super(activity, mediaSourceBuilder, playerView);
         intiViews();
     }
+
 
     private void intiViews() {
         formatBuilder = new StringBuilder();
@@ -142,8 +154,10 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         long minutes = (totalSeconds / 60) % 60;
         long hours = totalSeconds / 3600;
         formatBuilder.setLength(0);
-        return hours > 0 ? formatter.format("%d:%02d:%02d", hours, minutes, seconds).toString()
+        String hs = hours > 0 ? formatter.format("%d:%02d:%02d", hours, minutes, seconds).toString()
                 : formatter.format("%02d:%02d", minutes, seconds).toString();
+        formatter.flush();
+        return hs;
     }
 
     /**
@@ -162,28 +176,22 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     /****
      * 滑动进度
      *
-     * @param deltaX            滑动
-     * @param seekTime          滑动的时间
-     * @param seekTimePosition  滑动的时间 int
-     * @param totalTime         视频总长
-     * @param totalTimeDuration 视频总长 int
+     * @param  seekTimePosition  滑动的时间
+     * @param  duration         视频总长
+     * @param  seekTime    滑动的时间 格式化00:00
+     * @param  totalTime    视频总长 格式化00:00
      **/
-    private void showProgressDialog(float deltaX, String seekTime, long seekTimePosition,
-                                    String totalTime, long totalTimeDuration) {
-        Log.d(TAG, "currentTimeline:" + player.getContentPosition() + "");
-        Log.d(TAG, "newPosition:" + player.getDuration() + "");
-        Log.d(TAG, seekTime);
-        Log.d(TAG, totalTime);
+    private void showProgressDialog(long seekTimePosition, long duration, String seekTime, String totalTime) {
         newPosition = seekTimePosition;
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(seekTime);
-        stringBuilder.append("/");
-        stringBuilder.append(totalTime);
-        ForegroundColorSpan blueSpan = new ForegroundColorSpan(ContextCompat.getColor(activity, R.color.simple_exo_style_color));
-        SpannableString spannableString = new SpannableString(stringBuilder.toString());
-        spannableString.setSpan(blueSpan, 0, seekTime.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        getPlayerViewListener().setTimePosition(spannableString);
-        stringBuilder = null;
+        if (onGestureProgressListener != null) {
+            onGestureProgressListener.showProgressDialog(seekTimePosition, duration, seekTime, totalTime);
+        } else {
+            String stringBuilder = seekTime + "/" + totalTime;
+            ForegroundColorSpan blueSpan = new ForegroundColorSpan(ContextCompat.getColor(activity, R.color.simple_exo_style_color));
+            SpannableString spannableString = new SpannableString(stringBuilder);
+            spannableString.setSpan(blueSpan, 0, seekTime.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            getPlayerViewListener().setTimePosition(spannableString);
+        }
     }
 
     /**
@@ -204,12 +212,14 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         } else if (index < 0) {
             index = 0;
         }
-        // 变更进度条
-        // int i = (int) (index * 1.5 / mMaxVolume * 100);
-        //  String s = i + "%";
-        // 变更声音
+        // 变更进度条 // int i = (int) (index * 1.5 / mMaxVolume * 100);
+        //  String s = i + "%";  // 变更声音
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, index, 0);
-        getPlayerViewListener().setVolumePosition(mMaxVolume, index);
+        if (onGestureVolumeListener != null) {
+            onGestureVolumeListener.setVolumePosition(mMaxVolume, index);
+        } else {
+            getPlayerViewListener().setVolumePosition(mMaxVolume, index);
+        }
     }
 
     /**
@@ -234,7 +244,11 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
             lpa.screenBrightness = 0.01f;
         }
         activity.getWindow().setAttributes(lpa);
-        getPlayerViewListener().setBrightnessPosition(100, (int) (lpa.screenBrightness * 100));
+        if (onGestureBrightnessListener != null) {
+            onGestureBrightnessListener.setBrightnessPosition(100, (int) (lpa.screenBrightness * 100));
+        } else {
+            getPlayerViewListener().setBrightnessPosition(100, (int) (lpa.screenBrightness * 100));
+        }
     }
 
     @Override
@@ -243,7 +257,37 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         audioManager = null;
         gestureDetector = null;
         formatBuilder = null;
+        if (formatter != null) {
+            formatter.close();
+        }
         formatter = null;
+        onGestureBrightnessListener = null;
+        onGestureProgressListener = null;
+        onGestureVolumeListener = null;
+    }
+
+    /***
+     * 实现自定义进度监听事件
+     * @param onGestureProgressListener  实例
+     * **/
+    public void setOnGestureProgressListener(OnGestureProgressListener onGestureProgressListener) {
+        this.onGestureProgressListener = onGestureProgressListener;
+    }
+
+    /***
+     * 实现自定义亮度手势监听事件
+     * @param onGestureBrightnessListener  实例
+     * **/
+    public void setOnGestureBrightnessListener(OnGestureBrightnessListener onGestureBrightnessListener) {
+        this.onGestureBrightnessListener = onGestureBrightnessListener;
+    }
+
+    /***
+     * 实现自定义音频手势监听事件
+     * @param onGestureVolumeListener  实例
+     * **/
+    public void setOnGestureVolumeListener(OnGestureVolumeListener onGestureVolumeListener) {
+        this.onGestureVolumeListener = onGestureVolumeListener;
     }
 
     /****
@@ -254,9 +298,6 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         private boolean volumeControl;
         private boolean toSeek;
 
-        /**
-         * 双击
-         */
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             return true;
@@ -296,7 +337,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
                 } else if (newPosition <= 0) {
                     newPosition = 0;
                 }
-                showProgressDialog(deltaX, stringForTime(newPosition), newPosition, stringForTime(duration), duration);
+                showProgressDialog(newPosition, duration, stringForTime(newPosition), stringForTime(duration));
             } else {
                 float percent = deltaY / getPlayerViewListener().getHeight();
                 if (volumeControl) {
@@ -307,7 +348,6 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
             }
             return super.onScroll(e1, e2, distanceX, distanceY);
         }
-
     }
 
 }

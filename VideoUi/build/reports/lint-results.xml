@@ -13,7 +13,7 @@
         errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
             line="20"
             column="3"/>
     </issue>
@@ -29,7 +29,7 @@
         errorLine1="        if (Util.SDK_INT >= 11) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\java\com\google\android\exoplayer2\ui\PlaybackControlView.java"
+            file="E:\project\yjPlay\VideoUi\src\main\java\com\google\android\exoplayer2\ui\PlaybackControlView.java"
             line="869"
             column="13"/>
     </issue>
@@ -45,7 +45,7 @@
         errorLine1="  android:background=&quot;#CC000000&quot;"
         errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
             line="21"
             column="3"/>
     </issue>
@@ -62,7 +62,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\constants.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\constants.xml"
             line="8"
             column="10"/>
     </issue>
@@ -79,7 +79,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\constants.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\constants.xml"
             line="9"
             column="10"/>
     </issue>
@@ -96,7 +96,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\constants.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\constants.xml"
             line="10"
             column="10"/>
     </issue>
@@ -113,7 +113,7 @@
         errorLine2="           ~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\dimen.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\dimen.xml"
             line="3"
             column="12"/>
     </issue>
@@ -130,7 +130,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\dimen.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\dimen.xml"
             line="4"
             column="12"/>
     </issue>
@@ -147,7 +147,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_brightness_6_white_48px.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_brightness_6_white_48px.xml"
             line="1"
             column="1"/>
     </issue>
@@ -164,7 +164,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_chevron_left_white_48px.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_chevron_left_white_48px.xml"
             line="1"
             column="1"/>
     </issue>
@@ -181,7 +181,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_exo_pause.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_exo_pause.xml"
             line="1"
             column="1"/>
     </issue>
@@ -198,7 +198,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_exo_start.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_exo_start.xml"
             line="1"
             column="1"/>
     </issue>
@@ -215,7 +215,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_fullscreen_exit_white.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_fullscreen_exit_white.xml"
             line="1"
             column="1"/>
     </issue>
@@ -232,7 +232,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_fullscreen_white.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_fullscreen_white.xml"
             line="1"
             column="1"/>
     </issue>
@@ -249,7 +249,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_replay_.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_replay_.xml"
             line="1"
             column="1"/>
     </issue>
@@ -266,7 +266,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_sentiment_very_dissatisfied_white_48px.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_sentiment_very_dissatisfied_white_48px.xml"
             line="1"
             column="1"/>
     </issue>
@@ -283,7 +283,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_volume_off_white_48px.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_volume_off_white_48px.xml"
             line="1"
             column="1"/>
     </issue>
@@ -300,7 +300,7 @@
         errorLine2="^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\drawable\ic_volume_up_white_48px.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_volume_up_white_48px.xml"
             line="1"
             column="1"/>
     </issue>
@@ -317,15 +317,15 @@
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
             line="21"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
             line="22"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
             line="7"
             column="11"/>
     </issue>
@@ -342,15 +342,15 @@
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
             line="27"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
             line="28"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
             line="13"
             column="11"/>
     </issue>
@@ -367,15 +367,15 @@
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
             line="28"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
             line="29"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
             line="14"
             column="11"/>
     </issue>
@@ -392,15 +392,15 @@
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
             line="29"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
             line="30"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
             line="15"
             column="11"/>
     </issue>
@@ -417,15 +417,15 @@
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
             line="30"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
             line="31"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
             line="16"
             column="11"/>
     </issue>
@@ -442,15 +442,15 @@
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
             line="31"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
             line="32"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
             line="17"
             column="11"/>
     </issue>
@@ -467,15 +467,15 @@
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
             line="32"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
             line="33"
             column="11"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
             line="18"
             column="11"/>
     </issue>
@@ -492,15 +492,15 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\strings.xml"
             line="33"
             column="10"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-en\strings.xml"
             line="34"
             column="10"/>
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-zh-rCN\strings.xml"
             line="19"
             column="10"/>
     </issue>
@@ -516,7 +516,7 @@
         errorLine1="  public boolean onTouchEvent(MotionEvent event) {"
         errorLine2="                 ~~~~~~~~~~~~">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\java\com\google\android\exoplayer2\ui\DefaultTimeBar.java"
+            file="E:\project\yjPlay\VideoUi\src\main\java\com\google\android\exoplayer2\ui\DefaultTimeBar.java"
             line="279"
             column="18"/>
     </issue>
@@ -533,7 +533,7 @@
         errorLine2="    ^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
             line="31"
             column="5"/>
     </issue>
@@ -550,7 +550,7 @@
         errorLine2="    ^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
             line="34"
             column="5"/>
     </issue>
@@ -567,7 +567,7 @@
         errorLine2="    ^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
             line="37"
             column="5"/>
     </issue>
@@ -584,7 +584,7 @@
         errorLine2="    ^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
             line="40"
             column="5"/>
     </issue>
@@ -601,7 +601,7 @@
         errorLine2="    ^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
             line="44"
             column="5"/>
     </issue>
@@ -618,7 +618,7 @@
         errorLine2="    ^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
             line="48"
             column="5"/>
     </issue>
@@ -635,7 +635,7 @@
         errorLine2="    ^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
             line="52"
             column="5"/>
     </issue>
@@ -652,7 +652,7 @@
         errorLine2="    ^"
         quickfix="studio">
         <location
-            file="D:\project\yjPlay\VideoUi\src\main\res\layout\exo_simple_player_view.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_simple_player_view.xml"
             line="30"
             column="5"/>
     </issue>

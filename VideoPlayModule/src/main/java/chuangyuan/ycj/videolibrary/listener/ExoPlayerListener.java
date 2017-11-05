@@ -1,15 +1,13 @@
 package chuangyuan.ycj.videolibrary.listener;
 
 
-
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
- *
  * @author yangc
- * date 2017/7/21
- * E-Mail:yangchaojiang@outlook.com
- * Deprecated: view回调控制类接口
+ *         date 2017/7/21
+ *         E-Mail:yangchaojiang@outlook.com
+ *         Deprecated: view回调控制类接口
  */
 
 public interface ExoPlayerListener {
@@ -51,6 +49,5 @@ public interface ExoPlayerListener {
      * @return ExoUserPlayer
      * **/
     ExoUserPlayer getPlay();
-
 
 }

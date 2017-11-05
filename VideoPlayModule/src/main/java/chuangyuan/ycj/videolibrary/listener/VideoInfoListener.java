@@ -37,9 +37,6 @@ public interface VideoInfoListener {
     /***
      *模式发生改变
      * @param  repeatMode  { int REPEAT_MODE_OFF = 0; int REPEAT_MODE_ONE = 1,REPEAT_MODE_ALL = 2}
-     *  Normal playback without repetition REPEAT_MODE_OFF
-     * "Repeat One" mode to repeat the currently playing window infinitely. REPEAT_MODE_ONE
-     * "Repeat All" mode to repeat the entire timeline infinitely.REPEAT_MODE_ALL
      * ***/
     void onRepeatModeChanged(int repeatMode);
 

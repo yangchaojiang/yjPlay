@@ -1,11 +1,11 @@
  ## 自定义布局
 
-### 一.使用说明
-  1. 布局内容由使用者任意定义
+### 一.布局使用说明
+  1. 布局内容由使用者 任意定义布局
   2. 布局内必须有一个view的id 必须指定
   3. 布局内必须有一个view的id 必须指定
   4. 布局内必须有一个view的id 必须指定
- ### view指定id 说明
+ #### view指定id 说明
   1. 重播布局→ **<font color="red">android:id="@id/exo_player_replay_btn_id"</font>**
   2. 错误布局→ **<font color="red">android:id="@id/exo_player_error_btn_id"</font>**
   3. 非wifi播放提示布局→ **<font color="red">android:id="@id/exo_player_btn_hint_btn_id"</font>**
@@ -126,3 +126,58 @@
 
 </LinearLayout>
 ```
+### 二.手势布局自定义布局（布局不需要指定控件id）
+1.布局引用
+````
+ <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+        android:id="@+id/exo_play_context_id"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:player_gesture_audio_layout_id="@layout/custom_gesture_audio"
+        app:player_gesture_bright_layout_id="@layout/custom_gesture_brightness"
+        app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
+        ....
+          />
+````
+2.代码使用
+````
+//实现你手势信息回调接口
+  //exoPlayerManager.setOnGestureBrightnessListener();//亮度
+  //exoPlayerManager.setOnGestureProgressListener(); //进度调节
+  // exoPlayerManager.setOnGestureVolumeListener(); //音频
+  //以下示例代码  
+   exoPlayerManager.setOnGestureBrightnessListener(new OnGestureBrightnessListener() {
+            @Override
+            public void setBrightnessPosition(int mMax, int currIndex) {
+                //显示你的布局
+                videoPlayerView.getGestureBrightnessLayout().setVisibility(View.VISIBLE);
+                //为你布局显示内容自定义内容
+                videoBrightnessPro.setMax(mMax);
+                videoBrightnessImg.setImageResource(chuangyuan.ycj.videolibrary.R.drawable.ic_brightness_6_white_48px);
+                videoBrightnessPro.setProgress(currIndex);
+            }
+        });
+        exoPlayerManager.setOnGestureProgressListener(new OnGestureProgressListener() {
+            @Override
+            public void showProgressDialog(long seekTimePosition, long duration, String seekTime, String totalTime) {
+                //显示你的布局
+                videoPlayerView.getGestureProgressLayout().setVisibility(View.VISIBLE);
+                exo_video_dialog_pro_text.setTextColor(Color.RED);
+                exo_video_dialog_pro_text.setText(seekTime + "/" + totalTime);
+            }
+        });
+        exoPlayerManager.setOnGestureVolumeListener(new OnGestureVolumeListener() {
+            @Override
+            public void setVolumePosition(int mMax, int currIndex) {
+                //显示你的布局
+                videoPlayerView.getGestureAudioLayout().setVisibility(View.VISIBLE);
+                //为你布局显示内容自定义内容
+                videoAudioPro.setMax(mMax);
+                videoAudioPro.setProgress(currIndex);
+                videoAudioImg.setImageResource(currIndex == 0 ? R.drawable.ic_volume_off_white_48px : R.drawable.ic_volume_up_white_48px);
+            }
+        });
+````
+3.注意事项：
+  * 1.你不需要关心手势操作后，布局隐藏问题。自动隐藏布局，专注你需要显示内容央视就可以了。
+  * 2.手势布局可以自定义其中一个或者两个布局。有使用者自己决定需要自定义布局。

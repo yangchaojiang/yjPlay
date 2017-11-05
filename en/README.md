@@ -20,14 +20,14 @@
    * 11 Support network type prompts for playback
    * 12 **1.5.5**Add video loading layout, error layout, replay layout, prompt layout customization, more flexible implementation of layout style
    * 13 Support for video loading display mode (network speed mode and percentage mode)
-   * 14 Supports video multiple playback
+   * 14 Supports video double speed playback
    * 15 Support for video cover image (two model covers)
+   * 16 Support for custom Media Source.
+   * 17 **1.7.0**Increase signal brightness adjustment, video progress, volume layout customization。
  <!--more-->
 
  ### [Update log→》Poking me see](../RELEASENOTES.md)
  
-   >> [See the 1.5.92 upgrade log](../RELEASENOTES.md#1592)
-   
  ### 一.Reference library
   ````
    repositories {
@@ -36,7 +36,7 @@
       }
 
   dependencies {
-   compile 'com.ycjiang:VideoPlayModule:1.5.92'
+   compile 'com.ycjiang:VideoPlayModule:1.7.0'
 
   }
   ````
@@ -70,6 +70,9 @@
          app:player_error_layout_id="@layout/custom_play_error"
          app:player_hint_layout_id="@layout/custom_play_btn_hint"
          app:player_load_layout_id="@layout/custom_exo_play_load"
+         app:player_gesture_audio_layout_id="@layout/custom_gesture_audio"
+         app:player_gesture_bright_layout_id="@layout/custom_gesture_brightness"
+         app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
           />
    ````
    >>>> Basic use is as follows
@@ -143,7 +146,15 @@
 
    >
     16.  player_load_layout_id   Customize video to load the layout file
-
+   
+   >
+    17.  player_gesture_audio_layout_id   Custom gesture audio adjustment layout
+ 
+   >
+    18.  player_gesture_bright_layout_id   Custom gesture brightness adjustment layout
+  
+   >
+    19.  player_gesture_progress_layout_id  Custom gesture progress adjustment layout
 
  >> #### 3.Modify the network dialog box to prompt text content
       app.strings.xml

@@ -40,8 +40,12 @@
         <attr name="player_hint_layout_id" format="reference" />
         <!--自定义加载布局-->
         <attr name="player_load_layout_id" format="reference" />
-        <!--自定义预览布局-->
-        <attr name="player_preview_layout_id" format="reference" />
+        <!--自定义音频手势布局-->
+        <attr name="player_gesture_audio_layout_id" format="reference" />
+        <!--自定义亮度手势布局-->
+        <attr name="player_gesture_bright_layout_id" format="reference" />
+        <!--自定义进度手势布局-->
+        <attr name="player_gesture_progress_layout_id" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ExoDefaultTimeBar">

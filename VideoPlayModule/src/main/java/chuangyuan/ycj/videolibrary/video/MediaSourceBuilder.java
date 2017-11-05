@@ -11,15 +11,12 @@ import android.support.annotation.Size;
 import android.util.Log;
 
 import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.AdaptiveMediaSourceEventListener;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.MergingMediaSource;
-import com.google.android.exoplayer2.source.SingleSampleMediaSource;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
 import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory;
@@ -28,7 +25,6 @@ import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.Util;
 
 import java.util.List;
@@ -42,94 +38,239 @@ import chuangyuan.ycj.videolibrary.listener.ItemVideo;
  *         E-Mail:1007181167@qq.com
  *         Description：数据源处理类
  */
-public final class MediaSourceBuilder {
+public class MediaSourceBuilder {
     private static final String TAG = MediaSourceBuilder.class.getName();
     private Context context;
     private Handler mainHandler = null;
     private MediaSource mediaSource;
     private DataSourceListener listener;
     private AdaptiveMediaSourceEventListener adaptiveMediaSourceEventListener;
+    private int indexType = -1;
+    private List<String> videoUri;
+    private List<String> nameUri;
+
+    /***
+     * 初始化
+     *
+     * @param context 下文
+     **/
+    public MediaSourceBuilder(@NonNull Context context) {
+        this(context, null);
+    }
 
     /***
      * 初始化
      *
      * @param listener 自定义数源工厂接口
      **/
-    public MediaSourceBuilder(@Nullable DataSourceListener listener) {
+    public MediaSourceBuilder(@NonNull Context context, @Nullable DataSourceListener listener) {
         this.listener = listener;
-    }
-
-    /****
-     * 初始化多个视频源，无缝衔接
-     *
-     * @param firstVideoUri  第一个视频， 例如例如广告视频
-     * @param secondVideoUri 第二个视频
-     ***/
-    void setMediaSourceUri(@NonNull Context context, @NonNull String firstVideoUri, @NonNull String secondVideoUri) {
-        setMediaSourceUri(context, Uri.parse(firstVideoUri), Uri.parse(secondVideoUri));
-
-    }
-
-    /****
-     * 初始化多个视频源，无缝衔接
-     *
-     * @param firstVideoUri  第一个视频， 例如例如广告视频
-     * @param secondVideoUri 第二个视频
-     ***/
-    void setMediaSourceUri(@NonNull Context context, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
-        this.context = context;
+        this.context = context.getApplicationContext();
         mainHandler = new Handler();
-        initDataConcatenatingMediaSource(Util.inferContentType(secondVideoUri.getLastPathSegment()), firstVideoUri, secondVideoUri);
     }
 
     /****
      * 初始化
      *
-     * @param context 上下文
      * @param uri     视频的地址
      ***/
-    void setMediaSourceUri(@NonNull Context context, @NonNull Uri uri) {
-        this.context = context;
-        mainHandler = new Handler();
-        initData(uri);
+    void setMediaUri(@NonNull Uri uri) {
+        mediaSource= initMediaSource(uri);
     }
 
     /****
      * 初始化
      *
-     * @param context 上下文
      * @param uris     视频的地址列表
      ***/
-    void setMediaSourceUri(@NonNull Context context, @NonNull Uri... uris) {
+    public void setMediaUri(@NonNull Uri... uris) {
         MediaSource[] firstSources = new MediaSource[uris.length];
-        this.context = context;
-        mainHandler = new Handler();
         int i = 0;
         for (Uri item : uris) {
-            firstSources[i] = initData(item);
+            firstSources[i] = initMediaSource(item);
             i++;
         }
         mediaSource = new ConcatenatingMediaSource(firstSources);
     }
 
     /****
+     * 初始化多个视频源，无缝衔接
+     *
+     * @param firstVideoUri  第一个视频， 例如例如广告视频
+     * @param secondVideoUri 第二个视频
+     ***/
+    void setMediaUri(@NonNull String firstVideoUri, @NonNull String secondVideoUri) {
+        setMediaUri(Uri.parse(firstVideoUri), Uri.parse(secondVideoUri));
+
+    }
+
+    /****
+     * 初始化多个视频源，无缝衔接
+     *
+     * @param firstVideoUri  第一个视频， 例如例如广告视频
+     * @param secondVideoUri 第二个视频
+     ***/
+    public void setMediaUri(@NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
+        setMediaUri(0, firstVideoUri, secondVideoUri);
+    }
+
+
+    /****
+     * @param  indexType  设置当前索引视频屏蔽进度
+     * @param firstVideoUri  预览的视频
+     * @param secondVideoUri 第二个视频
+
+     **/
+    public void setMediaUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
+        this.indexType = indexType;
+        initDataConcatenatingMediaSource(Util.inferContentType(secondVideoUri.getLastPathSegment()), firstVideoUri, secondVideoUri);
+    }
+
+    /**
+     * 设置多线路播放
+     *
+     * @param videoUri 视频地址
+     * @param name     清清晰度显示名称
+     * @param index    选中播放线路
+     **/
+    public void setMediaSwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
+        this.videoUri = videoUri;
+        this.nameUri = name;
+        setMediaUri(Uri.parse(videoUri.get(index)));
+    }
+
+    /****
      * 初始化
      *
-     * @param context 上下文
      * @param uris     视频的地址列表
      ***/
-    <T extends ItemVideo> void setMediaSourceUri(@NonNull Context context, @NonNull List<T> uris) {
+    public <T extends ItemVideo> void setMediaUri(@NonNull List<T> uris) {
         MediaSource[] firstSources = new MediaSource[uris.size()];
-        this.context = context;
         mainHandler = new Handler();
         int i = 0;
         for (T item : uris) {
             if (item.getVideoUri() != null) {
-                firstSources[i] = initData(Uri.parse(item.getVideoUri()));
+                firstSources[i] = initMediaSource(Uri.parse(item.getVideoUri()));
             }
             i++;
         }
         mediaSource = new ConcatenatingMediaSource(firstSources);
+    }
+
+    /**
+     * 返回循环播放实例
+     *
+     * @return LoopingMediaSource
+     ***/
+    LoopingMediaSource setLooping(@Size(min = 1) int loopCount) {
+        return new LoopingMediaSource(mediaSource, loopCount);
+    }
+
+    /***
+     * 获取视频数据源
+     **/
+    MediaSource getMediaSource() {
+        return mediaSource;
+    }
+
+    /***
+     * 设置自定义视频数据源
+     * @param mediaSource 你的数据源
+     **/
+    public void setMediaSource(MediaSource mediaSource) {
+        this.mediaSource = mediaSource;
+    }
+
+    /***
+     * 获取链接类型
+     *
+     * @return int
+     ***/
+    int getStreamType() {
+        return 1;
+    }
+
+    /***
+     * 初始化数据源工厂
+     **/
+    private DataSource.Factory getDataSource() {
+        Log.d(TAG, "Factory:" + (listener == null));
+        if (listener != null) {
+            return listener.getDataSourceFactory();
+        } else {
+            return new DefaultDataSourceFactory(context, context.getPackageName());
+        }
+    }
+
+    /****
+     * 释放资源
+     **/
+    public void release() {
+        if (mediaSource != null) {
+            mediaSource.releaseSource();
+        }
+        if (mainHandler != null) {
+            mainHandler.removeCallbacksAndMessages(context);
+            mainHandler = null;
+        }
+    }
+
+    /****
+     * 销毁资源
+     **/
+    public void destroy() {
+        release();
+        indexType = -1;
+        videoUri = null;
+        nameUri = null;
+        listener = null;
+    }
+
+    /**
+     * 获取视频所在索引
+     *
+     * @return int
+     **/
+    public int getIndexType() {
+        return indexType;
+    }
+
+    /**
+     * 设置视频所在索引
+     *
+     * @param indexType 值
+     **/
+    public void setIndexType(@Size(min = 0) int indexType) {
+        this.indexType = indexType;
+    }
+
+    /**
+     * 获取视频线路地址
+     *
+     * @return List<String>
+     **/
+    @NonNull
+      List<String> getVideoUri() {
+        return videoUri;
+    }
+
+    /**
+     * 获取视频线路名称
+     *
+     * @return List<String>
+     **/
+    @NonNull
+      List<String> getNameUri() {
+        return nameUri;
+    }
+
+    /**
+     * 用于通知自适应的回调接口获取视频线路名称
+     *
+     * @param adaptiveMediaSourceEventListener 实例
+     **/
+    public void setAdaptiveMediaSourceEventListener(AdaptiveMediaSourceEventListener adaptiveMediaSourceEventListener) {
+        this.adaptiveMediaSourceEventListener = adaptiveMediaSourceEventListener;
     }
 
     /****
@@ -139,7 +280,7 @@ public final class MediaSourceBuilder {
      * @param secondVideoUri 第二个视频
      ***/
     private void initDataConcatenatingMediaSource(int streamType, Uri firstVideoUri, Uri secondVideoUri) {
-        MediaSource firstSource = initData(firstVideoUri);
+        MediaSource firstSource = initMediaSource(firstVideoUri);
         switch (streamType) {
             case C.TYPE_SS:
                 MediaSource secondSource = new SsMediaSource(secondVideoUri, new DefaultDataSourceFactory(context, null, getDataSource()),
@@ -169,108 +310,28 @@ public final class MediaSourceBuilder {
         }
     }
 
-    /***
-     * 字幕文件设置
-     * **/
-    private void subtitle(Uri uri, Uri subtitleUri) {
-        // Build the video MediaSource.
-        Format subtitleFormat = Format.createTextSampleFormat(null, // An identifier for the track. May be null.
-                MimeTypes.APPLICATION_SUBRIP, // The mime type. Must be set correctly.
-                1, // Selection flags for the track.
-                null); // The subtitle language. May be null.
-        MediaSource subtitleSource = new SingleSampleMediaSource(subtitleUri, getDataSource(), subtitleFormat, C.TIME_UNSET);
-        // Plays the video with the sideloaded subtitle.
-        mediaSource = new MergingMediaSource(initData(uri), subtitleSource);
-    }
-
-
     /****
      * 初始化视频源，无缝衔接
      *
      * @param uri        视频的地址
      ***/
-    private MediaSource initData(Uri uri) {
+    public MediaSource initMediaSource(Uri uri) {
         int streamType = Util.inferContentType(uri);
         switch (streamType) {
             case C.TYPE_SS:
-                mediaSource = new SsMediaSource(uri, new DefaultDataSourceFactory(context, null,
+                return   new SsMediaSource(uri, new DefaultDataSourceFactory(context, null,
                         getDataSource()),
                         new DefaultSsChunkSource.Factory(getDataSource()),
                         mainHandler, adaptiveMediaSourceEventListener);
-                break;
             case C.TYPE_DASH:
-                mediaSource = new DashMediaSource(uri, new DefaultDataSourceFactory(context, null, getDataSource()),
+                return new DashMediaSource(uri, new DefaultDataSourceFactory(context, null, getDataSource()),
                         new DefaultDashChunkSource.Factory(getDataSource()), mainHandler, adaptiveMediaSourceEventListener);
-                break;
             case C.TYPE_HLS:
-                mediaSource = new HlsMediaSource(uri, new DefaultHlsDataSourceFactory(getDataSource()), 5, mainHandler, adaptiveMediaSourceEventListener);
-                break;
+                return new HlsMediaSource(uri, new DefaultHlsDataSourceFactory(getDataSource()), 5, mainHandler, adaptiveMediaSourceEventListener);
             case C.TYPE_OTHER:
-                mediaSource = new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null);
-                break;
+                return new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null);
             default:
                 throw new IllegalStateException("Unsupported type: " + streamType);
         }
-        return mediaSource;
     }
-
-    /**
-     * 返回循环播放实例
-     *
-     * @return LoopingMediaSource
-     ***/
-    LoopingMediaSource setLooping(@Size(min = 1) int loopCount) {
-        return new LoopingMediaSource(mediaSource, loopCount);
-    }
-
-    /***
-     * 获取视频类型
-     **/
-    MediaSource getMediaSource() {
-        return mediaSource;
-    }
-
-    /***
-     * 获取链接类型
-     *
-     * @return int
-     ***/
-    int getStreamType() {
-        return 1;
-    }
-
-    /***
-     * 初始化数据源工厂
-     **/
-    private DataSource.Factory getDataSource() {
-        Log.d(TAG, "Factory:" + (listener == null));
-        if (listener != null) {
-            return listener.getDataSourceFactory();
-        } else {
-            return new DefaultDataSourceFactory(context, context.getPackageName());
-        }
-
-    }
-
-    /****
-     * 自定义data数据源
-     *
-     * @param listener 接口实现
-     **/
-    public void setListener(@Nullable DataSourceListener listener) {
-        this.listener = listener;
-    }
-
-    /****
-     * 释放资源
-     **/
-    public void release() {
-        if (mediaSource != null) {
-            mediaSource.releaseSource();
-        }
-        if (mainHandler != null) {
-            mainHandler = null;
-        }
-    }
-
 }

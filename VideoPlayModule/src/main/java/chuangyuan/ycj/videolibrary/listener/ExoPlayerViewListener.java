@@ -113,10 +113,10 @@ public interface ExoPlayerViewListener {
     /**
      * 改变亮度
      *
-     * @param mMaxVolume d最大音量
-     * @param currIndex  当前音量
+     * @param mMax  最大亮度
+     * @param currIndex  当前亮度
      **/
-    void setBrightnessPosition(int mMaxVolume, int currIndex);
+    void setBrightnessPosition(int mMax, int currIndex);
 
     /**
      * 下一步

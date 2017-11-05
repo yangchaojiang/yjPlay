@@ -1,10 +1,10 @@
 [
     {
-        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
-        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\color-v11\\abc_background_cache_hint_selector_material_light.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\57489b896bba03525994417f388f18a47b41af91\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
     },
     {
-        "merged": "D:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\color-v11\\abc_background_cache_hint_selector_material_light.xml",
-        "source": "C:\\Users\\yangc\\.android\\build-cache\\553bef064307bf92fc42efdc4b7c1f635c479a85\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\androidTest\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
+        "source": "C:\\Users\\yangc\\.android\\build-cache\\57489b896bba03525994417f388f18a47b41af91\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
     }
 ]
