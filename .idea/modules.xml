@@ -3,12 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" filepath="$PROJECT_DIR$/VideoPlayModule/VideoPlayModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VideoPlayModule-Lite/VideoPlayModule-Lite.iml" filepath="$PROJECT_DIR$/VideoPlayModule-Lite/VideoPlayModule-Lite.iml" />
       <module fileurl="file://$PROJECT_DIR$/VideoUi/VideoUi.iml" filepath="$PROJECT_DIR$/VideoUi/VideoUi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ffmpeg/ffmpeg.iml" filepath="$PROJECT_DIR$/ffmpeg/ffmpeg.iml" />
-      <module fileurl="file://$PROJECT_DIR$/flac/flac.iml" filepath="$PROJECT_DIR$/flac/flac.iml" />
-      <module fileurl="file://$PROJECT_DIR$/opus/opus.iml" filepath="$PROJECT_DIR$/opus/opus.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vp9/vp9.iml" filepath="$PROJECT_DIR$/vp9/vp9.iml" />
       <module fileurl="file://$PROJECT_DIR$/yjPlay.iml" filepath="$PROJECT_DIR$/yjPlay.iml" />
     </modules>
   </component>

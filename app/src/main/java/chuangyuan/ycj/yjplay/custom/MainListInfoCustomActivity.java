@@ -17,7 +17,7 @@ import chuangyuan.ycj.videolibrary.listener.LoadModelType;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
-import chuangyuan.ycj.yjplay.DataSource;
+import chuangyuan.ycj.yjplay.data.DataSource;
 import chuangyuan.ycj.yjplay.R;
 
 
@@ -30,6 +30,7 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
     private long currPosition = 0;
     private boolean isEnd;
     private String url = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,8 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
         //设置加载显示模式
         exoPlayerManager.setLoadModel(LoadModelType.SPEED);
         exoPlayerManager.setPlayUri(url);
+        //播放视频
+        exoPlayerManager.startPlayer();
         Glide.with(this)
                 .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
                 .placeholder(R.mipmap.test)

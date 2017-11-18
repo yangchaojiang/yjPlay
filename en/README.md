@@ -1,7 +1,6 @@
 # yjPlay
  
- 
- [ ![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.7.0) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.7.0/link)
+[ ![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/_latestVersion)
  
   ### gif The display has the point card, the frame number is low, actually very fluent
   #### [Download preview apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-debug.apk)
@@ -25,6 +24,8 @@
    * 15 Support for video cover image (two model covers)
    * 16 Support for custom Media Source.
    * 17 **1.7.0**Increase signal brightness adjustment, video progress, volume layout customization。
+   * 18 Support the lite version and full version, choose to use more abundant。
+   * 19 [Video support AES encryption, Base64 encryption (unstable), three kinds of simple encryption to poke me→戳我](../README_EN_VIDEO.md)
  <!--more-->
 
  ### [Update log→》Poking me see](../RELEASENOTES.md)
@@ -37,7 +38,11 @@
       }
 
   dependencies {
-   compile 'com.ycjiang:VideoPlayModule:1.7.0'
+      //full edition
+      compile 'com.ycjiang:VideoPlayModule:1.9.5'
+      // lite version （no smoothstreaming,dash,hls,Only regular on-demand）
+      compile 'com.ycjiang:VideoPlayModule-Lite:1.9.5'
+
 
   }
   ````

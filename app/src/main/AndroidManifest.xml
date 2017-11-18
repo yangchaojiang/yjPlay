@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".App"
@@ -15,41 +16,50 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainDetailedActivity"
+            android:name=".defaults.MainDetailedActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|screenSize"
             android:launchMode="singleTask"
-            android:configChanges=
-                "screenSize|smallestScreenSize|screenLayout|orientation|screenSize"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme"/>
         <activity
-            android:name="chuangyuan.ycj.yjplay.MainListActivity"
+            android:name=".MainListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name="chuangyuan.ycj.yjplay.custom.MainCustomLayoutActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="chuangyuan.ycj.yjplay.custom.MainListInfoCustomActivity"
+            android:name=".custom.MainCustomLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="chuangyuan.ycj.yjplay.media.MainCustomMediaActivity"
+            android:name=".custom.MainListInfoCustomActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="chuangyuan.ycj.yjplay.GuangGaoPlayerdActivity"
+            android:name=".media.MainCustomMediaActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".defaults.GuangGaoPlayerdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".encrypt.EncryptedVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <activity
+        android:name=".encrypt.Encrypted2VideoActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:hardwareAccelerated="true"
+        android:screenOrientation="portrait" />
+        <activity
+            android:name=".encrypt.Encrypted3VideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +67,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

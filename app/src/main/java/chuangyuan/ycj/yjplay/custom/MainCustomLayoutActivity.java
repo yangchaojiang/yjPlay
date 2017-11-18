@@ -1,12 +1,11 @@
 package chuangyuan.ycj.yjplay.custom;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,7 +21,7 @@ import chuangyuan.ycj.videolibrary.listener.OnGestureProgressListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureVolumeListener;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
-import chuangyuan.ycj.yjplay.DataSource;
+import chuangyuan.ycj.yjplay.data.DataSource;
 import chuangyuan.ycj.yjplay.R;
 
 
@@ -32,9 +31,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
     private VideoPlayerView videoPlayerView;
     public static final String VIEW_NAME_HEADER_IMAGE = "123";
     private static final String TAG = "MainDetailedActivity";
-    private boolean isOnclick = false;
     private long currPosition = 0;
-    private boolean isEnd;
     private String url = "";
     TextView exo_video_dialog_pro_text;
     private ImageView videoAudioImg, videoBrightnessImg;
@@ -46,7 +43,6 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom);
-        isOnclick = getIntent().getBooleanExtra("isOnclick", false);
         currPosition = getIntent().getLongExtra("currPosition", 0);
         url = getIntent().getStringExtra("uri");
         videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
@@ -161,11 +157,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (exoPlayerManager.onBackPressed()) {//使用播放返回键监听
             Toast.makeText(MainCustomLayoutActivity.this, "返回", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent();
-            intent.putExtra("isEnd", isEnd);
-            intent.putExtra("currPosition", exoPlayerManager.getCurrentPosition());
-            setResult(RESULT_OK, intent);
-            ActivityCompat.finishAfterTransition(this);
+            finish();
         }
 
     }

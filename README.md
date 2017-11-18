@@ -1,7 +1,9 @@
 # yjPlay
 
- [ ![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.5.92) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.5.92/link)
+[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.9.5) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.9.5/link)
  
+ <a href='https://bintray.com/ycjiang/ycjiang/VideoPlayModule-Lite?source=watch' alt='Get automatic notifications about new "VideoPlayModule-Lite" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a><a href='https://bintray.com/ycjiang/ycjiang/VideoPlayModule-Lite?source=watch' alt='Get automatic notifications about new "VideoPlayModule-Lite" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
+
   ### [View English instructions→Poking me ](en/README.md)
 
   ### gif 显示有点卡，帧数低，实际很流畅
@@ -12,7 +14,7 @@
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    * 1 ExoUserPlayer  基本播放。
    * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势。
-   * 3 ManualPlayer  默认手动播放。
+   * 3 ManualPlayer   可自定义触发手动播放。
    * 5 广告视频预览(轻松实现，完美切换)。
    * 6 视频清晰度切换。
    * 7 缓存视频功能。
@@ -26,11 +28,13 @@
    * 15 支持视频封面图（两种模式封面图）。
    * 16 **1.7.0**支持自定义MediaSource。
    * 17 **1.7.0**增加 手势 亮度调节，视频进度，音量 布局自定义。
+   * 18 支持精简版和完整版，选择使用更丰富。
+   * 19 [支持AES视频加密,Base64加密(不稳定),简单加密三种→戳我](README_EN_VIDEO.md)
  <!--more-->
 
  ### [更新日志→》戳我查看](RELEASENOTES.md)
  
-   >> [查看1.7.0升级日志](RELEASENOTES.md#170)
+   >> [查看1.9.5升级日志](RELEASENOTES.md#170)
    >>**注意以前版本：使用自定义控制布局，请重新参考新版本布局文件**
  ### 一.引用类库
   ````
@@ -40,7 +44,10 @@
       }
 
   dependencies {
-     compile 'com.ycjiang:VideoPlayModule:1.7.0'
+     //完整版
+     compile 'com.ycjiang:VideoPlayModule:1.9.5'
+     //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
+     compile 'com.ycjiang:VideoPlayModule-Lite:1.9.5'
 
   }
   ````
@@ -192,6 +199,8 @@
            String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
            String[] name={"超清","高清","标清"};
            exoPlayerManager.setPlaySwitchUri(test,name);
+          //开始启动播放视频
+           exoPlayerManager.startPlayer();
           //添加水印图片
           // exoPlayerManager.setExoPlayWatermarkImg();
            //设置视循环播放
@@ -224,6 +233,9 @@
 
          ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this));
          ManualPlayer exoPlayerManager = new ManualPlayer(this,videoPlayerView,new DataSource(this));
+         //定义多媒体
+         MediaSourceBuilder   mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
+         ManualPlayer   exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
 
    3.设置视频标题
 
@@ -448,7 +460,7 @@
 ### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
 ### 六.[自定义布局用法-戳我](READMELAYUOT.md)
 ### 七.[自定义MediaSource用法-戳我](RELEASEVIDEO.md) 
-
+### 八.[视频加密处理用法-戳我](README_EN_VIDEO.md) 
 
 ## [License](https://github.com/yangchaojiang/yjPlay/blob/master/LICENSE)
    Licensed under the Apache License, Version 2.0 (the "License");

@@ -472,7 +472,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
   public  FrameLayout getContentFrameLayout(){
     return contentFrameLayout;
   }
-  public ImageView getPreviewImageView() {  return artworkView;  }
   /**
    * Sets whether the playback controls can be shown. If set to {@code false} the playback controls
    * are never visible and are disconnected from the player.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="4" by="lint 2.3.3">
+<issues format="4" by="lint 3.0.0">
 
     <issue
         id="UnusedAttribute"
@@ -8,7 +8,7 @@
         category="Correctness"
         priority="6"
         summary="Attribute unused on older versions"
-        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
         errorLine1="  android:layoutDirection=&quot;ltr&quot;"
         errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
@@ -19,19 +19,48 @@
     </issue>
 
     <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of com.android.support:appcompat-v7 than 25.3.1 is available: 27.0.1"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    compile &apos;com.android.support:appcompat-v7:25.3.1&apos;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="E:\project\yjPlay\VideoUi\build.gradle"
+            line="25"
+            column="5"/>
+    </issue>
+
+    <issue
         id="ObsoleteSdkInt"
         severity="Warning"
         message="Unnecessary; SDK_INT is always >= 16"
         category="Performance"
         priority="6"
         summary="Obsolete SDK_INT Version Check"
-        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for."
-        errorLine1="        if (Util.SDK_INT >= 11) {"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder."
+        errorLine1="            if (player.getPlayWhenReady() &amp;&amp; playbackState == Player.STATE_READY) {"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~">
         <location
             file="E:\project\yjPlay\VideoUi\src\main\java\com\google\android\exoplayer2\ui\PlaybackControlView.java"
-            line="869"
-            column="13"/>
+            line="843"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        severity="Warning"
+        message="This folder configuration (`v11`) is unnecessary; `minSdkVersion` is 16. Merge all the resources in this folder into `values`."
+        category="Performance"
+        priority="6"
+        summary="Obsolete SDK_INT Version Check"
+        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder.">
+        <location
+            file="E:\project\yjPlay\VideoUi\src\main\res\values-v11"/>
     </issue>
 
     <issue
@@ -41,7 +70,7 @@
         category="Performance"
         priority="3"
         summary="Overdraw: Painting regions more than once"
-        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.&#xA;&#xA;NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.&#xA;&#xA;If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.&#xA;&#xA;Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.&#xA;"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.&#xA;&#xA;NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.&#xA;&#xA;If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.&#xA;&#xA;Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead."
         errorLine1="  android:background=&quot;#CC000000&quot;"
         errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -508,23 +537,39 @@
     <issue
         id="ClickableViewAccessibility"
         severity="Warning"
-        message="Custom view `com/google/android/exoplayer2/ui/DefaultTimeBar` overrides `onTouchEvent` but not `performClick`"
+        message="Custom view `DefaultTimeBar` overrides `onTouchEvent` but not `performClick`"
         category="Accessibility"
         priority="6"
         summary="Accessibility in Custom Views"
         explanation="If a `View` that overrides `onTouchEvent` or uses an `OnTouchListener` does not also implement `performClick` and call it when clicks are detected, the `View` may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in `View#performClick` as some accessibility services invoke `performClick` when a click action should occur."
-        errorLine1="  public boolean onTouchEvent(MotionEvent event) {"
-        errorLine2="                 ~~~~~~~~~~~~">
+        errorLine1="      stopScrubbing(true);"
+        errorLine2="                     ^">
         <location
             file="E:\project\yjPlay\VideoUi\src\main\java\com\google\android\exoplayer2\ui\DefaultTimeBar.java"
-            line="279"
-            column="18"/>
+            line="261"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        severity="Warning"
+        message="Custom view `SimpleExoPlayerView` overrides `onTouchEvent` but not `performClick`"
+        category="Accessibility"
+        priority="6"
+        summary="Accessibility in Custom Views"
+        explanation="If a `View` that overrides `onTouchEvent` or uses an `OnTouchListener` does not also implement `performClick` and call it when clicks are detected, the `View` may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in `View#performClick` as some accessibility services invoke `performClick` when a click action should occur."
+        errorLine1="    return surfaceView;"
+        errorLine2="~~~~~~~~~~~~">
+        <location
+            file="E:\project\yjPlay\VideoUi\src\main\java\com\google\android\exoplayer2\ui\SimpleExoPlayerView.java"
+            line="675"
+            column="1"/>
     </issue>
 
     <issue
         id="ContentDescription"
         severity="Warning"
-        message="[Accessibility] Missing `contentDescription` attribute on image"
+        message="Missing `contentDescription` attribute on image"
         category="Accessibility"
         priority="3"
         summary="Image without `contentDescription`"
@@ -541,7 +586,7 @@
     <issue
         id="ContentDescription"
         severity="Warning"
-        message="[Accessibility] Missing `contentDescription` attribute on image"
+        message="Missing `contentDescription` attribute on image"
         category="Accessibility"
         priority="3"
         summary="Image without `contentDescription`"
@@ -558,7 +603,7 @@
     <issue
         id="ContentDescription"
         severity="Warning"
-        message="[Accessibility] Missing `contentDescription` attribute on image"
+        message="Missing `contentDescription` attribute on image"
         category="Accessibility"
         priority="3"
         summary="Image without `contentDescription`"
@@ -575,7 +620,7 @@
     <issue
         id="ContentDescription"
         severity="Warning"
-        message="[Accessibility] Missing `contentDescription` attribute on image"
+        message="Missing `contentDescription` attribute on image"
         category="Accessibility"
         priority="3"
         summary="Image without `contentDescription`"
@@ -592,7 +637,7 @@
     <issue
         id="ContentDescription"
         severity="Warning"
-        message="[Accessibility] Missing `contentDescription` attribute on image"
+        message="Missing `contentDescription` attribute on image"
         category="Accessibility"
         priority="3"
         summary="Image without `contentDescription`"
@@ -609,7 +654,7 @@
     <issue
         id="ContentDescription"
         severity="Warning"
-        message="[Accessibility] Missing `contentDescription` attribute on image"
+        message="Missing `contentDescription` attribute on image"
         category="Accessibility"
         priority="3"
         summary="Image without `contentDescription`"
@@ -626,7 +671,7 @@
     <issue
         id="ContentDescription"
         severity="Warning"
-        message="[Accessibility] Missing `contentDescription` attribute on image"
+        message="Missing `contentDescription` attribute on image"
         category="Accessibility"
         priority="3"
         summary="Image without `contentDescription`"
@@ -643,7 +688,7 @@
     <issue
         id="ContentDescription"
         severity="Warning"
-        message="[Accessibility] Missing `contentDescription` attribute on image"
+        message="Missing `contentDescription` attribute on image"
         category="Accessibility"
         priority="3"
         summary="Image without `contentDescription`"

@@ -17,7 +17,7 @@ import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.MediaSourceBuilder;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
-import chuangyuan.ycj.yjplay.DataSource;
+import chuangyuan.ycj.yjplay.data.DataSource;
 import chuangyuan.ycj.yjplay.R;
 
 
@@ -34,16 +34,18 @@ public class MainCustomMediaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom);
         url = getIntent().getStringExtra("uri");
-        mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
         videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
+        mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
         exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
         exoPlayerManager.setTitle("自定义视频标题");
         //设置加载显示模式
         exoPlayerManager.setLoadModel(LoadModelType.SPEED);
-        MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd"));
+        //
+        //http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd
+        MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse("rtsp://183.207.208.80:554/live_rtsp?source=025200060360101:1&user=025300000002499&session=no&device=025200060360101&timestamp=20171117110042&encrypt=5b601c621c6a9db0cb2dabf3a6ff9205"));
         // 两次播放的视频
-        LoopingMediaSource loopingSource = new LoopingMediaSource(source, 2);
-        mediaSourceBuilder.setMediaSource(loopingSource);
+        //LoopingMediaSource loopingSource = new LoopingMediaSource(source, 2);
+        mediaSourceBuilder.setMediaSource(source);
         exoPlayerManager.startPlayer();
         Glide.with(this)
                 .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")

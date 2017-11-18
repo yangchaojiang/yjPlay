@@ -173,10 +173,10 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 35 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 38 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Sun Nov 05 17:44:17 CST 2017      </nav>
+Check performed at Sat Nov 18 15:04:16 CST 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -184,17 +184,18 @@ Check performed at Sun Nov 05 17:44:17 CST 2017      </nav>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
       <a class="mdl-navigation__link" href="#UnusedAttribute"><i class="material-icons warning-icon">warning</i>Attribute unused on older versions (1)</a>
-      <a class="mdl-navigation__link" href="#ObsoleteSdkInt"><i class="material-icons warning-icon">warning</i>Obsolete SDK_INT Version Check (1)</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (1)</a>
+      <a class="mdl-navigation__link" href="#ObsoleteSdkInt"><i class="material-icons warning-icon">warning</i>Obsolete SDK_INT Version Check (2)</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (1)</a>
       <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (23)</a>
-      <a class="mdl-navigation__link" href="#ClickableViewAccessibility"><i class="material-icons warning-icon">warning</i>Accessibility in Custom Views (1)</a>
+      <a class="mdl-navigation__link" href="#ClickableViewAccessibility"><i class="material-icons warning-icon">warning</i>Accessibility in Custom Views (2)</a>
       <a class="mdl-navigation__link" href="#ContentDescription"><i class="material-icons warning-icon">warning</i>Image without <code>contentDescription</code> (8)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
     <div class="mdl-layout__tab-panel is-active">
 <a name="overview"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card0" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="OverviewCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Overview</h2>
@@ -206,10 +207,13 @@ Check performed at Sun Nov 05 17:44:17 CST 2017      </nav>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UnusedAttribute">UnusedAttribute</a>: Attribute unused on older versions</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
 <tr>
-<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#ObsoleteSdkInt">ObsoleteSdkInt</a>: Obsolete SDK_INT Version Check</td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -220,22 +224,22 @@ Check performed at Sun Nov 05 17:44:17 CST 2017      </nav>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Accessibility">Accessibility</a>
 </td></tr>
 <tr>
-<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#ClickableViewAccessibility">ClickableViewAccessibility</a>: Accessibility in Custom Views</td></tr>
 <tr>
 <td class="countColumn">8</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#ContentDescription">ContentDescription</a>: Image without <code>contentDescription</code></td></tr>
-<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (21)</a>
+<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (23)</a>
 </td></tr></table>
 <br/>              </div>
               <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card0Link" onclick="hideid('card0');">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="OverviewCardLink" onclick="hideid('OverviewCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Correctness"></a>
 <a name="UnusedAttribute"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card1" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="UnusedAttributeCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Attribute unused on older versions</h2>
@@ -257,11 +261,11 @@ Dismiss</button>            </div>
 <div class="metadata"><div class="explanation" id="explanationUnusedAttribute" style="display: none;">
 This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the <code>minSdkVersion</code> attribute).<br/>
 <br/>
-This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.<br/>
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.<br/>
 <br/>
-Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new <code>&lt;tag></code> element in layouts introduced in API 21.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new <code>&lt;tag></code> element in layouts introduced in API 21.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "UnusedAttribute" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -281,13 +285,58 @@ To suppress this error, use the issue id "UnusedAttribute" as explained in the <
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUnusedAttributeLink" onclick="reveal('explanationUnusedAttribute');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card1Link" onclick="hideid('card1');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="UnusedAttributeCardLink" onclick="hideid('UnusedAttributeCard');">
+Dismiss</button>            </div>
+            </div>
+          </section><a name="GradleDependency"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="GradleDependencyCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Obsolete Gradle Dependency</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:25</span>: <span class="message">A newer version of com.android.support:appcompat-v7 than 25.3.1 is available: 27.0.1</span><br /><pre class="errorlines">
+<span class="lineno"> 22 </span>
+<span class="lineno"> 23 </span>dependencies {
+<span class="lineno"> 24 </span>    compile fileTree(include: [<span class="string">'*.jar'</span>], dir: <span class="string">'libs'</span>)
+<span class="caretline"><span class="lineno"> 25 </span>    <span class="warning">compile <span class="string">'com.android.support:appcompat-v7:25.3.1'</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 26 </span>    compile(<span class="string">'com.google.android.exoplayer:exoplayer-core:r2.5.4'</span>, {
+<span class="lineno"> 27 </span>        exclude group: <span class="string">'com.android.support'</span>, module: <span class="string">'support-annotations'</span>
+<span class="lineno"> 28 </span>        exclude group: <span class="string">'com.android.support'</span>, module: <span class="string">'support-compat'</span></pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationGradleDependency" style="display: none;">
+This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+To suppress this error, use the issue id "GradleDependency" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">GradleDependency</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Correctness</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 4/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationGradleDependencyLink" onclick="reveal('explanationGradleDependency');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="GradleDependencyCardLink" onclick="hideid('GradleDependencyCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Performance"></a>
 <a name="ObsoleteSdkInt"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card2" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="ObsoleteSdkIntCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Obsolete SDK_INT Version Check</h2>
@@ -295,20 +344,23 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/PlaybackControlView.java">../../src/main/java/com/google/android/exoplayer2/ui/PlaybackControlView.java</a>:869</span>: <span class="message">Unnecessary; SDK_INT is always >= 16</span><br /><pre class="errorlines">
-<span class="lineno">  866 </span>            <span class="keyword">return</span>;
-<span class="lineno">  867 </span>        }
-<span class="lineno">  868 </span>        view.setEnabled(enabled);
-<span class="caretline"><span class="lineno">  869 </span>        <span class="keyword">if</span> (<span class="warning">Util.SDK_INT >= <span class="number">11</span></span>) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  870 </span>            setViewAlphaV11(view, enabled ? <span class="number">1f</span> : <span class="number">0.3f</span>);
-<span class="lineno">  871 </span>            view.setVisibility(VISIBLE);
-<span class="lineno">  872 </span>        } <span class="keyword">else</span> {
+<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/PlaybackControlView.java">../../src/main/java/com/google/android/exoplayer2/ui/PlaybackControlView.java</a>:843</span>: <span class="message">Unnecessary; SDK_INT is always >= 16</span><br /><pre class="errorlines">
+<span class="lineno">  840 </span>      <span class="keyword">int</span> playbackState = player == <span class="keyword">null</span> ? Player.STATE_IDLE : player.getPlaybackState();
+<span class="lineno">  841 </span>      <span class="keyword">if</span> (playbackState != Player.STATE_IDLE &amp;&amp; playbackState != Player.STATE_ENDED) {
+<span class="lineno">  842 </span>          <span class="keyword">long</span> delayMs;
+<span class="caretline"><span class="lineno">  843 </span> <span class="warning">         <span class="keyword">if</span> (playe</span>r.getPlayWhenReady() &amp;&amp; playbackState == Player.STATE_READY) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  844 </span>              delayMs = <span class="number">1000</span> - (position % <span class="number">1000</span>);
+<span class="lineno">  845 </span>              <span class="keyword">if</span> (delayMs &lt; <span class="number">200</span>) {
+<span class="lineno">  846 </span>                  delayMs += <span class="number">1000</span>;
 </pre>
 
+<span class="location"><a href="../../src/main/res/values-v11">../../src/main/res/values-v11</a></span>: <span class="message">This folder configuration (<code>v11</code>) is unnecessary; <code>minSdkVersion</code> is 16. Merge all the resources in this folder into <code>values</code>.</span><br />
 </div>
 <div class="metadata"><div class="explanation" id="explanationObsoleteSdkInt" style="display: none;">
-This check flags version checks that are not necessary, because the <code>minSdkVersion</code> (or surrounding known API level) is already at least as high as the version checked for.<br/><br/>To suppress this error, use the issue id "ObsoleteSdkInt" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+This check flags version checks that are not necessary, because the <code>minSdkVersion</code> (or surrounding known API level) is already at least as high as the version checked for.<br/>
+<br/>
+Similarly, it also looks for resources in <code>-vNN</code> folders, such as <code>values-v14</code> where the version qualifier is less than or equal to the <code>minSdkVersion</code>, where the contents should be merged into the best folder.<br/>To suppress this error, use the issue id "ObsoleteSdkInt" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -328,11 +380,11 @@ This check flags version checks that are not necessary, because the <code>minSdk
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationObsoleteSdkIntLink" onclick="reveal('explanationObsoleteSdkInt');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card2Link" onclick="hideid('card2');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="ObsoleteSdkIntCardLink" onclick="hideid('ObsoleteSdkIntCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="Overdraw"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card3" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="OverdrawCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Overdraw: Painting regions more than once</h2>
@@ -358,9 +410,8 @@ NOTE: This detector relies on figuring out which layouts are associated with whi
 <br/>
 If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.<br/>
 <br/>
-Of course it's possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.<br/>
-<br/><br/>To suppress this error, use the issue id "Overdraw" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+Of course it's possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.<br/>To suppress this error, use the issue id "Overdraw" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -380,11 +431,11 @@ Of course it's possible that your custom drawable is translucent and you want it
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationOverdrawLink" onclick="reveal('explanationOverdraw');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card3Link" onclick="hideid('card3');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="OverdrawCardLink" onclick="hideid('OverdrawCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="UnusedResources"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card4" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="UnusedResourcesCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Unused resources</h2>
@@ -648,9 +699,9 @@ Additional locations: <ul>
 </div>
 </div>
 <div class="metadata"><div class="explanation" id="explanationUnusedResources" style="display: none;">
-Unused resources make applications larger and slow down builds.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Unused resources make applications larger and slow down builds.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "UnusedResources" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -670,13 +721,13 @@ To suppress this error, use the issue id "UnusedResources" as explained in the <
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUnusedResourcesLink" onclick="reveal('explanationUnusedResources');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card4Link" onclick="hideid('card4');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="UnusedResourcesCardLink" onclick="hideid('UnusedResourcesCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Accessibility"></a>
 <a name="ClickableViewAccessibility"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card5" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="ClickableViewAccessibilityCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Accessibility in Custom Views</h2>
@@ -684,20 +735,30 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java">../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java</a>:279</span>: <span class="message">Custom view <code>com/google/android/exoplayer2/ui/DefaultTimeBar</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">
-<span class="lineno"> 276 </span>  }
-<span class="lineno"> 277 </span>
-<span class="lineno"> 278 </span>  <span class="annotation">@Override</span>
-<span class="caretline"><span class="lineno"> 279 </span>  <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="warning">onTouchEvent</span>(MotionEvent event) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 280 </span>    <span class="keyword">if</span> (!isEnabled() || duration &lt;= <span class="number">0</span>) {
-<span class="lineno"> 281 </span>      <span class="keyword">return</span> <span class="keyword">false</span>;
-<span class="lineno"> 282 </span>    }
+<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java">../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java</a>:261</span>: <span class="message">Custom view <code>DefaultTimeBar</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">
+<span class="lineno"> 258 </span>  <span class="keyword">public</span> <span class="keyword">void</span> setEnabled(<span class="keyword">boolean</span> enabled) {
+<span class="lineno"> 259 </span>    <span class="keyword">super</span>.setEnabled(enabled);
+<span class="lineno"> 260 </span>    <span class="keyword">if</span> (scrubbing &amp;&amp; !enabled) {
+<span class="caretline"><span class="lineno"> 261 </span>      stopScrubbing(<span class="keyword">t</span><span class="warning"><span class="keyword">rue</span>);</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 262 </span>    }
+<span class="lineno"> 263 </span>  }
+<span class="lineno"> 264 </span>
 </pre>
+
+<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/SimpleExoPlayerView.java">../../src/main/java/com/google/android/exoplayer2/ui/SimpleExoPlayerView.java</a>:675</span>: <span class="message">Custom view <code>SimpleExoPlayerView</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">
+<span class="lineno"> 672 </span><span class="javadoc">   * @return The {@link SurfaceView}, {@link TextureView} or {@code null}.
+</span><span class="lineno"> 673 </span><span class="javadoc">   */</span>
+<span class="lineno"> 674 </span>  <span class="keyword">public</span> View getVideoSurfaceView() {
+<span class="caretline"><span class="lineno"> 675 </span><span class="warning">    <span class="keyword">return</span> s</span>urfaceView;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 676 </span>  }
+<span class="lineno"> 677 </span>
+<span class="lineno"> 678 </span>  <span class="javadoc">/**
+</span></pre>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationClickableViewAccessibility" style="display: none;">
-If a <code>View</code> that overrides <code>onTouchEvent</code> or uses an <code>OnTouchListener</code> does not also implement <code>performClick</code> and call it when clicks are detected, the <code>View</code> may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in <code>View#performClick</code> as some accessibility services invoke <code>performClick</code> when a click action should occur.<br/><br/>To suppress this error, use the issue id "ClickableViewAccessibility" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+If a <code>View</code> that overrides <code>onTouchEvent</code> or uses an <code>OnTouchListener</code> does not also implement <code>performClick</code> and call it when clicks are detected, the <code>View</code> may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in <code>View#performClick</code> as some accessibility services invoke <code>performClick</code> when a click action should occur.<br/>To suppress this error, use the issue id "ClickableViewAccessibility" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -717,11 +778,11 @@ If a <code>View</code> that overrides <code>onTouchEvent</code> or uses an <code
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationClickableViewAccessibilityLink" onclick="reveal('explanationClickableViewAccessibility');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card5Link" onclick="hideid('card5');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="ClickableViewAccessibilityCardLink" onclick="hideid('ClickableViewAccessibilityCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="ContentDescription"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card6" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="ContentDescriptionCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Image without contentDescription</h2>
@@ -729,7 +790,7 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:31</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:31</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno"> 28 </span>    <span class="prefix">android:</span><span class="attribute">paddingTop</span>=<span class="value">"4dp"</span>
 <span class="lineno"> 29 </span>    <span class="prefix">android:</span><span class="attribute">orientation</span>=<span class="value">"horizontal"</span>>
 <span class="lineno"> 30 </span>
@@ -739,7 +800,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 34 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_rew"</span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:34</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:34</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno"> 31 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_prev"</span>
 <span class="lineno"> 32 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Previous"</span>/>
 <span class="lineno"> 33 </span>
@@ -749,7 +810,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 37 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_repeat_toggle"</span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:37</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:37</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno"> 34 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_rew"</span>
 <span class="lineno"> 35 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Rewind"</span>/>
 <span class="lineno"> 36 </span>
@@ -759,7 +820,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 40 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute">
 </span></pre>
 
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:40</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:40</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno"> 37 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_repeat_toggle"</span>
 <span class="lineno"> 38 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton"</span>/>
 <span class="lineno"> 39 </span>
@@ -769,7 +830,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 43 </span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:44</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:44</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno"> 41 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_play"</span>
 <span class="lineno"> 42 </span>        <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Play"</span> />
 <span class="lineno"> 43 </span>
@@ -779,7 +840,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 47 </span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:48</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:48</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno"> 45 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_pause"</span>
 <span class="lineno"> 46 </span>        <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Pause"</span> />
 <span class="lineno"> 47 </span>
@@ -789,7 +850,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 51 </span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:52</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:52</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno"> 49 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_ffwd"</span>
 <span class="lineno"> 50 </span>        <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.FastForward"</span> />
 <span class="lineno"> 51 </span>
@@ -799,7 +860,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 55 </span>  <span class="tag">&lt;/LinearLayout></span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/layout/exo_simple_player_view.xml">../../src/main/res/layout/exo_simple_player_view.xml</a>:30</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/exo_simple_player_view.xml">../../src/main/res/layout/exo_simple_player_view.xml</a>:30</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno"> 27 </span>        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"match_parent"</span>
 <span class="lineno"> 28 </span>        <span class="prefix">android:</span><span class="attribute">background</span>=<span class="value">"@android:color/black"</span>/>
 <span class="lineno"> 29 </span>
@@ -815,9 +876,9 @@ Non-textual widgets like ImageViews and ImageButtons should use the <code>conten
 <br/>
 Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore="ContentDescription" attribute.<br/>
 <br/>
-Note that for text fields, you should not set both the <code>hint</code> and the <code>contentDescription</code> attributes since the hint will never be shown. Just set the <code>hint</code>. See <a href="http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases">http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases</a>.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Note that for text fields, you should not set both the <code>hint</code> and the <code>contentDescription</code> attributes since the hint will never be shown. Just set the <code>hint</code>. See <a href="http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases">http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases</a>.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "ContentDescription" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -837,12 +898,12 @@ To suppress this error, use the issue id "ContentDescription" as explained in th
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationContentDescriptionLink" onclick="reveal('explanationContentDescription');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card6Link" onclick="hideid('card6');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="ContentDescriptionCardLink" onclick="hideid('ContentDescriptionCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="MissingIssues"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card7" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="MissingIssuesCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Disabled Checks</h2>
@@ -858,8 +919,8 @@ more <code>lint.xml</code> configuration files in the project directories.
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 Ensures that app links are correctly set and associated with website.<br/><div class="moreinfo">More info: <a href="https://g.co/appindexing/applinks">https://g.co/appindexing/applinks</a>
-</div><br/>To suppress this error, use the issue id "AppLinksAutoVerifyError" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "AppLinksAutoVerifyError" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -868,8 +929,8 @@ Ensures that app links are correctly set and associated with website.<br/><div c
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 Ensures that app links are correctly set and associated with website.<br/><div class="moreinfo">More info: <a href="https://g.co/appindexing/applinks">https://g.co/appindexing/applinks</a>
-</div><br/>To suppress this error, use the issue id "AppLinksAutoVerifyWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "AppLinksAutoVerifyWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -881,8 +942,8 @@ According to the Android Design Guide,<br/>
 <br/>
 "Other platforms use an explicit back button with label to allow the user to navigate up the application's hierarchy. Instead, Android uses the main action bar's app icon for hierarchical navigation and the navigation bar's back button for temporal navigation."<br/>
 This check is not very sophisticated (it just looks for buttons with the label "Back"), so it is disabled by default to not trigger on common scenarios like pairs of Back/Next buttons to paginate through screens.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/patterns/pure-android.html">http://developer.android.com/design/patterns/pure-android.html</a>
-</div><br/>To suppress this error, use the issue id "BackButton" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "BackButton" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -892,9 +953,9 @@ This check is not very sophisticated (it just looks for buttons with the label "
 <div class="explanation">
 The WebP format is typically more compact than PNG and JPEG. As of Android 4.2.1 it supports transparency and lossless conversion as well. Note that there is a quickfix in the IDE which lets you perform conversion.<br/>
 <br/>
-Launcher icons must be in the PNG format.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Launcher icons must be in the PNG format.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "ConvertToWebp" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -902,8 +963,8 @@ To suppress this error, use the issue id "ConvertToWebp" as explained in the <a 
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-An "easter egg" is code deliberately hidden in the code, both from potential users and even from other developers. This lint check looks for code which looks like it may be hidden from sight.<br/><br/>To suppress this error, use the issue id "EasterEgg" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+An "easter egg" is code deliberately hidden in the code, both from potential users and even from other developers. This lint check looks for code which looks like it may be hidden from sight.<br/>To suppress this error, use the issue id "EasterEgg" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -914,8 +975,8 @@ An "easter egg" is code deliberately hidden in the code, both from potential use
 Accessing a field within the class that defines a getter for that field is at least 3 times faster than calling the getter. For simple getters that do nothing other than return the field, you might want to just reference the local field directly instead.<br/>
 <br/>
 <b>NOTE</b>: As of Android 2.3 (Gingerbread), this optimization is performed automatically by Dalvik, so there is no need to change your code; this is only relevant if you are targeting older versions of Android.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/design/performance.html#internal_get_set">http://developer.android.com/guide/practices/design/performance.html#internal_get_set</a>
-</div><br/>To suppress this error, use the issue id "FieldGetter" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "FieldGetter" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -924,9 +985,9 @@ Accessing a field within the class that defines a getter for that field is at le
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 Adds URLs to get your app into the Google index, to get installs and traffic to your app from Google Search.<br/><div class="moreinfo">More info: <a href="https://g.co/AppIndexing/AndroidStudio">https://g.co/AppIndexing/AndroidStudio</a>
-</div><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+</div>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "GoogleAppIndexingApiWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -935,8 +996,8 @@ To suppress this error, use the issue id "GoogleAppIndexingApiWarning" as explai
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 There are predefined sizes (for each density) for launcher icons. You should follow these conventions to make sure your icons fit in with the overall look of the platform.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/style/iconography.html">http://developer.android.com/design/style/iconography.html</a>
-</div><br/>To suppress this error, use the issue id "IconExpectedSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "IconExpectedSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -946,8 +1007,8 @@ There are predefined sizes (for each density) for launcher icons. You should fol
 <div class="explanation">
 The BuildConfig class (available in Tools 17) provides a constant, "DEBUG", which indicates whether the code is being built in release mode or in debug mode. In release mode, you typically want to strip out all the logging calls. Since the compiler will automatically remove all code which is inside a "if (false)" check, surrounding your logging calls with a check for BuildConfig.DEBUG is a good idea.<br/>
 <br/>
-If you <b>really</b> intend for the logging to be present in release mode, you can suppress this warning with a @SuppressLint annotation for the intentional logging calls.<br/><br/>To suppress this error, use the issue id "LogConditional" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+If you <b>really</b> intend for the logging to be present in release mode, you can suppress this warning with a @SuppressLint annotation for the intentional logging calls.<br/>To suppress this error, use the issue id "LogConditional" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -958,8 +1019,18 @@ If you <b>really</b> intend for the logging to be present in release mode, you c
 On Windows, line endings are typically recorded as carriage return plus newline: \r\n.<br/>
 <br/>
 This detector looks for invalid line endings with repeated carriage return characters (without newlines). Previous versions of the ADT plugin could accidentally introduce these into the file, and when editing the file, the editor could produce confusing visual artifacts.<br/><div class="moreinfo">More info: <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421">https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421</a>
-</div><br/>To suppress this error, use the issue id "MangledCRLF" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>To suppress this error, use the issue id "MangledCRLF" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
+</div>
+<div class="issue">
+<div class="id">MinSdkTooLow<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+<div class="explanation">
+The value of the <code>minSdkVersion</code> property is too low and can be incrementedwithout noticeably reducing the number of supported devices.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+To suppress this error, use the issue id "MinSdkTooLow" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -968,8 +1039,8 @@ This detector looks for invalid line endings with repeated carriage return chara
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 If a class is referenced in the manifest or in a layout file, it must also exist in the project (or in one of the libraries included by the project. This check helps uncover typos in registration names, or attempts to rename or move classes without updating the manifest file properly.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/topics/manifest/manifest-intro.html">http://developer.android.com/guide/topics/manifest/manifest-intro.html</a>
-</div><br/>To suppress this error, use the issue id "MissingRegistered" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "MissingRegistered" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -977,8 +1048,8 @@ If a class is referenced in the manifest or in a layout file, it must also exist
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-Margin values should be positive. Negative values are generally a sign that you are making assumptions about views surrounding the current one, or may be tempted to turn off child clipping to allow a view to escape its parent. Turning off child clipping to do this not only leads to poor graphical performance, it also results in wrong touch event handling since touch events are based strictly on a chain of parent-rect hit tests. Finally, making assumptions about the size of strings can lead to localization problems.<br/><br/>To suppress this error, use the issue id "NegativeMargin" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+Margin values should be positive. Negative values are generally a sign that you are making assumptions about views surrounding the current one, or may be tempted to turn off child clipping to allow a view to escape its parent. Turning off child clipping to do this not only leads to poor graphical performance, it also results in wrong touch event handling since touch events are based strictly on a chain of parent-rect hit tests. Finally, making assumptions about the size of strings can lead to localization problems.<br/>To suppress this error, use the issue id "NegativeMargin" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -986,9 +1057,9 @@ Margin values should be positive. Negative values are generally a sign that you 
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-This detector checks with a central repository to see if there are newer versions available for the dependencies used by this project. This is similar to the <code>GradleDependency</code> check, which checks for newer versions available in the Android SDK tools and libraries, but this works with any MavenCentral dependency, and connects to the library every time, which makes it more flexible but also <b>much</b> slower.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+This detector checks with a central repository to see if there are newer versions available for the dependencies used by this project. This is similar to the <code>GradleDependency</code> check, which checks for newer versions available in the Android SDK tools and libraries, but this works with any MavenCentral dependency, and connects to the library every time, which makes it more flexible but also <b>much</b> slower.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "NewerVersionAvailable" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -997,8 +1068,8 @@ To suppress this error, use the issue id "NewerVersionAvailable" as explained in
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 The <code>&lt;uses-permission></code> element should not require a permission that implies an unsupported Chrome OS hardware feature. Google Play assumes that certain hardware related permissions indicate that the underlying hardware features are required by default. To fix the issue, consider declaring the corresponding uses-feature element with <code>required="false"</code> attribute.<br/><div class="moreinfo">More info: <a href="https://developer.android.com/topic/arc/manifest.html#implied-features">https://developer.android.com/topic/arc/manifest.html#implied-features</a>
-</div><br/>To suppress this error, use the issue id "PermissionImpliesUnsupportedChromeOsHardware" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "PermissionImpliesUnsupportedChromeOsHardware" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1009,8 +1080,8 @@ The <code>&lt;uses-permission></code> element should not require a permission th
 Activities, services and content providers should be registered in the <code>AndroidManifest.xml</code> file using <code>&lt;activity></code>, <code>&lt;service></code> and <code>&lt;provider></code> tags.<br/>
 <br/>
 If your activity is simply a parent class intended to be subclassed by other "real" activities, make it an abstract class.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/topics/manifest/manifest-intro.html">http://developer.android.com/guide/topics/manifest/manifest-intro.html</a>
-</div><br/>To suppress this error, use the issue id "Registered" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "Registered" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1020,9 +1091,9 @@ If your activity is simply a parent class intended to be subclassed by other "re
 <div class="explanation">
 If a <code>&lt;TextView></code> is used to display data, the user might want to copy that data and paste it elsewhere. To allow this, the <code>&lt;TextView></code> should specify <code>android:textIsSelectable="true"</code>.<br/>
 <br/>
-This lint check looks for TextViews which are likely to be displaying data: views whose text is set dynamically. This value will be ignored on platforms older than API 11, so it is okay to set it regardless of your <code>minSdkVersion</code>.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+This lint check looks for TextViews which are likely to be displaying data: views whose text is set dynamically. This value will be ignored on platforms older than API 11, so it is okay to set it regardless of your <code>minSdkVersion</code>.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "SelectableText" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1030,9 +1101,9 @@ To suppress this error, use the issue id "SelectableText" as explained in the <a
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-Using the comment <code>// STOPSHIP</code> can be used to flag code that is incomplete but checked in. This comment marker can be used to indicate that the code should not be shipped until the issue is addressed, and lint will look for these.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Using the comment <code>// STOPSHIP</code> can be used to flag code that is incomplete but checked in. This comment marker can be used to indicate that the code should not be shipped until the issue is addressed, and lint will look for these.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "StopShip" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1045,9 +1116,9 @@ Straight single quotes and double quotes, when used as a pair, can be replaced b
 Note that you should never use grave accents and apostrophes to quote, `like this'.<br/>
 <br/>
 (Also note that you should not use curvy quotes for code fragments.)<br/><div class="moreinfo">More info: <a href="http://en.wikipedia.org/wiki/Quotation_mark">http://en.wikipedia.org/wiki/Quotation_mark</a>
-</div><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+</div>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "TypographyQuotes" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1057,8 +1128,8 @@ To suppress this error, use the issue id "TypographyQuotes" as explained in the 
 <div class="explanation">
 This app loads native libraries using <code>System.loadLibrary()</code>.<br/>
 <br/>
-Consider adding <code>android:extractNativeLibs="false"</code> to the <code>&lt;application></code> tag in AndroidManifest.xml. Starting with Android 6.0, this will make installation faster, the app will take up less space on the device and updates will have smaller download sizes.<br/><br/>To suppress this error, use the issue id "UnpackedNativeCode" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+Consider adding <code>android:extractNativeLibs="false"</code> to the <code>&lt;application></code> tag in AndroidManifest.xml. Starting with Android 6.0, this will make installation faster, the app will take up less space on the device and updates will have smaller download sizes.<br/>To suppress this error, use the issue id "UnpackedNativeCode" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1067,8 +1138,8 @@ Consider adding <code>android:extractNativeLibs="false"</code> to the <code>&lt;
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 The <code>&lt;uses-feature></code> element should not require this unsupported Chrome OS hardware feature. Any uses-feature not explicitly marked with <code>required="false"</code> is necessary on the device to be installed on. Ensure that any features that might prevent it from being installed on a Chrome OS device are reviewed and marked as not required in the manifest.<br/><div class="moreinfo">More info: <a href="https://developer.android.com/topic/arc/manifest.html#incompat-entries">https://developer.android.com/topic/arc/manifest.html#incompat-entries</a>
-</div><br/>To suppress this error, use the issue id "UnsupportedChromeOsHardware" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "UnsupportedChromeOsHardware" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1076,20 +1147,30 @@ The <code>&lt;uses-feature></code> element should not require this unsupported C
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-This resource id definition appears not to be needed since it is not referenced from anywhere. Having id definitions, even if unused, is not necessarily a bad idea since they make working on layouts and menus easier, so there is not a strong reason to delete these.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+This resource id definition appears not to be needed since it is not referenced from anywhere. Having id definitions, even if unused, is not necessarily a bad idea since they make working on layouts and menus easier, so there is not a strong reason to delete these.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "UnusedIds" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
+</div>
+<div class="issue">
+<div class="id">WrongThreadInterprocedural<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+<div class="explanation">
+Searches for interprocedural call paths that violate thread annotations in the program. Tracks the flow of instantiated types and lambda expressions to increase accuracy across method boundaries.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/components/processes-and-threads.html#Threads">http://developer.android.com/guide/components/processes-and-threads.html#Threads</a>
+</div>To suppress this error, use the issue id "WrongThreadInterprocedural" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 </div>              </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="SuppressedIssuesLink" onclick="reveal('SuppressedIssues');">
-List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card7Link" onclick="hideid('card7');">
+List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="MissingIssuesCardLink" onclick="hideid('MissingIssuesCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="SuppressInfo"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card8" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="SuppressCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Suppressing Warnings and Errors</h2>
@@ -1128,6 +1209,11 @@ The format of the <code>lint.xml</code> file is something like the following:<br
 <br/>
 &lt;?xml version="1.0" encoding="UTF-8"?><br/>
 &lt;lint><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore everything in the test source set --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="all"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="*/test/*" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
+<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Disable this given check in this project --><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="IconMissingDensityFolder" severity="ignore" /><br/>
 <br/>
@@ -1135,6 +1221,7 @@ The format of the <code>lint.xml</code> file is something like the following:<br
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="ObsoleteLayoutParam"><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout/activation.xml" /><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout-xlarge/activation.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore regexp="(foo|bar).java" /><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore the UselessLeaf issue in the given file --><br/>

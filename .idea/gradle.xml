@@ -9,12 +9,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/VideoPlayModule" />
+            <option value="$PROJECT_DIR$/VideoPlayModule-Lite" />
             <option value="$PROJECT_DIR$/VideoUi" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/ffmpeg" />
-            <option value="$PROJECT_DIR$/flac" />
-            <option value="$PROJECT_DIR$/opus" />
-            <option value="$PROJECT_DIR$/vp9" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

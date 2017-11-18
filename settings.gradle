@@ -1,1 +1,1 @@
-include ':app', ':VideoPlayModule', ':VideoUi', ':ffmpeg', ':vp9', ':flac', ':opus'
+include ':app', ':VideoPlayModule-Lite', ':VideoUi', ':VideoPlayModule'
