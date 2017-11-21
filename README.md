@@ -179,8 +179,8 @@
  ### 3.JAVA 代码
 
  > #### 1 播放控制类
-    1.ExoUserPlayer 基本播放父类，实现基本播放,设置setPlayUri();会自动加载播放
-    2.GestureVideoPlayer  具有手势操作播放（调节亮度和视频进度，和音量）会自动加载播放
+    1.ExoUserPlayer 基本播放父类，实现基本播放,设置setPlayUri();
+    2.GestureVideoPlayer  具有手势操作播放（调节亮度和视频进度，和音量）
     2.ManualPlayer  点击开始按钮播放,具有手势功能，和列表播放
 
  > #### 2 播放代码 
