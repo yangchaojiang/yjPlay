@@ -178,8 +178,8 @@
  ### 3.JAVA  
 
  > #### 1 Play control class
-    1.ExoUserPlayer Basic play the parent, implementation basic play, setPlayUri();The playback is automatically loaded
-    2.GestureVideoPlayer  The display (adjust the brightness and video progress, and volume) will be automatically loaded
+    1.ExoUserPlayer Basic play the parent, implementation basic play, setPlayUri(); 
+    2.GestureVideoPlayer  The display (adjust the brightness and video progress, and volume)
     2.ManualPlayer  Click on the start button to play, with gestures and playlists
 
  > #### 2 Play the code
