@@ -18,7 +18,7 @@
    * 5 广告视频预览(轻松实现，完美切换)。
    * 6 视频清晰度切换。
    * 7 缓存视频功能。
-   * 8 支持自定义多种 Okttp,Rtmp, 缓存，Cronet等协议,
+   * 8 支持自定义多种 Okttp,Rtmp, rtsp，Cronet等协议,
    * 9 支持列表集合数据播放视频（完美切换）
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
    * 11 支持网络类型 提示是否播放。
