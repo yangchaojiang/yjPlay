@@ -10,11 +10,10 @@ import chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
- *
  * @author yangc
- * date 2017/7/21
- * E-Mail:yangchaojiang@outlook.com
- * Deprecated: 控制类回调view 接口
+ *         date 2017/7/21
+ *         E-Mail:yangchaojiang@outlook.com
+ *         Deprecated: 控制类回调view 接口
  */
 
 public interface ExoPlayerViewListener {
@@ -113,8 +112,8 @@ public interface ExoPlayerViewListener {
     /**
      * 改变亮度
      *
-     * @param mMax  最大亮度
-     * @param currIndex  当前亮度
+     * @param mMax      最大亮度
+     * @param currIndex 当前亮度
      **/
     void setBrightnessPosition(int mMax, int currIndex);
 
@@ -133,6 +132,7 @@ public interface ExoPlayerViewListener {
      * @param isShowFull 显示全屏按钮
      * **/
     void hideController(boolean isShowFull);
+
     /***
      * 显示控制布局操作
      * **/
@@ -211,4 +211,9 @@ public interface ExoPlayerViewListener {
 
     void exitFull();
 
+    /***
+     * 是否在锁屏中
+     * @return boolean
+     * **/
+    boolean isLock();
 }

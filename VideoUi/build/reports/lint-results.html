@@ -173,23 +173,27 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 38 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 1 error and 74 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Sat Nov 18 15:04:16 CST 2017      </nav>
+Check performed at Thu Nov 30 12:36:48 CST 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Issue Types</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
-      <a class="mdl-navigation__link" href="#UnusedAttribute"><i class="material-icons warning-icon">warning</i>Attribute unused on older versions (1)</a>
       <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (1)</a>
-      <a class="mdl-navigation__link" href="#ObsoleteSdkInt"><i class="material-icons warning-icon">warning</i>Obsolete SDK_INT Version Check (2)</a>
+      <a class="mdl-navigation__link" href="#MissingTranslation"><i class="material-icons error-icon">error</i>Incomplete translation (1)</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (1)</a>
-      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (23)</a>
+      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (56)</a>
+      <a class="mdl-navigation__link" href="#IconLocation"><i class="material-icons warning-icon">warning</i>Image defined in density-independent drawable folder (3)</a>
+      <a class="mdl-navigation__link" href="#IconMissingDensityFolder"><i class="material-icons warning-icon">warning</i>Missing density folder (1)</a>
       <a class="mdl-navigation__link" href="#ClickableViewAccessibility"><i class="material-icons warning-icon">warning</i>Accessibility in Custom Views (2)</a>
-      <a class="mdl-navigation__link" href="#ContentDescription"><i class="material-icons warning-icon">warning</i>Image without <code>contentDescription</code> (8)</a>
+      <a class="mdl-navigation__link" href="#ContentDescription"><i class="material-icons warning-icon">warning</i>Image without <code>contentDescription</code> (2)</a>
+      <a class="mdl-navigation__link" href="#RtlSymmetry"><i class="material-icons warning-icon">warning</i>Padding and margin symmetry (1)</a>
+      <a class="mdl-navigation__link" href="#RtlHardcoded"><i class="material-icons warning-icon">warning</i>Using left/right instead of start/end attributes (6)</a>
+      <a class="mdl-navigation__link" href="#RtlEnabled"><i class="material-icons warning-icon">warning</i>Using RTL attributes without enabling RTL support (1)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -206,29 +210,47 @@ Check performed at Sat Nov 18 15:04:16 CST 2017      </nav>
 </td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
-<a href="#UnusedAttribute">UnusedAttribute</a>: Attribute unused on older versions</td></tr>
-<tr>
-<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
-<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Correctness:Messages">Correctness:Messages</a>
 </td></tr>
 <tr>
-<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
-<a href="#ObsoleteSdkInt">ObsoleteSdkInt</a>: Obsolete SDK_INT Version Check</td></tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons error-icon">error</i>
+<a href="#MissingTranslation">MissingTranslation</a>: Incomplete translation</td></tr>
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
+</td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#Overdraw">Overdraw</a>: Overdraw: Painting regions more than once</td></tr>
 <tr>
-<td class="countColumn">23</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">56</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UnusedResources">UnusedResources</a>: Unused resources</td></tr>
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Usability:Icons">Usability:Icons</a>
+</td></tr>
+<tr>
+<td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#IconLocation">IconLocation</a>: Image defined in density-independent drawable folder</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#IconMissingDensityFolder">IconMissingDensityFolder</a>: Missing density folder</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Accessibility">Accessibility</a>
 </td></tr>
 <tr>
 <td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#ClickableViewAccessibility">ClickableViewAccessibility</a>: Accessibility in Custom Views</td></tr>
 <tr>
-<td class="countColumn">8</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#ContentDescription">ContentDescription</a>: Image without <code>contentDescription</code></td></tr>
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Internationalization:Bidirectional Text">Internationalization:Bidirectional Text</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#RtlSymmetry">RtlSymmetry</a>: Padding and margin symmetry</td></tr>
+<tr>
+<td class="countColumn">6</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#RtlHardcoded">RtlHardcoded</a>: Using left/right instead of start/end attributes</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#RtlEnabled">RtlEnabled</a>: Using RTL attributes without enabling RTL support</td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (23)</a>
 </td></tr></table>
 <br/>              </div>
@@ -238,57 +260,7 @@ Dismiss</button>            </div>
             </div>
           </section>
 <a name="Correctness"></a>
-<a name="UnusedAttribute"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="UnusedAttributeCard" style="display: block;">
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Attribute unused on older versions</h2>
-  </div>
-              <div class="mdl-card__supporting-text">
-<div class="issue">
-<div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:20</span>: <span class="message">Attribute <code>layoutDirection</code> is only used in API level 17 and higher (current min is 16)</span><br /><pre class="errorlines">
-<span class="lineno"> 17 </span>  <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"match_parent"</span>
-<span class="lineno"> 18 </span>  <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
-<span class="lineno"> 19 </span>  <span class="prefix">android:</span><span class="attribute">layout_gravity</span>=<span class="value">"bottom"</span>
-<span class="caretline"><span class="lineno"> 20 </span>  <span class="warning"><span class="prefix">android:</span><span class="attribute">layoutDirection</span>=<span class="value">"ltr"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 21 </span>  <span class="prefix">android:</span><span class="attribute">background</span>=<span class="value">"#CC000000"</span>
-<span class="lineno"> 22 </span>  <span class="prefix">android:</span><span class="attribute">orientation</span>=<span class="value">"vertical"</span>>
-<span class="lineno"> 23 </span>
-</pre>
-
-</div>
-<div class="metadata"><div class="explanation" id="explanationUnusedAttribute" style="display: none;">
-This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the <code>minSdkVersion</code> attribute).<br/>
-<br/>
-This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.<br/>
-<br/>
-Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new <code>&lt;tag></code> element in layouts introduced in API 21.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
-To suppress this error, use the issue id "UnusedAttribute" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-<br/></div>
-</div>
-</div>
-<div class="chips">
-<span class="mdl-chip">
-    <span class="mdl-chip__text">UnusedAttribute</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Correctness</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Warning</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Priority 6/10</span>
-</span>
-</div>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUnusedAttributeLink" onclick="reveal('explanationUnusedAttribute');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="UnusedAttributeCardLink" onclick="hideid('UnusedAttributeCard');">
-Dismiss</button>            </div>
-            </div>
-          </section><a name="GradleDependency"></a>
+<a name="GradleDependency"></a>
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="GradleDependencyCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
@@ -297,14 +269,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle">../../build.gradle</a>:25</span>: <span class="message">A newer version of com.android.support:appcompat-v7 than 25.3.1 is available: 27.0.1</span><br /><pre class="errorlines">
-<span class="lineno"> 22 </span>
-<span class="lineno"> 23 </span>dependencies {
-<span class="lineno"> 24 </span>    compile fileTree(include: [<span class="string">'*.jar'</span>], dir: <span class="string">'libs'</span>)
-<span class="caretline"><span class="lineno"> 25 </span>    <span class="warning">compile <span class="string">'com.android.support:appcompat-v7:25.3.1'</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 26 </span>    compile(<span class="string">'com.google.android.exoplayer:exoplayer-core:r2.5.4'</span>, {
-<span class="lineno"> 27 </span>        exclude group: <span class="string">'com.android.support'</span>, module: <span class="string">'support-annotations'</span>
-<span class="lineno"> 28 </span>        exclude group: <span class="string">'com.android.support'</span>, module: <span class="string">'support-compat'</span></pre>
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:29</span>: <span class="message">A newer version of com.android.support:appcompat-v7 than 25.3.1 is available: 27.0.2</span><br /><pre class="errorlines">
+<span class="lineno"> 26 </span>
+<span class="lineno"> 27 </span>dependencies {
+<span class="lineno"> 28 </span>    compile fileTree(include: [<span class="string">'*.jar'</span>], dir: <span class="string">'libs'</span>)
+<span class="caretline"><span class="lineno"> 29 </span>    <span class="warning">compile <span class="string">'com.android.support:appcompat-v7:25.3.1'</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 30 </span>    compile(<span class="string">'com.google.android.exoplayer:exoplayer-core:2.6.0'</span>, {
+<span class="lineno"> 31 </span>        exclude group: <span class="string">'com.android.support'</span>, module: <span class="string">'support-annotations'</span>
+<span class="lineno"> 32 </span>        exclude group: <span class="string">'com.android.support'</span>, module: <span class="string">'support-compat'</span></pre>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationGradleDependency" style="display: none;">
@@ -334,56 +306,62 @@ Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id
 Dismiss</button>            </div>
             </div>
           </section>
-<a name="Performance"></a>
-<a name="ObsoleteSdkInt"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="ObsoleteSdkIntCard" style="display: block;">
+<a name="Correctness:Messages"></a>
+<a name="MissingTranslation"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="MissingTranslationCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Obsolete SDK_INT Version Check</h2>
+    <h2 class="mdl-card__title-text">Incomplete translation</h2>
   </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/PlaybackControlView.java">../../src/main/java/com/google/android/exoplayer2/ui/PlaybackControlView.java</a>:843</span>: <span class="message">Unnecessary; SDK_INT is always >= 16</span><br /><pre class="errorlines">
-<span class="lineno">  840 </span>      <span class="keyword">int</span> playbackState = player == <span class="keyword">null</span> ? Player.STATE_IDLE : player.getPlaybackState();
-<span class="lineno">  841 </span>      <span class="keyword">if</span> (playbackState != Player.STATE_IDLE &amp;&amp; playbackState != Player.STATE_ENDED) {
-<span class="lineno">  842 </span>          <span class="keyword">long</span> delayMs;
-<span class="caretline"><span class="lineno">  843 </span> <span class="warning">         <span class="keyword">if</span> (playe</span>r.getPlayWhenReady() &amp;&amp; playbackState == Player.STATE_READY) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  844 </span>              delayMs = <span class="number">1000</span> - (position % <span class="number">1000</span>);
-<span class="lineno">  845 </span>              <span class="keyword">if</span> (delayMs &lt; <span class="number">200</span>) {
-<span class="lineno">  846 </span>                  delayMs += <span class="number">1000</span>;
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:39</span>: <span class="message">"<code>exo_fenge</code>" is not translated in "en" (English), "zh-CN" (Chinese: China)</span><br /><pre class="errorlines">
+<span class="lineno"> 36 </span>        <span class="tag">&lt;item></span>high<span class="tag">&lt;/item></span>
+<span class="lineno"> 37 </span>        <span class="tag">&lt;item></span>standard<span class="tag">&lt;/item></span>
+<span class="lineno"> 38 </span>    <span class="tag">&lt;/array></span>
+<span class="caretline"><span class="lineno"> 39 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="error"><span class="attribute">name</span>=<span class="value">"exo_fenge"</span></span>>/<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 40 </span><span class="tag">&lt;/resources></span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/values-v11">../../src/main/res/values-v11</a></span>: <span class="message">This folder configuration (<code>v11</code>) is unnecessary; <code>minSdkVersion</code> is 16. Merge all the resources in this folder into <code>values</code>.</span><br />
 </div>
-<div class="metadata"><div class="explanation" id="explanationObsoleteSdkInt" style="display: none;">
-This check flags version checks that are not necessary, because the <code>minSdkVersion</code> (or surrounding known API level) is already at least as high as the version checked for.<br/>
+<div class="metadata"><div class="explanation" id="explanationMissingTranslation" style="display: none;">
+If an application has more than one locale, then all the strings declared in one language should also be translated in all other languages.<br/>
 <br/>
-Similarly, it also looks for resources in <code>-vNN</code> folders, such as <code>values-v14</code> where the version qualifier is less than or equal to the <code>minSdkVersion</code>, where the contents should be merged into the best folder.<br/>To suppress this error, use the issue id "ObsoleteSdkInt" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+If the string should <b>not</b> be translated, you can add the attribute <code>translatable="false"</code> on the <code>&lt;string></code> element, or you can define all your non-translatable strings in a resource file called <code>donottranslate.xml</code>. Or, you can ignore the issue with a <code>tools:ignore="MissingTranslation"</code> attribute.<br/>
+<br/>
+By default this detector allows regions of a language to just provide a subset of the strings and fall back to the standard language strings. You can require all regions to provide a full translation by setting the environment variable <code>ANDROID_LINT_COMPLETE_REGIONS</code>.<br/>
+<br/>
+You can tell lint (and other tools) which language is the default language in your <code>res/values/</code> folder by specifying <code>tools:locale="languageCode"</code> for the root <code>&lt;resources></code> element in your resource file. (The <code>tools</code> prefix refers to the namespace declaration <code>http://schemas.android.com/tools</code>.)<br/>To suppress this error, use the issue id "MissingTranslation" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
 <br/></div>
 </div>
 </div>
 <div class="chips">
 <span class="mdl-chip">
-    <span class="mdl-chip__text">ObsoleteSdkInt</span>
+    <span class="mdl-chip__text">MissingTranslation</span>
 </span>
 <span class="mdl-chip">
-    <span class="mdl-chip__text">Performance</span>
+    <span class="mdl-chip__text">Messages</span>
 </span>
 <span class="mdl-chip">
-    <span class="mdl-chip__text">Warning</span>
+    <span class="mdl-chip__text">Correctness</span>
 </span>
 <span class="mdl-chip">
-    <span class="mdl-chip__text">Priority 6/10</span>
+    <span class="mdl-chip__text">Fatal</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 8/10</span>
 </span>
 </div>
               </div>
               <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationObsoleteSdkIntLink" onclick="reveal('explanationObsoleteSdkInt');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="ObsoleteSdkIntCardLink" onclick="hideid('ObsoleteSdkIntCard');">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationMissingTranslationLink" onclick="reveal('explanationMissingTranslation');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="MissingTranslationCardLink" onclick="hideid('MissingTranslationCard');">
 Dismiss</button>            </div>
             </div>
-          </section><a name="Overdraw"></a>
+          </section>
+<a name="Performance"></a>
+<a name="Overdraw"></a>
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="OverdrawCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
@@ -392,15 +370,15 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:21</span>: <span class="message">Possible overdraw: Root element paints background <code>#CC000000</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
-<span class="lineno"> 18 </span>  <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
-<span class="lineno"> 19 </span>  <span class="prefix">android:</span><span class="attribute">layout_gravity</span>=<span class="value">"bottom"</span>
-<span class="lineno"> 20 </span>  <span class="prefix">android:</span><span class="attribute">layoutDirection</span>=<span class="value">"ltr"</span>
-<span class="caretline"><span class="lineno"> 21 </span>  <span class="warning"><span class="prefix">android:</span><span class="attribute">background</span>=<span class="value">"#CC000000"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 22 </span>  <span class="prefix">android:</span><span class="attribute">orientation</span>=<span class="value">"vertical"</span>>
-<span class="lineno"> 23 </span>
-<span class="lineno"> 24 </span>  <span class="tag">&lt;LinearLayout</span><span class="attribute">
-</span></pre>
+<span class="location"><a href="../../src/main/res/layout/simple_exo_view.xml">../../src/main/res/layout/simple_exo_view.xml</a>:5</span>: <span class="message">Possible overdraw: Root element paints background <code>@android:color/black</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  2 </span><span class="tag">&lt;merge</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
+<span class="lineno">  3 </span>    <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"match_parent"</span>
+<span class="lineno">  4 </span>    <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"match_parent"</span>
+<span class="caretline"><span class="lineno">  5 </span>    <span class="warning"><span class="prefix">android:</span><span class="attribute">background</span>=<span class="value">"@android:color/black"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  6 </span>
+<span class="lineno">  7 </span>    <span class="tag">&lt;com.google.android.exoplayer2.ui.AspectRatioFrameLayout</span><span class="attribute">
+</span><span class="lineno">  8 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_content_frame"</span>
+</pre>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationOverdraw" style="display: none;">
@@ -443,33 +421,53 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:8</span>: <span class="message">The resource <code>R.color.simple_exo_style_Accent</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno">  5 </span>
-<span class="lineno">  6 </span>
-<span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"exo_edit_mode_background_color"</span>>#FFF4F3F0<span class="tag">&lt;/color></span>
-<span class="caretline"><span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"simple_exo_style_Accent"</span></span>>#FF4081<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  9 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_color"</span>>#005fff<span class="tag">&lt;/color></span>
-<span class="lineno"> 10 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_33"</span>>#33000000<span class="tag">&lt;/color></span>
-<span class="lineno"> 11 </span><span class="tag">&lt;/resources></span>
+<span class="location"><a href="../../src/main/res/drawable/btn_continue_drawable.xml">../../src/main/res/drawable/btn_continue_drawable.xml</a>:2</span>: <span class="message">The resource <code>R.drawable.btn_continue_drawable</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="caretline"><span class="lineno">  2 </span><span class="warning"><span class="tag">&lt;selector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  3 </span>
+<span class="lineno">  4 </span>    <span class="tag">&lt;item</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">state_pressed</span>=<span class="value">"false"</span>>
+<span class="lineno">  5 </span>        <span class="tag">&lt;shape></span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:9</span>: <span class="message">The resource <code>R.color.simple_exo_style_color</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno">  6 </span>
-<span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"exo_edit_mode_background_color"</span>>#FFF4F3F0<span class="tag">&lt;/color></span>
-<span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_Accent"</span>>#FF4081<span class="tag">&lt;/color></span>
-<span class="caretline"><span class="lineno">  9 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"simple_exo_style_color"</span></span>>#005fff<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 10 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_33"</span>>#33000000<span class="tag">&lt;/color></span>
-<span class="lineno"> 11 </span><span class="tag">&lt;/resources></span>
+<span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:5</span>: <span class="message">The resource <code>R.color.simple_exo_style_Accent</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  2 </span>
+<span class="lineno">  3 </span><span class="tag">&lt;resources></span>
+<span class="lineno">  4 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"exo_edit_mode_background_color"</span>>#FFF4F3F0<span class="tag">&lt;/color></span>
+<span class="caretline"><span class="lineno">  5 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"simple_exo_style_Accent"</span></span>>#FF4081<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  6 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_color"</span>>#005fff<span class="tag">&lt;/color></span>
+<span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_33"</span>>#33000000<span class="tag">&lt;/color></span>
+<span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"primary_dark"</span>>#3d3b3b<span class="tag">&lt;/color></span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:10</span>: <span class="message">The resource <code>R.color.simple_exo_color_33</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"exo_edit_mode_background_color"</span>>#FFF4F3F0<span class="tag">&lt;/color></span>
-<span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_Accent"</span>>#FF4081<span class="tag">&lt;/color></span>
-<span class="lineno">  9 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_color"</span>>#005fff<span class="tag">&lt;/color></span>
-<span class="caretline"><span class="lineno"> 10 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"simple_exo_color_33"</span></span>>#33000000<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 11 </span><span class="tag">&lt;/resources></span>
+<span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:6</span>: <span class="message">The resource <code>R.color.simple_exo_style_color</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  3 </span><span class="tag">&lt;resources></span>
+<span class="lineno">  4 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"exo_edit_mode_background_color"</span>>#FFF4F3F0<span class="tag">&lt;/color></span>
+<span class="lineno">  5 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_Accent"</span>>#FF4081<span class="tag">&lt;/color></span>
+<span class="caretline"><span class="lineno">  6 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"simple_exo_style_color"</span></span>>#005fff<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_33"</span>>#33000000<span class="tag">&lt;/color></span>
+<span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"primary_dark"</span>>#3d3b3b<span class="tag">&lt;/color></span>
+<span class="lineno">  9 </span><span class="tag">&lt;/resources></span>
 </pre>
 
+<span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:7</span>: <span class="message">The resource <code>R.color.simple_exo_color_33</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  4 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"exo_edit_mode_background_color"</span>>#FFF4F3F0<span class="tag">&lt;/color></span>
+<span class="lineno">  5 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_Accent"</span>>#FF4081<span class="tag">&lt;/color></span>
+<span class="lineno">  6 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_color"</span>>#005fff<span class="tag">&lt;/color></span>
+<span class="caretline"><span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"simple_exo_color_33"</span></span>>#33000000<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"primary_dark"</span>>#3d3b3b<span class="tag">&lt;/color></span>
+<span class="lineno">  9 </span><span class="tag">&lt;/resources></span>
+</pre>
+
+<span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:8</span>: <span class="message">The resource <code>R.color.primary_dark</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  5 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_Accent"</span>>#FF4081<span class="tag">&lt;/color></span>
+<span class="lineno">  6 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_color"</span>>#005fff<span class="tag">&lt;/color></span>
+<span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_33"</span>>#33000000<span class="tag">&lt;/color></span>
+<span class="caretline"><span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"primary_dark"</span></span>>#3d3b3b<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  9 </span><span class="tag">&lt;/resources></span>
+</pre>
+
+<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 51 More Occurrences...</button>
+<div id="UnusedResourcesDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/values/dimen.xml">../../src/main/res/values/dimen.xml</a>:3</span>: <span class="message">The resource <code>R.dimen.dp30</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="lineno"> 1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
 <span class="lineno"> 2 </span><span class="tag">&lt;resources></span>
@@ -479,17 +477,119 @@ Dismiss</button>            </div>
 <span class="lineno"> 6 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"exo_media_button_height"</span>>52dp<span class="tag">&lt;/dimen></span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/values/dimen.xml">../../src/main/res/values/dimen.xml</a>:4</span>: <span class="message">The resource <code>R.dimen.controls_title__marginRight</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="location"><a href="../../src/main/res/values/dimen.xml">../../src/main/res/values/dimen.xml</a>:5</span>: <span class="message">The resource <code>R.dimen.exo_media_button_width</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="lineno"> 2 </span><span class="tag">&lt;resources></span>
 <span class="lineno"> 3 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"dp30"</span>>35dp<span class="tag">&lt;/dimen></span>
-<span class="caretline"><span class="lineno"> 4 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"controls_title__marginRight"</span></span>>60dp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 5 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"exo_media_button_width"</span>>71dp<span class="tag">&lt;/dimen></span>
+<span class="lineno"> 4 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"controls_title__marginRight"</span>>60dp<span class="tag">&lt;/dimen></span>
+<span class="caretline"><span class="lineno"> 5 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_media_button_width"</span></span>>71dp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 6 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"exo_media_button_height"</span>>52dp<span class="tag">&lt;/dimen></span>
 <span class="lineno"> 7 </span><span class="tag">&lt;/resources></span></pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 18 More Occurrences...</button>
-<div id="UnusedResourcesDiv" style="display: none">
+<span class="location"><a href="../../src/main/res/values/dimen.xml">../../src/main/res/values/dimen.xml</a>:6</span>: <span class="message">The resource <code>R.dimen.exo_media_button_height</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 3 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"dp30"</span>>35dp<span class="tag">&lt;/dimen></span>
+<span class="lineno"> 4 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"controls_title__marginRight"</span>>60dp<span class="tag">&lt;/dimen></span>
+<span class="lineno"> 5 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"exo_media_button_width"</span>>71dp<span class="tag">&lt;/dimen></span>
+<span class="caretline"><span class="lineno"> 6 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_media_button_height"</span></span>>52dp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 7 </span><span class="tag">&lt;/resources></span></pre>
+
+<span class="location"><a href="../../src/main/res/drawable-anydpi-v21/exo_controls_fastforward.xml">../../src/main/res/drawable-anydpi-v21/exo_controls_fastforward.xml</a>:15</span>: <span class="message">The resource <code>R.drawable.exo_controls_fastforward</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 12 </span><span class="comment">     See the License for the specific language governing permissions and
+</span><span class="lineno"> 13 </span><span class="comment">     limitations under the License.
+</span><span class="lineno"> 14 </span><span class="comment">--></span>
+<span class="caretline"><span class="lineno"> 15 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 16 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 17 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
+</pre>
+
+<ul></ul><button id="Location9DivLink" onclick="reveal('Location9Div');" />+ 3 Additional Locations...</button>
+<div id="Location9Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_fastforward.png">../../src/main/res/drawable-hdpi/exo_controls_fastforward.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xhdpi/exo_controls_fastforward.png">../../src/main/res/drawable-xhdpi/exo_controls_fastforward.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xxhdpi/exo_controls_fastforward.png">../../src/main/res/drawable-xxhdpi/exo_controls_fastforward.png</a></span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/drawable-anydpi-v21/exo_controls_next.xml">../../src/main/res/drawable-anydpi-v21/exo_controls_next.xml</a>:15</span>: <span class="message">The resource <code>R.drawable.exo_controls_next</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 12 </span><span class="comment">     See the License for the specific language governing permissions and
+</span><span class="lineno"> 13 </span><span class="comment">     limitations under the License.
+</span><span class="lineno"> 14 </span><span class="comment">--></span>
+<span class="caretline"><span class="lineno"> 15 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 16 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 17 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
+</pre>
+
+<ul></ul><button id="Location10DivLink" onclick="reveal('Location10Div');" />+ 3 Additional Locations...</button>
+<div id="Location10Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_next.png">../../src/main/res/drawable-hdpi/exo_controls_next.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xhdpi/exo_controls_next.png">../../src/main/res/drawable-xhdpi/exo_controls_next.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xxhdpi/exo_controls_next.png">../../src/main/res/drawable-xxhdpi/exo_controls_next.png</a></span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/drawable-anydpi-v21/exo_controls_previous.xml">../../src/main/res/drawable-anydpi-v21/exo_controls_previous.xml</a>:15</span>: <span class="message">The resource <code>R.drawable.exo_controls_previous</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 12 </span><span class="comment">     See the License for the specific language governing permissions and
+</span><span class="lineno"> 13 </span><span class="comment">     limitations under the License.
+</span><span class="lineno"> 14 </span><span class="comment">--></span>
+<span class="caretline"><span class="lineno"> 15 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 16 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 17 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
+</pre>
+
+<ul></ul><button id="Location11DivLink" onclick="reveal('Location11Div');" />+ 3 Additional Locations...</button>
+<div id="Location11Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_previous.png">../../src/main/res/drawable-hdpi/exo_controls_previous.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xhdpi/exo_controls_previous.png">../../src/main/res/drawable-xhdpi/exo_controls_previous.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xxhdpi/exo_controls_previous.png">../../src/main/res/drawable-xxhdpi/exo_controls_previous.png</a></span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/drawable-anydpi-v21/exo_controls_rewind.xml">../../src/main/res/drawable-anydpi-v21/exo_controls_rewind.xml</a>:15</span>: <span class="message">The resource <code>R.drawable.exo_controls_rewind</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 12 </span><span class="comment">     See the License for the specific language governing permissions and
+</span><span class="lineno"> 13 </span><span class="comment">     limitations under the License.
+</span><span class="lineno"> 14 </span><span class="comment">--></span>
+<span class="caretline"><span class="lineno"> 15 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 16 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 17 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
+</pre>
+
+<ul></ul><button id="Location12DivLink" onclick="reveal('Location12Div');" />+ 3 Additional Locations...</button>
+<div id="Location12Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_rewind.png">../../src/main/res/drawable-hdpi/exo_controls_rewind.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xhdpi/exo_controls_rewind.png">../../src/main/res/drawable-xhdpi/exo_controls_rewind.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xxhdpi/exo_controls_rewind.png">../../src/main/res/drawable-xxhdpi/exo_controls_rewind.png</a></span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/drawable-anydpi-v21/exo_controls_shuffle.xml">../../src/main/res/drawable-anydpi-v21/exo_controls_shuffle.xml</a>:15</span>: <span class="message">The resource <code>R.drawable.exo_controls_shuffle</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 12 </span><span class="comment">     See the License for the specific language governing permissions and
+</span><span class="lineno"> 13 </span><span class="comment">     limitations under the License.
+</span><span class="lineno"> 14 </span><span class="comment">--></span>
+<span class="caretline"><span class="lineno"> 15 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 16 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 17 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"32dp"</span>
+<span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
+</pre>
+
+<ul></ul><button id="Location13DivLink" onclick="reveal('Location13Div');" />+ 3 Additional Locations...</button>
+<div id="Location13Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_shuffle.png">../../src/main/res/drawable-hdpi/exo_controls_shuffle.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xhdpi/exo_controls_shuffle.png">../../src/main/res/drawable-xhdpi/exo_controls_shuffle.png</a></span>
+<li> <span class="location"><a href="../../src/main/res/drawable-xxhdpi/exo_controls_shuffle.png">../../src/main/res/drawable-xxhdpi/exo_controls_shuffle.png</a></span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/drawable/exo_error_bg.xml">../../src/main/res/drawable/exo_error_bg.xml</a>:2</span>: <span class="message">The resource <code>R.drawable.exo_error_bg</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="caretline"><span class="lineno"> 2 </span><span class="warning"><span class="tag">&lt;shape</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 3 </span><span class="tag">&lt;stroke</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">color</span>=<span class="value">"@android:color/transparent"</span> <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"0.5dp"</span>/>
+<span class="lineno"> 4 </span><span class="tag">&lt;solid</span><span class="attribute">  </span><span class="prefix">android:</span><span class="attribute">color</span>=<span class="value">"@android:color/black"</span>/>
+<span class="lineno"> 5 </span><span class="tag">&lt;/shape></span></pre>
+
+<span class="location"><a href="../../src/main/res/drawable/ic_black.png">../../src/main/res/drawable/ic_black.png</a></span>: <img class="embedimage" align="right" src="../../src/main/res/drawable/ic_black.png" /><span class="message">The resource <code>R.drawable.ic_black</code> appears to be unused</span><br clear="right"/>
 <span class="location"><a href="../../src/main/res/drawable/ic_brightness_6_white_48px.xml">../../src/main/res/drawable/ic_brightness_6_white_48px.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.ic_brightness_6_white_48px</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="caretline"><span class="lineno">  1 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  2 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"24dp"</span>
@@ -499,8 +599,8 @@ Dismiss</button>            </div>
 
 <span class="location"><a href="../../src/main/res/drawable/ic_chevron_left_white_48px.xml">../../src/main/res/drawable/ic_chevron_left_white_48px.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.ic_chevron_left_white_48px</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="caretline"><span class="lineno">  1 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  2 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"24dp"</span>
-<span class="lineno">  3 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"24dp"</span>
+<span class="lineno">  2 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"25dp"</span>
+<span class="lineno">  3 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"25dp"</span>
 <span class="lineno">  4 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
 </pre>
 
@@ -519,18 +619,37 @@ Dismiss</button>            </div>
 </pre>
 
 <span class="location"><a href="../../src/main/res/drawable/ic_fullscreen_exit_white.xml">../../src/main/res/drawable/ic_fullscreen_exit_white.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.ic_fullscreen_exit_white</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="caretline"><span class="lineno"> 1 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"24dp"</span> <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"1024.0"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 2 </span>    <span class="prefix">android:</span><span class="attribute">viewportWidth</span>=<span class="value">"1028.0"</span> <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"24dp"</span> <span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>>
-<span class="lineno"> 3 </span>    <span class="tag">&lt;path</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">fillColor</span>=<span class="value">"#ffffff"</span> <span class="prefix">android:</span><span class="attribute">pathData</span>=<span class="value">"M984.6,274.9l-162,-0.6 181.7,-180.6C1024.3,73.6 1024.3,41 1004.4,21 984.4,1 952.1,1 932.2,21l-183.5,182.5 1.2,-165.2c0.5,-20.7 -15.9,-38.8 -36.5,-38.3l-26.1,0c-20.6,0.5 -37.7,12.9 -38.1,33.6l-1.1,286.6c0,0.4 1.3,0.6 1.3,1l-2,18.8C647.4,350.4 649.8,359.7 656.5,366.4c6.6,6.7 15.8,10.8 26.1,10.5L701.2,376.5c0.4,0 0.7,-0.2 1.1,-0.2L989.3,377.9c20.6,-0.5 37.6,-17.6 38.2,-38.4L1027.4,313.2C1024.3,288.7 1005.2,274.4 984.6,274.9zM1025.5,711.8l-0.1,-26.3c-0.5,-20.8 -17.4,-37.9 -38,-38.4l-285.5,1.6c-0.4,0 -0.7,-0.2 -1.1,-0.2l-18.6,-0.4c-10.2,-0.3 -19.4,3.8 -26,10.4 -6.6,6.7 -9,16 -8.8,26.4l2,18.8c0,0.4 -1.3,0.6 -1.3,1l1.1,284.4c0.4,20.7 17.4,33.1 38,33.5l27.7,0.1c20.5,0.5 36.8,-17.6 36.3,-38.3l-1.2,-161.9 182.7,181.4c19.8,20 52,20 71.8,0s19.8,-52.6 0,-72.6l-182.5,-182.3 160.9,-0.6C1003.3,749 1022.4,736.3 1025.5,711.8zM369,658.6c-6.6,-6.7 -15.8,-10.8 -26.1,-10.4l-18.7,0.4c-0.3,0 -0.6,0.2 -1,0.2L40.1,647.1c-20.6,0.5 -37.6,17.6 -38.1,38.4l-0.1,26.3c3.1,24.4 22.2,37.1 42.8,36.7l159.7,0.6L21.2,931.3C1.2,951.4 1.2,983.9 21.2,1004s52.2,20 72.1,0l183.5,-182.5 -1.2,160.9c-0.5,20.7 15.9,38.8 36.5,38.3l26.2,0c20.6,-0.5 37.7,-12.8 38.1,-33.6l1.1,-282.4c0,-0.4 -1.3,-0.6 -1.3,-1l2,-18.8C378.1,674.6 375.7,665.2 369,658.6zM377.3,320.3l-1.1,-286.6C375.8,12.9 358.8,0.6 338.3,0L310.6,0C290.1,-0.4 273.8,17.6 274.3,38.3l1.2,164.1L92.9,21C73,1 40.9,1 21.1,21S1.2,73.6 21.1,93.6l180.9,180.6 -159.4,0.6C22.1,274.4 3.1,288.7 0,313.2l0.1,26.3C0.5,360.3 17.5,377.4 38,377.9l285.5,-1.6c0.4,0.1 0.6,0.2 1,0.2l18.6,0.4c10.2,0.3 19.5,-3.8 26,-10.5C375.7,359.7 378.1,350.4 377.9,340L375.9,321.2C375.9,320.9 377.3,320.6 377.3,320.3z"</span>/>
-<span class="lineno"> 4 </span><span class="tag">&lt;/vector></span>
+<span class="caretline"><span class="lineno">  1 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  2 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"25dp"</span>
+<span class="lineno">  3 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"25dp"</span>
+<span class="lineno">  4 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"1024.0"</span>
 </pre>
+
+<span class="location"><a href="../../src/main/res/drawable/ic_fullscreen_selector.xml">../../src/main/res/drawable/ic_fullscreen_selector.xml</a>:2</span>: <span class="message">The resource <code>R.drawable.ic_fullscreen_selector</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="caretline"><span class="lineno"> 2 </span><span class="warning"><span class="tag">&lt;selector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 3 </span>    <span class="tag">&lt;item</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">drawable</span>=<span class="value">"@drawable/ic_fullscreen_exit_white"</span> <span class="prefix">android:</span><span class="attribute">state_checked</span>=<span class="value">"true"</span> />
+<span class="lineno"> 4 </span>    <span class="tag">&lt;item</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">drawable</span>=<span class="value">"@drawable/ic_fullscreen_white"</span> <span class="prefix">android:</span><span class="attribute">state_checked</span>=<span class="value">"false"</span> />
+<span class="lineno"> 5 </span><span class="tag">&lt;/selector></span></pre>
 
 <span class="location"><a href="../../src/main/res/drawable/ic_fullscreen_white.xml">../../src/main/res/drawable/ic_fullscreen_white.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.ic_fullscreen_white</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="caretline"><span class="lineno">  1 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  2 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"22dp"</span>
-<span class="lineno">  3 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"22dp"</span>
+<span class="lineno">  2 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"25dp"</span>
+<span class="lineno">  3 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"25dp"</span>
 <span class="lineno">  4 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"1024.0"</span>
 </pre>
+
+<span class="location"><a href="../../src/main/res/drawable/ic_lock_closed.xml">../../src/main/res/drawable/ic_lock_closed.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.ic_lock_closed</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="caretline"><span class="lineno">  1 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  2 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"28dp"</span>
+<span class="lineno">  3 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"28dp"</span>
+<span class="lineno">  4 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"1024.0"</span></pre>
+
+<span class="location"><a href="../../src/main/res/drawable/ic_lock_open.xml">../../src/main/res/drawable/ic_lock_open.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.ic_lock_open</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="caretline"><span class="lineno">  1 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  2 </span>    <span class="prefix">android:</span><span class="attribute">width</span>=<span class="value">"28dp"</span>
+<span class="lineno">  3 </span>    <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"28dp"</span>
+<span class="lineno">  4 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"1024.0"</span></pre>
 
 <span class="location"><a href="../../src/main/res/drawable/ic_replay_.xml">../../src/main/res/drawable/ic_replay_.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.ic_replay_</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="caretline"><span class="lineno">  1 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -560,143 +679,324 @@ Dismiss</button>            </div>
 <span class="lineno"> 4 </span><span class="tag">&lt;/vector></span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:21</span>: <span class="message">The resource <code>R.string.exo_controls_stop_description</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 18 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_next_description"</span>>Next track<span class="tag">&lt;/string></span>
-<span class="lineno"> 19 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_pause_description"</span>>Pause<span class="tag">&lt;/string></span>
-<span class="lineno"> 20 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_play_description"</span>>Play<span class="tag">&lt;/string></span>
-<span class="caretline"><span class="lineno"> 21 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_controls_stop_description"</span></span>>Stop<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 22 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_rewind_description"</span>>Rewind<span class="tag">&lt;/string></span>
-<span class="lineno"> 23 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_fastforward_description"</span>>Fast forward<span class="tag">&lt;/string></span>
-<span class="lineno"> 24 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_off_description"</span>>Repeat none<span class="tag">&lt;/string></span>
+<span class="location"><a href="../../src/main/res/drawable/list_view_back.xml">../../src/main/res/drawable/list_view_back.xml</a>:2</span>: <span class="message">The resource <code>R.drawable.list_view_back</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="caretline"><span class="lineno">  2 </span><span class="warning"><span class="tag">&lt;selector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  3 </span>
+<span class="lineno">  4 </span>    <span class="tag">&lt;item></span>
+<span class="lineno">  5 </span>    <span class="tag">&lt;shape</span><span class="attribute"> ></span>
 </pre>
 
-<ul></ul><button id="Location16DivLink" onclick="reveal('Location16Div');" />+ 2 Additional Locations...</button>
-<div id="Location16Div" style="display: none">
+<span class="location"><a href="../../src/main/res/drawable/seek_progress.xml">../../src/main/res/drawable/seek_progress.xml</a>:2</span>: <span class="message">The resource <code>R.drawable.seek_progress</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="caretline"><span class="lineno">  2 </span><span class="warning"><span class="tag">&lt;layer-list</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  3 </span>    <span class="tag">&lt;item</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@android:id/background"</span>>
+<span class="lineno">  4 </span>        <span class="tag">&lt;shape></span>
+<span class="lineno">  5 </span>            <span class="tag">&lt;solid</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">color</span>=<span class="value">"#a5ffffff"</span> />
+</pre>
+
+<span class="location"><a href="../../src/main/res/drawable/simple_video_dialog_progress.xml">../../src/main/res/drawable/simple_video_dialog_progress.xml</a>:2</span>: <span class="message">The resource <code>R.drawable.simple_video_dialog_progress</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="caretline"><span class="lineno">  2 </span><span class="warning"><span class="tag">&lt;layer-list</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  3 </span>    <span class="tag">&lt;item</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@android:id/background"</span>>
+<span class="lineno">  4 </span>        <span class="tag">&lt;shape></span>
+<span class="lineno">  5 </span>            <span class="tag">&lt;solid</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">color</span>=<span class="value">"#ffffffff"</span>/>
+</pre>
+
+<span class="location"><a href="../../src/main/res/drawable/simple_video_dialog_progress_bg.xml">../../src/main/res/drawable/simple_video_dialog_progress_bg.xml</a>:2</span>: <span class="message">The resource <code>R.drawable.simple_video_dialog_progress_bg</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="caretline"><span class="lineno"> 2 </span><span class="warning"><span class="tag">&lt;shape</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 3 </span>    <span class="tag">&lt;solid</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">color</span>=<span class="value">"#4c000000"</span>/>
+<span class="lineno"> 4 </span>    <span class="tag">&lt;corners</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">radius</span>=<span class="value">"7dp"</span>/>
+<span class="lineno"> 5 </span><span class="tag">&lt;/shape></span>
+</pre>
+
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:16</span>: <span class="message">The resource <code>R.string.exo_controls_previous_description</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 13 </span><span class="comment">     limitations under the License.
+</span><span class="lineno"> 14 </span><span class="comment">--></span>
+<span class="lineno"> 15 </span><span class="tag">&lt;resources></span>
+<span class="caretline"><span class="lineno"> 16 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_controls_previous_description"</span></span>>Previous track<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 17 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_next_description"</span>>Next track<span class="tag">&lt;/string></span>
+<span class="lineno"> 18 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_pause_description"</span>>Pause<span class="tag">&lt;/string></span>
+<span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_play_description"</span>>Play<span class="tag">&lt;/string></span>
+</pre>
+
+<ul></ul><button id="Location33DivLink" onclick="reveal('Location33Div');" />+ 2 Additional Locations...</button>
+<div id="Location33Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:18</span>
+<li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:3</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:17</span>: <span class="message">The resource <code>R.string.exo_controls_next_description</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 14 </span><span class="comment">--></span>
+<span class="lineno"> 15 </span><span class="tag">&lt;resources></span>
+<span class="lineno"> 16 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_previous_description"</span>>Previous track<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 17 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_controls_next_description"</span></span>>Next track<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 18 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_pause_description"</span>>Pause<span class="tag">&lt;/string></span>
+<span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_play_description"</span>>Play<span class="tag">&lt;/string></span>
+<span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_stop_description"</span>>Stop<span class="tag">&lt;/string></span>
+</pre>
+
+<ul></ul><button id="Location34DivLink" onclick="reveal('Location34Div');" />+ 2 Additional Locations...</button>
+<div id="Location34Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:19</span>
+<li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:4</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:18</span>: <span class="message">The resource <code>R.string.exo_controls_pause_description</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 15 </span><span class="tag">&lt;resources></span>
+<span class="lineno"> 16 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_previous_description"</span>>Previous track<span class="tag">&lt;/string></span>
+<span class="lineno"> 17 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_next_description"</span>>Next track<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 18 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_controls_pause_description"</span></span>>Pause<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_play_description"</span>>Play<span class="tag">&lt;/string></span>
+<span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_stop_description"</span>>Stop<span class="tag">&lt;/string></span>
+<span class="lineno"> 21 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_rewind_description"</span>>Rewind<span class="tag">&lt;/string></span>
+</pre>
+
+<ul></ul><button id="Location35DivLink" onclick="reveal('Location35Div');" />+ 2 Additional Locations...</button>
+<div id="Location35Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:20</span>
+<li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:5</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:19</span>: <span class="message">The resource <code>R.string.exo_controls_play_description</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 16 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_previous_description"</span>>Previous track<span class="tag">&lt;/string></span>
+<span class="lineno"> 17 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_next_description"</span>>Next track<span class="tag">&lt;/string></span>
+<span class="lineno"> 18 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_pause_description"</span>>Pause<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_controls_play_description"</span></span>>Play<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_stop_description"</span>>Stop<span class="tag">&lt;/string></span>
+<span class="lineno"> 21 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_rewind_description"</span>>Rewind<span class="tag">&lt;/string></span>
+<span class="lineno"> 22 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_fastforward_description"</span>>Fast forward<span class="tag">&lt;/string></span>
+</pre>
+
+<ul></ul><button id="Location36DivLink" onclick="reveal('Location36Div');" />+ 2 Additional Locations...</button>
+<div id="Location36Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:21</span>
+<li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:6</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:20</span>: <span class="message">The resource <code>R.string.exo_controls_stop_description</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 17 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_next_description"</span>>Next track<span class="tag">&lt;/string></span>
+<span class="lineno"> 18 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_pause_description"</span>>Pause<span class="tag">&lt;/string></span>
+<span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_play_description"</span>>Play<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_controls_stop_description"</span></span>>Stop<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 21 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_rewind_description"</span>>Rewind<span class="tag">&lt;/string></span>
+<span class="lineno"> 22 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_fastforward_description"</span>>Fast forward<span class="tag">&lt;/string></span>
+<span class="lineno"> 23 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_off_description"</span>>Repeat none<span class="tag">&lt;/string></span>
+</pre>
+
+<ul></ul><button id="Location37DivLink" onclick="reveal('Location37Div');" />+ 2 Additional Locations...</button>
+<div id="Location37Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:22</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:7</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:27</span>: <span class="message">The resource <code>R.string.exo_play_error_hint</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 24 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_off_description"</span>>Repeat none<span class="tag">&lt;/string></span>
-<span class="lineno"> 25 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_all_description"</span>>"Repeat all"<span class="tag">&lt;/string></span>
-<span class="lineno"> 26 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_one_description"</span>>"Repeat one"<span class="tag">&lt;/string></span>
-<span class="caretline"><span class="lineno"> 27 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_play_error_hint"</span></span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span></span>
-<span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_btn_hnt"</span>>Continue to play<span class="tag">&lt;/string></span>
-<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
-<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:21</span>: <span class="message">The resource <code>R.string.exo_controls_rewind_description</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 18 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_pause_description"</span>>Pause<span class="tag">&lt;/string></span>
+<span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_play_description"</span>>Play<span class="tag">&lt;/string></span>
+<span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_stop_description"</span>>Stop<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 21 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_controls_rewind_description"</span></span>>Rewind<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 22 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_fastforward_description"</span>>Fast forward<span class="tag">&lt;/string></span>
+<span class="lineno"> 23 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_off_description"</span>>Repeat none<span class="tag">&lt;/string></span>
+<span class="lineno"> 24 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_all_description"</span>>"Repeat all"<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location17DivLink" onclick="reveal('Location17Div');" />+ 2 Additional Locations...</button>
-<div id="Location17Div" style="display: none">
+<ul></ul><button id="Location38DivLink" onclick="reveal('Location38Div');" />+ 2 Additional Locations...</button>
+<div id="Location38Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:23</span>
+<li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:8</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:22</span>: <span class="message">The resource <code>R.string.exo_controls_fastforward_description</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_play_description"</span>>Play<span class="tag">&lt;/string></span>
+<span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_stop_description"</span>>Stop<span class="tag">&lt;/string></span>
+<span class="lineno"> 21 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_rewind_description"</span>>Rewind<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 22 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_controls_fastforward_description"</span></span>>Fast forward<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 23 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_off_description"</span>>Repeat none<span class="tag">&lt;/string></span>
+<span class="lineno"> 24 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_all_description"</span>>"Repeat all"<span class="tag">&lt;/string></span>
+<span class="lineno"> 25 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_one_description"</span>>"Repeat one"<span class="tag">&lt;/string></span>
+</pre>
+
+<ul></ul><button id="Location39DivLink" onclick="reveal('Location39Div');" />+ 2 Additional Locations...</button>
+<div id="Location39Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:24</span>
+<li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:9</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:26</span>: <span class="message">The resource <code>R.string.exo_controls_shuffle_description</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 23 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_off_description"</span>>Repeat none<span class="tag">&lt;/string></span>
+<span class="lineno"> 24 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_all_description"</span>>"Repeat all"<span class="tag">&lt;/string></span>
+<span class="lineno"> 25 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_one_description"</span>>"Repeat one"<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 26 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_controls_shuffle_description"</span></span>>Shuffle<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 27 </span>  <span class="comment">&lt;!--我的--></span>
+<span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_error_hint"</span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span>
+<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_btn_hnt"</span>>Continue to play<span class="tag">&lt;/string></span>
+</pre>
+
+<ul></ul><button id="Location40DivLink" onclick="reveal('Location40Div');" />+ 2 Additional Locations...</button>
+<div id="Location40Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:28</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:13</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:28</span>: <span class="message">The resource <code>R.string.exo_play_btn_hnt</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 25 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_all_description"</span>>"Repeat all"<span class="tag">&lt;/string></span>
-<span class="lineno"> 26 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_one_description"</span>>"Repeat one"<span class="tag">&lt;/string></span>
-<span class="lineno"> 27 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_error_hint"</span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span>
-<span class="caretline"><span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_play_btn_hnt"</span></span>>Continue to play<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
-<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
-<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:28</span>: <span class="message">The resource <code>R.string.exo_play_error_hint</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 25 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_one_description"</span>>"Repeat one"<span class="tag">&lt;/string></span>
+<span class="lineno"> 26 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_shuffle_description"</span>>Shuffle<span class="tag">&lt;/string></span>
+<span class="lineno"> 27 </span>  <span class="comment">&lt;!--我的--></span>
+<span class="caretline"><span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_play_error_hint"</span></span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span></span>
+<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_btn_hnt"</span>>Continue to play<span class="tag">&lt;/string></span>
+<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
+<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location18DivLink" onclick="reveal('Location18Div');" />+ 2 Additional Locations...</button>
-<div id="Location18Div" style="display: none">
+<ul></ul><button id="Location41DivLink" onclick="reveal('Location41Div');" />+ 2 Additional Locations...</button>
+<div id="Location41Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:29</span>
-<li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:14</span>
-</ul>
-</div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:29</span>: <span class="message">The resource <code>R.string.net_network_no_hint</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 26 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_one_description"</span>>"Repeat one"<span class="tag">&lt;/string></span>
-<span class="lineno"> 27 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_error_hint"</span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span>
-<span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_btn_hnt"</span>>Continue to play<span class="tag">&lt;/string></span>
-<span class="caretline"><span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"net_network_no_hint"</span></span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span></span>
-<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
-<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
-<span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"hint_replay_list"</span>>replay<span class="tag">&lt;/string></span>
-</pre>
-
-<ul></ul><button id="Location19DivLink" onclick="reveal('Location19Div');" />+ 2 Additional Locations...</button>
-<div id="Location19Div" style="display: none">
-Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:30</span>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:31</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:15</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:30</span>: <span class="message">The resource <code>R.string.exo_play_reminder</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 27 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_error_hint"</span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span>
-<span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_btn_hnt"</span>>Continue to play<span class="tag">&lt;/string></span>
-<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
-<span class="caretline"><span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_play_reminder"</span></span>>hint<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
-<span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"hint_replay_list"</span>>replay<span class="tag">&lt;/string></span>
-<span class="lineno"> 33 </span>  <span class="tag">&lt;array</span><span class="attribute"> name</span>=<span class="value">"exo_video_switch_text"</span>>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:29</span>: <span class="message">The resource <code>R.string.exo_play_btn_hnt</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 26 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_shuffle_description"</span>>Shuffle<span class="tag">&lt;/string></span>
+<span class="lineno"> 27 </span>  <span class="comment">&lt;!--我的--></span>
+<span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_error_hint"</span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_play_btn_hnt"</span></span>>Continue to play<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
+<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
+<span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location20DivLink" onclick="reveal('Location20Div');" />+ 2 Additional Locations...</button>
-<div id="Location20Div" style="display: none">
+<ul></ul><button id="Location42DivLink" onclick="reveal('Location42Div');" />+ 2 Additional Locations...</button>
+<div id="Location42Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:31</span>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:32</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:16</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:31</span>: <span class="message">The resource <code>R.string.exo_play_wifi_hint_no</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_btn_hnt"</span>>Continue to play<span class="tag">&lt;/string></span>
-<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
-<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
-<span class="caretline"><span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_play_wifi_hint_no"</span></span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span></span>
-<span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"hint_replay_list"</span>>replay<span class="tag">&lt;/string></span>
-<span class="lineno"> 33 </span>  <span class="tag">&lt;array</span><span class="attribute"> name</span>=<span class="value">"exo_video_switch_text"</span>>
-<span class="lineno"> 34 </span>    <span class="tag">&lt;item></span>super<span class="tag">&lt;/item></span>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:30</span>: <span class="message">The resource <code>R.string.net_network_no_hint</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 27 </span>  <span class="comment">&lt;!--我的--></span>
+<span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_error_hint"</span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span>
+<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_btn_hnt"</span>>Continue to play<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"net_network_no_hint"</span></span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span></span>
+<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
+<span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
+<span class="lineno"> 33 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"hint_replay_list"</span>>replay<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location21DivLink" onclick="reveal('Location21Div');" />+ 2 Additional Locations...</button>
-<div id="Location21Div" style="display: none">
+<ul></ul><button id="Location43DivLink" onclick="reveal('Location43Div');" />+ 2 Additional Locations...</button>
+<div id="Location43Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:32</span>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:33</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:17</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:32</span>: <span class="message">The resource <code>R.string.hint_replay_list</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
-<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
-<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
-<span class="caretline"><span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"hint_replay_list"</span></span>>replay<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 33 </span>  <span class="tag">&lt;array</span><span class="attribute"> name</span>=<span class="value">"exo_video_switch_text"</span>>
-<span class="lineno"> 34 </span>    <span class="tag">&lt;item></span>super<span class="tag">&lt;/item></span>
-<span class="lineno"> 35 </span>    <span class="tag">&lt;item></span>high<span class="tag">&lt;/item></span>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:31</span>: <span class="message">The resource <code>R.string.exo_play_reminder</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 28 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_error_hint"</span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span>
+<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_btn_hnt"</span>>Continue to play<span class="tag">&lt;/string></span>
+<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_play_reminder"</span></span>>hint<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
+<span class="lineno"> 33 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"hint_replay_list"</span>>replay<span class="tag">&lt;/string></span>
+<span class="lineno"> 34 </span>  <span class="tag">&lt;array</span><span class="attribute"> name</span>=<span class="value">"exo_video_switch_text"</span>>
 </pre>
 
-<ul></ul><button id="Location22DivLink" onclick="reveal('Location22Div');" />+ 2 Additional Locations...</button>
-<div id="Location22Div" style="display: none">
+<ul></ul><button id="Location44DivLink" onclick="reveal('Location44Div');" />+ 2 Additional Locations...</button>
+<div id="Location44Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:33</span>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:34</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:18</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:33</span>: <span class="message">The resource <code>R.array.exo_video_switch_text</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
-<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
-<span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"hint_replay_list"</span>>replay<span class="tag">&lt;/string></span>
-<span class="caretline"><span class="lineno"> 33 </span>  <span class="tag">&lt;array</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_video_switch_text"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 34 </span>    <span class="tag">&lt;item></span>super<span class="tag">&lt;/item></span>
-<span class="lineno"> 35 </span>    <span class="tag">&lt;item></span>high<span class="tag">&lt;/item></span>
-<span class="lineno"> 36 </span>    <span class="tag">&lt;item></span>standard<span class="tag">&lt;/item></span>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:32</span>: <span class="message">The resource <code>R.string.exo_play_wifi_hint_no</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_btn_hnt"</span>>Continue to play<span class="tag">&lt;/string></span>
+<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
+<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_play_wifi_hint_no"</span></span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span></span>
+<span class="lineno"> 33 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"hint_replay_list"</span>>replay<span class="tag">&lt;/string></span>
+<span class="lineno"> 34 </span>  <span class="tag">&lt;array</span><span class="attribute"> name</span>=<span class="value">"exo_video_switch_text"</span>>
+<span class="lineno"> 35 </span>      <span class="tag">&lt;item></span>super<span class="tag">&lt;/item></span>
 </pre>
 
-<ul></ul><button id="Location23DivLink" onclick="reveal('Location23Div');" />+ 2 Additional Locations...</button>
-<div id="Location23Div" style="display: none">
+<ul></ul><button id="Location45DivLink" onclick="reveal('Location45Div');" />+ 2 Additional Locations...</button>
+<div id="Location45Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:34</span>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:35</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:19</span>
 </ul>
 </div><br/><br/>
-</div>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:33</span>: <span class="message">The resource <code>R.string.hint_replay_list</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 30 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
+<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
+<span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 33 </span>  <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"hint_replay_list"</span></span>>replay<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 34 </span>  <span class="tag">&lt;array</span><span class="attribute"> name</span>=<span class="value">"exo_video_switch_text"</span>>
+<span class="lineno"> 35 </span>      <span class="tag">&lt;item></span>super<span class="tag">&lt;/item></span>
+<span class="lineno"> 36 </span>      <span class="tag">&lt;item></span>high<span class="tag">&lt;/item></span>
+</pre>
+
+<ul></ul><button id="Location46DivLink" onclick="reveal('Location46Div');" />+ 2 Additional Locations...</button>
+<div id="Location46Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:36</span>
+<li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:20</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:34</span>: <span class="message">The resource <code>R.array.exo_video_switch_text</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
+<span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
+<span class="lineno"> 33 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"hint_replay_list"</span>>replay<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 34 </span>  <span class="tag">&lt;array</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"exo_video_switch_text"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 35 </span>      <span class="tag">&lt;item></span>super<span class="tag">&lt;/item></span>
+<span class="lineno"> 36 </span>      <span class="tag">&lt;item></span>high<span class="tag">&lt;/item></span>
+<span class="lineno"> 37 </span>      <span class="tag">&lt;item></span>standard<span class="tag">&lt;/item></span>
+</pre>
+
+<ul></ul><button id="Location47DivLink" onclick="reveal('Location47Div');" />+ 2 Additional Locations...</button>
+<div id="Location47Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:37</span>
+<li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:21</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:17</span>: <span class="message">The resource <code>R.style.ExoMediaButton</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 14 </span><span class="comment">--></span>
+<span class="lineno"> 15 </span><span class="tag">&lt;resources></span>
+<span class="lineno"> 16 </span>
+<span class="caretline"><span class="lineno"> 17 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"ExoMediaButton"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 18 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:background"</span>>@null<span class="tag">&lt;/item></span>
+<span class="lineno"> 19 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_width"</span>>@dimen/exo_media_button_width<span class="tag">&lt;/item></span>
+<span class="lineno"> 20 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_height"</span>>@dimen/exo_media_button_height<span class="tag">&lt;/item></span>
+</pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:23</span>: <span class="message">The resource <code>R.style.ExoMediaButton_Previous</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 20 </span>      <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_height"</span>>@dimen/exo_media_button_height<span class="tag">&lt;/item></span>
+<span class="lineno"> 21 </span>  <span class="tag">&lt;/style></span>
+<span class="lineno"> 22 </span>
+<span class="caretline"><span class="lineno"> 23 </span>  <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"ExoMediaButton.Previous"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 24 </span>      <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:src"</span>>@drawable/exo_controls_previous<span class="tag">&lt;/item></span>
+<span class="lineno"> 25 </span>      <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:contentDescription"</span>>@string/exo_controls_previous_description<span class="tag">&lt;/item></span>
+<span class="lineno"> 26 </span>  <span class="tag">&lt;/style></span>
+</pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:28</span>: <span class="message">The resource <code>R.style.ExoMediaButton_Next</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 25 </span>      <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:contentDescription"</span>>@string/exo_controls_previous_description<span class="tag">&lt;/item></span>
+<span class="lineno"> 26 </span>  <span class="tag">&lt;/style></span>
+<span class="lineno"> 27 </span>
+<span class="caretline"><span class="lineno"> 28 </span>  <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"ExoMediaButton.Next"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 29 </span>      <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:src"</span>>@drawable/exo_controls_next<span class="tag">&lt;/item></span>
+<span class="lineno"> 30 </span>      <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:contentDescription"</span>>@string/exo_controls_next_description<span class="tag">&lt;/item></span>
+<span class="lineno"> 31 </span>  <span class="tag">&lt;/style></span>
+</pre>
+
+<br/><b>NOTE: 6 results omitted.</b><br/><br/></div>
 </div>
 <div class="metadata"><div class="explanation" id="explanationUnusedResources" style="display: none;">
 Unused resources make applications larger and slow down builds.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
@@ -725,6 +1025,92 @@ Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id
 Dismiss</button>            </div>
             </div>
           </section>
+<a name="Usability:Icons"></a>
+<a name="IconLocation"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="IconLocationCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Image defined in density-independent drawable folder</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/drawable/exo_bg_video_bottom.9.png">../../src/main/res/drawable/exo_bg_video_bottom.9.png</a></span>: <img class="embedimage" align="right" src="../../src/main/res/drawable/exo_bg_video_bottom.9.png" /><span class="message">Found bitmap drawable <code>res/drawable/exo_bg_video_bottom.9.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../src/main/res/drawable/exo_bg_video_top.9.png">../../src/main/res/drawable/exo_bg_video_top.9.png</a></span>: <img class="embedimage" align="right" src="../../src/main/res/drawable/exo_bg_video_top.9.png" /><span class="message">Found bitmap drawable <code>res/drawable/exo_bg_video_top.9.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../src/main/res/drawable/ic_black.png">../../src/main/res/drawable/ic_black.png</a></span>: <img class="embedimage" align="right" src="../../src/main/res/drawable/ic_black.png" /><span class="message">Found bitmap drawable <code>res/drawable/ic_black.png</code> in densityless folder</span><br clear="right"/>
+</div>
+<div class="metadata"><div class="explanation" id="explanationIconLocation" style="display: none;">
+The res/drawable folder is intended for density-independent graphics such as shapes defined in XML. For bitmaps, move it to <code>drawable-mdpi</code> and consider providing higher and lower resolution versions in <code>drawable-ldpi</code>, <code>drawable-hdpi</code> and <code>drawable-xhdpi</code>. If the icon <b>really</b> is density independent (for example a solid color) you can place it in <code>drawable-nodpi</code>.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html">http://developer.android.com/guide/practices/screens_support.html</a>
+</div>To suppress this error, use the issue id "IconLocation" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">IconLocation</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Icons</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Usability</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 5/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationIconLocationLink" onclick="reveal('explanationIconLocation');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="IconLocationCardLink" onclick="hideid('IconLocationCard');">
+Dismiss</button>            </div>
+            </div>
+          </section><a name="IconMissingDensityFolder"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="IconMissingDensityFolderCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Missing density folder</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res">../../src/main/res</a></span>: <span class="message">Missing density variation folders in <code>src\\main\\res</code>: drawable-mdpi</span><br />
+</div>
+<div class="metadata"><div class="explanation" id="explanationIconMissingDensityFolder" style="display: none;">
+Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra-high, extra-extra-high). This lint check identifies folders which are missing, such as <code>drawable-hdpi</code>.<br/>
+<br/>
+Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable <code>ANDROID_LINT_INCLUDE_LDPI=true</code>. For more information on current density usage, see <a href="http://developer.android.com/resources/dashboard/screens.html">http://developer.android.com/resources/dashboard/screens.html</a><br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html">http://developer.android.com/guide/practices/screens_support.html</a>
+</div>To suppress this error, use the issue id "IconMissingDensityFolder" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">IconMissingDensityFolder</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Icons</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Usability</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 3/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationIconMissingDensityFolderLink" onclick="reveal('explanationIconMissingDensityFolder');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="IconMissingDensityFolderCardLink" onclick="hideid('IconMissingDensityFolderCard');">
+Dismiss</button>            </div>
+            </div>
+          </section>
 <a name="Accessibility"></a>
 <a name="ClickableViewAccessibility"></a>
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="ClickableViewAccessibilityCard" style="display: block;">
@@ -735,25 +1121,25 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java">../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java</a>:261</span>: <span class="message">Custom view <code>DefaultTimeBar</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">
-<span class="lineno"> 258 </span>  <span class="keyword">public</span> <span class="keyword">void</span> setEnabled(<span class="keyword">boolean</span> enabled) {
-<span class="lineno"> 259 </span>    <span class="keyword">super</span>.setEnabled(enabled);
-<span class="lineno"> 260 </span>    <span class="keyword">if</span> (scrubbing &amp;&amp; !enabled) {
-<span class="caretline"><span class="lineno"> 261 </span>      stopScrubbing(<span class="keyword">t</span><span class="warning"><span class="keyword">rue</span>);</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 262 </span>    }
-<span class="lineno"> 263 </span>  }
-<span class="lineno"> 264 </span>
+<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java">../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java</a>:385</span>: <span class="message">Custom view <code>DefaultTimeBar</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">
+<span class="lineno"> 382 </span>        || (adGroupTimesMs != <span class="keyword">null</span> &amp;&amp; playedAdGroups != <span class="keyword">null</span>));
+<span class="lineno"> 383 </span>    <span class="keyword">this</span>.adGroupCount = adGroupCount;
+<span class="lineno"> 384 </span>    <span class="keyword">this</span>.adGroupTimesMs = adGroupTimesMs;
+<span class="caretline"><span class="lineno"> 385 </span>    <span class="keyword">this</span>.pl<span class="warning">ayedAdGroups</span> = playedAdGroups;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 386 </span>    update();
+<span class="lineno"> 387 </span>  }
+<span class="lineno"> 388 </span>
 </pre>
 
-<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/SimpleExoPlayerView.java">../../src/main/java/com/google/android/exoplayer2/ui/SimpleExoPlayerView.java</a>:675</span>: <span class="message">Custom view <code>SimpleExoPlayerView</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">
-<span class="lineno"> 672 </span><span class="javadoc">   * @return The {@link SurfaceView}, {@link TextureView} or {@code null}.
-</span><span class="lineno"> 673 </span><span class="javadoc">   */</span>
-<span class="lineno"> 674 </span>  <span class="keyword">public</span> View getVideoSurfaceView() {
-<span class="caretline"><span class="lineno"> 675 </span><span class="warning">    <span class="keyword">return</span> s</span>urfaceView;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 676 </span>  }
-<span class="lineno"> 677 </span>
-<span class="lineno"> 678 </span>  <span class="javadoc">/**
-</span></pre>
+<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/SimpleExoPlayerView.java">../../src/main/java/com/google/android/exoplayer2/ui/SimpleExoPlayerView.java</a>:738</span>: <span class="message">Custom view <code>SimpleExoPlayerView</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">
+<span class="lineno"> 735 </span><span class="javadoc">     *
+</span><span class="lineno"> 736 </span><span class="javadoc">     * @return The {@link SurfaceView}, {@link TextureView} or {@code null}.
+</span><span class="lineno"> 737 </span><span class="javadoc">     */</span>
+<span class="caretline"><span class="lineno"> 738 </span>    <span class="keyword">public</span> View getVi<span class="warning">deoSurfaceVi</span>ew() {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 739 </span>        <span class="keyword">return</span> surfaceView;
+<span class="lineno"> 740 </span>    }
+<span class="lineno"> 741 </span>
+</pre>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationClickableViewAccessibility" style="display: none;">
@@ -790,84 +1176,24 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:31</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
-<span class="lineno"> 28 </span>    <span class="prefix">android:</span><span class="attribute">paddingTop</span>=<span class="value">"4dp"</span>
-<span class="lineno"> 29 </span>    <span class="prefix">android:</span><span class="attribute">orientation</span>=<span class="value">"horizontal"</span>>
-<span class="lineno"> 30 </span>
-<span class="caretline"><span class="lineno"> 31 </span>    <span class="warning"><span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_prev"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 32 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Previous"</span>/>
-<span class="lineno"> 33 </span>
-<span class="lineno"> 34 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_rew"</span>
+<span class="location"><a href="../../src/main/res/layout/simple_exo_playback_control_view.xml">../../src/main/res/layout/simple_exo_playback_control_view.xml</a>:37</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">  34 </span>        <span class="prefix">android:</span><span class="attribute">paddingRight</span>=<span class="value">"30dp"</span>
+<span class="lineno">  35 </span>        <span class="prefix">android:</span><span class="attribute">visibility</span>=<span class="value">"visible"</span>>
+<span class="lineno">  36 </span>
+<span class="caretline"><span class="lineno">  37 </span>        <span class="warning"><span class="tag">&lt;ImageButton</span><span class="attribute"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno">  38 </span><span class="attribute">            </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_play"</span>
+<span class="lineno">  39 </span>            <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"wrap_content"</span>
+<span class="lineno">  40 </span>            <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:34</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
-<span class="lineno"> 31 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_prev"</span>
-<span class="lineno"> 32 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Previous"</span>/>
-<span class="lineno"> 33 </span>
-<span class="caretline"><span class="lineno"> 34 </span>    <span class="warning"><span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_rew"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 35 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Rewind"</span>/>
-<span class="lineno"> 36 </span>
-<span class="lineno"> 37 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_repeat_toggle"</span>
-</pre>
-
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:37</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
-<span class="lineno"> 34 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_rew"</span>
-<span class="lineno"> 35 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Rewind"</span>/>
-<span class="lineno"> 36 </span>
-<span class="caretline"><span class="lineno"> 37 </span>    <span class="warning"><span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_repeat_toggle"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 38 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton"</span>/>
-<span class="lineno"> 39 </span>
-<span class="lineno"> 40 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute">
-</span></pre>
-
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:40</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
-<span class="lineno"> 37 </span>    <span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_repeat_toggle"</span>
-<span class="lineno"> 38 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton"</span>/>
-<span class="lineno"> 39 </span>
-<span class="caretline"><span class="lineno"> 40 </span>    <span class="warning"><span class="tag">&lt;ImageButton</span><span class="attribute"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
-</span><span class="lineno"> 41 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_play"</span>
-<span class="lineno"> 42 </span>        <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Play"</span> />
-<span class="lineno"> 43 </span>
-</pre>
-
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:44</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
-<span class="lineno"> 41 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_play"</span>
-<span class="lineno"> 42 </span>        <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Play"</span> />
-<span class="lineno"> 43 </span>
-<span class="caretline"><span class="lineno"> 44 </span>    <span class="warning"><span class="tag">&lt;ImageButton</span><span class="attribute"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
-</span><span class="lineno"> 45 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_pause"</span>
-<span class="lineno"> 46 </span>        <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Pause"</span> />
-<span class="lineno"> 47 </span>
-</pre>
-
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:48</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
-<span class="lineno"> 45 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_pause"</span>
-<span class="lineno"> 46 </span>        <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Pause"</span> />
-<span class="lineno"> 47 </span>
-<span class="caretline"><span class="lineno"> 48 </span>    <span class="warning"><span class="tag">&lt;ImageButton</span><span class="attribute"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
-</span><span class="lineno"> 49 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_ffwd"</span>
-<span class="lineno"> 50 </span>        <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.FastForward"</span> />
-<span class="lineno"> 51 </span>
-</pre>
-
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:52</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
-<span class="lineno"> 49 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_ffwd"</span>
-<span class="lineno"> 50 </span>        <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.FastForward"</span> />
-<span class="lineno"> 51 </span>
-<span class="caretline"><span class="lineno"> 52 </span>    <span class="warning"><span class="tag">&lt;ImageButton</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_next"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 53 </span>      <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Next"</span>/>
-<span class="lineno"> 54 </span>
-<span class="lineno"> 55 </span>  <span class="tag">&lt;/LinearLayout></span>
-</pre>
-
-<span class="location"><a href="../../src/main/res/layout/exo_simple_player_view.xml">../../src/main/res/layout/exo_simple_player_view.xml</a>:30</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
-<span class="lineno"> 27 </span>        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"match_parent"</span>
-<span class="lineno"> 28 </span>        <span class="prefix">android:</span><span class="attribute">background</span>=<span class="value">"@android:color/black"</span>/>
-<span class="lineno"> 29 </span>
-<span class="caretline"><span class="lineno"> 30 </span>    <span class="warning"><span class="tag">&lt;ImageView</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_artwork"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 31 </span>        <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"match_parent"</span>
-<span class="lineno"> 32 </span>        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"match_parent"</span>
-<span class="lineno"> 33 </span>        <span class="prefix">android:</span><span class="attribute">scaleType</span>=<span class="value">"fitXY"</span>/>
+<span class="location"><a href="../../src/main/res/layout/simple_exo_playback_control_view.xml">../../src/main/res/layout/simple_exo_playback_control_view.xml</a>:46</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">  43 </span>            <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/exo_controls_play"</span>
+<span class="lineno">  44 </span>            <span class="prefix">android:</span><span class="attribute">visibility</span>=<span class="value">"visible"</span> />
+<span class="lineno">  45 </span>
+<span class="caretline"><span class="lineno">  46 </span>        <span class="warning"><span class="tag">&lt;ImageButton</span><span class="attribute"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno">  47 </span><span class="attribute">            </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@+id/exo_pause"</span>
+<span class="lineno">  48 </span>            <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"wrap_content"</span>
+<span class="lineno">  49 </span>            <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
 </pre>
 
 </div>
@@ -899,6 +1225,199 @@ To suppress this error, use the issue id "ContentDescription" as explained in th
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationContentDescriptionLink" onclick="reveal('explanationContentDescription');">
 Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="ContentDescriptionCardLink" onclick="hideid('ContentDescriptionCard');">
+Dismiss</button>            </div>
+            </div>
+          </section>
+<a name="Internationalization:Bidirectional Text"></a>
+<a name="RtlSymmetry"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="RtlSymmetryCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Padding and margin symmetry</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/simple_exo_playback_control_view.xml">../../src/main/res/layout/simple_exo_playback_control_view.xml</a>:34</span>: <span class="message">When you define <code>paddingRight</code> you should probably also define <code>paddingLeft</code> for right-to-left symmetry</span><br /><pre class="errorlines">
+<span class="lineno">  31 </span>        <span class="prefix">android:</span><span class="attribute">background</span>=<span class="value">"@drawable/exo_bg_video_bottom"</span>
+<span class="lineno">  32 </span>        <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical"</span>
+<span class="lineno">  33 </span>        <span class="prefix">android:</span><span class="attribute">orientation</span>=<span class="value">"horizontal"</span>
+<span class="caretline"><span class="lineno">  34 </span>        <span class="warning"><span class="prefix">android:</span><span class="attribute">paddingRight</span></span>=<span class="value">"30dp"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  35 </span>        <span class="prefix">android:</span><span class="attribute">visibility</span>=<span class="value">"visible"</span>>
+<span class="lineno">  36 </span>
+<span class="lineno">  37 </span>        <span class="tag">&lt;ImageButton</span><span class="attribute">
+</span></pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationRtlSymmetry" style="display: none;">
+If you specify padding or margin on the left side of a layout, you should probably also specify padding on the right side (and vice versa) for right-to-left layout symmetry.<br/>To suppress this error, use the issue id "RtlSymmetry" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">RtlSymmetry</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Bidirectional Text</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Internationalization</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 6/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationRtlSymmetryLink" onclick="reveal('explanationRtlSymmetry');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="RtlSymmetryCardLink" onclick="hideid('RtlSymmetryCard');">
+Dismiss</button>            </div>
+            </div>
+          </section><a name="RtlHardcoded"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="RtlHardcodedCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Using left/right instead of start/end attributes</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/simple_exo_playback_control_view.xml">../../src/main/res/layout/simple_exo_playback_control_view.xml</a>:19</span>: <span class="message">Consider adding <code>android:paddingStart="35dp"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  16 </span>        <span class="prefix">android:</span><span class="attribute">ellipsize</span>=<span class="value">"end"</span>
+<span class="lineno">  17 </span>        <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical|start"</span>
+<span class="lineno">  18 </span>        <span class="prefix">android:</span><span class="attribute">lines</span>=<span class="value">"1"</span>
+<span class="caretline"><span class="lineno">  19 </span>        <span class="warning"><span class="prefix">android:</span><span class="attribute">paddingLeft</span></span>=<span class="value">"35dp"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  20 </span>        <span class="prefix">android:</span><span class="attribute">paddingRight</span>=<span class="value">"@dimen/controls_title__marginRight"</span>
+<span class="lineno">  21 </span>        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/white"</span>
+<span class="lineno">  22 </span>        <span class="prefix">tools:</span><span class="attribute">text</span>=<span class="value">"测试阿斯顿"</span> />
+</pre>
+
+<span class="location"><a href="../../src/main/res/layout/simple_exo_playback_control_view.xml">../../src/main/res/layout/simple_exo_playback_control_view.xml</a>:20</span>: <span class="message">Consider adding <code>android:paddingEnd="@dimen/controls_title__marginRight"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  17 </span>        <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical|start"</span>
+<span class="lineno">  18 </span>        <span class="prefix">android:</span><span class="attribute">lines</span>=<span class="value">"1"</span>
+<span class="lineno">  19 </span>        <span class="prefix">android:</span><span class="attribute">paddingLeft</span>=<span class="value">"35dp"</span>
+<span class="caretline"><span class="lineno">  20 </span>        <span class="warning"><span class="prefix">android:</span><span class="attribute">paddingRight</span></span>=<span class="value">"@dimen/controls_title__marginRight"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  21 </span>        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/white"</span>
+<span class="lineno">  22 </span>        <span class="prefix">tools:</span><span class="attribute">text</span>=<span class="value">"测试阿斯顿"</span> />
+<span class="lineno">  23 </span>
+</pre>
+
+<span class="location"><a href="../../src/main/res/layout/simple_exo_playback_control_view.xml">../../src/main/res/layout/simple_exo_playback_control_view.xml</a>:34</span>: <span class="message">Consider adding <code>android:paddingEnd="30dp"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  31 </span>        <span class="prefix">android:</span><span class="attribute">background</span>=<span class="value">"@drawable/exo_bg_video_bottom"</span>
+<span class="lineno">  32 </span>        <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical"</span>
+<span class="lineno">  33 </span>        <span class="prefix">android:</span><span class="attribute">orientation</span>=<span class="value">"horizontal"</span>
+<span class="caretline"><span class="lineno">  34 </span>        <span class="warning"><span class="prefix">android:</span><span class="attribute">paddingRight</span></span>=<span class="value">"30dp"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  35 </span>        <span class="prefix">android:</span><span class="attribute">visibility</span>=<span class="value">"visible"</span>>
+<span class="lineno">  36 </span>
+<span class="lineno">  37 </span>        <span class="tag">&lt;ImageButton</span><span class="attribute">
+</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/simple_exo_playback_control_view.xml">../../src/main/res/layout/simple_exo_playback_control_view.xml</a>:91</span>: <span class="message">Consider adding <code>android:layout_marginEnd="10dp"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  88 </span><span class="attribute">            </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_duration"</span>
+<span class="lineno">  89 </span>            <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"wrap_content"</span>
+<span class="lineno">  90 </span>            <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="caretline"><span class="lineno">  91 </span>            <span class="warning"><span class="prefix">android:</span><span class="attribute">layout_marginRight</span></span>=<span class="value">"10dp"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  92 </span>            <span class="prefix">android:</span><span class="attribute">layout_weight</span>=<span class="value">"0"</span>
+<span class="lineno">  93 </span>            <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/white"</span>
+<span class="lineno">  94 </span>            <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"12sp"</span>
+</pre>
+
+<span class="location"><a href="../../src/main/res/layout/simple_exo_view.xml">../../src/main/res/layout/simple_exo_view.xml</a>:52</span>: <span class="message">Use "<code>end</code>" instead of "<code>right</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno"> 49 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_player_watermark"</span>
+<span class="lineno"> 50 </span>        <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"60dp"</span>
+<span class="lineno"> 51 </span>        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="caretline"><span class="lineno"> 52 </span>        <span class="prefix">android:</span><span class="attribute">layout_gravity</span>=<span class="value">"</span><span class="warning"><span class="value">right|end</span></span><span class="value">"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 53 </span>        <span class="prefix">android:</span><span class="attribute">contentDescription</span>=<span class="value">"@null"</span>
+<span class="lineno"> 54 </span>        <span class="prefix">android:</span><span class="attribute">scaleType</span>=<span class="value">"centerCrop"</span>
+<span class="lineno"> 55 </span>        <span class="prefix">android:</span><span class="attribute">padding</span>=<span class="value">"7dp"</span> />
+</pre>
+
+<span class="location"><a href="../../src/main/res/layout/simple_exo_view.xml">../../src/main/res/layout/simple_exo_view.xml</a>:61</span>: <span class="message">Use "<code>end</code>" instead of "<code>right</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno"> 58 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_video_fullscreen"</span>
+<span class="lineno"> 59 </span>        <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"35dp"</span>
+<span class="lineno"> 60 </span>        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"35dp"</span>
+<span class="caretline"><span class="lineno"> 61 </span>        <span class="prefix">android:</span><span class="attribute">layout_gravity</span>=<span class="value">"</span><span class="warning"><span class="value">bottom|right</span></span><span class="value">"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 62 </span>        <span class="prefix">android:</span><span class="attribute">background</span>=<span class="value">"@null"</span>
+<span class="lineno"> 63 </span>        <span class="prefix">android:</span><span class="attribute">contentDescription</span>=<span class="value">"@null"</span>
+<span class="lineno"> 64 </span>        <span class="prefix">android:</span><span class="attribute">scaleType</span>=<span class="value">"fitCenter"</span>
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationRtlHardcoded" style="display: none;">
+Using <code>Gravity#LEFT</code> and <code>Gravity#RIGHT</code> can lead to problems when a layout is rendered in locales where text flows from right to left. Use <code>Gravity#START</code> and <code>Gravity#END</code> instead. Similarly, in XML <code>gravity</code> and <code>layout_gravity</code> attributes, use <code>start</code> rather than <code>left</code>.<br/>
+<br/>
+For XML attributes such as paddingLeft and <code>layout_marginLeft</code>, use <code>paddingStart</code> and <code>layout_marginStart</code>. <b>NOTE</b>: If your <code>minSdkVersion</code> is less than 17, you should add <b>both</b> the older left/right attributes <b>as well as</b> the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.<br/>
+<br/>
+(Note: For <code>Gravity#LEFT</code> and <code>Gravity#START</code>, you can use these constants even when targeting older platforms, because the <code>start</code> bitmask is a superset of the <code>left</code> bitmask. Therefore, you can use <code>gravity="start"</code> rather than <code>gravity="left|start"</code>.)<br/>To suppress this error, use the issue id "RtlHardcoded" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">RtlHardcoded</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Bidirectional Text</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Internationalization</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 5/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationRtlHardcodedLink" onclick="reveal('explanationRtlHardcoded');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="RtlHardcodedCardLink" onclick="hideid('RtlHardcodedCard');">
+Dismiss</button>            </div>
+            </div>
+          </section><a name="RtlEnabled"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="RtlEnabledCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Using RTL attributes without enabling RTL support</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../src/main/AndroidManifest.xml">../../src/main/AndroidManifest.xml</a></span>: <span class="message">The project references RTL attributes, but does not explicitly enable or disable RTL support with <code>android:supportsRtl</code> in the manifest</span><br />
+</div>
+<div class="metadata"><div class="explanation" id="explanationRtlEnabled" style="display: none;">
+To enable right-to-left support, when running on API 17 and higher, you must set the <code>android:supportsRtl</code> attribute in the manifest <code>&lt;application></code> element.<br/>
+<br/>
+If you have started adding RTL attributes, but have not yet finished the migration, you can set the attribute to false to satisfy this lint check.<br/>To suppress this error, use the issue id "RtlEnabled" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">RtlEnabled</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Bidirectional Text</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Internationalization</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 3/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationRtlEnabledLink" onclick="reveal('explanationRtlEnabled');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="RtlEnabledCardLink" onclick="hideid('RtlEnabledCard');">
 Dismiss</button>            </div>
             </div>
           </section>

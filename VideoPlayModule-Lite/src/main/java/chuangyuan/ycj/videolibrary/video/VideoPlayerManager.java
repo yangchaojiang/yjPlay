@@ -1,6 +1,7 @@
 package chuangyuan.ycj.videolibrary.video;
 
 
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -30,7 +31,7 @@ public class VideoPlayerManager {
      *
      * @param videoPlayer 播放页
      **/
-    public synchronized void setCurrentVideoPlayer(@NonNull ManualPlayer videoPlayer) {
+    public void setCurrentVideoPlayer(@NonNull ManualPlayer videoPlayer) {
         releaseVideoPlayer();
         this.mVideoPlayer = videoPlayer;
     }
@@ -42,7 +43,16 @@ public class VideoPlayerManager {
         if (mVideoPlayer != null) {
             mVideoPlayer.reset();
         }
+    }
 
+    /***
+     * d手机屏幕旋转配置
+     * @param newConfig newConfig
+     **/
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (mVideoPlayer != null) {
+            mVideoPlayer.onConfigurationChanged(newConfig);
+        }
     }
 
     /***

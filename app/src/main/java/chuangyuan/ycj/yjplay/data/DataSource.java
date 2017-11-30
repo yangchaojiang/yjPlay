@@ -21,7 +21,7 @@ import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
  */
 
 public class DataSource implements DataSourceListener {
-    public static final String TAG = "DataSource";
+    public static final String TAG = "OfficeDataSource";
 
     private Context context;
 

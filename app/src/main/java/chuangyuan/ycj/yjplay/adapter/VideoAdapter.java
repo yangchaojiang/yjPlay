@@ -59,7 +59,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         VideoPlayerView playerView;
         public VideoViewHolder(View itemView) {
             super(itemView);
-            playerView = (VideoPlayerView) itemView.findViewById(R.id.item_exo_player_view);
+            playerView = (VideoPlayerView) itemView.findViewById(R.id.exo_play_context_id);
             userPlayer = new ManualPlayer((Activity) mContext, playerView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

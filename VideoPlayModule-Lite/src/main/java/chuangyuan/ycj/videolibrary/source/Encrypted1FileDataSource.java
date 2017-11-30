@@ -16,8 +16,9 @@ import java.io.RandomAccessFile;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated: 简单加密提供数据源类
  * @author yangc
+ * {@link  com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory}
  */
-
+@Deprecated
 public class Encrypted1FileDataSource implements DataSource {
 
     /**

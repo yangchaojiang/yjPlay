@@ -1,54 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:background="@android:color/transparent"
     android:orientation="vertical">
+
     <LinearLayout
+        android:id="@id/exo_controller_bottom"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/bg_video_bottom_color"
+        android:background="@drawable/exo_bg_video_bottom"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingRight="35dp"
-        android:paddingTop="5dp"
+        android:paddingRight="30dp"
         android:visibility="visible">
 
         <TextView
             android:id="@id/exo_position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/exo_text_hint"
             android:layout_marginLeft="10dp"
-            android:layout_weight="0"
-            android:text="06:21"
-            android:textColor="@android:color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:text="06:21" />
 
         <TextView
             android:id="@+id/ycj_video_timeSpan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/exo_text_hint"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_weight="0"
-            android:text="/"
-            android:textColor="@android:color/white"
+            android:text="@string/exo_fenge"
             android:textSize="12sp" />
 
         <TextView
             android:id="@id/exo_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/exo_text_hint"
             android:layout_marginRight="5dp"
-            android:layout_weight="0"
-            android:text="06:21"
-            android:textColor="@android:color/white"
-            android:textSize="12sp" />
+            tools:text="06:21" />
 
         <chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar
             android:id="@id/exo_progress"
@@ -60,8 +52,8 @@
             app:buffered_color="@android:color/white"
             app:played_color="#FF7000"
             app:unplayed_color="#a5ffffff" />
-        <TextView
-            style="@style/exo_text_switch"/>
+
+        <TextView style="@style/exo_text_switch" />
     </LinearLayout>
 
     <ImageView
@@ -74,6 +66,7 @@
         android:clickable="true"
         android:scaleType="fitXY"
         android:visibility="visible" />
+
     <ImageButton
         android:id="@id/exo_play"
         android:layout_width="wrap_content"
@@ -95,12 +88,12 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/exo_controls_title"
+        android:id="@id/exo_controls_title"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_video_top_color"
+        android:background="@drawable/exo_bg_video_top"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:lines="1"

@@ -28,9 +28,7 @@ import javax.crypto.spec.SecretKeySpec;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:
  */
-
-public class MyDefaultDataSource implements DataSource
-{
+public class MyDefaultDataSource implements DataSource {
 
     private static final String TAG = "DefaultDataSource";
     private static final String SCHEME_ASSET = "asset";
@@ -44,7 +42,6 @@ public class MyDefaultDataSource implements DataSource
     private DataSource contentDataSource;
     private DataSource rtmpDataSource;
     private DataSource dataSource;
-    private int flags;
     private Cipher mCipher;
     private SecretKeySpec mSecretKeySpec;
     private IvParameterSpec mIvParameterSpec;
@@ -84,39 +81,21 @@ public class MyDefaultDataSource implements DataSource
                 new DefaultHttpDataSource(userAgent, null, listener, connectTimeoutMillis,
                         readTimeoutMillis, allowCrossProtocolRedirects, null));
     }
-
     /**
      * Constructs a new instance that delegates to a provided {@link DataSource} for URI schemes other
      * than file, asset and content.
      *
      * @param context        A context.
-     * @param listener       An optional listener.
-     * @param baseDataSource A {@link DataSource} to use for URI schemes other than file, asset and
-     *                       content. This {@link DataSource} should normally support at least http(s).
-     */
-
-    public MyDefaultDataSource(Context context, TransferListener<? super DataSource> listener,
-                               DataSource baseDataSource) {
-        this(context, -1, listener, baseDataSource);
-    }
-
-    /**
-     * Constructs a new instance that delegates to a provided {@link DataSource} for URI schemes other
-     * than file, asset and content.
-     *
-     * @param context        A context.
-     * @param flags          bit flags for controlling the decoder; see the
      *                       constants in {@link Base64}
      * @param listener       An optional listener.
      * @param baseDataSource A {@link DataSource} to use for URI schemes other than file, asset and
      *                       content. This {@link DataSource} should normally support at least http(s).
      */
-    public MyDefaultDataSource(Context context, int flags, TransferListener<? super DataSource> listener,
+    public MyDefaultDataSource(Context context, TransferListener<? super DataSource> listener,
                                DataSource baseDataSource) {
         this.context = context.getApplicationContext();
         this.listener = listener;
         this.baseDataSource = Assertions.checkNotNull(baseDataSource);
-        this.flags = flags;
     }
 
     public MyDefaultDataSource(@NonNull Context context, @NonNull Cipher cipher, @NonNull SecretKeySpec secretKeySpec, @NonNull IvParameterSpec ivParameterSpec, @NonNull TransferListener<? super DataSource> listener, @NonNull DataSource baseDataSource) {
@@ -177,8 +156,7 @@ public class MyDefaultDataSource implements DataSource
             if (mCipher != null && null != mSecretKeySpec && null != mIvParameterSpec) {
                 fileDataSource = new EncryptedFileDataSource(mCipher, mSecretKeySpec, mIvParameterSpec, listener);
             } else {
-                fileDataSource = flags == -1 ? new FileDataSource(listener) : new Encrypted2FileDataSource(flags, listener);
-                fileDataSource= new Encrypted2FileDataSource(flags, listener);
+                fileDataSource = new FileDataSource(listener);
             }
         }
         return fileDataSource;

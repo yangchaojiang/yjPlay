@@ -26,6 +26,8 @@
    * 17 **1.7.0**Increase signal brightness adjustment, video progress, volume layout customization。
    * 18 Support the lite version and full version, choose to use more abundant。
    * 19 [Video support AES encryption, Base64 encryption (unstable), three kinds of simple encryption to poke me→戳我](../README_EN_VIDEO.md)
+    * 20 Add the Default Progress Downloader for offline downloads(Support (AES/CBC) encrypted file processing),HlsDownloader,DashDownloader,SsDownloader,SegmentDownloader。
+    * 21 Support to play lock screen function and control layout animation effect。
  <!--more-->
 
  ### [Update log→》Poking me see](../RELEASENOTES.md)
@@ -39,9 +41,9 @@
 
   dependencies {
       //full edition
-      compile 'com.ycjiang:VideoPlayModule:1.9.5'
+      compile 'com.ycjiang:VideoPlayModule:1.9.7'
       // lite version （no smoothstreaming,dash,hls,Only regular on-demand）
-      compile 'com.ycjiang:VideoPlayModule-Lite:1.9.5'
+      compile 'com.ycjiang:VideoPlayModule-Lite:1.9.7'
 
 
   }
@@ -88,25 +90,20 @@
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
                  android:background="@android:color/transparent"
-                 app:controller_layout_id="@layout/simple_exo_playback_control_view"
-                 app:player_layout_id="@layout/simple_exo_view"
-                 app:resize_mode="fit"
-                 app:surface_type="surface_view" />
+                 />
  ````
  >> #### 2.attribute specification
-   * required
    >
     1.   player_layout_id  播放器布局， //必选
          player_layout_id 目前支持指定布局simple_exo_playback_control_view 后续版本，开放自定义使用
 
-   * required
    >
     2. controller_layout_id  控制器布局`  默认有三种布局
         1.simple_exo_playback_control_view.xml  //视频封面控制布局下面，比较常规使用
         2.simple_exo_playback_list_view.xml.xml //在列表播放使用控制布局
         3.simple_exo_playback_top_view.xml.xml  //视频封面控制布局上面
 
-   * optional **Note: only texture view cannot select the surface view, and the details page plays the recommended surface view**
+   *  **Note: only texture view cannot select the surface view, and the details page plays the recommended surface view**
    >
     3.    surface_type Video render type //texture_view and surface_view //enumeration type。default surface_view
 
@@ -162,6 +159,16 @@
    >
     19.  player_gesture_progress_layout_id  Custom gesture progress adjustment layout
 
+    20.  player_fullscreen_image_selector    Customize the full screen button selector
+    
+    >>注意：
+         <selector xmlns:android="http://schemas.android.com/apk/res/android">
+             <item android:drawable="@drawable/ic_custom_full" android:state_checked="true" />
+             <item android:drawable="@drawable/ic_custom_full_in" android:state_checked="false" />
+         </selector>
+   >
+    21.  player_back_image   Customize the return button icon
+
  >> #### 3.Modify the network dialog box to prompt text content
       app.strings.xml
       <string name="exo_play_reminder">Your current network is not wifi, do you continue to watch video</string>
@@ -198,30 +205,8 @@
            String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
            String[] name={"超清","高清","标清"};
            exoPlayerManager.setPlaySwitchUri(test,name);
-          //Add watermark images
-          // exoPlayerManager.setExoPlayWatermarkImg();
-          //whether to block the progress control drag and drop to video (for example, video, (not allowed))
-           exoPlayerManager.setSeekBarSeek(false);
-           //Set the visual loop to play
-           exoPlayerManager.setLooping(10);
-           //Hidden control layout
-           exoPlayerManager.hideControllerView();
-            //Hidden progress bar
-           exoPlayerManager.hideSeekBar();
-            //Display progress bar
-           exoPlayerManager.showSeekBar();
-            //Whether to play
-           exoPlayerManager.isPlaying(); 
-           //Click the play button to handle the business
-           exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
-                          @Override
-                          public void onClick(View v) {
-                              Toast.makeText(MainCustomActivity.this,"Define the click broadcast event",Toast.LENGTH_LONG).show();
-                               //After the business operation is completed，
-                               //Method implementation setOnPlayClickListener（)，You need to call it manually
-                               exoPlayerManager.startPlayer();//Start playing
-                          }
-             }); 
+           //开始启动播放视频
+           exoPlayerManager.startPlayer(); 
 
    1.Instantiate the play control class
 
@@ -300,8 +285,18 @@
                     });
               //skip the AD video operation
               exoPlayerManager.next();    
+   12.Setting the hit play button to handle the business
+      
+        exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Toast.makeText(MainCustomActivity.this,"定义点击播放事件",Toast.LENGTH_LONG).show();
+                                     //处理业务操作 完成后 
+                                    exoPlayerManager.startPlayer();//开始播放
+                      }
+           }); 
    
-   12.Set the Listener callback Video Info Listener
+   13.Set the Listener callback Video Info Listener
 
          exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
                        @Override
@@ -329,7 +324,7 @@
                        }
                    });
   
-   13.Overwrite Activity and Fragment cycle methods
+   14.Overwrite Activity and Fragment cycle methods
 
                 Override
                 public void onResume() {
@@ -374,18 +369,7 @@
    *  2.player_list="true" Set to true to open the list mode
    *  3.demo:
               public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
-    
-               private Context mContext;
-               private List<String> mVideoList;
-              public VideoAdapter(Context context, List<String> videoList) {
-                  mContext = context;
-                  mVideoList = videoList;
-              }
-
-              @Override
-              public int getItemCount() {
-                  return mVideoList.size();
-              }
+               .....           
               @Override
               public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                   View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_video1, parent, false);
@@ -414,9 +398,7 @@
                   public void bindData(String videoBean) {
                       userPlayer.setTitle("" + getAdapterPosition());
                       userPlayer.setPlayUri(videoBean);
-                      Glide.with(mContext)
-                      .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
-                      .into(playerView.getPreviewImage());
+                      Glide.with(mContext).load("http://..._960_540.jpg").into(playerView.getPreviewImage());
                   }
               }
   2.The list playback cycle method list implements the corresponding periodic method in the Activity or Fragment
@@ -430,6 +412,11 @@
                           super.onResume();
                           VideoPlayerManager.getInstance().onResume();
                       }
+                    @Override
+                     public void onConfigurationChanged(Configuration newConfig) {
+                          VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);//横竖屏切换
+                         super.onConfigurationChanged(newConfig);
+                      }    
                       @Override
                       protected void onDestroy() {
                           super.onDestroy();
@@ -445,7 +432,7 @@
 
 ### 四.Data source factory class
  ####  1 Default data source
-          缓存 : CacheDataSinkFactory,CacheDataSourceFactory
+          缓存 : CacheDataSourceFactory
           http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
           Priority : PriorityDataSourceFactory
  #### 2 Customize the data source reference
@@ -454,7 +441,8 @@
 
 ### 五.[Custom data source usage-Poking me](RELEASESOURCE.md)
 ### 六.[Custom layout usage-Poking me](READMELAYUOT.md)
-
+### 七.[Custom Media Source usage-Poking me](../RELEASEVIDEO.md) 
+### 八.[Caching, encryption, video processing usage-Poking me](../README_EN_VIDEO.md) 
 
 
 ## [License](https://github.com/yangchaojiang/yjPlay/blob/master/LICENSE)

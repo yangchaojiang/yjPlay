@@ -1,5 +1,6 @@
 package chuangyuan.ycj.videolibrary.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -19,16 +20,16 @@ import android.view.WindowManager;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
+import com.google.android.exoplayer2.util.Assertions;
 
 import java.util.Formatter;
 
 
 /**
- *
  * @author yangc
- * date 2017/2/25
- * E-Mail:1007181167@qq.com
- * Description：
+ *         date 2017/2/25
+ *         E-Mail:1007181167@qq.com
+ *         Description：
  */
 public class VideoPlayUtils {
     /***
@@ -38,7 +39,7 @@ public class VideoPlayUtils {
      * @return long
      **/
     public static long getTotalRxBytes(@NonNull Activity activity) {
-        return TrafficStats.getUidRxBytes(activity.getApplicationInfo().uid) == TrafficStats.UNSUPPORTED ?0: (TrafficStats.getTotalRxBytes() / 1024);//转为KB
+        return TrafficStats.getUidRxBytes(activity.getApplicationInfo().uid) == TrafficStats.UNSUPPORTED ? 0 : (TrafficStats.getTotalRxBytes() / 1024);//转为KB
     }
 
     /****
@@ -155,11 +156,10 @@ public class VideoPlayUtils {
      * @param context 上下文
      **/
     public static void showActionBar(@NonNull Context context) {
-        AppCompatActivity appCompActivity= getAppCompActivity(context);
-        if ( appCompActivity!= null) {
+        AppCompatActivity appCompActivity = getAppCompActivity(context);
+        if (appCompActivity != null) {
             ActionBar ab = appCompActivity.getSupportActionBar();
             if (ab != null) {
-                ab.setShowHideAnimationEnabled(false);
                 ab.show();
             }
         }
@@ -173,11 +173,10 @@ public class VideoPlayUtils {
      * @param context 上下文
      **/
     public static void hideActionBar(@NonNull Context context) {
-        AppCompatActivity appCompActivity= getAppCompActivity(context);
-        if ( appCompActivity!= null) {
+        AppCompatActivity appCompActivity = getAppCompActivity(context);
+        if (appCompActivity != null) {
             ActionBar ab = appCompActivity.getSupportActionBar();
             if (ab != null) {
-                ab.setShowHideAnimationEnabled(false);
                 ab.hide();
             }
         }
@@ -195,7 +194,10 @@ public class VideoPlayUtils {
      ***/
     public static boolean isLand(@NonNull Context activity) {
         Resources resources = activity.getResources();
-        return !(resources == null || resources.getConfiguration() == null) && resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        assert resources != null;
+        Configuration configuration = resources.getConfiguration();
+        Assertions.checkState(configuration!= null);
+        return resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     /***
@@ -205,8 +207,8 @@ public class VideoPlayUtils {
      * @return int
      ***/
     public static int getOrientation(@NonNull Activity activity) {
-        Resources resources= activity.getResources();
-        if ( resources==null||resources.getConfiguration()==null){
+        Resources resources = activity.getResources();
+        if (resources == null || resources.getConfiguration() == null) {
             return Configuration.ORIENTATION_PORTRAIT;
         }
         return activity.getResources().getConfiguration().orientation;

@@ -5,8 +5,9 @@
     android:layout_height="250dp"
     android:id="@+id/itemView"
     >
+
     <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
-        android:id="@+id/item_exo_player_view"
+        android:id="@+id/exo_play_context_id"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:controller_layout_id="@layout/simple_exo_playback_list_view"

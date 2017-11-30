@@ -28,6 +28,10 @@
         "source": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-anydpi-v21\\exo_controls_next.xml"
     },
     {
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\ic_lock_closed.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-anydpi-v21\\ic_lock_closed.xml"
+    },
+    {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\ic_exo_pause.xml",
         "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-anydpi-v21\\ic_exo_pause.xml"
     },
@@ -38,6 +42,10 @@
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\exo_controls_pause.xml",
         "source": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-anydpi-v21\\exo_controls_pause.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\exo_controls_shuffle.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-anydpi-v21\\exo_controls_shuffle.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\ic_exo_start.xml",
@@ -78,5 +86,9 @@
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\ic_replay_.xml",
         "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-anydpi-v21\\ic_replay_.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\ic_lock_open.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-anydpi-v21\\ic_lock_open.xml"
     }
 ]

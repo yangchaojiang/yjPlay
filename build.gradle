@@ -8,8 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.novoda:bintray-release:0.6.1'
-        classpath 'com.android.tools.build:gradle:3.0.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
 }
 
@@ -17,20 +16,20 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        google()
         maven { url "https://jitpack.io" }
         maven { url 'https://maven.google.com' }
-        maven { url 'https://dl.bintray.com/ycjiang/ycjiang' }
     }
 
 
     project.ext {
         compileSdkVersion=25
         targetSdkVersion=25
-        buildToolsVersion='26.0.2'
+        buildToolsVersion='26.0.3'
         minSdkVersion=16
         versionCode = 16
         versionName = "3.0"
-        publish_version='1.9.5'
+        publish_version='1.9.7'
     }
     tasks.withType(Javadoc) {
         options{

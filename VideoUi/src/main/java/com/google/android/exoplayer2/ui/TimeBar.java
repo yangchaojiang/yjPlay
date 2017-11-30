@@ -25,20 +25,26 @@ import android.view.View;
 public interface TimeBar {
 
   /**
-   * @see View#isEnabled()
+   * Adds a listener for scrubbing events.
+   *
+   * @param listener The listener to add.
    */
-  void setEnabled(boolean enabled);
+  void addListener(OnScrubListener listener);
   /**
    * 是否开启拖拽
    */
   boolean isOpenSeek();
+  /**
+   * Removes a listener for scrubbing events.
+   *
+   * @param listener The listener to remove.
+   */
+  void removeListener(OnScrubListener listener);
 
   /**
-   * Sets the listener for the scrubbing events.
-   *
-   * @param listener The listener for scrubbing events.
+   * @see View#isEnabled()
    */
-  void setListener(OnScrubListener listener);
+  void setEnabled(boolean enabled);
 
   /**
    * Sets the position increment for key presses and accessibility actions, in milliseconds.

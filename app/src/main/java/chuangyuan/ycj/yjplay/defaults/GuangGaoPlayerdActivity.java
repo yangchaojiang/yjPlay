@@ -23,7 +23,7 @@ public class GuangGaoPlayerdActivity extends Activity {
 
     private GestureVideoPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
-    private static final String TAG = "MainDetailedActivity";
+    private static final String TAG = "OfficeDetailedActivity";
 
     @Override
 

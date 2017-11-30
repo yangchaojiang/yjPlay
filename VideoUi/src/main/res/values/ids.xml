@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,43 +13,52 @@
      limitations under the License.
 -->
 <resources>
-  <item name="exo_video_switch" type="id"/>
-  <!--列表播放占位图-->
-  <item name="exo_preview_image_bottom" type="id" />
-  <!--列表播放占位图-->
-  <item name="exo_preview_image" type="id" />
-  <!--全屏-->
-  <item name="exo_video_fullscreen" type="id" />
-  <!--返回按钮-->
-  <item name="exo_controls_back" type="id" />
-  <!--水印图片-->
-  <item name="exo_player_watermark" type="id" />
-  <!--加载布局提示文字-->
-  <item name="exo_loading_show_text" type="id" />
-  <!--下面自定义布局 时 使用控件id-->
-  <!--流量提示按钮-->
-  <item name="exo_player_btn_hint_btn_id" type="id" />
-  <!--错误按钮id-->
-  <item name="exo_player_error_btn_id" type="id" />
-  <!--重播view-->
-  <item name="exo_player_replay_btn_id" type="id" />
+    <item name="exo_video_switch" type="id" />
+    <!--列表播放占位图-->
+    <item name="exo_preview_image_bottom" type="id" />
+    <!--列表播放占位图-->
+    <item name="exo_preview_image" type="id" />
+    <!--全屏-->
+    <item name="exo_video_fullscreen" type="id" />
+    <!--返回按钮-->
+    <item name="exo_controls_back" type="id" />
+    <!--水印图片-->
+    <item name="exo_player_watermark" type="id" />
+    <!--加载布局提示文字-->
+    <item name="exo_loading_show_text" type="id" />
+    <!--加载布局提示文字-->
+    <item name="exo_controls_title" type="id" />
+    <!--加载布局提示文字-->
+    <item name="exo_controller_bottom" type="id" />
+    <!--加载布局提示文字-->
 
-  <item name="exo_content_frame" type="id"/>
-  <item name="exo_shutter" type="id"/>
-  <item name="exo_subtitles" type="id"/>
-  <item name="exo_artwork" type="id"/>
-  <item name="exo_controller_placeholder" type="id"/>
-  <item name="exo_controller" type="id"/>
-  <item name="exo_overlay" type="id"/>
-  <item name="exo_play" type="id"/>
-  <item name="exo_pause" type="id"/>
-  <item name="exo_rew" type="id"/>
-  <item name="exo_ffwd" type="id"/>
-  <item name="exo_prev" type="id"/>
-  <item name="exo_next" type="id"/>
-  <item name="exo_repeat_toggle" type="id"/>
-  <item name="exo_duration" type="id"/>
-  <item name="exo_position" type="id"/>
-  <item name="exo_progress" type="id"/>
+    <!--下面自定义布局 时 使用控件id-->
+    <!--流量提示按钮-->
+    <item name="exo_player_btn_hint_btn_id" type="id" />
+    <!--错误按钮id-->
+    <item name="exo_player_error_btn_id" type="id" />
+    <!--重播view-->
+    <item name="exo_player_replay_btn_id" type="id" />
+    <!--锁按钮-->
+    <item name="exo_player_lock_btn_id" type="id" />
+
+    <item name="exo_content_frame" type="id" />
+    <item name="exo_shutter" type="id" />
+    <item name="exo_subtitles" type="id" />
+    <item name="exo_artwork" type="id" />
+    <item name="exo_controller_placeholder" type="id" />
+    <item name="exo_controller" type="id" />
+    <item name="exo_overlay" type="id" />
+    <item name="exo_play" type="id" />
+    <item name="exo_pause" type="id" />
+    <item name="exo_rew" type="id" />
+    <item name="exo_ffwd" type="id" />
+    <item name="exo_prev" type="id" />
+    <item name="exo_next" type="id" />
+    <item name="exo_repeat_toggle" type="id" />
+    <item name="exo_duration" type="id" />
+    <item name="exo_position" type="id" />
+    <item name="exo_progress" type="id" />
+    <item name="exo_shuffle" type="id"/>
 
 </resources>

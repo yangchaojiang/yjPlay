@@ -1,5 +1,72 @@
  ## 加密视频
- ### 1.AES解密视频
+ ### 一.使用自带缓存加密
+  1. 实现DataSourceListener 接口  如下:
+ ````
+public class OfficeDataSource implements DataSourceListener {
+    public static final String TAG = "OfficeDataSource";
+    private CacheDataSource.EventListener eventListener;
+    private Context context;
+
+    public OfficeDataSource(Context context, CacheDataSource.EventListener eventListener) {
+        this.context = context;
+        this.eventListener = eventListener;
+    }
+     
+    @Override
+    public DataSource.Factory getDataSourceFactory() {
+        LeastRecentlyUsedCacheEvictor evictor = new LeastRecentlyUsedCacheEvictor(1024 * 1024);
+        SimpleCache simpleCache = new SimpleCache
+                //设置你缓存目录
+                (new File(context.getExternalCacheDir(), "media"),
+                 //缓存驱逐器
+                  evictor,
+                  // 缓存文件加密,那么在使用AES / CBC的文件系统中缓存密钥将被加密  密钥必须是16字节长
+                  //可以为空
+                  "1234567887654321".getBytes());
+        //使用缓存数据源工厂类
+        return new CacheDataSourceFactory(simpleCache,
+                //设置下载数据加载工厂类
+                new JDefaultDataSourceFactory(context),
+                //设置缓存标记
+                CacheDataSource.FLAG_BLOCK_ON_CACHE | CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR,
+                //最大缓存文件大小,不填写 默认2m 
+                 4 * 1024 * 1024);
+                 
+        //或者 如果需要监听事件
+        return new CacheDataSourceFactory(simpleCache,
+                //设置下载数据加载工厂类
+                new JDefaultDataSourceFactory(context),
+                //缓存读取数据源工厂
+                new FileDataSourceFactory(),
+                //缓存数据接收器的工厂
+                new CacheDataSinkFactory(simpleCache, CacheDataSource.DEFAULT_MAX_CACHE_FILE_SIZE),
+                //设置缓存标记
+                CacheDataSource.FLAG_BLOCK_ON_CACHE | CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR,
+                //设置缓存监听事件
+                eventListener);
+    }
+ }
+ ````
+ 2.使用,自动缓存你服务器视频资源。
+ ````
+ //实例化播放器控制类,传入您自定义数据实例
+  exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView,
+                 new OfficeDataSource(this));
+ ````
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ### 二.自定义AES加密视频
   1.实例化解密数据源
 ```
 public class EnctyptDataSource implements DataSourceListener {
@@ -46,7 +113,7 @@ public class EnctyptDataSource implements DataSourceListener {
 //加密输出流 
   CipherOutputStream cipherOutputStream = new CipherOutputStream(fos, mCipher);
 ````
- ### 二.简单加密
+ ### 三.简单加密(不推荐,不安全)
   1.实例化解密数据源
 ```
 public class EnctyptDataSource3 implements DataSourceListener {
@@ -97,7 +164,9 @@ public class EnctyptDataSource3 implements DataSourceListener {
     }
    
 ````
-### 三.Base64 加密处理和详情用法参考demo
+
+
+
  
  
  

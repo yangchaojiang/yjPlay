@@ -25,6 +25,9 @@
   <string name="exo_controls_repeat_all_description">"Repeat all"</string>
   <string name="exo_controls_repeat_off_description">"Repeat none"</string>
   <string name="exo_controls_repeat_one_description">"Repeat one"</string>
+  <string name="exo_controls_shuffle_description">Shuffle</string>
+
+  <!--我的-->
   <string name="exo_play_error_hint">Play exception, video address exception, or network unavailable</string>
   <string name="exo_play_btn_hnt">Continue to play</string>
   <string name="net_network_no_hint">Your current network is unavailable, please check your network</string>

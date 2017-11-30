@@ -36,7 +36,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
     }
 
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
-        super(activity,playerView, listener);
+        super(activity, playerView, listener);
         intiView();
     }
 
@@ -77,6 +77,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
         createPlayers();
         registerReceiverNet();
     }
+
     @Override
     public void onResume() {
         boolean is = (Util.SDK_INT <= Build.VERSION_CODES.M || player == null) && isLoad;
@@ -119,15 +120,14 @@ public final class ManualPlayer extends GestureVideoPlayer {
     public void reset() {
         if (player != null) {
             unNetworkBroadcastReceiver();
-            if (isEnd){
-               setPosition(0);
-            }else {
-                updateResumePosition() ;
+            if (isEnd) {
+                setPosition(0);
+            } else {
+                updateResumePosition();
             }
             player.stop();
             player.removeListener(componentListener);
             getPlayerViewListener().setPlayerBtnOnTouchListener(onTouchListener);
-            getPlayerViewListener().showPreview(View.VISIBLE);
             getPlayerViewListener().reset();
             player.release();
             if (mediaSourceBuilder != null) {

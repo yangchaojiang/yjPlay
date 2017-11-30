@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/exo_controls_back"
-    android:layout_width="36dp"
-    android:layout_height="36dp"
-    android:contentDescription="@null"
-    android:src="@drawable/ic_chevron_left_white_48px" />

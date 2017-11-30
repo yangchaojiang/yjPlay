@@ -30,7 +30,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
     private ManualPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     public static final String VIEW_NAME_HEADER_IMAGE = "123";
-    private static final String TAG = "MainDetailedActivity";
+    private static final String TAG = "OfficeDetailedActivity";
     private long currPosition = 0;
     private String url = "";
     TextView exo_video_dialog_pro_text;
@@ -53,10 +53,11 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         videoBrightnessPro = (ProgressBar) findViewById(R.id.exo_video_brightness_pro);
         ViewCompat.setTransitionName(videoPlayerView, VIEW_NAME_HEADER_IMAGE);
         exoPlayerManager = new ManualPlayer(this, videoPlayerView, new DataSource(getApplication()));
+        videoPlayerView.setOpenLock(false);
         exoPlayerManager.setPosition(currPosition);
         exoPlayerManager.setTitle("自定义视频标题");
         //设置加载显示模式
-        exoPlayerManager.setLoadModel(LoadModelType.SPEED);
+        exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
         exoPlayerManager.setPlayUri(url);
         exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
             @Override

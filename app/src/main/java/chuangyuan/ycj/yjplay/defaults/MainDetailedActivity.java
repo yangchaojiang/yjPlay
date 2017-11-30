@@ -13,6 +13,7 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
+import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
@@ -21,7 +22,7 @@ public class MainDetailedActivity extends Activity {
 
     private ExoUserPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
-    private static final String TAG = "MainDetailedActivity";
+    private static final String TAG = "OfficeDetailedActivity";
 
     @Override
 
@@ -44,16 +45,16 @@ public class MainDetailedActivity extends Activity {
         // exoPlayerManager.setPosition(1000);
         // exoPlayerManager.setPlayUri(getString(R.string.uri_test_3),getString(R.string.uri_test_h));
         // exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4");
-//        String[] test = {getString(R.string.uri_test_3),getString(R.string.uri_test_3), getString(R.string.uri_test_3)};
-//        String[] name = {"超清", "高清", "标清"};
+        String[] test = {getString(R.string.uri_test_1), getString(R.string.uri_test_1), getString(R.string.uri_test_1)};
+        String[] name = {"超清", "高清", "标清"};
 //        //开启线路设置
-//        exoPlayerManager.setShowVideoSwitch(true);
-//        exoPlayerManager.setPlaySwitchUri(test, name);
-        exoPlayerManager.setPlayUri(getString(R.string.uri_test_1));
+        exoPlayerManager.setShowVideoSwitch(true);
+        exoPlayerManager.setPlaySwitchUri(test, name);
+        //exoPlayerManager.setPlayUri(getString(R.string.uri_test_1));
         //exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.mp4");
         //exoPlayerManager.setPlayUri(getString(R.string.url_hls));
         //开始启动播放视频
-        exoPlayerManager.startPlayer();
+        //exoPlayerManager.startPlayer();
         // TestDataBean bean = new TestDataBean();
         // TestDataBean bean1 = new TestDataBean();
         //  List<TestDataBean> listss = new ArrayList<>();
@@ -149,9 +150,6 @@ public class MainDetailedActivity extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
-      /*  if (!VideoPlayUtils.isLand(this)) { //隐藏状态栏的
-            VideoPlayUtils.hideActionBar(this);
-        }*/
     }
 
     @Override

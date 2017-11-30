@@ -51,7 +51,7 @@ public class WholeMediaSource extends MediaSourceBuilder {
                 return new DashMediaSource(uri, new DefaultDataSourceFactory(context, null, getDataSource()),
                         new DefaultDashChunkSource.Factory(getDataSource()), mainHandler, sourceEventListener);
             case C.TYPE_HLS:
-                return new HlsMediaSource(uri, new DefaultHlsDataSourceFactory(getDataSource()), 5, mainHandler, sourceEventListener);
+                return new HlsMediaSource(uri, getDataSource(), 5, mainHandler, sourceEventListener);
             case C.TYPE_OTHER:
                 return new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null);
             default:

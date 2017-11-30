@@ -26,7 +26,7 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
     private GestureVideoPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     public static final String VIEW_NAME_HEADER_IMAGE = "123";
-    private static final String TAG = "MainDetailedActivity";
+    private static final String TAG = "OfficeDetailedActivity";
     private long currPosition = 0;
     private boolean isEnd;
     private String url = "";

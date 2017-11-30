@@ -76,7 +76,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     }
 
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
-        super(activity,playerView, listener);
+        super(activity, playerView, listener);
         intiViews();
     }
 
@@ -122,9 +122,9 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     public boolean onTouch(View v, MotionEvent event) {
         if (!controllerHideOnTouch) {
             return false;
-        }
-        //竖屏
-        if (!VideoPlayUtils.isLand(activity)) {
+        } else if (getPlayerViewListener().isLock()) {
+            return false;
+        } else if (!VideoPlayUtils.isLand(activity)) {
             //竖屏不执行手势
             return false;
         }

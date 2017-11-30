@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_video_top_color"
+        android:background="@drawable/exo_bg_video_top"
         android:orientation="horizontal"
         android:id="@+id/relativeLayout">
 
@@ -39,7 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/bg_video_bottom_color"
+        android:background="@drawable/exo_bg_video_bottom"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="visible">

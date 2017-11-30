@@ -14,6 +14,7 @@
     <string name="exo_controls_repeat_off_description">"不重复播放"</string>
     <string name="exo_controls_repeat_one_description">"重复播放单个视频"</string>
     <string name="exo_controls_rewind_description">"快退"</string>
+    <string name="exo_controls_shuffle_description">"随机播放"</string>
     <string name="exo_controls_stop_description">"停止"</string>
     <string name="exo_play_btn_hnt">继续播放</string>
     <string name="exo_play_error_hint">播放异常,视频地址异常，或者网络不可用</string>

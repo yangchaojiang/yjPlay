@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="chuangyuan.ycj.yjplay">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -16,14 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:hardwareAccelerated="true"
             android:name=".defaults.MainDetailedActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|screenSize"
-            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".MainListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".custom.MainCustomLayoutActivity"
@@ -51,12 +50,12 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
-        android:name=".encrypt.Encrypted2VideoActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:hardwareAccelerated="true"
-        android:screenOrientation="portrait" />
-        <activity
             android:name=".encrypt.Encrypted3VideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".offline.OfficeDetailedActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />

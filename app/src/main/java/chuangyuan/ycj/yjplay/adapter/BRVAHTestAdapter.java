@@ -94,7 +94,7 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
 
         public TestVideoHolder(View view) {
             super(view);
-            playerView = (VideoPlayerView) view.findViewById(R.id.item_exo_player_view);
+            playerView = (VideoPlayerView) view.findViewById(R.id.exo_play_context_id);
             itemView = view;
             userPlayer = new ManualPlayer((Activity) context, playerView);
         }

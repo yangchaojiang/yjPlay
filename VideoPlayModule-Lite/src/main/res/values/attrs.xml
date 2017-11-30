@@ -28,7 +28,7 @@
         <attr name="fastforward_increment" format="integer" />
         <!--播放核心布局-->
         <attr name="player_layout_id" format="reference" />
-        <!---->
+        <!--播放核心控制布局-->
         <attr name="controller_layout_id" format="reference" />
         <!--设置列表播放-->
         <attr name="player_list" format="boolean" />
@@ -46,15 +46,20 @@
         <attr name="player_gesture_bright_layout_id" format="reference" />
         <!--自定义进度手势布局-->
         <attr name="player_gesture_progress_layout_id" format="reference" />
+        <!--设置全屏按钮样式-->
+        <attr name="player_fullscreen_image_selector" format="reference" />
+        <!--设置按钮按钮样式-->
+        <attr name="player_back_image" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="ExoDefaultTimeBar">
+    <declare-styleable name="DefaultTimeBar">
         <attr name="bar_height" format="dimension" />
         <attr name="touch_target_height" format="dimension" />
         <attr name="ad_marker_width" format="dimension" />
         <attr name="scrubber_enabled_size" format="dimension" />
         <attr name="scrubber_disabled_size" format="dimension" />
         <attr name="scrubber_dragged_size" format="dimension" />
+        <attr name="scrubber_drawable" format="reference" />
         <attr name="played_color" format="color" />
         <attr name="scrubber_color" format="color" />
         <attr name="buffered_color" format="color" />

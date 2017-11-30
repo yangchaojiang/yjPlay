@@ -14,6 +14,7 @@ import com.google.android.exoplayer2.source.MediaSource;
 
 import chuangyuan.ycj.videolibrary.listener.LoadModelType;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
+import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.MediaSourceBuilder;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -28,6 +29,7 @@ public class MainCustomMediaActivity extends AppCompatActivity {
     private static final String TAG = "MainCustomMediaActivity";
     private String url = "";
     MediaSourceBuilder mediaSourceBuilder;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +44,24 @@ public class MainCustomMediaActivity extends AppCompatActivity {
         exoPlayerManager.setLoadModel(LoadModelType.SPEED);
         //
         //http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd
-        MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse("rtsp://183.207.208.80:554/live_rtsp?source=025200060360101:1&user=025300000002499&session=no&device=025200060360101&timestamp=20171117110042&encrypt=5b601c621c6a9db0cb2dabf3a6ff9205"));
-        // 两次播放的视频
+       // MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse("rtsp://183.207.208.80:554/live_rtsp?source=025200060360101:1&user=025300000002499&session=no&device=025200060360101&timestamp=20171117110042&encrypt=5b601c621c6a9db0cb2dabf3a6ff9205"));
+        //mediaSourceBuilder.setMediaSource(source);
         //LoopingMediaSource loopingSource = new LoopingMediaSource(source, 2);
-        mediaSourceBuilder.setMediaSource(source);
+         mediaSourceBuilder.setMediaUri(Uri.parse(getString(R.string.uri_test)),Uri.parse(getString(R.string.uri_test)),Uri.parse(getString(R.string.uri_test)),Uri.parse(getString(R.string.uri_test)));
+
+
         exoPlayerManager.startPlayer();
         Glide.with(this)
                 .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
                 .placeholder(R.mipmap.test)
                 .fitCenter()
                 .into(videoPlayerView.getPreviewImage());
-
+        exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
+            @Override
+            public void onCurrentIndex(int currentIndex, int windowCount) {
+                Log.d(TAG,"currentIndex:"+currentIndex+"_windowCount:"+currentIndex);
+            }
+        });
         //自定义布局使用
         videoPlayerView.getReplayLayout().findViewById(R.id.replay_btn_imageView).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +114,6 @@ public class MainCustomMediaActivity extends AppCompatActivity {
         });
         }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -120,12 +128,12 @@ public class MainCustomMediaActivity extends AppCompatActivity {
         exoPlayerManager.onPause();
     }
 
-
     @Override
     protected void onDestroy() {
         exoPlayerManager.onDestroy();
         super.onDestroy();
     }
+
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

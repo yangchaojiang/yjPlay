@@ -16,6 +16,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
     lintOptions {
         abortOnError false
@@ -27,8 +31,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-  //  compile project(':VideoUi')
-   compile 'com.ycjiang:VideoUi:1.9.2'
+    compile project(':VideoUi')
 }
 
 apply plugin: 'com.novoda.bintray-release'

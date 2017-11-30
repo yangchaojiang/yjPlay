@@ -26,7 +26,6 @@ public class Encrypted3VideoActivity extends AppCompatActivity {
     private static final String keyBytes = "1234567887654";
     private File mEncryptedFile;
     private ExoUserPlayer exoPlayerManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -39,7 +39,7 @@ public class TestAdapter extends RecyclerArrayAdapter<String> {
         View itemView;
         public TestVideoHolder(ViewGroup parent) {
             super(parent, R.layout.item_video1);
-            playerView=$(R.id.item_exo_player_view);
+            playerView=$(R.id.exo_play_context_id);
             itemView=$(R.id.itemView);
             userPlayer = new ManualPlayer((Activity) getContext(), playerView);
         }

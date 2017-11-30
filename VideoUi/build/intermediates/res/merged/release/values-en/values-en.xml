@@ -14,6 +14,7 @@
     <string name="exo_controls_repeat_off_description">"Repeat none"</string>
     <string name="exo_controls_repeat_one_description">"Repeat one"</string>
     <string name="exo_controls_rewind_description">"Rewind"</string>
+    <string name="exo_controls_shuffle_description">Shuffle</string>
     <string name="exo_controls_stop_description">"Stop"</string>
     <string name="exo_play_btn_hnt">Continue to play</string>
     <string name="exo_play_error_hint">Play exception, video address exception, or network unavailable</string>

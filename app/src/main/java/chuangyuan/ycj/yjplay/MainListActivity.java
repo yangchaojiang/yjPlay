@@ -1,6 +1,7 @@
 package chuangyuan.ycj.yjplay;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -30,7 +31,6 @@ import static android.support.v4.app.ActivityOptionsCompat.*;
 
 
 public class MainListActivity extends AppCompatActivity {
-
     RecyclerView easyRecyclerView;
     BRVAHTestAdapter adapter;
     Toolbar toolbar;
@@ -39,6 +39,7 @@ public class MainListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(MainListActivity.class.getName(),"onCreate");
         setContentView(R.layout.activity_list);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,7 +53,6 @@ public class MainListActivity extends AppCompatActivity {
                 }
             }
         });
-
         easyRecyclerView = (RecyclerView) findViewById(R.id.list);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         easyRecyclerView.setLayoutManager(linearLayoutManager);
@@ -117,7 +117,7 @@ public class MainListActivity extends AppCompatActivity {
         Log.d("currPosition", currPosition + "");
         Intent intent = new Intent(MainListActivity.this, MainListInfoCustomActivity.class);
         ActivityOptionsCompat activityOptions = makeSceneTransitionAnimation(
-                this, new Pair<>(view.findViewById(R.id.item_exo_player_view),
+                this, new Pair<>(view.findViewById(R.id.exo_play_context_id),
                         MainCustomLayoutActivity.VIEW_NAME_HEADER_IMAGE));
         intent.putExtra("currPosition", currPosition);
         intent.putExtra("uri", uri);
@@ -126,6 +126,7 @@ public class MainListActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        Log.d(MainListActivity.class.getName(),"onPause");
         super.onPause();
         VideoPlayerManager.getInstance().onPause();
     }
@@ -139,8 +140,8 @@ public class MainListActivity extends AppCompatActivity {
     long st;
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         VideoPlayerManager.getInstance().onDestroy();
+        super.onDestroy();
         Log.d(MainListActivity.class.getName(),"耗时："+(System.currentTimeMillis()-st));
     }
 
@@ -152,6 +153,11 @@ public class MainListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);//横竖屏切换
+        super.onConfigurationChanged(newConfig);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 10 && resultCode == RESULT_OK && data != null) {

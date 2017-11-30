@@ -38,7 +38,6 @@ import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Util;
 
 import java.lang.reflect.Constructor;
@@ -88,8 +87,6 @@ public class ExoUserPlayer {
     private NetworkBroadcastReceiver mNetworkBroadcastReceiver;
     /*** view交互回调接口 ***/
     private PlayComponentListener playComponentListener;
-    /***  视频状态回调接口 ***/
-    protected ComponentListener componentListener;
     /*** 视频回调信息接口 ***/
     private VideoInfoListener videoInfoListener;
     /*** 播放view交互接口 ***/
@@ -115,7 +112,6 @@ public class ExoUserPlayer {
     boolean isLoad = false;
     /*** 如果DRM得到保护，可能是null ***/
     private DrmSessionManager<FrameworkMediaCrypto> drmSessionManager;
-
     /****
      * 初始化
      * @param activity   活动对象
@@ -177,7 +173,6 @@ public class ExoUserPlayer {
     }
 
     private void initView() {
-        componentListener = new ComponentListener();
         playComponentListener = new PlayComponentListener();
         videoPlayerView.setExoPlayerListener(playComponentListener);
         getPlayerViewListener();
@@ -239,12 +234,13 @@ public class ExoUserPlayer {
     /***
      * 释放资源
      **/
-    public void releasePlayers() {
+    protected void releasePlayers() {
+        updateResumePosition();
+        unNetworkBroadcastReceiver();
         if (player != null) {
-            updateResumePosition();
-            unNetworkBroadcastReceiver();
             player.stop();
             player.release();
+            player.removeMetadataOutput(null);
             player.removeListener(componentListener);
             player = null;
         }
@@ -319,14 +315,21 @@ public class ExoUserPlayer {
     /***
      * 创建实例播放实例，并不开始缓冲
      **/
-    private synchronized SimpleExoPlayer createFullPlayer() {
+    private SimpleExoPlayer createFullPlayer() {
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(new DefaultBandwidthMeter());
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
         BufferingLoadControl loadControl = new BufferingLoadControl();
         if (null == modelType) {
             setDefaultLoadModel();
         } else {
-            loadControl.setListener(componentListener);
+            loadControl.setListener(new LoadListener() {
+                @Override
+                public void onProgress(long pro) {
+                    if (videoPlayerView != null) {
+                        getPlayerViewListener().showNetSpeed(String.valueOf(pro) + "%");
+                    }
+                }
+            });
         }
         DefaultRenderersFactory rf = new DefaultRenderersFactory(activity, drmSessionManager, DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON);
         SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(rf, trackSelector, loadControl);
@@ -466,15 +469,15 @@ public class ExoUserPlayer {
     public <T extends ItemVideo> void setPlayUri(@NonNull List<T> uris) {
         mediaSourceBuilder.setMediaUri(uris);
     }
-
-
     /***
      * 是否播放中
      * @return boolean
      * ***/
     public boolean isPlaying() {
-        Assertions.checkArgument(player != null);
-        return player.getPlayWhenReady();
+        if (player == null) return false;
+        int playbackState = player.getPlaybackState();
+        return playbackState != Player.STATE_IDLE && playbackState != Player.STATE_ENDED
+                && player.getPlayWhenReady();
     }
 
 
@@ -622,7 +625,7 @@ public class ExoUserPlayer {
     }
 
     /***
-     * 设置显示多线路图标
+     * 设置进度进度条拖拽
      * @param isOpenSeek true 启用 false 不启用
      * **/
     public void setSeekBarSeek(boolean isOpenSeek) {
@@ -791,7 +794,7 @@ public class ExoUserPlayer {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+            if (null != action && action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
                 ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo netInfo = mConnectivityManager.getActiveNetworkInfo();
                 if (netInfo != null && netInfo.isAvailable()) {
@@ -845,14 +848,12 @@ public class ExoUserPlayer {
         public void playVideoUri() {
             VideoPlayerManager.getInstance().setClick(true);
             onPlayNoAlertVideo();
-
         }
 
         @Override
         public ExoUserPlayer getPlay() {
             return ExoUserPlayer.this;
         }
-
 
         @Override
         public void onBack() {
@@ -863,7 +864,7 @@ public class ExoUserPlayer {
     /***
      * view 给控制类 回调类
      * ***/
-    private class ComponentListener implements Player.EventListener, LoadListener {
+    protected Player.EventListener componentListener = new Player.EventListener() {
 
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
@@ -873,33 +874,30 @@ public class ExoUserPlayer {
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
             Log.d(TAG, "onTracksChanged:" + player.getCurrentWindowIndex() + "_:" + player.getCurrentTimeline().getWindowCount());
             if (getWindowCount() > 1) {
-                if (windowListener != null && newIndex == 0) {
-                    windowListener.onCurrentIndex(newIndex, getWindowCount());
+                if (windowListener != null && player.getCurrentWindowIndex() == 0) {
+                    windowListener.onCurrentIndex(player.getCurrentWindowIndex(), getWindowCount());
                 }
+                //没有设置默认不执行
                 if (mediaSourceBuilder.getIndexType() < 0) {
-                    return;
+                    GestureVideoPlayer gestureVideoPlayer = null;
+                    if (ExoUserPlayer.this instanceof GestureVideoPlayer) {
+                        gestureVideoPlayer = (GestureVideoPlayer) ExoUserPlayer.this;
+                    }
+                    boolean setOpenSeek = 0 != mediaSourceBuilder.getIndexType();
+                    if (gestureVideoPlayer != null) {
+                        gestureVideoPlayer.setPlayerGestureOnTouch(setOpenSeek);
+                    }
+                    getPlayerViewListener().getTimeBarView().setOpenSeek(setOpenSeek);
                 }
-                GestureVideoPlayer gestureVideoPlayer = null;
-                if (ExoUserPlayer.this instanceof GestureVideoPlayer) {
-                    gestureVideoPlayer = (GestureVideoPlayer) ExoUserPlayer.this;
-                }
-                boolean setOpenSeek = 0 != mediaSourceBuilder.getIndexType();
-                if (gestureVideoPlayer != null) {
-                    gestureVideoPlayer.setPlayerGestureOnTouch(setOpenSeek);
-                }
-                getPlayerViewListener().getTimeBarView().setOpenSeek(setOpenSeek);
             }
         }
 
-        private int newIndex;
 
         @Override
-        public void onPositionDiscontinuity() {
-            Log.d(TAG, "onPositionDiscontinuity:" + player.getCurrentWindowIndex() + "_:" + player.getCurrentTimeline().getWindowCount());
+        public void onPositionDiscontinuity(int reason) {
+            Log.d(TAG, "onPositionDiscontinuity:" + player.getCurrentWindowIndex() + "_reason:" + reason);
             if (getWindowCount() > 1) {
-                boolean is = windowListener != null && newIndex != player.getCurrentWindowIndex();
-                if (is) {
-                    newIndex = player.getCurrentWindowIndex();
+                if (windowListener != null) {
                     windowListener.onCurrentIndex(player.getCurrentWindowIndex(), getWindowCount());
                 }
                 if (mediaSourceBuilder.getIndexType() < 0) {
@@ -909,17 +907,12 @@ public class ExoUserPlayer {
                 if (ExoUserPlayer.this instanceof GestureVideoPlayer) {
                     gestureVideoPlayer = (GestureVideoPlayer) ExoUserPlayer.this;
                 }
-                boolean setOpenSeek = !(mediaSourceBuilder.getIndexType() == newIndex & mediaSourceBuilder.getIndexType() > 0);
+                boolean setOpenSeek = !(mediaSourceBuilder.getIndexType() == player.getCurrentWindowIndex() && mediaSourceBuilder.getIndexType() > 0);
                 if (gestureVideoPlayer != null) {
                     gestureVideoPlayer.setPlayerGestureOnTouch(setOpenSeek);
                 }
                 getPlayerViewListener().getTimeBarView().setOpenSeek(setOpenSeek);
             }
-
-        }
-
-        @Override
-        public void onLoadingChanged(boolean isLoading) {
 
         }
 
@@ -955,7 +948,6 @@ public class ExoUserPlayer {
                     break;
                 case Player.STATE_ENDED:
                     Log.d(TAG, "onPlayerStateChanged:ended。。。");
-                    newIndex = 0;
                     isEnd = true;
                     getPlayerViewListener().showReplayView(View.VISIBLE);
                     if (videoInfoListener != null) {
@@ -986,6 +978,7 @@ public class ExoUserPlayer {
             }
         }
 
+
         @Override
         public void onPlayerError(ExoPlaybackException e) {
             Log.e(TAG, "onPlayerError:" + e.getMessage());
@@ -1002,16 +995,24 @@ public class ExoUserPlayer {
         }
 
         @Override
+        public void onLoadingChanged(boolean isLoading) {
+
+        }
+
+        @Override
+        public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+        }
+
+
+        @Override
         public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
         }
 
         @Override
-        public void onProgress(long pro) {
-            if (mPlayerViewListener == null) {
-                return;
-            }
-            getPlayerViewListener().showNetSpeed(String.valueOf(pro) + "%");
+        public void onSeekProcessed() {
+
         }
-    }
+    };
 }
 

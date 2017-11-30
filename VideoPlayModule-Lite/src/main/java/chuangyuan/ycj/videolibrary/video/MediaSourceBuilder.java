@@ -8,9 +8,11 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
+import android.util.Log;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.offline.Downloader;
 import com.google.android.exoplayer2.source.AdaptiveMediaSourceEventListener;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -24,6 +26,8 @@ import java.util.List;
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ItemVideo;
+import chuangyuan.ycj.videolibrary.offline.DefaultCacheUtil;
+import chuangyuan.ycj.videolibrary.offline.DefaultProgressDownloader;
 
 /**
  * @author yangc
@@ -32,6 +36,7 @@ import chuangyuan.ycj.videolibrary.listener.ItemVideo;
  *         Description：数据源处理类
  */
 public class MediaSourceBuilder {
+    private static final String TAG = MediaSourceBuilder.class.getName();
     protected Context context;
     protected Handler mainHandler = null;
     protected MediaSource mediaSource;
@@ -116,8 +121,8 @@ public class MediaSourceBuilder {
      **/
     public void setMediaUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
         this.indexType = indexType;
-        MediaSource firstSource = initMediaSource(firstVideoUri);
         MediaSource secondSource = initMediaSource(secondVideoUri);
+        MediaSource firstSource = initMediaSource(firstVideoUri);
         mediaSource = new ConcatenatingMediaSource(firstSource, secondSource);
     }
 
@@ -176,6 +181,7 @@ public class MediaSourceBuilder {
     public void setMediaSource(MediaSource mediaSource) {
         this.mediaSource = mediaSource;
     }
+
 
     /***
      * 获取链接类型
@@ -288,4 +294,5 @@ public class MediaSourceBuilder {
                 throw new IllegalStateException("你的MediaSource 为空 当前视频类型,或者实现类型" + streamType);
         }
     }
+
 }

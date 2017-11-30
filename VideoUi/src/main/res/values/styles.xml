@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,40 +14,58 @@
 -->
 <resources>
 
-  <style name="ExoMediaButton">
-    <item name="android:background">@null</item>
-    <item name="android:layout_width">@dimen/exo_media_button_width</item>
-    <item name="android:layout_height">@dimen/exo_media_button_height</item>
-  </style>
+    <style name="ExoMediaButton">
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">@dimen/exo_media_button_width</item>
+        <item name="android:layout_height">@dimen/exo_media_button_height</item>
+    </style>
 
-  <style name="ExoMediaButton.Previous">
-    <item name="android:src">@drawable/exo_controls_previous</item>
-    <item name="android:contentDescription">@string/exo_controls_previous_description</item>
-  </style>
+    <style name="ExoMediaButton.Previous">
+        <item name="android:src">@drawable/exo_controls_previous</item>
+        <item name="android:contentDescription">@string/exo_controls_previous_description</item>
+    </style>
 
-  <style name="ExoMediaButton.Next">
-    <item name="android:src">@drawable/exo_controls_next</item>
-    <item name="android:contentDescription">@string/exo_controls_next_description</item>
-  </style>
+    <style name="ExoMediaButton.Next">
+        <item name="android:src">@drawable/exo_controls_next</item>
+        <item name="android:contentDescription">@string/exo_controls_next_description</item>
+    </style>
 
-  <style name="ExoMediaButton.FastForward">
-    <item name="android:src">@drawable/exo_controls_fastforward</item>
-    <item name="android:contentDescription">@string/exo_controls_fastforward_description</item>
-  </style>
+    <style name="ExoMediaButton.FastForward">
+        <item name="android:src">@drawable/exo_controls_fastforward</item>
+        <item name="android:contentDescription">@string/exo_controls_fastforward_description</item>
+    </style>
 
-  <style name="ExoMediaButton.Rewind">
-    <item name="android:src">@drawable/exo_controls_rewind</item>
-    <item name="android:contentDescription">@string/exo_controls_rewind_description</item>
-  </style>
+    <style name="ExoMediaButton.Rewind">
+        <item name="android:src">@drawable/exo_controls_rewind</item>
+        <item name="android:contentDescription">@string/exo_controls_rewind_description</item>
+    </style>
 
-  <style name="ExoMediaButton.Play">
-    <item name="android:src">@drawable/exo_controls_play</item>
-    <item name="android:contentDescription">@string/exo_controls_play_description</item>
-  </style>
+    <style name="ExoMediaButton.Play">
+        <item name="android:src">@drawable/exo_controls_play</item>
+        <item name="android:contentDescription">@string/exo_controls_play_description</item>
+    </style>
 
-  <style name="ExoMediaButton.Pause">
-    <item name="android:src">@drawable/exo_controls_pause</item>
-    <item name="android:contentDescription">@string/exo_controls_pause_description</item>
-  </style>
-
+    <style name="ExoMediaButton.Pause">
+        <item name="android:src">@drawable/exo_controls_pause</item>
+        <item name="android:contentDescription">@string/exo_controls_pause_description</item>
+    </style>
+    <style name="ExoMediaButton.Shuffle">
+        <item name="android:src">@drawable/exo_controls_shuffle</item>
+        <item name="android:contentDescription">@string/exo_controls_shuffle_description</item>
+    </style>
+    <!--我的-->
+    <style name="exo_text_switch">
+        <item name="android:id">@id/exo_video_switch</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:background">@null</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textColor">@color/exo_exo_video_switch_selector</item>
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

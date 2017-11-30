@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.OrientationEventListener;
 import android.view.View;
 
 import chuangyuan.ycj.yjplay.custom.MainCustomLayoutActivity;
@@ -14,6 +15,7 @@ import chuangyuan.ycj.yjplay.defaults.MainDetailedActivity;
 import chuangyuan.ycj.yjplay.encrypt.Encrypted3VideoActivity;
 import chuangyuan.ycj.yjplay.encrypt.EncryptedVideoActivity;
 import chuangyuan.ycj.yjplay.media.MainCustomMediaActivity;
+import chuangyuan.ycj.yjplay.offline.OfficeDetailedActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -110,6 +112,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, Encrypted3VideoActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button9)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, OfficeDetailedActivity.class);
                         startActivity(intent);
                     }
                 });

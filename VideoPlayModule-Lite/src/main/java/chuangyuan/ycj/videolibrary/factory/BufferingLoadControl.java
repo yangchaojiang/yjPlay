@@ -144,6 +144,7 @@ public class BufferingLoadControl implements LoadControl {
         if (resetAllocator) {
             allocator.reset();
         }
+        listener=null;
     }
     public void setListener(LoadListener listener) {
         this.listener = listener;

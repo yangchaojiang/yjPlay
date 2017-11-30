@@ -21,6 +21,8 @@
         app:player_layout_id="@layout/simple_exo_view"
         app:player_load_layout_id="@layout/custom_exo_play_load"
         app:player_replay_layout_id="@layout/custom_play_replay"
+        app:player_fullscreen_image_selector="@drawable/custom_full_selector"
+        app:player_back_image="@drawable/ic_arrow_back_black_24dp"
         app:resize_mode="fit"
         app:rewind_increment="0"
         app:show_timeout="3000"

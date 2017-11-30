@@ -21,6 +21,8 @@
         app:player_gesture_audio_layout_id="@layout/custom_gesture_audio"
         app:player_gesture_bright_layout_id="@layout/custom_gesture_brightness"
         app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
+        app:player_fullscreen_image_selector="@drawable/custom_full_selector"
+        app:player_back_image="@drawable/ic_arrow_back_black_24dp"
         app:fastforward_increment="0"
         app:paddingEnd="0dp"
         app:paddingStart="0dp"

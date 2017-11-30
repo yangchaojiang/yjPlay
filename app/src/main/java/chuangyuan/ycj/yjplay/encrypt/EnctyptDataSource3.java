@@ -13,7 +13,7 @@ import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
  */
 
 public class EnctyptDataSource3 implements DataSourceListener {
-    public static final String TAG = "DataSource";
+    public static final String TAG = "OfficeDataSource";
 
     private Context context;
     private String  keyBody;
