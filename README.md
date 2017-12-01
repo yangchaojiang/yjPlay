@@ -1,8 +1,7 @@
 # yjPlay
 
-[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.9.5) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.9.5/link)
+[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.9.8) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.9.8/link)
  
- <a href='https://bintray.com/ycjiang/ycjiang/VideoPlayModule-Lite?source=watch' alt='Get automatic notifications about new "VideoPlayModule-Lite" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a><a href='https://bintray.com/ycjiang/ycjiang/VideoPlayModule-Lite?source=watch' alt='Get automatic notifications about new "VideoPlayModule-Lite" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
 
   ### [View English instructions→Poking me ](en/README.md)
 
@@ -14,28 +13,28 @@
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    * 1 ExoUserPlayer  基本播放。
    * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势。
-   * 3 ManualPlayer   可自定义触发手动播放。
+   * 3 ManualPlayer   可自定义触发播放。
    * 5 广告视频预览(轻松实现，完美切换)。
    * 6 视频清晰度切换。
-   * 7 缓存视频功能。
-   * 8 支持自定义多种 Okttp,Rtmp, rtsp，Cronet等协议,
+   * 7 缓存下载加密视频功能（边播变缓存轻松实现）。
+   * 8 支持自定义多种 Okttp,Rtmp,Https,Cronet等协议。
    * 9 支持列表集合数据播放视频（完美切换）
-   * 10 支持多种文件类型，MP4，M4A，WebM，Matroska，Ogg，WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
-   * 11 支持网络类型 提示是否播放。
+   * 10 支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
+   * 11 支持网络类型 提示是否播放(可自定义冰屏蔽)。
    * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
    * 13 支持视频加载中显示模式（网速模式和百分比模式）。
-   * 14 支持视频倍速播放。
+   * 14 支持视频加速慢速播放。
    * 15 支持视频封面图（两种模式封面图）。
    * 16 **1.7.0**支持自定义MediaSource。
    * 17 **1.7.0**增加 手势 亮度调节，视频进度，音量 布局自定义。
    * 18 支持精简版和完整版，选择使用更丰富。
-   * 19 [支持AES视频加密,Base64加密(不稳定),简单加密三种→戳我](README_EN_VIDEO.md)
+   * 19 [支持自定义AES视频加密,简单加密→戳我](README_EN_VIDEO.md)
+   * 20 增加自定义离线下载辅助类DefaultProgressDownloader(支持（AES/CBC）加密文件处理),HlsDownloader,DashDownloader,SsDownloader,SegmentDownloader。
+   * 21 支持播放锁屏功能和控制动画效果，返回按钮和全屏按钮图标自定义。
  <!--more-->
 
- ### [更新日志→》戳我查看](RELEASENOTES.md)
+ ### [更新日志1.9.6→》戳我查看](RELEASENOTES.md)
  
-   >> [查看1.9.5升级日志](RELEASENOTES.md#170)
-   >>**注意以前版本：使用自定义控制布局，请重新参考新版本布局文件**
  ### 一.引用类库
   ````
    repositories {
@@ -45,9 +44,9 @@
 
   dependencies {
      //完整版
-     compile 'com.ycjiang:VideoPlayModule:1.9.5'
+     compile 'com.ycjiang:VideoPlayModule:1.9.8'
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-     compile 'com.ycjiang:VideoPlayModule-Lite:1.9.5'
+     compile 'com.ycjiang:VideoPlayModule-Lite:1.9.8'
 
   }
   ````
@@ -65,18 +64,8 @@
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:background="@android:color/transparent"
-         app:resize_mode="fit"
-         app:show_timeout="3000"
          app:controller_layout_id="@layout/simple_exo_playback_control_view"
          app:player_layout_id="@layout/simple_exo_view"
-         app:surface_type="texture_view"
-         app:paddingEnd="0dp"
-         app:paddingStart="0dp"
-         app:fastforward_increment="0"
-         app:rewind_increment="0"
-         app:user_watermark="@mipmap/watermark_big"
-         app:player_list="true"
-         app:use_controller="true"
          app:player_replay_layout_id="@layout/custom_play_replay"
          app:player_error_layout_id="@layout/custom_play_error"
          app:player_hint_layout_id="@layout/custom_play_btn_hint"
@@ -84,6 +73,16 @@
          app:player_gesture_audio_layout_id="@layout/custom_gesture_audio"
          app:player_gesture_bright_layout_id="@layout/custom_gesture_brightness"
          app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
+         app:resize_mode="fit"
+         app:show_timeout="3000"
+         app:surface_type="texture_view"
+         app:fastforward_increment="0"
+         app:rewind_increment="0"
+         app:user_watermark="@mipmap/watermark_big"
+         app:player_list="true"
+         app:use_controller="true"
+         app:player_fullscreen_image_selector="@drawable/custom_full_selector"
+         app:player_back_image="@drawable/ic_back_custom"
           />
    ````
    >>>> 基本使用如下
@@ -93,76 +92,80 @@
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
                  android:background="@android:color/transparent"
-                 app:controller_layout_id="@layout/simple_exo_playback_control_view"
-                 app:player_layout_id="@layout/simple_exo_view"
-                 app:resize_mode="fit"
-                 app:surface_type="surface_view" />
+                 />
  ````
  >> #### 2.属性说明
-   * 必选
    >
-    1.   player_layout_id  播放器布局， //必选
+    1.   player_layout_id  播放器布局，  
          player_layout_id 目前支持指定布局simple_exo_playback_control_view 后续版本，开放自定义使用
-
-   * 必选
    >
     2. controller_layout_id  控制器布局`  默认有三种布局
         1.simple_exo_playback_control_view.xml  //视频封面控制布局下面，比较常规使用
         2.simple_exo_playback_list_view.xml.xml //在列表播放使用控制布局
         3.simple_exo_playback_top_view.xml.xml  //视频封面控制布局上面
 
-   * 可选 **注意： 列表播放只能选择texture_view 不能选择surface_view，详情页面播放推荐surface_view**
+   * **注意： 列表播放只能选择texture_view 不能选择surface_view，详情页面播放推荐surface_view**
    >
     3.    surface_type 视频渲染类型 //texture_view 和surface_view //枚举类型。默认surface_view
-
 
    >
     4.   use_controller   是否用户控制控制器  布尔类型
 
    >
-    5.   resize_mode  视频缩放渲染显示方式一共4种 //可选  
+    5.   resize_mode  视频缩放渲染显示方式一共4种  
             1.fit          //正常模式
             2.fixed_width  //保持的是视频宽度，拉伸视频高度
             3.fixed_height //保持的是视频高度，拉伸视频宽度
             4.fill          //全屏模式，拉伸视频宽高
    >
-    6.   default_artwork  占位图  //可选
+    6.   default_artwork  占位图   
 
    >
-    7.   show_timeout  控制布局隐藏时间  默认值为3秒  //可选
+    7.   show_timeout  控制布局隐藏时间  默认值为3秒   
 
    >
-    8.   paddingEnd，paddingStart 设置边距  默认值为0  //可选
+    8.   fastforward_increment  设置快进增量,以毫秒为单位。  
 
    >
-    9.   fastforward_increment  设置快进增量,以毫秒为单位。 //可选
+    9.  rewind_increment   设置快退增量,以毫秒为单位。  
 
    >
-    10.  rewind_increment   设置快退增量,以毫秒为单位。  //可选
+    10.  user_watermark    水印图片 默认在右上角   
 
    >
-    11.  user_watermark    水印图片 默认在右上角  //可选
+    11.  player_list      是否指定列表播放    默认 false  true 列表播放
 
    >
-    12.  player_list      是否指定列表播放   //可选 默认 false  true 列表播放
+    12.  player_replay_layout_id  自定义重播布局文件
 
    >
-    13.  player_replay_layout_id  自定义重播布局文件
+    13.  player_error_layout_id   自定义错误布局文件
 
    >
-    14.  player_error_layout_id   自定义错误布局文件
+    14.  player_hint_layout_id   自定义非wifi提示布局文件
 
    >
-    15.  player_hint_layout_id   自定义非wifi提示布局文件
-
+    15.  player_load_layout_id   自定义视频加载布局文件
+    
    >
-    16.  player_load_layout_id   自定义视频加载布局文件
+    16.  player_gesture_audio_layout_id   自定义手势音频调节布局
+    
    >
-    17.  player_gesture_audio_layout_id   自定义手势音频调节布局
+    17.  player_gesture_bright_layout_id   自定义手势亮度调节布局
+    
    >
-    18.  player_gesture_bright_layout_id   自定义手势亮度调节布局
+    18.  player_gesture_progress_layout_id   自定义手势进度调节布局
+    
    >
-    19.  player_gesture_progress_layout_id   自定义手势进度调节布局
+    19.  player_fullscreen_image_selector   自定义全屏按钮selector
+    >>注意：
+         <selector xmlns:android="http://schemas.android.com/apk/res/android">
+             <item android:drawable="@drawable/ic_custom_full" android:state_checked="true" />
+             <item android:drawable="@drawable/ic_custom_full_in" android:state_checked="false" />
+         </selector>
+   >
+    20.  player_back_image   自定义返回按钮图标   
+    
  >> #### 3.修改网络对话框提示文字内容
       app.strings.xml
       <string name="exo_play_reminder">您当前网络不是wifi，是否继续观看视频</string>
@@ -201,28 +204,6 @@
            exoPlayerManager.setPlaySwitchUri(test,name);
           //开始启动播放视频
            exoPlayerManager.startPlayer();
-          //添加水印图片
-          // exoPlayerManager.setExoPlayWatermarkImg();
-           //设置视循环播放
-           exoPlayerManager.setLooping(10);
-           //d隐藏控制布局
-           exoPlayerManager.hideControllerView();
-            //隐藏进度条
-           exoPlayerManager.hideSeekBar();
-            //显示进度条
-           exoPlayerManager.showSeekBar();
-            //是否播放
-           exoPlayerManager.isPlaying(); 
-           //设置点击播放按钮需要处理业务
-           exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
-                          @Override
-                          public void onClick(View v) {
-                              Toast.makeText(MainCustomActivity.this,"定义点击播放事件",Toast.LENGTH_LONG).show();
-                               //处理业务操作 完成后，
-                               //方法实现setOnPlayClickListener（)， 需要手动调用
-                               exoPlayerManager.startPlayer();//开始播放
-                          }
-             }); 
 
    1.实例化播放控制类
 
@@ -288,9 +269,9 @@
            exoPlayerManager.setPlayUri(0, "http://mp4.vjshi.com/2013-07-25/2013072519392517096.mp4", "http://mp4.vjshi.com/2013-11-11/1384169050648_274.mp4");       
             //如果自己在播放视频时特出处理。实现该接口回调
            //视频切换回调处理，进行布局处理，控制布局显示
-                 exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
+            exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
                      @Override
-                     public void onCurrentIndex(int currentIndex, int windowCount) {
+            public void onCurrentIndex(int currentIndex, int windowCount) {
                          if (currentIndex == 0) {
                              //屏蔽控制布局
                              exoPlayerManager.hideControllerView();
@@ -301,13 +282,21 @@
                              exoPlayerManager.showControllerView();
                          }
                      }
-                 });
+             });
            //跳过广告视频操作
            exoPlayerManager.next();
-   
-   
-   12.设置监听回调VideoInfoListener
-
+   12.设置点击播放按钮需要处理业务
+    
+      exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
+                              @Override
+                              public void onClick(View v) {
+                                  Toast.makeText(MainCustomActivity.this,"定义点击播放事件",Toast.LENGTH_LONG).show();
+                                   //处理业务操作 完成后 
+                                  exoPlayerManager.startPlayer();//开始播放
+                    }
+         });
+    
+   13.设置监听回调VideoInfoListener
          exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
                        @Override
                        public void onPlayStart() {
@@ -334,19 +323,17 @@
                        }
                    });
    
-   13.覆写Activity和Fragment周期方法
+   14.覆写Activity和Fragment周期方法
 
                 Override
                 public void onResume() {
                     super.onResume();
-                    Log.d(TAG, "onResume");
                     exoPlayerManager.onResume();
                 }
 
                 @Override
                 public void onPause() {
                     super.onPause();
-                    Log.d(TAG, "onPause");
                     exoPlayerManager.onPause();
                 }
 
@@ -355,7 +342,6 @@
                 protected void onDestroy() {
                     exoPlayerManager.onDestroy();
                     super.onDestroy();
-
                 }
 
                 @Override
@@ -363,7 +349,7 @@
                     exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
                     super.onConfigurationChanged(newConfig);
                 }
-
+                
                 @Override
                 public void onBackPressed() {
                 //使用播放返回键监听
@@ -379,24 +365,12 @@
    *  2.player_list="true" 设置为true 开启列表模式
    *  3.demo:
               public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
-    
-               private Context mContext;
-               private List<String> mVideoList;
-              public VideoAdapter(Context context, List<String> videoList) {
-                  mContext = context;
-                  mVideoList = videoList;
-              }
-
-              @Override
-              public int getItemCount() {
-                  return mVideoList.size();
-              }
+              .......
               @Override
               public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                   View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_video1, parent, false);
                   return new VideoViewHolder(itemView);
               }
-
               @Override
               public void onBindViewHolder(VideoViewHolder holder, int position) {
                   String video = mVideoList.get(position);
@@ -412,18 +386,18 @@
                       playerView = (VideoPlayerView) itemView.findViewById(R.id.item_exo_player_view);
                       userPlayer = new ManualPlayer((Activity) mContext, playerView);
                   }
-
                  /**
                  *绑定数据源
                  ***/
                   public void bindData(String videoBean) {
                       userPlayer.setTitle("" + getAdapterPosition());
                       userPlayer.setPlayUri(videoBean);
-                      Glide.with(mContext)
-                      .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
-                      .into(playerView.getPreviewImage());
+                      Glide.with(mContext) .load("....") .into(playerView.getPreviewImage());
                   }
               }
+     ````
+   >>注意adapter 实例请参考demo程序
+              
   2.列表播放周期方法 列表在Activity或者Fragment  实现相应周期方法
 
                       protected void onPause() {
@@ -435,6 +409,13 @@
                           super.onResume();
                           VideoPlayerManager.getInstance().onResume();
                       }
+                      @Override
+                       public void onConfigurationChanged(Configuration newConfig) {
+                          //横竖屏切换
+                           VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);
+                           super.onConfigurationChanged(newConfig);
+                       }    
+                                  
                       @Override
                       protected void onDestroy() {
                           super.onDestroy();
@@ -450,7 +431,7 @@
 
 ### 四.数据源工厂类
  ####  1.默认数据源
-          缓存 : CacheDataSinkFactory,CacheDataSourceFactory
+          缓存 : CacheDataSourceFactory
           http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
           Priority : PriorityDataSourceFactory
  #### 2 自定义数据源引用
@@ -460,7 +441,7 @@
 ### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
 ### 六.[自定义布局用法-戳我](READMELAYUOT.md)
 ### 七.[自定义MediaSource用法-戳我](RELEASEVIDEO.md) 
-### 八.[视频加密处理用法-戳我](README_EN_VIDEO.md) 
+### 八.[缓存,加密,视频处理用法-戳我](README_EN_VIDEO.md) 
 
 ## [License](https://github.com/yangchaojiang/yjPlay/blob/master/LICENSE)
    Licensed under the Apache License, Version 2.0 (the "License");
