@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -37,7 +40,6 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
     private final Runnable hideAction = new Runnable() {
         @Override
         public void run() {
-            Assertions.checkState(lockCheckBox != null);
             if (isLand) {
                 if (exoPlayLockLayout.getVisibility() == VISIBLE) {
                     AnimUtils.setOutAnimX(lockCheckBox, false).start();
@@ -55,6 +57,7 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
             }
         }
     };
+
 
     public VideoPlayerView(Context context) {
         this(context, null);
@@ -133,6 +136,9 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
             lockCheckBox.setOnClickListener(onClickListener);
             lockCheckBox.setVisibility(isOpenLock ? VISIBLE : GONE);
         }
+        if (isPreViewTop) {
+            showFullscreenView(GONE);
+        }
         this.setOnSystemUiVisibilityChangeListener(uiVisibilityChangeListener);
         playerView.setControllerVisibilityListener(this);
         playerView.getUserControllerView().setAnimatorListener(animatorListener);
@@ -142,9 +148,6 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
      * 销毁处理
      * **/
     public void onDestroy() {
-        if (playerView != null) {
-            playerView.getUserControllerView().setAnimatorListener(null);
-        }
         if (alertDialog != null) {
             alertDialog.dismiss();
             alertDialog = null;
@@ -164,6 +167,7 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
         if (exoFullscreen != null && exoFullscreen.animate() != null) {
             exoFullscreen.animate().cancel();
         }
+
         if (exoControlsBack != null && exoControlsBack.animate() != null) {
             exoControlsBack.animate().cancel();
         }
@@ -172,11 +176,11 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
         }
         if (activity != null && activity.isFinishing()) {
             removeAllViews();
+            animatorListener = null;
             activity = null;
             exoPlayerViewListener = null;
             onClickListener = null;
             uiVisibilityChangeListener = null;
-            animatorListener = null;
         }
 
     }
@@ -192,10 +196,9 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
         showLockState(visibility);
         if (belowView != null && visibility == View.GONE) {
             belowView.dismissBelowView();
-            if (exoPreviewImage != null) {
-                exoPreviewImage.setVisibility(GONE);
-            }
         }
+
+
     }
 
     @Override
@@ -205,11 +208,69 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
         boolean is = isListPlayer && getPlay() != null && manualPlayer != null;
         if (is) {
             if (getPlay().toString().equals(manualPlayer.toString())) {
-                manualPlayer.reset();
+                manualPlayer.reset(true);
             }
         } else {
             onDestroy();
         }
+    }
+
+    /***
+     * 设置是横屏,竖屏
+     *
+     * @param newConfig 旋转对象
+     */
+    void doOnConfigurationChanged(int newConfig) {
+        Log.d(TAG, "doOnConfigurationChanged:" + newConfig);
+        //横屏
+        if (newConfig == Configuration.ORIENTATION_LANDSCAPE) {
+            if (isLand) {
+                return;
+            }
+            isLand = true;
+            VideoPlayUtils.hideActionBar(activity);
+            this.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            //判断是否开启多线路支持
+            if (isShowVideoSwitch) {
+                videoSwitchText.setVisibility(VISIBLE);
+                if (videoSwitchText.getText().toString().isEmpty() && mExoPlayerListener != null) {
+                    videoSwitchText.setText(mExoPlayerListener.getSwitchName());
+                }
+            }
+            //是否列表
+            if (isListPlayer()) {
+                exoControlsBack.setVisibility(VISIBLE);
+                getPaddingLeft = controlsTitleText.getPaddingLeft();
+                controlsTitleText.setPadding(VideoPlayUtils.dip2px(getContext(), 40), 0, 0, 0);
+            }
+            lockCheckBox.setChecked(false);
+            //显示锁屏按钮
+            showLockState(VISIBLE);
+            //显更改全屏按钮选中，自动旋转屏幕
+            exoFullscreen.setChecked(true);
+        } else {//竖屏
+            if (!isLand) {
+                return;
+            }
+            isLand = false;
+            this.setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            VideoPlayUtils.showActionBar(activity);
+            //多线路支持隐藏
+            if (videoSwitchText != null) {
+                videoSwitchText.setVisibility(GONE);
+            }
+            //列表播放
+            if (isListPlayer()) {
+                showBackView(GONE);
+                controlsTitleText.setPadding(getPaddingLeft, 0, 0, 0);
+            }
+            //隐藏锁屏按钮移除
+            showLockState(GONE);
+            //更改全屏按钮选中，自动旋转屏幕
+            exoFullscreen.setChecked(false);
+        }
+        scaleLayout(newConfig);
+
     }
 
     /****
@@ -228,12 +289,12 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
         @Override
         public void show(boolean isIn) {
             if (isIn) {
-                AnimUtils.setInAnim(exoFullscreen).start();
-                AnimUtils.setInAnim(exoControlsBack).start();
                 if (isLand) {
                     showLockState(VISIBLE);
                     AnimUtils.setInAnimX(lockCheckBox).start();
                 }
+                AnimUtils.setInAnim(exoFullscreen).start();
+                AnimUtils.setInAnim(exoControlsBack).start();
             } else {
                 if (isLand) {
                     if (lockCheckBox.getTag() == null) {
@@ -302,16 +363,17 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
                 }
                 //切换
             } else if (v.getId() == R.id.exo_video_switch) {
-                if (belowView == null) return;
-                belowView = new BelowView(activity);
-                belowView.setOnItemClickListener(new BelowView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position, String name) {
-                        belowView.dismissBelowView();
-                        videoSwitchText.setText(name);
-                        mExoPlayerListener.switchUri(position, name);
-                    }
-                });
+                if (belowView == null) {
+                    belowView = new BelowView(activity, mExoPlayerListener.getSwitchList());
+                    belowView.setOnItemClickListener(new BelowView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position, String name) {
+                            belowView.dismissBelowView();
+                            videoSwitchText.setText(name);
+                            mExoPlayerListener.switchUri(position, name);
+                        }
+                    });
+                }
                 belowView.showBelowView(v, true);
                 //提示播放
             } else if (v.getId() == R.id.exo_player_btn_hint_btn_id) {
@@ -456,8 +518,10 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
         @Override
         public void hideController(boolean isShowFulls) {
             if (playerView != null) {
-                playerView.getUserControllerView().setVisibility(GONE);
-                getExoFullscreen().setVisibility(isShowFulls ? VISIBLE : INVISIBLE);
+                playerView.hideController();
+                if (isShowFulls) {
+                    showFullscreenView(VISIBLE);
+                }
                 setControllerHideOnTouch(false);
             }
         }
@@ -481,11 +545,6 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
         @Override
         public void showPreview(int visibility) {
             getPreviewImage().setVisibility(visibility);
-            if (isPreViewTop) {
-                showFullscreenView(visibility);
-            } else {
-                showFullscreenView(visibility == GONE ? VISIBLE : INVISIBLE);
-            }
         }
 
         @Override
@@ -513,8 +572,9 @@ public final class VideoPlayerView extends BaseView implements PlaybackControlVi
             }
             if (getPlaybackControlView() != null) {
                 getPlaybackControlView().hideNo();
-                showPreview(VISIBLE);
                 getPlaybackControlView().showNo();
+                showPreview(VISIBLE);
+                showFullscreenView(GONE);
             }
 
         }

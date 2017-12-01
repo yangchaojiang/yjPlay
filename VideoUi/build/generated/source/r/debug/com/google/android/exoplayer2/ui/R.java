@@ -582,7 +582,7 @@ public final class R {
         public static int exo_error_bg = 0x7f090062;
         public static int ic_black = 0x7f090063;
         public static int ic_brightness_6_white_48px = 0x7f090064;
-        public static int ic_chevron_left_white_48px = 0x7f090065;
+        public static int ic_exo_back = 0x7f090065;
         public static int ic_exo_pause = 0x7f090066;
         public static int ic_exo_start = 0x7f090067;
         public static int ic_fullscreen_exit_white = 0x7f090068;

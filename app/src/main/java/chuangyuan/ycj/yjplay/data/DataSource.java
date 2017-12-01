@@ -45,7 +45,7 @@ public class DataSource implements DataSourceListener {
         //缓存数据源使用，内部使用DefaultDataSourceFactory数据源工厂类
         // 配合okHttp数据源工厂类
         //使用配合默认数据源红工厂类
-        return  new CacheDataSourceFactory(simpleCache, new JDefaultDataSourceFactory(context));*/
+        return  new DefaultCacheDataSourceFactory(simpleCache, new JDefaultDataSourceFactory(context));*/
     }
 
 }

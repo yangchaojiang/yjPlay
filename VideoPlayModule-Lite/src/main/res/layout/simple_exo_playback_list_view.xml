@@ -62,9 +62,10 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
-        android:clickable="false"
+        android:clickable="true"
         android:scaleType="fitXY"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:focusable="true" />
 
     <ImageButton
         android:id="@id/exo_play"

@@ -351,16 +351,16 @@
     <issue
         id="UnusedResources"
         severity="Warning"
-        message="The resource `R.drawable.ic_chevron_left_white_48px` appears to be unused"
+        message="The resource `R.drawable.ic_exo_back` appears to be unused"
         category="Performance"
         priority="3"
         summary="Unused resources"
         explanation="Unused resources make applications larger and slow down builds."
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^"
         quickfix="studio">
         <location
-            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_chevron_left_white_48px.xml"
+            file="E:\project\yjPlay\VideoUi\src\main\res\drawable\ic_exo_back.xml"
             line="1"
             column="1"/>
     </issue>
@@ -1127,7 +1127,7 @@
         quickfix="studio">
         <location
             file="E:\project\yjPlay\VideoUi\src\main\res\values\styles.xml"
-            line="52"
+            line="53"
             column="12"/>
     </issue>
 

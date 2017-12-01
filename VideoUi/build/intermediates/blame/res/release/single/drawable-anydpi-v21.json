@@ -4,6 +4,10 @@
         "source": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-anydpi-v21\\exo_controls_repeat_off.xml"
     },
     {
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\ic_exo_back.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-anydpi-v21\\ic_exo_back.xml"
+    },
+    {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\exo_controls_fastforward.xml",
         "source": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-anydpi-v21\\exo_controls_fastforward.xml"
     },
@@ -34,10 +38,6 @@
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\ic_exo_pause.xml",
         "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-anydpi-v21\\ic_exo_pause.xml"
-    },
-    {
-        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\ic_chevron_left_white_48px.xml",
-        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-anydpi-v21\\ic_chevron_left_white_48px.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21\\exo_controls_pause.xml",

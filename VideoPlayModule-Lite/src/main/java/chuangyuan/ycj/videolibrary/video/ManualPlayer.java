@@ -73,7 +73,6 @@ public final class ManualPlayer extends GestureVideoPlayer {
             VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
         }
         getPlayerViewListener().setPlayerBtnOnTouchListener(null);
-        getPlayerViewListener().setControllerHideOnTouch(true);
         createPlayers();
         registerReceiverNet();
     }
@@ -102,7 +101,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
         isPause = true;
         if (player != null) {
             handPause = !player.getPlayWhenReady();
-            reset();
+            reset(false);
         }
     }
 
@@ -115,12 +114,13 @@ public final class ManualPlayer extends GestureVideoPlayer {
 
     /**
      * 重置
+     * @param s s
      **/
 
-    public void reset() {
+    public void reset(boolean s) {
         if (player != null) {
             unNetworkBroadcastReceiver();
-            if (isEnd) {
+            if (isEnd||s) {
                 setPosition(0);
             } else {
                 updateResumePosition();

@@ -47,8 +47,8 @@ public class TestAdapter extends RecyclerArrayAdapter<String> {
         public void setData(final String data) {
             userPlayer.setTitle(""+getAdapterPosition());
             userPlayer.setPlayUri(data);
-            Glide.with(getContext()).
-                    load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
+            Glide.with(getContext())
+                    .load(playerView.getContext().getString(R.string.uri_test_image))
                     .placeholder(R.mipmap.test)
                     .into(playerView.getPreviewImage());
         }

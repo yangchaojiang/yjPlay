@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|end"
         android:contentDescription="@null"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:padding="7dp" />
     <!--全屏-->
     <android.support.v7.widget.AppCompatCheckBox

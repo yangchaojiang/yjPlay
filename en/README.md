@@ -41,9 +41,9 @@
 
   dependencies {
       //full edition
-      compile 'com.ycjiang:VideoPlayModule:1.9.7'
+      compile 'com.ycjiang:VideoPlayModule:1.9.8'
       // lite version （no smoothstreaming,dash,hls,Only regular on-demand）
-      compile 'com.ycjiang:VideoPlayModule-Lite:1.9.7'
+      compile 'com.ycjiang:VideoPlayModule-Lite:1.9.8'
 
 
   }

@@ -2,11 +2,8 @@ package chuangyuan.ycj.videolibrary.offline;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.offline.Downloader;
 import com.google.android.exoplayer2.offline.DownloaderConstructorHelper;
@@ -18,13 +15,10 @@ import com.google.android.exoplayer2.upstream.cache.CacheUtil;
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
 import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 import com.google.android.exoplayer2.util.PriorityTaskManager;
-import com.google.android.exoplayer2.util.Util;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 
 /**
@@ -59,7 +53,7 @@ public final class DefaultProgressDownloader implements Downloader {
     }
 
     @Override
-    public void download(@Nullable ProgressListener listener) {
+    public void download(@Nullable Downloader.ProgressListener listener) {
         service = Executors.newSingleThreadExecutor();
         service.submit(new MyRunnable(listener, this));
     }
@@ -116,6 +110,9 @@ public final class DefaultProgressDownloader implements Downloader {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    if (listener!=null){
+                        listener.onDownloadProgress(defaultProgressDownloader,-1,defaultProgressDownloader.getDownloadedBytes());
+                    }
                 } finally {
                     priorityTaskManager.remove(C.PRIORITY_DOWNLOAD);
                 }
@@ -132,6 +129,7 @@ public final class DefaultProgressDownloader implements Downloader {
         private DownloaderConstructorHelper constructorHelper;
         private byte[] secretKey;
         private String cacheDir;
+        private long  maxCacheSize ;
 
         public Builder(@NonNull Context context) {
             this.context = context;
@@ -139,7 +137,7 @@ public final class DefaultProgressDownloader implements Downloader {
 
         /**
          * @param cache 缓存文件实例
-         * @return     Builder
+         * @return Builder
          */
         public Builder setCache(@NonNull Cache cache) {
             this.simpleCache = cache;
@@ -148,7 +146,7 @@ public final class DefaultProgressDownloader implements Downloader {
 
         /**
          * @param cacheDir 缓存文件所在目录
-         * @return     Builder
+         * @return Builder
          */
         public Builder setCacheFileDir(@NonNull String cacheDir) {
             this.cacheDir = cacheDir;
@@ -158,25 +156,25 @@ public final class DefaultProgressDownloader implements Downloader {
         /**
          * @param secretKey 如果不是null，那么在使用AES / CBC的文件系统中缓存密钥将被加密
          *                  密钥必须是16字节长.
-         * @return     Builder
+         * @return Builder
          */
-        public Builder setCache(@Nullable byte[] secretKey) {
+        public Builder setSecretKey(@Nullable byte[] secretKey) {
             this.secretKey = secretKey;
             return this;
         }
 
         /**
          * @param customCacheKey 唯一标识原始流的自定义键。用于缓存索引。可能是null
-         * @return     Builder
+         * @return Builder
          */
-        public Builder setCustomCacheKey(@Nullable String customCacheKey) {
+        private Builder setCustomCacheKey(@Nullable String customCacheKey) {
             this.customCacheKey = customCacheKey;
             return this;
         }
 
         /**
          * @param uri 需要下载uri
-         * @return     Builder
+         * @return Builder
          */
         public Builder setUri(@NonNull String uri) {
             this.uri = Uri.parse(uri);
@@ -185,7 +183,7 @@ public final class DefaultProgressDownloader implements Downloader {
 
         /**
          * @param uri 需要下载uri
-         * @return     Builder
+         * @return Builder
          */
         public Builder setUri(@NonNull Uri uri) {
             this.uri = uri;
@@ -193,8 +191,16 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
+         * @param maxCacheSize 缓存大小
+         * @return Builder
+         */
+        public Builder setMaxCacheSize( long maxCacheSize) {
+            this.uri = uri;
+            return this;
+        }
+        /**
          * @param upstreamFactory 下载时需要数据数据源工厂类
-         * @return     Builder
+         * @return Builder
          */
         public Builder setHttpDataSource(@NonNull DataSource.Factory upstreamFactory) {
             this.upstreamFactory = upstreamFactory;
@@ -203,7 +209,7 @@ public final class DefaultProgressDownloader implements Downloader {
 
         /**
          * @param constructorHelper constructorHelper
-         * @return     Builder
+         * @return Builder
          */
         public Builder setDownloaderHelper(@NonNull DownloaderConstructorHelper constructorHelper) {
             this.constructorHelper = constructorHelper;
@@ -211,19 +217,20 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
-         *
-         * @return     DefaultProgressDownloader
+         * @return DefaultProgressDownloader
          */
         public DefaultProgressDownloader build() {
             if (simpleCache == null) {
-                LeastRecentlyUsedCacheEvictor evictor = new LeastRecentlyUsedCacheEvictor(1024 * 1024 * 1024);
+                if (maxCacheSize==0){
+                    maxCacheSize=1024*1024*1024L*1024;
+                }
                 File file;
                 if (cacheDir == null) {
-                    file = new File(context.getCacheDir(), "media");
+                    file = new File(context.getExternalCacheDir(), "media");
                 } else {
                     file = new File(cacheDir, "media");
                 }
-                simpleCache = new SimpleCache(file, evictor, secretKey);
+                simpleCache = new SimpleCache(file,  new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
             }
             if (upstreamFactory == null) {
                 upstreamFactory = new JDefaultDataSourceFactory(context);
@@ -231,7 +238,7 @@ public final class DefaultProgressDownloader implements Downloader {
             if (constructorHelper == null) {
                 constructorHelper = new DownloaderConstructorHelper(simpleCache, upstreamFactory);
             }
-            return new DefaultProgressDownloader(uri, customCacheKey, constructorHelper);
+            return new DefaultProgressDownloader(uri, uri.getPath(), constructorHelper);
         }
     }
 }

@@ -4,6 +4,7 @@ package chuangyuan.ycj.videolibrary.video;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,8 +20,12 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 import com.google.android.exoplayer2.util.Util;
 
+import java.io.File;
+import java.net.URI;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
@@ -45,6 +50,7 @@ public class MediaSourceBuilder {
     private int indexType = -1;
     private List<String> videoUri;
     private List<String> nameUri;
+    private  int switchIndex;
 
     /***
      * 初始化
@@ -73,7 +79,7 @@ public class MediaSourceBuilder {
      * @param uri     视频的地址
      ***/
     void setMediaUri(@NonNull Uri uri) {
-        mediaSource = initMediaSource(uri);
+       mediaSource = initMediaSource(uri);
     }
 
     /****
@@ -136,6 +142,7 @@ public class MediaSourceBuilder {
     public void setMediaSwitchUri(@NonNull List<String> videoUri, @NonNull List<String> name, int index) {
         this.videoUri = videoUri;
         this.nameUri = name;
+        this.switchIndex = index;
         setMediaUri(Uri.parse(videoUri.get(index)));
     }
 
@@ -227,6 +234,7 @@ public class MediaSourceBuilder {
     public void destroy() {
         release();
         indexType = -1;
+        switchIndex-=1;
         videoUri = null;
         nameUri = null;
         listener = null;
@@ -271,6 +279,19 @@ public class MediaSourceBuilder {
     }
 
     /**
+     * 获取视频线路名称
+     *
+     * @return List<String>
+     **/
+    @Nullable
+    String getItemName() {
+        if (nameUri != null && !nameUri.isEmpty()) {
+            return nameUri.get(switchIndex);
+        }
+        return "";
+    }
+
+    /**
      * 用于通知自适应的回调接口获取视频线路名称
      *
      * @param sourceEventListener 实例
@@ -289,7 +310,8 @@ public class MediaSourceBuilder {
         int streamType = Util.inferContentType(uri);
         switch (streamType) {
             case C.TYPE_OTHER:
-                return new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null);
+                Log.d(TAG,"TYPE_OTHER");
+                return new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null,uri.getPath());
             default:
                 throw new IllegalStateException("你的MediaSource 为空 当前视频类型,或者实现类型" + streamType);
         }

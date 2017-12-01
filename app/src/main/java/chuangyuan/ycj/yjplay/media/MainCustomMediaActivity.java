@@ -42,17 +42,14 @@ public class MainCustomMediaActivity extends AppCompatActivity {
         exoPlayerManager.setTitle("自定义视频标题");
         //设置加载显示模式
         exoPlayerManager.setLoadModel(LoadModelType.SPEED);
-        //
         //http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd
        // MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse("rtsp://183.207.208.80:554/live_rtsp?source=025200060360101:1&user=025300000002499&session=no&device=025200060360101&timestamp=20171117110042&encrypt=5b601c621c6a9db0cb2dabf3a6ff9205"));
         //mediaSourceBuilder.setMediaSource(source);
         //LoopingMediaSource loopingSource = new LoopingMediaSource(source, 2);
          mediaSourceBuilder.setMediaUri(Uri.parse(getString(R.string.uri_test)),Uri.parse(getString(R.string.uri_test)),Uri.parse(getString(R.string.uri_test)),Uri.parse(getString(R.string.uri_test)));
-
-
         exoPlayerManager.startPlayer();
         Glide.with(this)
-                .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
+                .load(getString(R.string.uri_test_image))
                 .placeholder(R.mipmap.test)
                 .fitCenter()
                 .into(videoPlayerView.getPreviewImage());

@@ -68,7 +68,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
             }
         });
         Glide.with(this)
-                .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
+                .load(getString(R.string.uri_test_image))
                 .placeholder(R.mipmap.test)
                 .fitCenter()
                 .into(videoPlayerView.getPreviewImage());

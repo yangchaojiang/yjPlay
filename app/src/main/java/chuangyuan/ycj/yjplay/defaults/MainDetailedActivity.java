@@ -45,7 +45,7 @@ public class MainDetailedActivity extends Activity {
         // exoPlayerManager.setPosition(1000);
         // exoPlayerManager.setPlayUri(getString(R.string.uri_test_3),getString(R.string.uri_test_h));
         // exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4");
-        String[] test = {getString(R.string.uri_test_1), getString(R.string.uri_test_1), getString(R.string.uri_test_1)};
+        String[] test = {getString(R.string.uri_test_9), getString(R.string.uri_test_9), getString(R.string.uri_test_9)};
         String[] name = {"超清", "高清", "标清"};
 //        //开启线路设置
         exoPlayerManager.setShowVideoSwitch(true);
@@ -87,7 +87,7 @@ public class MainDetailedActivity extends Activity {
         //exoPlayerManager.setPlaybackParameters(2f,2f);
         // videoPlayerView.getPreviewImage().setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(this)
-                .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
+                .load(getString(R.string.uri_test_image))
                 .fitCenter()
                 .placeholder(R.mipmap.test)
                 .into(videoPlayerView.getPreviewImage());

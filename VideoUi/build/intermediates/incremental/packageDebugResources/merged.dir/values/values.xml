@@ -125,14 +125,13 @@
     <style name="exo_text_switch">
         <item name="android:id">@id/exo_video_switch</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">70dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">0</item>
         <item name="android:background">@null</item>
         <item name="android:contentDescription">@null</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_marginLeft">-20dp</item>
         <item name="android:textColor">@color/exo_exo_video_switch_selector</item>
         <item name="android:visibility">gone</item>
     </style>

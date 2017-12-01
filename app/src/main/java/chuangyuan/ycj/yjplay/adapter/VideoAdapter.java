@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.bumptech.glide.Glide;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -22,18 +23,22 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     private Context mContext;
     private List<String> mVideoList;
     RecyclerArrayAdapter.OnItemClickListener onItemClickListener;
+
     public VideoAdapter(Context context, List<String> videoList) {
         mContext = context;
         mVideoList = videoList;
     }
+
     public VideoAdapter(Context context) {
         mContext = context;
         mVideoList = new ArrayList<>();
     }
+
     @Override
     public int getItemCount() {
         return mVideoList.size();
     }
+
     @Override
     public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_video1, parent, false);
@@ -57,6 +62,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     public class VideoViewHolder extends RecyclerView.ViewHolder {
         ManualPlayer userPlayer;
         VideoPlayerView playerView;
+
         public VideoViewHolder(View itemView) {
             super(itemView);
             playerView = (VideoPlayerView) itemView.findViewById(R.id.exo_play_context_id);
@@ -73,7 +79,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             userPlayer.setTitle("" + getAdapterPosition());
             userPlayer.setPlayUri(videoBean);
             Glide.with(mContext)
-                    .load("http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg")
+                    .load(mContext.getString(R.string.uri_test_image))
                     .placeholder(R.mipmap.test)
                     .into(playerView.getPreviewImage());
         }

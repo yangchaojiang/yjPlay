@@ -12,10 +12,6 @@
         "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\drawable-xxxhdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png"
     },
     {
-        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi-v4\\ic_chevron_left_white_48px.png",
-        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-xxxhdpi\\ic_chevron_left_white_48px.png"
-    },
-    {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi-v4\\abc_ic_star_half_black_36dp.png",
         "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\drawable-xxxhdpi-v4\\abc_ic_star_half_black_36dp.png"
     },
@@ -114,6 +110,10 @@
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi-v4\\abc_ic_star_black_36dp.png",
         "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\drawable-xxxhdpi-v4\\abc_ic_star_black_36dp.png"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi-v4\\ic_exo_back.png",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-xxxhdpi\\ic_exo_back.png"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi-v4\\abc_btn_check_to_on_mtrl_000.png",

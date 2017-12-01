@@ -41,7 +41,7 @@ public class VideoPlayerManager {
      **/
     public void releaseVideoPlayer() {
         if (mVideoPlayer != null) {
-            mVideoPlayer.reset();
+            mVideoPlayer.reset(false);
         }
     }
 

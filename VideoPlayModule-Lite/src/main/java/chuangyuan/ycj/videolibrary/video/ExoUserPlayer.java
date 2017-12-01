@@ -112,6 +112,7 @@ public class ExoUserPlayer {
     boolean isLoad = false;
     /*** 如果DRM得到保护，可能是null ***/
     private DrmSessionManager<FrameworkMediaCrypto> drmSessionManager;
+
     /****
      * 初始化
      * @param activity   活动对象
@@ -346,9 +347,6 @@ public class ExoUserPlayer {
         if (player == null) {
             player = createFullPlayer();
         }
-        if (mPlayerViewListener != null) {
-            mPlayerViewListener.showPreview(View.GONE);
-        }
         boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
         if (haveResumePosition) {
             player.seekTo(resumeWindow, resumePosition);
@@ -363,8 +361,12 @@ public class ExoUserPlayer {
         } else {
             player.prepare(mediaSourceBuilder.setLooping(loopingCount), !haveResumePosition, false);
         }
-        getPlayerViewListener().setControllerHideOnTouch(true);
         player.addListener(componentListener);
+        if (mPlayerViewListener != null) {
+            mPlayerViewListener.showPreview(View.GONE);
+            mPlayerViewListener.hideController(false);
+            mPlayerViewListener.setControllerHideOnTouch(true);
+        }
         isEnd = false;
         isLoad = true;
     }
@@ -469,6 +471,7 @@ public class ExoUserPlayer {
     public <T extends ItemVideo> void setPlayUri(@NonNull List<T> uris) {
         mediaSourceBuilder.setMediaUri(uris);
     }
+
     /***
      * 是否播放中
      * @return boolean
@@ -790,12 +793,12 @@ public class ExoUserPlayer {
      ***/
     private class NetworkBroadcastReceiver extends BroadcastReceiver {
         long is = 0;
-
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (null != action && action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
                 ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                assert mConnectivityManager != null;
                 NetworkInfo netInfo = mConnectivityManager.getActiveNetworkInfo();
                 if (netInfo != null && netInfo.isAvailable()) {
                     if (netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
@@ -839,6 +842,7 @@ public class ExoUserPlayer {
 
         @Override
         public void switchUri(int position, String name) {
+            handPause = false;
             mediaSourceBuilder.setMediaUri(Uri.parse(mediaSourceBuilder.getVideoUri().get(position)));
             updateResumePosition();
             onPlayNoAlertVideo();
@@ -854,6 +858,19 @@ public class ExoUserPlayer {
         public ExoUserPlayer getPlay() {
             return ExoUserPlayer.this;
         }
+
+        @Nullable
+        @Override
+        public String getSwitchName() {
+            return mediaSourceBuilder == null ? "" : mediaSourceBuilder.getItemName();
+        }
+
+        @Nullable
+        @Override
+        public List<String> getSwitchList() {
+            return mediaSourceBuilder == null ? null : mediaSourceBuilder.getNameUri();
+        }
+
 
         @Override
         public void onBack() {

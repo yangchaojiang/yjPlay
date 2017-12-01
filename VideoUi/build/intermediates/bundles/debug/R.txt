@@ -560,7 +560,7 @@ int drawable exo_edit_mode_logo 0x7f090061
 int drawable exo_error_bg 0x7f090062
 int drawable ic_black 0x7f090063
 int drawable ic_brightness_6_white_48px 0x7f090064
-int drawable ic_chevron_left_white_48px 0x7f090065
+int drawable ic_exo_back 0x7f090065
 int drawable ic_exo_pause 0x7f090066
 int drawable ic_exo_start 0x7f090067
 int drawable ic_fullscreen_exit_white 0x7f090068

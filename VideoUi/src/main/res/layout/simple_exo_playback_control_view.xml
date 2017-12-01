@@ -94,7 +94,9 @@
             android:textSize="12sp"
             tools:text="30:12" />
 
-        <TextView style="@style/exo_text_switch" />
+        <TextView style="@style/exo_text_switch"
+            tools:text=" 超清"
+            />
     </LinearLayout>
 
 </RelativeLayout>

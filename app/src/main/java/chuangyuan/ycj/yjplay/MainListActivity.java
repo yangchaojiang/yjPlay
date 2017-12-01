@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class MainListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(MainListActivity.class.getName(),"onCreate");
+        Log.d(MainListActivity.class.getName(), "onCreate");
         setContentView(R.layout.activity_list);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,20 +63,24 @@ public class MainListActivity extends AppCompatActivity {
         adapter.bindToRecyclerView(easyRecyclerView);
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            if (Build.VERSION.SDK_INT<21) {//低版本不支持高分辨视频
-                list.add("http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4");
-            }else {
-            if (i%5==0){
-                list.add("http://mp4.vjshi.com/2017-08-16/af83af63d018816474067b51a835f4a2.mp4");
-            }else if (i%5==1){
-                list.add("http://mp4.vjshi.com/2017-06-17/f57dd833c4dbc3eabf17ba0f0bfaf746.mp4");
-            }else if (i%5==2){
-                list.add("http://mp4.vjshi.com/2017-10-19/53bfeb9eb92c1748596eaf2a1e649020.mp4");
-            }else if (i%5==3){
-                list.add("http://mp4.vjshi.com/2016-10-23/a0511ea830bb0620f94a5340a1879800.mp4");
-            }else if (i%5==4){
-                list.add("http://mp4.vjshi.com/2016-10-21/84bafe60ef0af95a5292f66b9f692504.mp4");
-            }
+            if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
+                list.add(getString(R.string.uri_test_3));
+            } else {
+                if (i % 7 == 0) {
+                    list.add(getString(R.string.uri_test_1));
+                } else if (i % 7 == 1) {
+                    list.add(getString(R.string.uri_test_10));
+                } else if (i % 7 == 2) {
+                    list.add(getString(R.string.uri_test_5));
+                } else if (i % 7 == 3) {
+                    list.add(getString(R.string.uri_test_6));
+                } else if (i % 7 == 4) {
+                    list.add(getString(R.string.uri_test_7));
+                } else if (i % 7 == 5) {
+                    list.add(getString(R.string.uri_test_9));
+                } else if (i % 7 == 6) {
+                    list.add(getString(R.string.uri_test_8));
+                }
             }
         }
         adapter.addData(list);
@@ -85,7 +90,7 @@ public class MainListActivity extends AppCompatActivity {
                 int firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
                 if (position - firstItemPosition >= 0) {
                     //得到要更新的item的view
-                    start(view,adapter.getItem(position).toString());
+                    start(view, adapter.getItem(position).toString());
 
                 }
             }
@@ -106,13 +111,12 @@ public class MainListActivity extends AppCompatActivity {
 
     }
 
-    private void start(View view,String uri) {
+    private void start(View view, String uri) {
         //进入详细暂停视频
         long currPosition = 0;
         ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
         if (manualPlayer != null) {
-            manualPlayer.setStartOrPause(false);
-            currPosition =manualPlayer.getCurrentPosition();
+            currPosition = manualPlayer.getCurrentPosition();
         }
         Log.d("currPosition", currPosition + "");
         Intent intent = new Intent(MainListActivity.this, MainListInfoCustomActivity.class);
@@ -126,7 +130,7 @@ public class MainListActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        Log.d(MainListActivity.class.getName(),"onPause");
+        Log.d(MainListActivity.class.getName(), "onPause");
         super.onPause();
         VideoPlayerManager.getInstance().onPause();
     }
@@ -138,16 +142,17 @@ public class MainListActivity extends AppCompatActivity {
     }
 
     long st;
+
     @Override
     protected void onDestroy() {
         VideoPlayerManager.getInstance().onDestroy();
         super.onDestroy();
-        Log.d(MainListActivity.class.getName(),"耗时："+(System.currentTimeMillis()-st));
+        Log.d(MainListActivity.class.getName(), "耗时：" + (System.currentTimeMillis() - st));
     }
 
     @Override
     public void onBackPressed() {
-        st=System.currentTimeMillis();
+        st = System.currentTimeMillis();
         if (VideoPlayerManager.getInstance().onBackPressed()) {
             finish();
         }
@@ -158,14 +163,15 @@ public class MainListActivity extends AppCompatActivity {
         VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 10 && resultCode == RESULT_OK && data != null) {
             boolean isEnd = data.getBooleanExtra("isEnd", false);
             if (!isEnd) {
                 long currPosition = data.getLongExtra("currPosition", 0);
-                ManualPlayer manualPlayer= VideoPlayerManager.getInstance().getVideoPlayer();
-                if (manualPlayer!=null) {
+                ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
+                if (manualPlayer != null) {
                     manualPlayer.setPosition(currPosition);
                 }
             }

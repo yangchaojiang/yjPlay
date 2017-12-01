@@ -1,6 +1,11 @@
 package chuangyuan.ycj.videolibrary.listener;
 
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import java.util.List;
+
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
@@ -50,4 +55,14 @@ public interface ExoPlayerListener {
      * **/
     ExoUserPlayer getPlay();
 
+    /***
+     * @return String
+     * **/
+    @Nullable
+    String getSwitchName();
+    /***
+     * @return String
+     * **/
+    @Nullable
+    List<String> getSwitchList();
 }

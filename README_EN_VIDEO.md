@@ -1,20 +1,27 @@
  ## 加密视频
  ### 一.使用自带缓存加密
   1. 实现DataSourceListener 接口  如下:
+  
+   >>默认:   new DefaultCacheDataSourceFactory(context,100000000,"1234567887654321".getBytes(),eventListener);
+   
+   >>自定义:  new CacheDataSourceFactory(simpleCache, new JDefaultDataSourceFactory(context),0,4 * 1024 * 1024);
+ 
+   2.代码实例
  ````
 public class OfficeDataSource implements DataSourceListener {
     public static final String TAG = "OfficeDataSource";
     private CacheDataSource.EventListener eventListener;
     private Context context;
-
     public OfficeDataSource(Context context, CacheDataSource.EventListener eventListener) {
         this.context = context;
         this.eventListener = eventListener;
     }
-     
     @Override
     public DataSource.Factory getDataSourceFactory() {
-        LeastRecentlyUsedCacheEvictor evictor = new LeastRecentlyUsedCacheEvictor(1024 * 1024);
+          //采用默认
+          return new DefaultCacheDataSourceFactory(context,100000000,"1234567887654321".getBytes(),eventListener);
+        //自定义配置
+        LeastRecentlyUsedCacheEvictor evictor = new LeastRecentlyUsedCacheEvictor(1024*1024*1024 * 1024);
         SimpleCache simpleCache = new SimpleCache
                 //设置你缓存目录
                 (new File(context.getExternalCacheDir(), "media"),
@@ -28,43 +35,18 @@ public class OfficeDataSource implements DataSourceListener {
                 //设置下载数据加载工厂类
                 new JDefaultDataSourceFactory(context),
                 //设置缓存标记
-                CacheDataSource.FLAG_BLOCK_ON_CACHE | CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR,
+                0,
                 //最大缓存文件大小,不填写 默认2m 
                  4 * 1024 * 1024);
-                 
-        //或者 如果需要监听事件
-        return new CacheDataSourceFactory(simpleCache,
-                //设置下载数据加载工厂类
-                new JDefaultDataSourceFactory(context),
-                //缓存读取数据源工厂
-                new FileDataSourceFactory(),
-                //缓存数据接收器的工厂
-                new CacheDataSinkFactory(simpleCache, CacheDataSource.DEFAULT_MAX_CACHE_FILE_SIZE),
-                //设置缓存标记
-                CacheDataSource.FLAG_BLOCK_ON_CACHE | CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR,
-                //设置缓存监听事件
-                eventListener);
+         
     }
  }
  ````
  2.使用,自动缓存你服务器视频资源。
  ````
- //实例化播放器控制类,传入您自定义数据实例
-  exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView,
-                 new OfficeDataSource(this));
- ````
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+  //实例化播放器控制类,传入您自定义数据实例
+  exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView,new OfficeDataSource(this,null));
+ ```` 
  
  ### 二.自定义AES加密视频
   1.实例化解密数据源
@@ -113,57 +95,7 @@ public class EnctyptDataSource implements DataSourceListener {
 //加密输出流 
   CipherOutputStream cipherOutputStream = new CipherOutputStream(fos, mCipher);
 ````
- ### 三.简单加密(不推荐,不安全)
-  1.实例化解密数据源
-```
-public class EnctyptDataSource3 implements DataSourceListener {
-    public static final String TAG = "DataSource";
-
-    private Context context;
-    private String  keyBody;
-
-    /***
-     * @param context context
-     * @param    keyBody 你的视频文件key内容
-     * ***/
-    public EnctyptDataSource3(Context context, String  keyBody) {
-        this.context = context;
-        this. keyBody=  keyBody;
-    }
-
-    @Override
-    public com.google.android.exoplayer2.upstream.DataSource.Factory getDataSourceFactory() {
-        //初始化解密工厂类
-        return new EncryptedFileDataSourceFactory(context,keyBody);
-    }
-}
-
-```
-2.使用
-````
-//实例化你加密解密类
- exoPlayerManager = new ExoUserPlayer(this, mSimpleExoPlayerView, new EnctyptDataSource3(this,keyBody));
- //传入你加密视频路径
-  Uri uri = Uri.fromFile(mEncryptedFile);
-  exoPlayerManager.setPlayUri(uri);
-  exoPlayerManager.startPlayer();
-````
-3.加密处理注意
->>注意：必须放在创建文件时将你key写入文件里。
-````
-   //生成一个带有key视频文件
-   Test.writeFile(mFile.getAbsolutePath(), keyBodys.getBytes("UTF-8"), 0, keyBodys.getBytes("UTF-8").length, false);
-   //下载视频 
-    while ((readCount = inputStream.read(buffer)) != -1) {
-                   // 处理下载的数据
-                   Test.writeFile(mFile.getAbsolutePath(), buffer, 0, readCount, true);
-                   total = total + readCount;
-                   pro=(int) (total * 100 / length);
-                   System.out.println("字节" + total + "总共长度" + length + "--进度：" + pro);
-    publishProgress(pro);
-    }
-   
-````
+ ### 三.使用自定义下载加密查看demo[OfficeDetailedActivity实例]()
 
 
 

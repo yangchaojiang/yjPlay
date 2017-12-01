@@ -12,15 +12,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import java.util.Arrays;
+import java.util.List;
+
 import chuangyuan.ycj.videolibrary.R;
 
 
 /**
- *
  * @author yangc
- * date 2017/7/19
- * E-Mail:yangchaojiang@outlook.com
- * Deprecated:  多线路浮层
+ *         date 2017/7/19
+ *         E-Mail:yangchaojiang@outlook.com
+ *         Deprecated:  多线路浮层
  */
 
 public class BelowView {
@@ -31,19 +33,22 @@ public class BelowView {
     private ListView listView;
     private OnItemClickListener onItemClickListener;
 
-    public BelowView(@NonNull Context c) {
+    public BelowView(@NonNull Context c, @Nullable List<String> listName) {
         this.context = c;
-        this.convertView = View.inflate(c, R.layout.simple_exo_belowview,null);
-        String[] data = c.getResources().getStringArray(R.array.exo_video_switch_text);
+        this.convertView = View.inflate(c, R.layout.simple_exo_belowview, null);
         listView = (ListView) convertView.findViewById(R.id.list_item);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(c, R.layout.simple_exo_belowview_item, data);
+        if (listName == null) {
+            listName = Arrays.asList(c.getResources().getStringArray(R.array.exo_video_switch_text));
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(c, R.layout.simple_exo_belowview_item, listName);
         listView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         listView.setAdapter(adapter);
     }
+
     public void showBelowView(@NonNull View view, boolean canceledOnTouchOutside) {
         if (pw == null) {
-            int sss = (int) context.getResources().getDimension(R.dimen.dp30) * listView.getAdapter().getCount() + 40;
-            this.pw = new PopupWindow(convertView, ViewGroup.LayoutParams.WRAP_CONTENT, sss, true);
+            int height = (int) context.getResources().getDimension(R.dimen.dp30) * listView.getAdapter().getCount() + 40;
+            this.pw = new PopupWindow(convertView, ViewGroup.LayoutParams.WRAP_CONTENT, height, true);
             this.pw.setOutsideTouchable(canceledOnTouchOutside);
             if (this.animationStyle != 0) {
                 this.pw.setAnimationStyle(this.animationStyle);
@@ -60,7 +65,7 @@ public class BelowView {
                 });
             }
         }
-        this.pw.showAsDropDown(view, -view.getWidth() / 4 - 20, 0);
+        this.pw.showAsDropDown(view, -view.getWidth() / 4, 0);
     }
 
     public void setAnimation(@AnimatorRes int animationStyle) {

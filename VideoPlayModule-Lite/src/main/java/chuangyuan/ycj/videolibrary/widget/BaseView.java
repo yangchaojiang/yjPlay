@@ -71,13 +71,13 @@ abstract class BaseView extends FrameLayout {
      **/
     AppCompatImageView exoControlsBack;
     /***是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮***/
-    boolean isPreViewTop, isLand, isListPlayer, isShowVideoSwitch,isOpenLock;
+    boolean isPreViewTop, isLand, isListPlayer, isShowVideoSwitch, isOpenLock = true;
     /***标题左间距***/
     int getPaddingLeft;
     @DrawableRes
     int icFullscreenSelector = R.drawable.ic_fullscreen_selector;
     @DrawableRes
-    int icBackImage = R.drawable.ic_chevron_left_white_48px;
+    int icBackImage = R.drawable.ic_exo_back;
 
     public BaseView(@NonNull Context context) {
         this(context, null);
@@ -103,10 +103,10 @@ abstract class BaseView extends FrameLayout {
     protected void intiView() {
         exoControlsBack = new AppCompatImageView(getContext());
         exoControlsBack.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        int ss=VideoPlayUtils.dip2px(getContext(), 5f);
+        int ss = VideoPlayUtils.dip2px(getContext(), 7f);
         exoControlsBack.setId(R.id.exo_controls_back);
-        exoControlsBack.setImageDrawable(ContextCompat.getDrawable(getContext(),icBackImage));
-        exoControlsBack.setPadding(ss,ss,ss,ss);
+        exoControlsBack.setImageDrawable(ContextCompat.getDrawable(getContext(), icBackImage));
+        exoControlsBack.setPadding(ss, ss, ss, ss);
         FrameLayout frameLayout = playerView.getContentFrameLayout();
         frameLayout.setBackgroundColor(ContextCompat.getColor(activity, android.R.color.black));
         exoPlayErrorLayout.setVisibility(GONE);
@@ -128,7 +128,7 @@ abstract class BaseView extends FrameLayout {
         frameLayout.addView(playBtnHintLayout, frameLayout.getChildCount());
         frameLayout.addView(exoLoadingLayout, frameLayout.getChildCount());
         frameLayout.addView(exoPlayLockLayout, frameLayout.getChildCount());
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(VideoPlayUtils.dip2px(getContext(), 36f), VideoPlayUtils.dip2px(getContext(), 36f));
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(VideoPlayUtils.dip2px(getContext(), 35f), VideoPlayUtils.dip2px(getContext(), 35f));
         frameLayout.addView(exoControlsBack, frameLayout.getChildCount(), layoutParams);
         exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_player_watermark);
         controlsTitleText = playerView.getUserControllerView().getControlsTitleText();
@@ -217,70 +217,12 @@ abstract class BaseView extends FrameLayout {
     }
 
     /***
-     * 设置是横屏,竖屏
-     *
-     * @param newConfig 旋转对象
-     */
-    void doOnConfigurationChanged(int newConfig) {
-        Log.d(TAG, "doOnConfigurationChanged:" + newConfig);
-        //横屏
-        if (newConfig == Configuration.ORIENTATION_LANDSCAPE) {
-            if (isLand) {
-                return;
-            }
-            isLand = true;
-            VideoPlayUtils.hideActionBar(activity);
-            this.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-            //判断是否开启多线路支持
-            if (isShowVideoSwitch) {
-                videoSwitchText.setVisibility(VISIBLE);
-            }
-            //是否列表
-            if (isListPlayer()) {
-                exoControlsBack.setVisibility(VISIBLE);
-                getPaddingLeft = controlsTitleText.getPaddingLeft();
-                controlsTitleText.setPadding(VideoPlayUtils.dip2px(getContext(), 40), 0, 0, 0);
-            }
-            lockCheckBox.setChecked(false);
-            //显示锁屏按钮
-            showLockState(VISIBLE);
-            //显更改全屏按钮选中，自动旋转屏幕
-            exoFullscreen.setChecked(true);
-        } else {//竖屏
-            if (!isLand) {
-                return;
-            }
-            isLand = false;
-            this.setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            VideoPlayUtils.showActionBar(activity);
-            //多线路支持隐藏
-            if (videoSwitchText != null) {
-                videoSwitchText.setVisibility(GONE);
-            }
-            //列表播放
-            if (isListPlayer()) {
-                showBackView(GONE);
-                controlsTitleText.setPadding(getPaddingLeft, 0, 0, 0);
-            }
-            //隐藏锁屏按钮移除
-            showLockState(GONE);
-            //更改全屏按钮选中，自动旋转屏幕
-            exoFullscreen.setChecked(false);
-        }
-        scaleLayout(newConfig);
-
-    }
-
-    /***
      * 设置内容横竖屏内容
      *
      * @param newConfig 旋转对象
      */
 
-    private void scaleLayout(int newConfig) {
-        if (playerView.getPlayer() != null) {
-            playerView.getPlayer().setPlayWhenReady(false);
-        }
+    protected void scaleLayout(int newConfig) {
         if (newConfig == Configuration.ORIENTATION_PORTRAIT) {
             ViewGroup parent = (ViewGroup) playerView.getParent();
             if (parent != null) {
@@ -300,9 +242,6 @@ abstract class BaseView extends FrameLayout {
             );
             contentView.addView(playerView, params);
         }
-        if (playerView.getPlayer() != null) {
-            playerView.getPlayer().setPlayWhenReady(true);
-        }
     }
 
     /***
@@ -311,20 +250,20 @@ abstract class BaseView extends FrameLayout {
      * @param visibility 状态
      ***/
     protected void showLockState(int visibility) {
-        Assertions.checkState(exoPlayLockLayout != null);
-        if (isLand) {
-            if (lockCheckBox.isChecked()) {
-                if (visibility == View.VISIBLE) {
-                    playerView.getUserControllerView().hideNo();
-                    showBackView(GONE);
-                    showFullscreenView(GONE);
-                }
-            } else
-                exoPlayLockLayout.setVisibility(visibility);
-        } else {
-            exoPlayLockLayout.setVisibility(GONE);
-        }
-
+      if (exoPlayLockLayout!=null) {
+          if (isLand) {
+              if (lockCheckBox.isChecked()) {
+                  if (visibility == View.VISIBLE) {
+                      playerView.getUserControllerView().hideNo();
+                      showBackView(GONE);
+                      showFullscreenView(GONE);
+                  }
+              } else
+                  exoPlayLockLayout.setVisibility(visibility);
+          } else {
+              exoPlayLockLayout.setVisibility(GONE);
+          }
+      }
     }
 
 
@@ -409,7 +348,7 @@ abstract class BaseView extends FrameLayout {
             return;
         }
         if (isPreViewTop) {
-            exoFullscreen.setVisibility(getPreviewImage().getVisibility() == VISIBLE ? GONE : visibility);
+            exoFullscreen.setVisibility(getPreviewImage().getVisibility() == VISIBLE?GONE:visibility);
         } else {
             exoFullscreen.setVisibility(visibility);
         }
@@ -507,7 +446,8 @@ abstract class BaseView extends FrameLayout {
 
     /**
      * 设置全屏按钮样式
-     *@param  icFullscreenStyle  全屏按钮样式
+     *
+     * @param icFullscreenStyle 全屏按钮样式
      **/
     public void setFullscreenStyle(@DrawableRes int icFullscreenStyle) {
         this.icFullscreenSelector = icFullscreenStyle;
@@ -515,13 +455,16 @@ abstract class BaseView extends FrameLayout {
             exoFullscreen.setButtonDrawable(icFullscreenStyle);
         }
     }
+
     /**
      * 设置开启开启锁屏功能
-     *@param  openLock  默认 true 开启   false 不开启
+     *
+     * @param openLock 默认 true 开启   false 不开启
      **/
     public void setOpenLock(boolean openLock) {
         isOpenLock = openLock;
     }
+
     /****
      * 获取控制类
      *

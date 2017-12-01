@@ -1101,11 +1101,11 @@ public class PlaybackControlView extends FrameLayout {
     public void showNo() {
         updateAll();
         requestPlayPauseFocus();
-        if (player != null) {
-            controlDispatcher.dispatchSetPlayWhenReady(player, false);
-        }
+        controlDispatcher.dispatchSetPlayWhenReady(player, false);
         removeCallbacks(updateProgressAction);
         removeCallbacks(hideAction);
+        controlsTitleText.setAlpha(1f);
+        controlsTitleText.setTranslationY(0);
         if (!isVisible()) {
             setVisibility(VISIBLE);
         }

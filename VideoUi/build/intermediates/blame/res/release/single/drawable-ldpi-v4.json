@@ -1,9 +1,5 @@
 [
     {
-        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_chevron_left_white_48px.png",
-        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_chevron_left_white_48px.png"
-    },
-    {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_lock_open.png",
         "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_lock_open.png"
     },
@@ -34,6 +30,10 @@
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_lock_closed.png",
         "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_lock_closed.png"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_exo_back.png",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_exo_back.png"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_fullscreen_exit_white.png",

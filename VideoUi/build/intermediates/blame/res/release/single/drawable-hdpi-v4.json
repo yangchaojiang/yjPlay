@@ -8,10 +8,6 @@
         "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
     },
     {
-        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ic_chevron_left_white_48px.png",
-        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-hdpi\\ic_chevron_left_white_48px.png"
-    },
-    {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ic_volume_up_white_48px.png",
         "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-hdpi\\ic_volume_up_white_48px.png"
     },
@@ -142,6 +138,10 @@
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\exo_controls_rewind.png",
         "source": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-hdpi\\exo_controls_rewind.png"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ic_exo_back.png",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-hdpi\\ic_exo_back.png"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\exo_controls_repeat_all.png",
