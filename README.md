@@ -16,7 +16,7 @@
    * 3 ManualPlayer   可自定义触发播放。
    * 5 广告视频预览(轻松实现，完美切换)。
    * 6 视频清晰度切换。
-   * 7 缓存下载加密视频功能（边播变缓存轻松实现）。
+   * 7 [缓存下载加密视频功能（边播变缓存轻松实现](README_EN_VIDEO.md)。
    * 8 支持自定义多种 Okttp,Rtmp,Https,Cronet等协议。
    * 9 支持列表集合数据播放视频（完美切换）
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
@@ -33,7 +33,7 @@
    * 21 支持播放锁屏功能和控制动画效果，返回按钮和全屏按钮图标自定义。
  <!--more-->
 
- ### [更新日志1.9.6→》戳我查看](RELEASENOTES.md)
+ ### [更新日志1.9.8→》戳我查看](RELEASENOTES.md)
  
  ### 一.引用类库
   ````

@@ -1,5 +1,5 @@
  ## 更新日志
- ### 1.9.7
+ ### 1.9.8
    * 1.增加离线下载助手(支持加密处理)。
    * 2.增加锁屏功能和控住布局显示和隐藏动画效果。
    * 3.升级内核版本[2.6.0](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#260)
