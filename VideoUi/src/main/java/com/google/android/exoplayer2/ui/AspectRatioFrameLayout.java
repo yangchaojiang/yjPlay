@@ -17,7 +17,9 @@ package com.google.android.exoplayer2.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.support.annotation.IntDef;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import java.lang.annotation.Retention;
@@ -70,6 +72,7 @@ public final class AspectRatioFrameLayout extends FrameLayout {
 
   private float videoAspectRatio;
   private int resizeMode;
+  private  int unappliedRotationDegrees;
 
   public AspectRatioFrameLayout(Context context) {
     this(context, null);
@@ -94,9 +97,10 @@ public final class AspectRatioFrameLayout extends FrameLayout {
    *
    * @param widthHeightRatio The width to height ratio.
    */
-  public void setAspectRatio(float widthHeightRatio) {
+  public void setAspectRatio(float widthHeightRatio,  int unappliedRotationDegrees) {
     if (this.videoAspectRatio != widthHeightRatio) {
       this.videoAspectRatio = widthHeightRatio;
+      this.unappliedRotationDegrees=unappliedRotationDegrees;
       requestLayout();
     }
   }
@@ -136,7 +140,10 @@ public final class AspectRatioFrameLayout extends FrameLayout {
       // We're within the allowed tolerance.
       return;
     }
-
+    if (Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP&&getTag()==null){
+      setRotation(unappliedRotationDegrees);
+      this.setTag(true);
+    }
     switch (resizeMode) {
       case RESIZE_MODE_FIXED_WIDTH:
         height = (int) (width / videoAspectRatio);

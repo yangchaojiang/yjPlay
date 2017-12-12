@@ -1,9 +1,9 @@
 package chuangyuan.ycj.videolibrary.video;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
-import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +18,7 @@ import android.view.WindowManager;
 
 import com.google.android.exoplayer2.C;
 
+import java.lang.ref.WeakReference;
 import java.util.Formatter;
 import java.util.Locale;
 
@@ -30,12 +31,12 @@ import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
- * @author yangc
- *         date 2017/2/28
- *         E-Mail:1007181167@qq.com
- *         Description：增加手势播放器
+ * author yangc
+ * date 2017/2/28
+ * E-Mail:1007181167@qq.com
+ * Description：增加手势播放器
  */
-public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchListener {
+public class GestureVideoPlayer extends ExoUserPlayer {
     private static final String TAG = GestureVideoPlayer.class.getName();
     /***音量的最大值***/
     private int mMaxVolume;
@@ -48,7 +49,7 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     /*** 音量管理 ***/
     private AudioManager audioManager;
     /*** 手势操作管理 ***/
-    private GestureDetector gestureDetector;
+    private final GestureDetector gestureDetector;
     /*** 屏幕最大宽度 ****/
     private int screenWidthPixels;
     /***格式字符 ****/
@@ -78,67 +79,28 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         super(activity, playerView, listener);
         intiViews();
+        gestureDetector = new GestureDetector(activity, new PlayerGestureListener(this));
     }
 
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
         super(activity, mediaSourceBuilder, playerView);
         intiViews();
+        gestureDetector = new GestureDetector(activity, new PlayerGestureListener(this));
     }
-
 
     private void intiViews() {
         formatBuilder = new StringBuilder();
         formatter = new Formatter(formatBuilder, Locale.getDefault());
         audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
+        assert audioManager != null;
         mMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
-        getGestureDetector();
-    }
-
-    private GestureDetector getGestureDetector() {
-        if (gestureDetector == null) {
-            gestureDetector = new GestureDetector(activity, new PlayerGestureListener());
-        }
-        return gestureDetector;
     }
 
     @Override
     public void onPlayNoAlertVideo() {
         super.onPlayNoAlertVideo();
-        getPlayerViewListener().setPlatViewOnTouchListener(this);
-    }
-
-    /***
-     * 设置手势touch 事件
-     * @param  controllerHideOnTouch true 启用  false 关闭
-     * ***/
-    public void setPlayerGestureOnTouch(boolean controllerHideOnTouch) {
-        this.controllerHideOnTouch = controllerHideOnTouch;
-
-    }
-
-    @CallSuper
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (!controllerHideOnTouch) {
-            return false;
-        } else if (getPlayerViewListener().isLock()) {
-            return false;
-        } else if (!VideoPlayUtils.isLand(activity)) {
-            //竖屏不执行手势
-            return false;
-        }
-        if (getGestureDetector().onTouchEvent(event)) {
-            return true;
-        }
-        // 处理手势结束
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_UP:
-                endGesture();
-                break;
-            default:
-        }
-        return false;
+        getPlayerViewListener().setPlatViewOnTouchListener(listener);
     }
 
     /***
@@ -256,7 +218,6 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
     public void onDestroy() {
         super.onDestroy();
         audioManager = null;
-        gestureDetector = null;
         formatBuilder = null;
         if (formatter != null) {
             formatter.close();
@@ -265,6 +226,15 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         onGestureBrightnessListener = null;
         onGestureProgressListener = null;
         onGestureVolumeListener = null;
+        listener = null;
+    }
+
+    /***
+     * 设置手势touch 事件
+     * @param  controllerHideOnTouch true 启用  false 关闭
+     * ***/
+    public void setPlayerGestureOnTouch(boolean controllerHideOnTouch) {
+        this.controllerHideOnTouch = controllerHideOnTouch;
     }
 
     /***
@@ -291,6 +261,32 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         this.onGestureVolumeListener = onGestureVolumeListener;
     }
 
+    private View.OnTouchListener listener = new View.OnTouchListener() {
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (!controllerHideOnTouch) {
+                return false;
+            } else if (getPlayerViewListener().isLock()) {
+                return false;
+            } else if (!VideoPlayUtils.isLand(activity)) {
+                //竖屏不执行手势
+                return false;
+            }
+            if (gestureDetector != null && gestureDetector.onTouchEvent(event)) {
+                return true;
+            }
+            // 处理手势结束
+            switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_UP:
+                    endGesture();
+                    break;
+                default:
+            }
+            return false;
+        }
+    };
+
     /****
      * 手势监听类
      *****/
@@ -298,6 +294,11 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
         private boolean firstTouch;
         private boolean volumeControl;
         private boolean toSeek;
+        private WeakReference<GestureVideoPlayer> weakReference;
+
+        private PlayerGestureListener(GestureVideoPlayer gestureVideoPlayer) {
+            weakReference = new WeakReference<>(gestureVideoPlayer);
+        }
 
         @Override
         public boolean onDoubleTap(MotionEvent e) {
@@ -315,6 +316,9 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
          */
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            if (null == weakReference || weakReference.get() == null) {
+                return false;
+            }
             float mOldX = e1.getX(), mOldY = e1.getY();
             float deltaY = mOldY - e2.getY();
             float deltaX = mOldX - e2.getX();
@@ -345,5 +349,4 @@ public class GestureVideoPlayer extends ExoUserPlayer implements View.OnTouchLis
             return super.onScroll(e1, e2, distanceX, distanceY);
         }
     }
-
 }

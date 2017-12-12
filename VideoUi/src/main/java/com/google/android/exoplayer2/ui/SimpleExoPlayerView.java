@@ -270,6 +270,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         boolean controllerHideOnTouch = true;
         boolean controllerAutoShow = true;
         if (attrs != null) {
+
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
                     R.styleable.SimpleExoPlayerView, 0, 0);
             try {
@@ -505,7 +506,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         return useController;
     }
 
-    public PlaybackControlView getUserControllerView() {
+    public PlaybackControlView getControllerView() {
         return controller;
     }
 
@@ -819,7 +820,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         controller.show();
     }
 
-    private boolean isPlayingAd() {
+    public boolean isPlayingAd() {
         return player != null && player.isPlayingAd() && player.getPlayWhenReady();
     }
 
@@ -879,7 +880,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
             int bitmapHeight = bitmap.getHeight();
             if (bitmapWidth > 0 && bitmapHeight > 0) {
                 if (contentFrame != null) {
-                    contentFrame.setAspectRatio((float) bitmapWidth / bitmapHeight);
+                    contentFrame.setAspectRatio((float) bitmapWidth / bitmapHeight,0);
                 }
                 artworkView.setImageBitmap(bitmap);
                 artworkView.setVisibility(VISIBLE);
@@ -939,9 +940,10 @@ public final class SimpleExoPlayerView extends FrameLayout {
         @Override
         public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees,
                                        float pixelWidthHeightRatio) {
+            Log.d("SimpleExoPlayerView","unappliedRotationDegrees:"+unappliedRotationDegrees);
             if (contentFrame != null) {
                 float aspectRatio = height == 0 ? 1 : (width * pixelWidthHeightRatio) / height;
-                contentFrame.setAspectRatio(aspectRatio);
+               contentFrame.setAspectRatio(aspectRatio,unappliedRotationDegrees);
             }
         }
 

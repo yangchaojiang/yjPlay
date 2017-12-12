@@ -21,6 +21,9 @@
   <attr name="player_layout_id" format="reference"/>
   <attr name="controller_layout_id" format="reference"/>
   <attr name="show_shuffle_button" format="reference"/>
+  <!--设置按钮按钮样式-->
+  <attr name="player_fullscreen_image_selector" format="reference" />
+
   <attr name="repeat_toggle_modes">
     <flag name="none" value="0"/>
     <flag name="one" value="1"/>
@@ -47,7 +50,6 @@
   <declare-styleable name="AspectRatioFrameLayout">
     <attr name="resize_mode"/>
   </declare-styleable>
-
   <declare-styleable name="PlaybackControlView">
     <attr name="show_timeout"/>
     <attr name="rewind_increment"/>
@@ -55,6 +57,7 @@
     <attr name="repeat_toggle_modes"/>
     <attr name="controller_layout_id"/>
     <attr name="show_shuffle_button"/>
+    <attr name="player_fullscreen_image_selector"/>
   </declare-styleable>
 
   <declare-styleable name="DefaultTimeBar">

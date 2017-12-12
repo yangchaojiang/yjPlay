@@ -6,10 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- * @author yangc
- *         date 2017/2/27
- *         E-Mail:1007181167@qq.com
- *         Description： video播放列表控制类
+ * author yangc
+ * date 2017/2/27
+ * E-Mail:1007181167@qq.com
+ * Description： video播放列表控制类
  */
 public class VideoPlayerManager {
     private ManualPlayer mVideoPlayer;

@@ -216,11 +216,14 @@
          ManualPlayer exoPlayerManager = new ManualPlayer(this,videoPlayerView,new DataSource(this));
          //定义多媒体
          MediaSourceBuilder   mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
+         //集成smoothstreaming,dash,hls
+         WholeMediaSource   mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
+         
          ManualPlayer   exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
 
    3.设置视频标题
 
-          exoPlayerManager.setTitle("视频标题");
+          exoPlayerManager.setTitles("视频标题");
 
    4.添加水印图片
 
@@ -390,15 +393,17 @@
                  *绑定数据源
                  ***/
                   public void bindData(String videoBean) {
-                      userPlayer.setTitle("" + getAdapterPosition());
+                      userPlayer.setTitles("" + getAdapterPosition());
                       userPlayer.setPlayUri(videoBean);
                       Glide.with(mContext) .load("....") .into(playerView.getPreviewImage());
                   }
               }
      ````
-   >>注意adapter 实例请参考demo程序
+   >>注意 更多adapter 实例请参考demo程序
               
   2.列表播放周期方法 列表在Activity或者Fragment  实现相应周期方法
+  >> 在viewPager使用，不要在实现 Fragment onDestroy（）方法周期， onPause()也会释放资源。
+  >> onDestroy 用户页面销毁处理,不是释放资源.
 
                       protected void onPause() {
                           super.onPause();

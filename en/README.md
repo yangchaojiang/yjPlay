@@ -185,10 +185,10 @@
  ### 3.JAVA  
 
  > #### 1 Play control class
-    1.ExoUserPlayer Basic play the parent, implementation basic play, setPlayUri(); 
-    2.GestureVideoPlayer  The display (adjust the brightness and video progress, and volume)
-    2.ManualPlayer  Click on the start button to play, with gestures and playlists
-
+     ExoUserPlayer Basic play the parent, implementation basic play, setPlayUri(); 
+     GestureVideoPlayer  The display (adjust the brightness and video progress, and volume)
+     ManualPlayer  Click on the start button to play, with gestures and playlists
+     
  > #### 2 Play the code
          //instantiate the play control class
           ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
@@ -214,13 +214,13 @@
           ManualPlayer exoPlayerManager = new ManualPlayer(this,videoPlayerView);
 
    2.Customize your data source, and then detail how to customize the data source class
-
+         
          ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this));
          ManualPlayer exoPlayerManager = new ManualPlayer(this,videoPlayerView,new DataSource(this));
 
    3.Set the video title
 
-          exoPlayerManager.setTitle("视频标题");
+          exoPlayerManager.setTitles("Video title");
 
    4.Add watermark images
 
@@ -232,7 +232,7 @@
 
    6.Cover drawing
 
-           videoPlayerView.setPreviewImage(bimtap);或者 videoPlayerView.getPreviewImage())
+           videoPlayerView.setPreviewImage(bimtap);or videoPlayerView.getPreviewImage())
 
    7.Set the video path
 
@@ -248,7 +248,7 @@
           String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
           "http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
            http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
-           String[] name={"超清","高清","标清"};
+           String[] name={"super","high","standard"};
            exoPlayerManager.setPlaySwitchUri(test,name);
     
  
@@ -290,10 +290,9 @@
         exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText(MainCustomActivity.this,"定义点击播放事件",Toast.LENGTH_LONG).show();
-                                     //处理业务操作 完成后 
-                                    exoPlayerManager.startPlayer();//开始播放
-                      }
+                              //After the business operation is completed, start playing
+                              exoPlayerManager.startPlayer()
+            }
            }); 
    
    13.Set the Listener callback Video Info Listener
@@ -350,7 +349,8 @@
 
                 @Override
                 public void onConfigurationChanged(Configuration newConfig) {
-                    exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
+                   横竖屏切换
+                    exoPlayerManager.onConfigurationChanged(newConfig);//
                     super.onConfigurationChanged(newConfig);
                 }
 
@@ -396,7 +396,7 @@
                  *Bind data source
                  ***/
                   public void bindData(String videoBean) {
-                      userPlayer.setTitle("" + getAdapterPosition());
+                      userPlayer.setTitles("" + getAdapterPosition());
                       userPlayer.setPlayUri(videoBean);
                       Glide.with(mContext).load("http://..._960_540.jpg").into(playerView.getPreviewImage());
                   }

@@ -34,12 +34,6 @@ public interface VideoInfoListener {
      * **/
     void onPlayEnd();
 
-    /***
-     *模式发生改变
-     * @param  repeatMode  { int REPEAT_MODE_OFF = 0; int REPEAT_MODE_ONE = 1,REPEAT_MODE_ALL = 2}
-     * ***/
-    void onRepeatModeChanged(int repeatMode);
-
 /***
  *暂停还是播放
  * @param  playWhenReady  暂停还是播放

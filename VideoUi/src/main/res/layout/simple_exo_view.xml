@@ -51,16 +51,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|end"
         android:contentDescription="@null"
-        android:scaleType="fitCenter"
-        android:padding="7dp" />
+        android:padding="7dp"
+        android:scaleType="fitCenter" />
     <!--全屏-->
     <android.support.v7.widget.AppCompatCheckBox
-        android:id="@id/exo_video_fullscreen"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_gravity="bottom|right"
-        android:background="@null"
-        android:contentDescription="@null"
-        android:scaleType="fitCenter"
-        android:visibility="visible" />
+        android:id="@+id/sexo_video_fullscreen"
+        style="@style/ExoMediaButton.Fullscreen"
+        android:button="@null"
+        android:visibility="gone"
+        android:layout_gravity="bottom|right" />
 </merge>

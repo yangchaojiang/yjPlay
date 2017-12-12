@@ -10,10 +10,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
 
+import java.util.Arrays;
+
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
+import chuangyuan.ycj.videolibrary.widget.BelowView;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
@@ -23,6 +25,7 @@ public class MainDetailedActivity extends Activity {
     private ExoUserPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";
+    String[] test;
 
     @Override
 
@@ -45,21 +48,18 @@ public class MainDetailedActivity extends Activity {
         // exoPlayerManager.setPosition(1000);
         // exoPlayerManager.setPlayUri(getString(R.string.uri_test_3),getString(R.string.uri_test_h));
         // exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4");
-        String[] test = {getString(R.string.uri_test_9), getString(R.string.uri_test_9), getString(R.string.uri_test_9)};
-        String[] name = {"超清", "高清", "标清"};
+        test = new String[]{getString(R.string.uri_test_9), getString(R.string.uri_test_7), getString(R.string.uri_test_8)};
+         String[] name = {"超清", "高清", "标清"};
 //        //开启线路设置
         exoPlayerManager.setShowVideoSwitch(true);
-        exoPlayerManager.setPlaySwitchUri(test, name);
-        //exoPlayerManager.setPlayUri(getString(R.string.uri_test_1));
+        exoPlayerManager.setPlaySwitchUri(0,0,getString(R.string.uri_test_11), Arrays.asList(test),Arrays.asList(name));
         //exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.mp4");
-        //exoPlayerManager.setPlayUri(getString(R.string.url_hls));
         //开始启动播放视频
         //exoPlayerManager.startPlayer();
         // TestDataBean bean = new TestDataBean();
         // TestDataBean bean1 = new TestDataBean();
         //  List<TestDataBean> listss = new ArrayList<>();
        /* if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
-
             bean.setUri(getString(R.string.uri_test_3));
             bean1.setUri(getString(R.string.uri_test_h));
         } else {
@@ -112,10 +112,6 @@ public class MainDetailedActivity extends Activity {
                 Toast.makeText(getApplication(), "asd", Toast.LENGTH_SHORT).show();
             }
 
-            @Override
-            public void onRepeatModeChanged(int repeatMode) {
-
-            }
 
             @Override
             public void isPlaying(boolean playWhenReady) {
@@ -148,8 +144,8 @@ public class MainDetailedActivity extends Activity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
+        exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
     }
 
     @Override

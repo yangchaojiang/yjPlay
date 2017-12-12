@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+        android:id="@+id/exo_play_context_id"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@android:color/transparent"
+        app:controller_layout_id="@layout/simple_exo_playback_control_view"
+        app:player_layout_id="@layout/simple_exo_view"
+        app:player_replay_layout_id="@layout/custom_play_replay"
+        app:player_error_layout_id="@layout/custom_play_error"
+        app:player_hint_layout_id="@layout/custom_play_btn_hint"
+        app:player_load_layout_id="@layout/custom_exo_play_load"
+        app:player_gesture_audio_layout_id="@layout/custom_gesture_audio"
+        app:player_gesture_bright_layout_id="@layout/custom_gesture_brightness"
+        app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
+        app:player_fullscreen_image_selector="@drawable/custom_full_selector"
+        app:player_back_image="@drawable/ic_arrow_back_black_24dp"
+        app:fastforward_increment="0"
+        app:resize_mode="fit"
+        app:show_timeout="3000"
+        app:surface_type="texture_view"
+        app:use_artwork="true"
+        app:user_watermark="@mipmap/watermark_big"
+        app:use_controller="true" />
+
+
+</LinearLayout>

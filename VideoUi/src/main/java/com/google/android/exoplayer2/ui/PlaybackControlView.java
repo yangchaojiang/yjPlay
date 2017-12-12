@@ -21,11 +21,14 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +47,8 @@ import com.google.android.exoplayer2.util.Util;
 import java.util.Arrays;
 import java.util.Formatter;
 import java.util.Locale;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A view for controlling {@link Player} instances.
@@ -253,7 +258,6 @@ public class PlaybackControlView extends FrameLayout {
     private final Formatter formatter;
     private final Timeline.Period period;
     private final Timeline.Window window;
-
     private final Drawable repeatOffButtonDrawable;
     private final Drawable repeatOneButtonDrawable;
     private final Drawable repeatAllButtonDrawable;
@@ -280,7 +284,8 @@ public class PlaybackControlView extends FrameLayout {
     private boolean[] playedAdGroups;
     private long[] extraAdGroupTimesMs;
     private boolean[] extraPlayedAdGroups;
-
+    @DrawableRes
+    int icFullscreenSelector = R.drawable.ic_fullscreen_selector;
     private final Runnable updateProgressAction = new Runnable() {
         @Override
         public void run() {
@@ -330,6 +335,7 @@ public class PlaybackControlView extends FrameLayout {
                 repeatToggleModes = getRepeatToggleModes(a, repeatToggleModes);
                 showShuffleButton = a.getBoolean(R.styleable.PlaybackControlView_show_shuffle_button,
                         showShuffleButton);
+           icFullscreenSelector = a.getResourceId(R.styleable.PlaybackControlView_player_fullscreen_image_selector, icFullscreenSelector);
             } finally {
                 a.recycle();
             }
@@ -386,8 +392,15 @@ public class PlaybackControlView extends FrameLayout {
         if (shuffleButton != null) {
             shuffleButton.setOnClickListener(componentListener);
         }
+        /*我控件布局*/
+        exoFullscreen = (AppCompatCheckBox) findViewById(R.id.exo_video_fullscreen);
+       videoSwitchText = (TextView) findViewById(R.id.exo_video_switch);
         controlsTitleText = (TextView) findViewById(R.id.exo_controls_title);
         exoControllerBottom = findViewById(R.id.exo_controller_bottom);
+        if (exoFullscreen != null) {
+            exoFullscreen.setButtonDrawable(icFullscreenSelector);
+        }
+        /**/
         Resources resources = context.getResources();
         repeatOffButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_off);
         repeatOneButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_one);
@@ -742,10 +755,9 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     private void updateProgress() {
-        if (!isVisible() || !isAttachedToWindow) {
+        if (!isAttachedToWindow) {
             return;
         }
-
         long position = 0;
         long bufferedPosition = 0;
         long duration = 0;
@@ -817,6 +829,12 @@ public class PlaybackControlView extends FrameLayout {
                 System.arraycopy(extraPlayedAdGroups, 0, playedAdGroups, adGroupCount, extraAdGroupCount);
                 timeBar.setAdGroupTimesMs(adGroupTimesMs, playedAdGroups, totalAdGroupCount);
             }
+        }
+        if (updateProgressListener!=null){
+            updateProgressListener.updateProgress(position,bufferedPosition,duration);
+        }
+        if (!isVisible() ){
+            return;
         }
         if (durationView != null) {
             durationView.setText(Util.getStringForTime(formatBuilder, formatter, duration));
@@ -1069,10 +1087,27 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     /******自己定义方法hide*******/
-    private TextView controlsTitleText;
-    private View exoControllerBottom;
+    private final AppCompatCheckBox exoFullscreen;
+    private final TextView   videoSwitchText;
+    private final TextView controlsTitleText;
+    private final View exoControllerBottom;
     private AnimUtils.AnimatorListener animatorListener;
+    private AnimUtils.UpdateProgressListener updateProgressListener;
+    /**
+     * 设置全屏按钮样式
+     *
+     * @param icFullscreenStyle 全屏按钮样式
+     **/
+    public void setFullscreenStyle(@DrawableRes int icFullscreenStyle) {
+        this.icFullscreenSelector=icFullscreenStyle;
+        if (getExoFullscreen() != null) {
+            getExoFullscreen().setButtonDrawable(icFullscreenStyle);
+        }
+    }
 
+    public int getIcFullscreenSelector() {
+        return icFullscreenSelector;
+    }
     /**
      * 设置标题
      *
@@ -1080,10 +1115,6 @@ public class PlaybackControlView extends FrameLayout {
      **/
     public void setTitle(@NonNull String title) {
         controlsTitleText.setText(title);
-    }
-
-    public TextView getControlsTitleText() {
-        return controlsTitleText;
     }
 
     /**
@@ -1113,6 +1144,18 @@ public class PlaybackControlView extends FrameLayout {
 
     public View getPlayButton() {
         return playButton;
+    }
+    public AppCompatCheckBox getExoFullscreen() {
+        return exoFullscreen;
+    }
+    public TextView getSwitchText() {
+        return videoSwitchText;
+    }
+    public TextView getTitleText() {
+        return controlsTitleText;
+    }
+    public TimeBar getTimeBar() {
+        return timeBar;
     }
 
     public void releaseAnim() {
@@ -1176,6 +1219,13 @@ public class PlaybackControlView extends FrameLayout {
     public void setAnimatorListener(AnimUtils.AnimatorListener animatorListener) {
         this.animatorListener = animatorListener;
     }
+    /***
+     * 设置进度回调
+     * @param updateProgressListener updateProgressListener
+     * ***/
+    public void setUpdateProgressListener(AnimUtils.UpdateProgressListener updateProgressListener) {
+        this.updateProgressListener = updateProgressListener;
+    }
 
     private final class ComponentListener extends Player.DefaultEventListener implements
             TimeBar.OnScrubListener, OnClickListener {
@@ -1206,6 +1256,7 @@ public class PlaybackControlView extends FrameLayout {
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             updatePlayPauseButton();
             updateProgress();
+            Log.d(TAG, "onPlayerStateChanged:");
         }
 
         @Override
@@ -1224,6 +1275,7 @@ public class PlaybackControlView extends FrameLayout {
         public void onPositionDiscontinuity(@Player.DiscontinuityReason int reason) {
             updateNavigation();
             updateProgress();
+            Log.d(TAG, "onPositionDiscontinuity:");
         }
 
         @Override
@@ -1231,6 +1283,7 @@ public class PlaybackControlView extends FrameLayout {
             updateNavigation();
             updateTimeBarMode();
             updateProgress();
+            Log.d(TAG, "onTimelineChanged:");
         }
 
         @Override

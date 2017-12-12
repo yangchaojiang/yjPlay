@@ -20,6 +20,7 @@ import chuangyuan.ycj.videolibrary.listener.OnGestureBrightnessListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureProgressListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureVolumeListener;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
+import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.data.DataSource;
 import chuangyuan.ycj.yjplay.R;
@@ -59,6 +60,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         //设置加载显示模式
         exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
         exoPlayerManager.setPlayUri(url);
+       // exoPlayerManager.setPlayUri("http://ytnbin.oss-cn-beijing.aliyuncs.com/2017/12/video/1512631425851.mp4");
         exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +94,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
                 Toast.makeText(MainCustomLayoutActivity.this, "自定义提示", Toast.LENGTH_SHORT).show();
             }
         });
-
+        //重写自定义手势监听事件，
         exoPlayerManager.setOnGestureBrightnessListener(new OnGestureBrightnessListener() {
             @Override
             public void setBrightnessPosition(int mMax, int currIndex) {
@@ -104,6 +106,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
                 videoBrightnessPro.setProgress(currIndex);
             }
         });
+        //重写自定义手势监听事件，
         exoPlayerManager.setOnGestureProgressListener(new OnGestureProgressListener() {
             @Override
             public void showProgressDialog(long seekTimePosition, long duration, String seekTime, String totalTime) {
@@ -113,6 +116,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
                 exo_video_dialog_pro_text.setText(seekTime + "/" + totalTime);
             }
         });
+        //重写自定义手势监听事件，
         exoPlayerManager.setOnGestureVolumeListener(new OnGestureVolumeListener() {
             @Override
             public void setVolumePosition(int mMax, int currIndex) {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@id/exo_preview_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="fitXY"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@id/exo_preview_play"
+        style="@style/ExoMediaButton.Play2" />
+
+    <TextView
+        android:id="@+id/exo_controls_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:paddingLeft="15dp"
+        tools:text="测试阿斯顿" />
+
+    <TextView
+        android:text="12:12"
+        android:textColor="@android:color/white"
+        android:padding="4dp"
+        android:textSize="12sp"
+        android:id="@+id/exo_controls_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/simple_size_shape"
+        android:layout_margin="10dp"/>
+</RelativeLayout>

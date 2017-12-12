@@ -11,14 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:controller_layout_id="@layout/simple_exo_playback_list_view"
-        app:fastforward_increment="0"
         app:player_layout_id="@layout/simple_exo_view"
+        app:player_preview_layout_id="@layout/simple_exo_preview_view"
         app:resize_mode="fit"
-        app:rewind_increment="0"
         app:show_timeout="3000"
         app:hide_on_touch="false"
         app:surface_type="texture_view"
-        app:use_artwork="true"
         app:player_list="true"
         />
 </RelativeLayout>

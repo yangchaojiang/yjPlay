@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
 
+import java.util.List;
+
 import chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
@@ -77,7 +79,7 @@ public interface ExoPlayerViewListener {
      *
      * @param title 标题内容
      **/
-    void setTitle(@NonNull String title);
+    void setTitles(@NonNull String title);
 
     /***
      * 显示网速
@@ -135,8 +137,9 @@ public interface ExoPlayerViewListener {
 
     /***
      * 显示控制布局操作
+     * @param isShowFull 显示全屏按钮
      * **/
-    void showControllerView();
+    void showController(boolean isShowFull);
 
     /***
      * 控制布局操作
@@ -145,7 +148,7 @@ public interface ExoPlayerViewListener {
     void setControllerHideOnTouch(boolean onTouch);
 
     /***
-     * 控制布局操作
+     * 控制布局封面图操作
      * @param  visibility  类型
      * **/
     void showPreview(int visibility);
@@ -154,7 +157,7 @@ public interface ExoPlayerViewListener {
      * 设置开始播放OnTouch布局事件
      * @param  listener  实例
      * **/
-    void setPlayerBtnOnTouchListener(View.OnTouchListener listener);
+    void setPlayerBtnOnTouch(View.OnTouchListener listener);
 
     /***
      * 重置布局
@@ -205,10 +208,13 @@ public interface ExoPlayerViewListener {
 
     /***
      * 获取 进度条
-     * @return boolean
+     * @param  openSeek true开启拖拽 false 关闭
      * ***/
-    ExoDefaultTimeBar getTimeBarView();
+    void setOpenSeek(boolean openSeek);
 
+    /**
+     * 退出全屏
+     **/
     void exitFull();
 
     /***
@@ -216,4 +222,12 @@ public interface ExoPlayerViewListener {
      * @return boolean
      * **/
     boolean isLock();
+
+    /**
+     * 设置选择分辨率
+     *
+     * @param name name
+     * @param switchIndex switchIndex;
+     **/
+    void setSwitchName(@NonNull List<String> name,int switchIndex);
 }

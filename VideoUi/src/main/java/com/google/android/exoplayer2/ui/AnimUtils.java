@@ -39,8 +39,18 @@ public class AnimUtils {
                 .setDuration(500);
     }
 
+    /**
+     * 动画回调接口
+     ***/
     public interface AnimatorListener {
         void show(boolean isIn);
+    }
+
+    /**
+     * 进度更新回调接口
+     ***/
+    public interface UpdateProgressListener {
+        void updateProgress(long position, long bufferedPosition, long duration);
     }
 
 }

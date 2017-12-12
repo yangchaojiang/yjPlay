@@ -2,6 +2,8 @@
 <resources>
     <dimen name="dp30">35dp</dimen>
     <dimen name="controls_title__marginRight">60dp</dimen>
-    <dimen name="exo_media_button_width">71dp</dimen>
-    <dimen name="exo_media_button_height">52dp</dimen>
+    <dimen name="exo_media_button_width">35dp</dimen>
+    <dimen name="exo_media_button_height">35dp</dimen>
+    <dimen name="exo_media_button_width_2">60dp</dimen>
+    <dimen name="exo_media_button_height_2">50dp</dimen>
 </resources>

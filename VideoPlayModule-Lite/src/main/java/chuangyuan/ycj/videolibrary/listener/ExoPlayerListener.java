@@ -1,11 +1,6 @@
 package chuangyuan.ycj.videolibrary.listener;
 
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import java.util.List;
-
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
@@ -35,9 +30,8 @@ public interface ExoPlayerListener {
     /***
      *选择多线路
      * @param position 索引
-     * @param   name 名称
      * **/
-    void switchUri(int position, String name);
+    void switchUri(int position);
 
     /***
      *播放视频地址
@@ -48,21 +42,11 @@ public interface ExoPlayerListener {
      *返回建回调
      * **/
     void onBack();
-
     /***
      *得到内核控制类
      * @return ExoUserPlayer
      * **/
     ExoUserPlayer getPlay();
 
-    /***
-     * @return String
-     * **/
-    @Nullable
-    String getSwitchName();
-    /***
-     * @return String
-     * **/
-    @Nullable
-    List<String> getSwitchList();
+
 }

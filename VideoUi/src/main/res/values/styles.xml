@@ -12,13 +12,16 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <style name="ExoMediaButton">
         <item name="android:background">@null</item>
         <item name="android:layout_width">@dimen/exo_media_button_width</item>
         <item name="android:layout_height">@dimen/exo_media_button_height</item>
     </style>
+
 
     <style name="ExoMediaButton.Previous">
         <item name="android:src">@drawable/exo_controls_previous</item>
@@ -55,7 +58,7 @@
         <item name="android:contentDescription">@string/exo_controls_shuffle_description</item>
     </style>
     <!--我的-->
-    <style name="exo_text_switch">
+    <style name="ExoMediaTextSwitch">
         <item name="android:id">@id/exo_video_switch</item>
         <item name="android:textSize">16sp</item>
         <item name="android:layout_width">70dp</item>
@@ -67,5 +70,110 @@
         <item name="android:layout_marginLeft">-20dp</item>
         <item name="android:textColor">@color/exo_exo_video_switch_selector</item>
         <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ExoMediaButton.Fullscreen">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:visibility">visible</item>
+    </style>
+    <style name="ExoMediaTitle">
+        <item name="android:id">@id/exo_controls_title</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:background">@drawable/exo_bg_video_top</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:lines">1</item>
+        <item name="android:paddingLeft">35dp</item>
+        <item name="android:paddingRight">@dimen/controls_title__marginRight</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="ExoMediaDuration">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ExoMediaSpan">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="ExoMediaControllerBottom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@drawable/exo_bg_video_bottom</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:visibility">visible</item>
+    </style>
+    <style name="ExoMediaCurrPosition">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="ExoMediaTimeBar">
+        <item name=" android:layout_width">0dp</item>
+        <item name=" android:layout_height">wrap_content</item>
+        <item name=" android:layout_gravity">center_vertical</item>
+        <item name=" android:layout_marginRight">10dp</item>
+        <item name=" android:layout_weight">1</item>
+        <item name="bar_height">2dp</item>
+        <item name="buffered_color">@android:color/white</item>
+        <item name="played_color">#FF7000</item>
+        <item name="unplayed_color">#a5ffffff</item>
+    </style>
+
+    <style name="ExoMediaButton.Pause2">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:src">@drawable/ic_exo_pause</item>
+        <item name="android:contentDescription">@string/exo_controls_pause_description</item>
+    </style>
+
+    <style name="ExoMediaButton.Play2">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:src">@drawable/ic_exo_start</item>
+        <item name="android:contentDescription">@string/exo_controls_play_description</item>
+    </style>
+
+
+    <style name="MediaPreViewImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:contentDescription">@null</item>
     </style>
 </resources>

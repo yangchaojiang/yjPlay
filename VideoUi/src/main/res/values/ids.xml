@@ -14,7 +14,7 @@
 -->
 <resources>
     <item name="exo_video_switch" type="id" />
-    <!--列表播放占位图-->
+
     <item name="exo_preview_image_bottom" type="id" />
     <!--列表播放占位图-->
     <item name="exo_preview_image" type="id" />
@@ -41,6 +41,7 @@
     <item name="exo_player_replay_btn_id" type="id" />
     <!--锁按钮-->
     <item name="exo_player_lock_btn_id" type="id" />
+    <item name="exo_preview_play" type="id" />
 
     <item name="exo_content_frame" type="id" />
     <item name="exo_shutter" type="id" />

@@ -93,10 +93,6 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
                 isEnd = true;
             }
 
-            @Override
-            public void onRepeatModeChanged(int repeatMode) {
-
-            }
 
             @Override
             public void isPlaying(boolean playWhenReady) {

@@ -19,6 +19,7 @@
         <attr name="surface_type" />
         <!--水印占位图-->
         <attr name="user_watermark" format="reference" />
+
         <attr name="auto_show" format="boolean" />
         <!--设置控制布局显示时间-->
         <attr name="show_timeout" format="integer" />
@@ -50,6 +51,8 @@
         <attr name="player_fullscreen_image_selector" format="reference" />
         <!--设置按钮按钮样式-->
         <attr name="player_back_image" format="reference" />
+        <!--自定义预览布局-->
+        <attr name="player_preview_layout_id" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="DefaultTimeBar">

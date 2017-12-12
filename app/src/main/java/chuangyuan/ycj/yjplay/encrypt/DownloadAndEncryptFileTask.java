@@ -81,7 +81,7 @@ public class DownloadAndEncryptFileTask extends AsyncTask<Void, Integer, Void> {
         if (mFile.exists()) {
             mFile.delete();
         }
-        FileOutputStream fos = new FileOutputStream(mFile.getAbsolutePath(), false);
+       FileOutputStream fos = new FileOutputStream(mFile.getAbsolutePath(), false);
         if (keyBody > -1) {//BASE64加密处理
             byte[] buffer = new byte[1024 * 500];
             int readCount;

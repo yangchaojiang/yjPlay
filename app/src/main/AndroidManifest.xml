@@ -18,7 +18,8 @@
         <activity
             android:hardwareAccelerated="true"
             android:name=".defaults.MainDetailedActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".MainListActivity"
@@ -56,6 +57,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".offline.OfficeDetailedActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ima.ImaPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />

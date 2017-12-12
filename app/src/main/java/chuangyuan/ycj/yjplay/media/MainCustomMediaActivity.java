@@ -100,11 +100,6 @@ public class MainCustomMediaActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onRepeatModeChanged(int repeatMode) {
-
-            }
-
-            @Override
             public void isPlaying(boolean playWhenReady) {
 
             }

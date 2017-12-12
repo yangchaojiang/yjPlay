@@ -19,10 +19,10 @@ import chuangyuan.ycj.videolibrary.R;
 
 
 /**
- * @author yangc
- *         date 2017/7/19
- *         E-Mail:yangchaojiang@outlook.com
- *         Deprecated:  多线路浮层
+ * author yangc
+ * date 2017/7/19
+ * E-Mail:yangchaojiang@outlook.com
+ * Deprecated:  多线路浮层
  */
 
 public class BelowView {

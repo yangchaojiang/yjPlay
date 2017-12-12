@@ -96,7 +96,7 @@ public class MainListActivity extends AppCompatActivity {
             }
 
         });
-       /* adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+       /* adapter.setOnSwitchItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 int firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition();

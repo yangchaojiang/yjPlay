@@ -69,10 +69,6 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
 
             }
 
-            @Override
-            public void onRepeatModeChanged(int repeatMode) {
-
-            }
 
             @Override
             public void isPlaying(boolean playWhenReady) {
