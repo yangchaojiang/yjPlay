@@ -1,35 +1,35 @@
 [
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_thumb.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_tint_switch_thumb.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_tint_switch_thumb.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_default.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_tint_default.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_tint_default.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_light.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_hint_foreground_material_light.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_hint_foreground_material_light.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_dark.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_hint_foreground_material_dark.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_hint_foreground_material_dark.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_seek_thumb.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_tint_seek_thumb.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_tint_seek_thumb.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_primary_text_material_light.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_primary_text_material_light.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_search_url_text.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_search_url_text.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\switch_thumb_material_dark.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\switch_thumb_material_dark.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\exo_exo_video_switch_selector.xml",
@@ -37,50 +37,50 @@
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_primary_text_disable_only_material_light.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_btn_checkable.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_tint_btn_checkable.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_tint_btn_checkable.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_primary_text_material_dark.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_primary_text_material_dark.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_text_material.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_btn_colored_text_material.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_btn_colored_text_material.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_secondary_text_material_light.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_secondary_text_material_light.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_secondary_text_material_dark.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_secondary_text_material_dark.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_spinner.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_tint_spinner.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_tint_spinner.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_edittext.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_tint_edittext.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_tint_edittext.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_track.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_tint_switch_track.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_tint_switch_track.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_borderless_text_material.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\abc_btn_colored_borderless_text_material.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\abc_btn_colored_borderless_text_material.xml"
     },
     {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
-        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\color\\switch_thumb_material_light.xml"
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\d339898439eb8923563c0f9f919fd42c\\res\\color\\switch_thumb_material_light.xml"
     }
 ]
