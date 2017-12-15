@@ -92,6 +92,7 @@
     <string name="exo_play_reminder">hint</string>
     <string name="exo_play_wifi_hint_no">Your current network is not wifi, do you continue to watch</string>
     <string name="hint_replay_list">replay</string>
+    <string name="media_error">The current video type is not found, or the current type is not supported, depending on the full version</string>
     <string name="net_network_no_hint">Your current network is unavailable, please check your network</string>
     <style name="ExoMediaButton">
         <item name="android:background">@null</item>

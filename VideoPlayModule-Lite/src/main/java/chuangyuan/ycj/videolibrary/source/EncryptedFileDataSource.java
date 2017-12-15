@@ -23,13 +23,10 @@ import javax.crypto.spec.SecretKeySpec;
 
 
 /**
+ * The type Encrypted file data source.
  *
- * @author yangc
- * date 2017/8/31
- * E-Mail:yangchaojiang@outlook.com
- * Deprecated: aes加密提供数据源类
+ * @author yangc  date 2017/8/31 E-Mail:yangchaojiang@outlook.com Deprecated: aes加密提供数据源类
  */
-
 public final class EncryptedFileDataSource implements DataSource {
 
   private final TransferListener<? super EncryptedFileDataSource> mTransferListener;
@@ -41,7 +38,15 @@ public final class EncryptedFileDataSource implements DataSource {
   private SecretKeySpec mSecretKeySpec;
   private IvParameterSpec mIvParameterSpec;
 
-  public EncryptedFileDataSource(Cipher cipher, SecretKeySpec secretKeySpec, IvParameterSpec ivParameterSpec, TransferListener<? super EncryptedFileDataSource> listener) {
+    /**
+     * Instantiates a new Encrypted file data source.
+     *
+     * @param cipher          the cipher
+     * @param secretKeySpec   the secret key spec
+     * @param ivParameterSpec the iv parameter spec
+     * @param listener        the listener
+     */
+    public EncryptedFileDataSource(Cipher cipher, SecretKeySpec secretKeySpec, IvParameterSpec ivParameterSpec, TransferListener<? super EncryptedFileDataSource> listener) {
     mCipher = cipher;
     mSecretKeySpec = secretKeySpec;
     mIvParameterSpec = ivParameterSpec;
@@ -166,13 +171,24 @@ public final class EncryptedFileDataSource implements DataSource {
     }
   }
 
-  public  final class EncryptedFileDataSourceException extends IOException {
-    public EncryptedFileDataSourceException(IOException cause) {
+    /**
+     * The type Encrypted file data source exception.
+     */
+    public  final class EncryptedFileDataSourceException extends IOException {
+        /**
+         * Instantiates a new Encrypted file data source exception.
+         *
+         * @param cause the cause
+         */
+        public EncryptedFileDataSourceException(IOException cause) {
       super(cause);
     }
   }
 
-  public  static   class StreamingCipherInputStream extends CipherInputStream {
+    /**
+     * The type Streaming cipher input stream.
+     */
+    public  static   class StreamingCipherInputStream extends CipherInputStream {
 
     private static final int AES_BLOCK_SIZE = 16;
 
@@ -181,7 +197,15 @@ public final class EncryptedFileDataSource implements DataSource {
     private SecretKeySpec mSecretKeySpec;
     private IvParameterSpec mIvParameterSpec;
 
-    public StreamingCipherInputStream(InputStream inputStream, Cipher cipher, SecretKeySpec secretKeySpec, IvParameterSpec ivParameterSpec) {
+        /**
+         * Instantiates a new Streaming cipher input stream.
+         *
+         * @param inputStream     the input stream
+         * @param cipher          the cipher
+         * @param secretKeySpec   the secret key spec
+         * @param ivParameterSpec the iv parameter spec
+         */
+        public StreamingCipherInputStream(InputStream inputStream, Cipher cipher, SecretKeySpec secretKeySpec, IvParameterSpec ivParameterSpec) {
       super(inputStream, cipher);
       mUpstream = inputStream;
       mCipher = cipher;
@@ -194,7 +218,14 @@ public final class EncryptedFileDataSource implements DataSource {
       return super.read(b, off, len);
     }
 
-    public long forceSkip(long bytesToSkip) throws IOException {
+        /**
+         * Force skip long.
+         *
+         * @param bytesToSkip the bytes to skip
+         * @return the long
+         * @throws IOException the io exception
+         */
+        public long forceSkip(long bytesToSkip) throws IOException {
       long skipped = mUpstream.skip(bytesToSkip);
       try {
         int skip = (int) (bytesToSkip % AES_BLOCK_SIZE);

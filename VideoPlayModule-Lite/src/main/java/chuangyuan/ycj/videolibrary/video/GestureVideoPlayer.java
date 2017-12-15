@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.util.Util;
 
 import java.lang.ref.WeakReference;
 import java.util.Formatter;
@@ -64,24 +65,57 @@ public class GestureVideoPlayer extends ExoUserPlayer {
     /***手势音频接口实例***/
     private OnGestureVolumeListener onGestureVolumeListener;
 
+    /**
+     * Instantiates a new Gesture video player.
+     *
+     * @param activity   the activity
+     * @param playerView the player view
+     */
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this(activity, playerView, null);
     }
 
+    /**
+     * Instantiates a new Gesture video player.
+     *
+     * @param activity the activity
+     * @param reId     the re id
+     */
     public GestureVideoPlayer(@NonNull Activity activity, @IdRes int reId) {
         this(activity, reId, null);
     }
 
+    /**
+     * Instantiates a new Gesture video player.
+     *
+     * @param activity the activity
+     * @param reId     the re id
+     * @param listener the listener
+     */
     public GestureVideoPlayer(@NonNull Activity activity, @IdRes int reId, @Nullable DataSourceListener listener) {
         this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
     }
 
+    /**
+     * Instantiates a new Gesture video player.
+     *
+     * @param activity   the activity
+     * @param playerView the player view
+     * @param listener   the listener
+     */
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         super(activity, playerView, listener);
         intiViews();
         gestureDetector = new GestureDetector(activity, new PlayerGestureListener(this));
     }
 
+    /**
+     * Instantiates a new Gesture video player.
+     *
+     * @param activity           the activity
+     * @param mediaSourceBuilder the media source builder
+     * @param playerView         the player view
+     */
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
         super(activity, mediaSourceBuilder, playerView);
         intiViews();
@@ -101,26 +135,6 @@ public class GestureVideoPlayer extends ExoUserPlayer {
     public void onPlayNoAlertVideo() {
         super.onPlayNoAlertVideo();
         getPlayerViewListener().setPlatViewOnTouchListener(listener);
-    }
-
-    /***
-     * 格式化时间
-     *
-     * @param timeMs 数
-     **/
-    private String stringForTime(long timeMs) {
-        if (timeMs == C.TIME_UNSET) {
-            timeMs = 0;
-        }
-        long totalSeconds = (timeMs + 500) / 1000;
-        long seconds = totalSeconds % 60;
-        long minutes = (totalSeconds / 60) % 60;
-        long hours = totalSeconds / 3600;
-        formatBuilder.setLength(0);
-        String hs = hours > 0 ? formatter.format("%d:%02d:%02d", hours, minutes, seconds).toString()
-                : formatter.format("%02d:%02d", minutes, seconds).toString();
-        formatter.flush();
-        return hs;
     }
 
     /**
@@ -231,32 +245,32 @@ public class GestureVideoPlayer extends ExoUserPlayer {
 
     /***
      * 设置手势touch 事件
-     * @param  controllerHideOnTouch true 启用  false 关闭
-     * ***/
+     * @param controllerHideOnTouch true 启用  false 关闭
+     */
     public void setPlayerGestureOnTouch(boolean controllerHideOnTouch) {
         this.controllerHideOnTouch = controllerHideOnTouch;
     }
 
     /***
      * 实现自定义进度监听事件
-     * @param onGestureProgressListener  实例
-     * **/
+     * @param onGestureProgressListener 实例
+     */
     public void setOnGestureProgressListener(OnGestureProgressListener onGestureProgressListener) {
         this.onGestureProgressListener = onGestureProgressListener;
     }
 
     /***
      * 实现自定义亮度手势监听事件
-     * @param onGestureBrightnessListener  实例
-     * **/
+     * @param onGestureBrightnessListener 实例
+     */
     public void setOnGestureBrightnessListener(OnGestureBrightnessListener onGestureBrightnessListener) {
         this.onGestureBrightnessListener = onGestureBrightnessListener;
     }
 
     /***
      * 实现自定义音频手势监听事件
-     * @param onGestureVolumeListener  实例
-     * **/
+     * @param onGestureVolumeListener 实例
+     */
     public void setOnGestureVolumeListener(OnGestureVolumeListener onGestureVolumeListener) {
         this.onGestureVolumeListener = onGestureVolumeListener;
     }
@@ -337,7 +351,8 @@ public class GestureVideoPlayer extends ExoUserPlayer {
                 } else if (newPosition <= 0) {
                     newPosition = 0;
                 }
-                showProgressDialog(newPosition, duration, stringForTime(newPosition), stringForTime(duration));
+
+                showProgressDialog(newPosition, duration,Util.getStringForTime(formatBuilder, formatter, newPosition), Util.getStringForTime(formatBuilder, formatter, duration));
             } else {
                 float percent = deltaY / getPlayerViewListener().getHeight();
                 if (volumeControl) {

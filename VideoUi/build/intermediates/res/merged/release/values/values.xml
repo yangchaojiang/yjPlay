@@ -10,6 +10,7 @@
     <attr format="integer" name="fastforward_increment"/>
     <attr format="dimension" name="height"/>
     <attr format="boolean" name="isLightTheme"/>
+    <attr format="reference" name="player_fullscreen_image_selector"/>
     <attr format="reference" name="player_layout_id"/>
     <attr name="repeat_toggle_modes">
     <flag name="none" value="0"/>
@@ -181,7 +182,7 @@
             <flag name="collapseActionView" value="8"/>
         </attr><attr format="reference" name="actionLayout"/><attr format="string" name="actionViewClass"/><attr format="string" name="actionProviderClass"/></declare-styleable>
     <declare-styleable name="MenuView"><attr name="android:itemTextAppearance"/><attr name="android:horizontalDivider"/><attr name="android:verticalDivider"/><attr name="android:headerBackground"/><attr name="android:itemBackground"/><attr name="android:windowAnimationStyle"/><attr name="android:itemIconDisabledAlpha"/><attr format="boolean" name="preserveIconSpacing"/><attr format="reference" name="subMenuArrow"/></declare-styleable>
-    <declare-styleable name="PlaybackControlView"><attr name="show_timeout"/><attr name="rewind_increment"/><attr name="fastforward_increment"/><attr name="repeat_toggle_modes"/><attr name="controller_layout_id"/><attr name="show_shuffle_button"/></declare-styleable>
+    <declare-styleable name="PlaybackControlView"><attr name="show_timeout"/><attr name="rewind_increment"/><attr name="fastforward_increment"/><attr name="repeat_toggle_modes"/><attr name="controller_layout_id"/><attr name="show_shuffle_button"/><attr name="player_fullscreen_image_selector"/></declare-styleable>
     <declare-styleable name="PopupWindow"><attr format="boolean" name="overlapAnchor"/><attr name="android:popupBackground"/><attr name="android:popupAnimationStyle"/></declare-styleable>
     <declare-styleable name="PopupWindowBackgroundState"><attr format="boolean" name="state_above_anchor"/></declare-styleable>
     <declare-styleable name="RecycleListView"><attr format="dimension" name="paddingBottomNoButtons"/><attr format="dimension" name="paddingTopNoTitle"/></declare-styleable>
@@ -314,8 +315,10 @@
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
     <dimen name="dp30">35dp</dimen>
-    <dimen name="exo_media_button_height">52dp</dimen>
-    <dimen name="exo_media_button_width">71dp</dimen>
+    <dimen name="exo_media_button_height">35dp</dimen>
+    <dimen name="exo_media_button_height_2">50dp</dimen>
+    <dimen name="exo_media_button_width">35dp</dimen>
+    <dimen name="exo_media_button_width_2">60dp</dimen>
     <item format="float" name="highlight_alpha_material_colored" type="dimen">0.26</item>
     <item format="float" name="highlight_alpha_material_dark" type="dimen">0.20</item>
     <item format="float" name="highlight_alpha_material_light" type="dimen">0.12</item>
@@ -367,6 +370,7 @@
     <item name="exo_prev" type="id"/>
     <item name="exo_preview_image" type="id"/>
     <item name="exo_preview_image_bottom" type="id"/>
+    <item name="exo_preview_play" type="id"/>
     <item name="exo_progress" type="id"/>
     <item name="exo_repeat_toggle" type="id"/>
     <item name="exo_rew" type="id"/>
@@ -432,6 +436,7 @@
     <string name="exo_play_reminder">hint</string>
     <string name="exo_play_wifi_hint_no">Your current network is not wifi, do you continue to watch</string>
     <string name="hint_replay_list">replay</string>
+    <string name="media_error">The current video type is not found, or the current type is not supported, depending on the full version</string>
     <string name="net_network_no_hint">Your current network is unavailable, please check your network</string>
     <string name="search_menu_title">Search</string>
     <string name="status_bar_notification_info_overflow">999+</string>
@@ -1458,6 +1463,14 @@
         <item name="android:src">@drawable/exo_controls_fastforward</item>
         <item name="android:contentDescription">@string/exo_controls_fastforward_description</item>
     </style>
+    <style name="ExoMediaButton.Fullscreen">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:visibility">visible</item>
+    </style>
     <style name="ExoMediaButton.Next">
         <item name="android:src">@drawable/exo_controls_next</item>
         <item name="android:contentDescription">@string/exo_controls_next_description</item>
@@ -1466,8 +1479,28 @@
         <item name="android:src">@drawable/exo_controls_pause</item>
         <item name="android:contentDescription">@string/exo_controls_pause_description</item>
     </style>
+    <style name="ExoMediaButton.Pause2">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:src">@drawable/ic_exo_pause</item>
+        <item name="android:contentDescription">@string/exo_controls_pause_description</item>
+    </style>
     <style name="ExoMediaButton.Play">
         <item name="android:src">@drawable/exo_controls_play</item>
+        <item name="android:contentDescription">@string/exo_controls_play_description</item>
+    </style>
+    <style name="ExoMediaButton.Play2">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:src">@drawable/ic_exo_start</item>
         <item name="android:contentDescription">@string/exo_controls_play_description</item>
     </style>
     <style name="ExoMediaButton.Previous">
@@ -1481,6 +1514,88 @@
     <style name="ExoMediaButton.Shuffle">
         <item name="android:src">@drawable/exo_controls_shuffle</item>
         <item name="android:contentDescription">@string/exo_controls_shuffle_description</item>
+    </style>
+    <style name="ExoMediaControllerBottom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@drawable/exo_bg_video_bottom</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:visibility">visible</item>
+    </style>
+    <style name="ExoMediaCurrPosition">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="ExoMediaDuration">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="ExoMediaSpan">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="ExoMediaTextSwitch">
+        <item name="android:id">@id/exo_video_switch</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:background">@null</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">-20dp</item>
+        <item name="android:textColor">@color/exo_exo_video_switch_selector</item>
+        <item name="android:visibility">gone</item>
+    </style>
+    <style name="ExoMediaTimeBar">
+        <item name=" android:layout_width">0dp</item>
+        <item name=" android:layout_height">wrap_content</item>
+        <item name=" android:layout_gravity">center_vertical</item>
+        <item name=" android:layout_marginRight">10dp</item>
+        <item name=" android:layout_weight">1</item>
+        <item name="bar_height">2dp</item>
+        <item name="buffered_color">@android:color/white</item>
+        <item name="played_color">#FF7000</item>
+        <item name="unplayed_color">#a5ffffff</item>
+    </style>
+    <style name="ExoMediaTitle">
+        <item name="android:id">@id/exo_controls_title</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:background">@drawable/exo_bg_video_top</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:lines">1</item>
+        <item name="android:paddingLeft">35dp</item>
+        <item name="android:paddingRight">@dimen/controls_title__marginRight</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="MediaPreViewImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:contentDescription">@null</item>
     </style>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
@@ -1854,17 +1969,4 @@
     <style name="Widget.AppCompat.TextView.SpinnerItem" parent="Base.Widget.AppCompat.TextView.SpinnerItem"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
-    <style name="exo_text_switch">
-        <item name="android:id">@id/exo_video_switch</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_width">70dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">0</item>
-        <item name="android:background">@null</item>
-        <item name="android:contentDescription">@null</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_marginLeft">-20dp</item>
-        <item name="android:textColor">@color/exo_exo_video_switch_selector</item>
-        <item name="android:visibility">gone</item>
-    </style>
 </resources>

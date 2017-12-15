@@ -1,8 +1,13 @@
 package chuangyuan.ycj.yjplay;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Process;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +25,7 @@ import chuangyuan.ycj.yjplay.offline.OfficeDetailedActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,5 +138,12 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+           if ( checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, android.os.Process.myPid(), Process.myUid())== PackageManager.PERMISSION_DENIED){
+               requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+           }
+
+
+        }
     }
 }

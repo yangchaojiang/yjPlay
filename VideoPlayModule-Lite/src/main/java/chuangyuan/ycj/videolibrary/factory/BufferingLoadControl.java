@@ -15,19 +15,28 @@ import com.google.android.exoplayer2.util.Util;
 import chuangyuan.ycj.videolibrary.listener.LoadListener;
 
 /**
+ * The type Buffering load control.
  *
- * @author yangc
- * date 2017/10/6
- * E-Mail:yangchaojiang@outlook.com
- * Deprecated: 数据缓存工厂类
+ * @author yangc  date 2017/10/6 E-Mail:yangchaojiang@outlook.com Deprecated: 数据缓存工厂类
  */
-
 public class BufferingLoadControl implements LoadControl {
 
     private  static  final String TAG=BufferingLoadControl.class.getName();
+    /**
+     * The constant DEFAULT_MIN_BUFFER_MS.
+     */
     public static final int DEFAULT_MIN_BUFFER_MS = 15000;
+    /**
+     * The constant DEFAULT_MAX_BUFFER_MS.
+     */
     public static final int DEFAULT_MAX_BUFFER_MS = 30000;
+    /**
+     * The constant DEFAULT_BUFFER_FOR_PLAYBACK_MS.
+     */
     public static final int DEFAULT_BUFFER_FOR_PLAYBACK_MS = 2500;
+    /**
+     * The constant DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS.
+     */
     public static final int DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS = 5000;
 
     private static final int ABOVE_HIGH_WATERMARK = 0;
@@ -42,23 +51,54 @@ public class BufferingLoadControl implements LoadControl {
 
     private int targetBufferSize;
     private boolean isBuffering;
+    /**
+     * The Need buffering.
+     */
     public   boolean needBuffering = true;
     private    LoadListener listener;
+
+    /**
+     * Instantiates a new Buffering load control.
+     */
     public BufferingLoadControl() {
         this(new DefaultAllocator(true, C.DEFAULT_BUFFER_SEGMENT_SIZE));
     }
 
+    /**
+     * Instantiates a new Buffering load control.
+     *
+     * @param allocator the allocator
+     */
     public BufferingLoadControl(DefaultAllocator allocator) {
         this(allocator, DEFAULT_MIN_BUFFER_MS, DEFAULT_MAX_BUFFER_MS,
                 DEFAULT_BUFFER_FOR_PLAYBACK_MS,
                 DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS);
     }
 
+    /**
+     * Instantiates a new Buffering load control.
+     *
+     * @param allocator                        the allocator
+     * @param minBufferMs                      the min buffer ms
+     * @param maxBufferMs                      the max buffer ms
+     * @param bufferForPlaybackMs              the buffer for playback ms
+     * @param bufferForPlaybackAfterRebufferMs the buffer for playback after rebuffer ms
+     */
     public BufferingLoadControl(DefaultAllocator allocator, int minBufferMs, int maxBufferMs, long bufferForPlaybackMs, long bufferForPlaybackAfterRebufferMs) {
         this(allocator, minBufferMs, maxBufferMs, bufferForPlaybackMs,
                 bufferForPlaybackAfterRebufferMs, null);
     }
 
+    /**
+     * Instantiates a new Buffering load control.
+     *
+     * @param allocator                        the allocator
+     * @param minBufferMs                      the min buffer ms
+     * @param maxBufferMs                      the max buffer ms
+     * @param bufferForPlaybackMs              the buffer for playback ms
+     * @param bufferForPlaybackAfterRebufferMs the buffer for playback after rebuffer ms
+     * @param priorityTaskManager              the priority task manager
+     */
     public BufferingLoadControl(DefaultAllocator allocator, int minBufferMs, int maxBufferMs, long bufferForPlaybackMs, long bufferForPlaybackAfterRebufferMs, PriorityTaskManager priorityTaskManager) {
         this.allocator = allocator;
         minBufferUs = minBufferMs * 2000L;
@@ -146,6 +186,12 @@ public class BufferingLoadControl implements LoadControl {
         }
         listener=null;
     }
+
+    /**
+     * Sets listener.
+     *
+     * @param listener the listener
+     */
     public void setListener(LoadListener listener) {
         this.listener = listener;
     }

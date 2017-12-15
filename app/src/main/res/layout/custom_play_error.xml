@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/exo_error_bg"
@@ -16,8 +17,7 @@
         android:drawablePadding="5dp"
         android:gravity="center"
         app:srcCompat="@drawable/ic_sentiment_very_dissatisfied_white_48px"
-
-        />
+        tools:ignore="VectorDrawableCompat" />
 
     <TextView
         android:id="@+id/exo_player_error_text"

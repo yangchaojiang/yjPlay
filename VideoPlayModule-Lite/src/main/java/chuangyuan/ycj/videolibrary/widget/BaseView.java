@@ -44,52 +44,132 @@ import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated: 父类view 存放控件方法
  */
-
 abstract class BaseView extends FrameLayout {
+    /**
+     * The constant TAG.
+     */
     public static final String TAG = VideoPlayerView.class.getName();
-    /***活动窗口***/
+    /***活动窗口*/
     protected Activity activity;
-    /***进度条控件***/
+    /***进度条控件*/
     protected ExoDefaultTimeBar exoPlayerLockProgress;
-    /***全屏按钮和锁屏按钮***/
+    /***全屏按钮和锁屏按钮*/
     protected AppCompatCheckBox lockCheckBox;
-    /***播放view***/
+    /***播放view*/
     protected final SimpleExoPlayerView playerView;
-    /***视视频标题,清晰度切换,实时视频,加载速度显示,控制进度***/
-    protected TextView videoLoadingShowText, videoDialogProText;
-    /***视频加载页,错误页,进度控件,锁屏按布局,自定义预览布局***/
-    protected View exoLoadingLayout, exoPlayErrorLayout, exoPlayLockLayout, exoPlayPreviewLayout;
-    /***播放结束，提示布局,调整进度布局,控制音频和亮度布局***/
-    protected View playReplayLayout, playBtnHintLayout, dialogProLayout, exoAudioLayout, exoBrightnessLayout;
-    /***水印,封面图占位,显示音频和亮度布图***/
-    protected ImageView exoPlayWatermark, exoPreviewImage, exoPreviewBottomImage, videoAudioImg, videoBrightnessImg;
-    /***显示音频和亮度***/
-    protected ProgressBar videoAudioPro, videoBrightnessPro;
-    /***切换***/
+    /***视视频标题,清晰度切换,实时视频,加载速度显示,控制进度*/
+    protected TextView videoLoadingShowText, /**
+     * The Video dialog pro text.
+     */
+    videoDialogProText;
+    /***视频加载页,错误页,进度控件,锁屏按布局,自定义预览布局*/
+    protected View exoLoadingLayout, /**
+     * The Exo play error layout.
+     */
+    exoPlayErrorLayout, /**
+     * The Exo play lock layout.
+     */
+    exoPlayLockLayout, /**
+     * The Exo play preview layout.
+     */
+    exoPlayPreviewLayout;
+    /***播放结束，提示布局,调整进度布局,控制音频和亮度布局*/
+    protected View playReplayLayout, /**
+     * The Play btn hint layout.
+     */
+    playBtnHintLayout, /**
+     * The Dialog pro layout.
+     */
+    dialogProLayout, /**
+     * The Exo audio layout.
+     */
+    exoAudioLayout, /**
+     * The Exo brightness layout.
+     */
+    exoBrightnessLayout;
+    /***水印,封面图占位,显示音频和亮度布图*/
+    protected ImageView exoPlayWatermark, /**
+     * The Exo preview image.
+     */
+    exoPreviewImage, /**
+     * The Exo preview bottom image.
+     */
+    exoPreviewBottomImage, /**
+     * The Video audio img.
+     */
+    videoAudioImg, /**
+     * The Video brightness img.
+     */
+    videoBrightnessImg;
+    /***显示音频和亮度*/
+    protected ProgressBar videoAudioPro, /**
+     * The Video brightness pro.
+     */
+    videoBrightnessPro;
+    /***切换*/
     protected BelowView belowView;
+    /**
+     * The Alert dialog.
+     */
     protected AlertDialog alertDialog;
+    /**
+     * The M exo player listener.
+     */
     protected ExoPlayerListener mExoPlayerListener;
-    /***返回按钮***/
+    /***返回按钮*/
     protected AppCompatImageView exoControlsBack;
-    /***是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮***/
-    protected boolean isLand, isListPlayer, isShowVideoSwitch, isOpenLock = true;
-    /***标题左间距***/
+    /***是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮*/
+    protected boolean isLand, /**
+     * The Is list player.
+     */
+    isListPlayer, /**
+     * The Is show video switch.
+     */
+    isShowVideoSwitch, /**
+     * The Is open lock.
+     */
+    isOpenLock = true;
+    /***标题左间距*/
     protected int getPaddingLeft;
     private List<String> nameSwitch;
+    /**
+     * The Switch index.
+     */
     protected int switchIndex;
-    /***多分辨路点击回调**/
+    /***多分辨路点击回调*/
     protected BelowView.OnItemClickListener onItemClickListener;
+    /**
+     * The Ic back image.
+     */
     @DrawableRes
     int icBackImage = R.drawable.ic_exo_back;
 
+    /**
+     * Instantiates a new Base view.
+     *
+     * @param context the context
+     */
     public BaseView(@NonNull Context context) {
         this(context, null);
     }
 
+    /**
+     * Instantiates a new Base view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public BaseView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    /**
+     * Instantiates a new Base view.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
     public BaseView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         activity = (Activity) context;
@@ -141,6 +221,9 @@ abstract class BaseView extends FrameLayout {
         initWatermark(userWatermark, defaultArtworkId);
     }
 
+    /**
+     * Inti view.
+     */
     protected void intiView() {
         exoControlsBack = new AppCompatImageView(getContext());
         exoControlsBack.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -192,7 +275,7 @@ abstract class BaseView extends FrameLayout {
      * @param audioId 音频布局id
      * @param brightnessId 亮度布局id
      * @param videoProgressId 进度布局id
-     * ***/
+     */
     protected void intiGestureView(int audioId, int brightnessId, int videoProgressId) {
         if (audioId == R.layout.simple_video_audio_brightness_dialog) {
             videoAudioImg = (ImageView) exoAudioLayout.findViewById(R.id.exo_video_audio_brightness_img);
@@ -207,6 +290,9 @@ abstract class BaseView extends FrameLayout {
         }
     }
 
+    /**
+     * On destroy.
+     */
     public void onDestroy() {
         if (alertDialog != null) {
             alertDialog.dismiss();
@@ -233,9 +319,9 @@ abstract class BaseView extends FrameLayout {
 
     /***
      * 设置水印图和封面图
-     * @param userWatermark  userWatermark  水印图
-     *@param  defaultArtworkId  defaultArtworkId   封面图
-     * **/
+     * @param userWatermark userWatermark  水印图
+     * @param defaultArtworkId defaultArtworkId   封面图
+     */
     protected void initWatermark(int userWatermark, int defaultArtworkId) {
         if (userWatermark != 0) {
             exoPlayWatermark.setImageResource(userWatermark);
@@ -247,7 +333,7 @@ abstract class BaseView extends FrameLayout {
 
     /***
      * 显示网络提示框
-     ***/
+     */
     protected void showDialog() {
         if (alertDialog != null && alertDialog.isShowing()) {
             return;
@@ -280,7 +366,6 @@ abstract class BaseView extends FrameLayout {
      *
      * @param newConfig 旋转对象
      */
-
     protected void scaleLayout(int newConfig) {
         if (newConfig == Configuration.ORIENTATION_PORTRAIT) {
             ViewGroup parent = (ViewGroup) playerView.getParent();
@@ -307,7 +392,7 @@ abstract class BaseView extends FrameLayout {
      * 显示隐藏加载页
      *
      * @param visibility 状态
-     ***/
+     */
     protected void showLockState(int visibility) {
         if (exoPlayLockLayout != null) {
             if (isLand) {
@@ -329,7 +414,7 @@ abstract class BaseView extends FrameLayout {
      * 显示隐藏加载页
      *
      * @param visibility 状态
-     ***/
+     */
     protected void showLoadState(int visibility) {
         if (visibility == View.VISIBLE) {
             showErrorState(GONE);
@@ -345,7 +430,7 @@ abstract class BaseView extends FrameLayout {
      * 显示隐藏错误页
      *
      * @param visibility 状态
-     ***/
+     */
     protected void showErrorState(int visibility) {
         if (visibility == View.VISIBLE) {
             playerView.hideController();
@@ -364,7 +449,7 @@ abstract class BaseView extends FrameLayout {
      * 显示隐藏重播页
      *
      * @param visibility 状态
-     ***/
+     */
     protected void showReplay(int visibility) {
         if (visibility == View.VISIBLE) {
             playerView.getControllerView().hideNo();
@@ -383,8 +468,8 @@ abstract class BaseView extends FrameLayout {
      * 显示隐藏返回键
      *
      * @param visibility 状态
-     * @param  is is
-     ***/
+     * @param is is
+     */
     protected void showBackView(int visibility,boolean is) {
         if (exoControlsBack != null) {
             if (isListPlayer() && !isLand) {
@@ -404,7 +489,7 @@ abstract class BaseView extends FrameLayout {
      * 显示按钮提示页
      *
      * @param visibility 状态
-     ***/
+     */
     protected void showBtnContinueHint(int visibility) {
         if (visibility == View.VISIBLE) {
             showLoadState(GONE);
@@ -422,7 +507,7 @@ abstract class BaseView extends FrameLayout {
      * 显示隐藏手势布局
      *
      * @param visibility 状态
-     ***/
+     */
     protected void showGesture(int visibility) {
         if (exoAudioLayout != null) {
             exoAudioLayout.setVisibility(visibility);
@@ -439,7 +524,7 @@ abstract class BaseView extends FrameLayout {
      * 显示隐藏自定义预览布局
      *
      * @param visibility 状态
-     ***/
+     */
     protected void showPreViewLayout(int visibility) {
         if (exoPlayPreviewLayout != null) {
             exoPlayPreviewLayout.setVisibility(visibility);
@@ -449,7 +534,8 @@ abstract class BaseView extends FrameLayout {
     /***
      * 为了播放完毕后，旋转屏幕，导致播放图像消失处理
      * @param visibility 状态
-     ***/
+     * @param bitmap the bitmap
+     */
     protected void showBottomView(int visibility, Bitmap bitmap) {
          exoPreviewBottomImage.setVisibility(visibility);
         if (bitmap != null) {
@@ -461,7 +547,7 @@ abstract class BaseView extends FrameLayout {
      * 设置标题
      *
      * @param title 内容
-     **/
+     */
     public void setTitle(@NonNull String title) {
         playerView.getControllerView().setTitle(title);
     }
@@ -470,7 +556,7 @@ abstract class BaseView extends FrameLayout {
      * 设置占位预览图
      *
      * @param previewImage 预览图
-     **/
+     */
     public void setPreviewImage(Bitmap previewImage) {
         this.exoPreviewImage.setImageBitmap(previewImage);
     }
@@ -479,7 +565,7 @@ abstract class BaseView extends FrameLayout {
      * 设置播放的状态回调
      *
      * @param mExoPlayerListener 回调
-     ***/
+     */
     public void setExoPlayerListener(ExoPlayerListener mExoPlayerListener) {
         this.mExoPlayerListener = mExoPlayerListener;
     }
@@ -488,7 +574,7 @@ abstract class BaseView extends FrameLayout {
      * 设置开启线路切换按钮
      *
      * @param showVideoSwitch true 显示  false 不现实
-     **/
+     */
     public void setShowVideoSwitch(boolean showVideoSwitch) {
         isShowVideoSwitch = showVideoSwitch;
     }
@@ -497,7 +583,7 @@ abstract class BaseView extends FrameLayout {
      * 设置全屏按钮样式
      *
      * @param icFullscreenStyle 全屏按钮样式
-     **/
+     */
     public void setFullscreenStyle(@DrawableRes int icFullscreenStyle) {
         playerView.getControllerView().setFullscreenStyle(icFullscreenStyle);
     }
@@ -506,7 +592,7 @@ abstract class BaseView extends FrameLayout {
      * 设置开启开启锁屏功能
      *
      * @param openLock 默认 true 开启   false 不开启
-     **/
+     */
     public void setOpenLock(boolean openLock) {
         isOpenLock = openLock;
     }
@@ -515,11 +601,16 @@ abstract class BaseView extends FrameLayout {
      * 设置选择回调
      *
      * @param onItemClickListener onItemClickListener
-     **/
+     */
     public void setOnSwitchItemClickListener(@Nullable BelowView.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
+    /**
+     * Gets name switch.
+     *
+     * @return the name switch
+     */
     protected List<String> getNameSwitch() {
         if (nameSwitch == null) {
             nameSwitch = new ArrayList<>();
@@ -532,7 +623,7 @@ abstract class BaseView extends FrameLayout {
      *
      * @param name        name
      * @param switchIndex switchIndex
-     **/
+     */
     protected void setSwitchName(@NonNull List<String> name, @Size(min = 0) int switchIndex) {
         this.nameSwitch = name;
         this.switchIndex = switchIndex;
@@ -541,8 +632,8 @@ abstract class BaseView extends FrameLayout {
     /****
      * 获取控制类
      *
-     * @return PlaybackControlView
-     ***/
+     * @return PlaybackControlView playback control view
+     */
     @Nullable
     public PlaybackControlView getPlaybackControlView() {
         return playerView != null ? playerView.getControllerView() : null;
@@ -551,7 +642,7 @@ abstract class BaseView extends FrameLayout {
     /***
      * 获取当前加载布局
      *
-     * @return View
+     * @return View boolean
      */
     public boolean isLoadingLayoutShow() {
         return exoLoadingLayout.getVisibility() == VISIBLE;
@@ -560,8 +651,8 @@ abstract class BaseView extends FrameLayout {
     /***
      * 获取视频加载view
      *
-     * @return View
-     **/
+     * @return View load layout
+     */
     @Nullable
     public View getLoadLayout() {
         return exoLoadingLayout;
@@ -570,8 +661,8 @@ abstract class BaseView extends FrameLayout {
     /***
      * 流量播放提示view
      *
-     * @return View
-     **/
+     * @return View play hint layout
+     */
     @Nullable
     public View getPlayHintLayout() {
         return playBtnHintLayout;
@@ -580,8 +671,8 @@ abstract class BaseView extends FrameLayout {
     /***
      * 重播展示view
      *
-     * @return View
-     **/
+     * @return View replay layout
+     */
     @Nullable
     public View getReplayLayout() {
         return playReplayLayout;
@@ -590,8 +681,8 @@ abstract class BaseView extends FrameLayout {
     /***
      * 错误展示view
      *
-     * @return View
-     **/
+     * @return View error layout
+     */
     @Nullable
     public View getErrorLayout() {
         return exoPlayErrorLayout;
@@ -601,7 +692,7 @@ abstract class BaseView extends FrameLayout {
      * 获取手势音频view
      *
      * @return View 手势
-     **/
+     */
     @NonNull
     public View getGestureAudioLayout() {
         return exoAudioLayout;
@@ -610,8 +701,8 @@ abstract class BaseView extends FrameLayout {
     /***
      * 获取手势亮度view
      *
-     * @return View
-     **/
+     * @return View gesture brightness layout
+     */
     @NonNull
     public View getGestureBrightnessLayout() {
         return exoBrightnessLayout;
@@ -620,8 +711,8 @@ abstract class BaseView extends FrameLayout {
     /***
      * 获取手势视频进度调节view
      *
-     * @return View
-     **/
+     * @return View gesture progress layout
+     */
     @NonNull
     public View getGestureProgressLayout() {
         return dialogProLayout;
@@ -630,20 +721,25 @@ abstract class BaseView extends FrameLayout {
     /***
      * 是否属于列表播放
      *
-     * @return boolean
-     ***/
+     * @return boolean boolean
+     */
     public boolean isListPlayer() {
         return isListPlayer;
     }
 
     /***
      * 获取全屏按钮
-     * @return boolean
-     ***/
+     * @return boolean exo fullscreen
+     */
     public AppCompatCheckBox getExoFullscreen() {
         return playerView.getControllerView().getExoFullscreen();
     }
 
+    /**
+     * Gets switch text.
+     *
+     * @return the switch text
+     */
     @NonNull
     public TextView getSwitchText() {
         return playerView.getControllerView().getSwitchText();
@@ -652,8 +748,8 @@ abstract class BaseView extends FrameLayout {
     /**
      * 获取g播放控制类
      *
-     * @return ExoUserPlayer
-     **/
+     * @return ExoUserPlayer play
+     */
     @Nullable
     public ExoUserPlayer getPlay() {
         return mExoPlayerListener != null ? mExoPlayerListener.getPlay() : null;
@@ -662,8 +758,8 @@ abstract class BaseView extends FrameLayout {
     /***
      * 获取预览图
      *
-     * @return ImageView
-     ***/
+     * @return ImageView preview image
+     */
     @NonNull
     public ImageView getPreviewImage() {
         return exoPreviewImage;
@@ -672,8 +768,8 @@ abstract class BaseView extends FrameLayout {
     /***
      * 获取内核播放view
      *
-     * @return SimpleExoPlayerView
-     **/
+     * @return SimpleExoPlayerView player view
+     */
     @NonNull
     public SimpleExoPlayerView getPlayerView() {
         return playerView;
@@ -682,8 +778,8 @@ abstract class BaseView extends FrameLayout {
     /**
      * 获取进度条
      *
-     * @return ExoDefaultTimeBar
-     **/
+     * @return ExoDefaultTimeBar time bar
+     */
     @NonNull
     public ExoDefaultTimeBar getTimeBar() {
         return (ExoDefaultTimeBar) playerView.getControllerView().getTimeBar();

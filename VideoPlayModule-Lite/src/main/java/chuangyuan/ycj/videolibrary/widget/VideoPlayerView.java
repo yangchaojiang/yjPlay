@@ -34,14 +34,32 @@ import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 @TargetApi(16)
 public final class VideoPlayerView extends BaseView {
 
+    /**
+     * Instantiates a new Video player view.
+     *
+     * @param context the context
+     */
     public VideoPlayerView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Instantiates a new Video player view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public VideoPlayerView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    /**
+     * Instantiates a new Video player view.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
     public VideoPlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         intiClickView();
@@ -192,8 +210,8 @@ public final class VideoPlayerView extends BaseView {
 
     /***
      * 获取监听事件
-     * @return ComponentListener
-     ***/
+     * @return ComponentListener component listener
+     */
     public ExoPlayerViewListener getComponentListener() {
         return exoPlayerViewListener;
     }
@@ -211,7 +229,7 @@ public final class VideoPlayerView extends BaseView {
      * 显示隐藏全屏按钮
      *
      * @param visibility 状态
-     ***/
+     */
     public void showFullscreenTempView(int visibility) {
         AppCompatCheckBox compatCheckBox = (AppCompatCheckBox) playerView.findViewById(R.id.sexo_video_fullscreen);
         compatCheckBox.setVisibility(visibility);

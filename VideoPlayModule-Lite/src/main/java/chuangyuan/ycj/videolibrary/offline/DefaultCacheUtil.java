@@ -59,7 +59,8 @@ public final class DefaultCacheUtil {
 
         /**
          * 缓存总和 {@link #alreadyCachedBytes} and {@link #newlyCachedBytes}.
-         * @return long
+         *
+         * @return long long
          */
         public long totalCachedBytes() {
             return alreadyCachedBytes + newlyCachedBytes;
@@ -75,7 +76,7 @@ public final class DefaultCacheUtil {
      * 从给定的值中生成一个缓存键 {@link Uri}.
      *
      * @param uri 请求键的内容的Uri.
-     *@return        String
+     * @return String string
      */
     public static String generateKey(Uri uri) {
         return uri.toString();
@@ -83,10 +84,10 @@ public final class DefaultCacheUtil {
 
     /**
      * 返回 {@code dataSpec.key} 非空，否则生成一个缓存键 {@code
-     * dataSpec.uri}
+     * dataSpec.uri}*
      *
      * @param dataSpec 定义请求键所在的内容。
-     *@return        String
+     * @return String key
      */
     public static String getKey(DataSpec dataSpec) {
         return dataSpec.key != null ? dataSpec.key : generateKey(dataSpec.uri);
@@ -149,14 +150,12 @@ public final class DefaultCacheUtil {
      * @param cache               A {@link Cache} to store the data.
      * @param dataSource          A {@link CacheDataSource} that works on the {@code cache}.
      * @param buffer              The buffer to be used while caching.
-     * @param priorityTaskManager If not null it's used to check whether it is allowed to proceed with
-     *                            caching.
+     * @param priorityTaskManager If not null it's used to check whether it is allowed to proceed with                            caching.
      * @param priority            The priority of this task. Used with {@code priorityTaskManager}.
      * @param counters            Counters to update during caching.
-     * @param enableEOFException  Whether to throw an {@link EOFException} if end of input has been
-     *                            reached unexpectedly.
-     * @param progressListener            progressListener
-     * @param downloader            downloader
+     * @param enableEOFException  Whether to throw an {@link EOFException} if end of input has been                            reached unexpectedly.
+     * @param progressListener    progressListener
+     * @param downloader          downloader
      * @throws IOException          If an error occurs reading from the source.
      * @throws InterruptedException If the thread was interrupted.
      */
@@ -274,10 +273,12 @@ public final class DefaultCacheUtil {
             }
         }
     }
+
     /**
      * 删除所有的数据  {@code cache} pointed by the {@code key}.
+     *
      * @param cache cache  cache
-     *@param key     key    缓存文件 key
+     * @param key   key    缓存文件 key
      */
     public static void remove(Cache cache, String key) {
         NavigableSet<CacheSpan> cachedSpans = cache.getCachedSpans(key);

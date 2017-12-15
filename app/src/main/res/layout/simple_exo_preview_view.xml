@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:paddingLeft="15dp"
-        tools:text="测试阿斯顿" />
+        tools:text="测试" />
 
     <TextView
         android:text="12:12"

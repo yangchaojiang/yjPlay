@@ -15,8 +15,8 @@ import java.io.RandomAccessFile;
  * Created by yangc on 2017/11/13
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated: 简单加密提供数据源类
- * @author yangc
- * {@link  com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory}
+ *
+ * @author yangc  {@link  com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory}
  */
 @Deprecated
 public class Encrypted1FileDataSource implements DataSource {
@@ -26,6 +26,11 @@ public class Encrypted1FileDataSource implements DataSource {
      */
     public static class FileDataSourceException extends IOException {
 
+        /**
+         * Instantiates a new File data source exception.
+         *
+         * @param cause the cause
+         */
         public FileDataSourceException(IOException cause) {
             super(cause);
         }
@@ -42,13 +47,18 @@ public class Encrypted1FileDataSource implements DataSource {
     private int length;
 
     /**
+     * Instantiates a new Encrypted 1 file data source.
+     *
      * @param key 加密字符key
      */
     public Encrypted1FileDataSource(@NonNull String key) {
         this(key, null);
     }
+
     /**
-     * @param key 加密字符key
+     * Instantiates a new Encrypted 1 file data source.
+     *
+     * @param key      加密字符key
      * @param listener An optional listener.
      */
     public Encrypted1FileDataSource(@NonNull  String key, TransferListener<? super Encrypted1FileDataSource> listener) {

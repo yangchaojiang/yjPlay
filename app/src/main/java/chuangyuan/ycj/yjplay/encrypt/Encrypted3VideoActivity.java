@@ -1,9 +1,13 @@
 package chuangyuan.ycj.yjplay.encrypt;
 
+import android.Manifest;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,6 +30,7 @@ public class Encrypted3VideoActivity extends AppCompatActivity {
     private static final String keyBytes = "1234567887654";
     private File mEncryptedFile;
     private ExoUserPlayer exoPlayerManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +39,18 @@ public class Encrypted3VideoActivity extends AppCompatActivity {
         mEncryptedFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), ENCRYPTED_FILE_NAME);
         exoPlayerManager = new ExoUserPlayer(this, mSimpleExoPlayerView, new EnctyptDataSource3(this, keyBytes));
 
+
     }
 
     private boolean hasFile() {
         return mEncryptedFile != null
                 && mEncryptedFile.exists()
                 && mEncryptedFile.length() > 0;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /***

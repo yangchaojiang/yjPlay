@@ -52,8 +52,7 @@ public class MyDefaultDataSource implements DataSource {
      * @param context                     A context.
      * @param listener                    An optional listener.
      * @param userAgent                   The User-Agent string that should be used when requesting remote data.
-     * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-     *                                    to HTTPS and vice versa) are enabled when fetching remote data.
+     * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP                                    to HTTPS and vice versa) are enabled when fetching remote data.
      */
     public MyDefaultDataSource(Context context, TransferListener<? super DataSource> listener,
                                String userAgent, boolean allowCrossProtocolRedirects) {
@@ -67,12 +66,9 @@ public class MyDefaultDataSource implements DataSource {
      * @param context                     A context.
      * @param listener                    An optional listener.
      * @param userAgent                   The User-Agent string that should be used when requesting remote data.
-     * @param connectTimeoutMillis        The connection timeout that should be used when requesting remote
-     *                                    data, in milliseconds. A timeout of zero is interpreted as an infinite timeout.
-     * @param readTimeoutMillis           The read timeout that should be used when requesting remote data,
-     *                                    in milliseconds. A timeout of zero is interpreted as an infinite timeout.
-     * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-     *                                    to HTTPS and vice versa) are enabled when fetching remote data.
+     * @param connectTimeoutMillis        The connection timeout that should be used when requesting remote                                    data, in milliseconds. A timeout of zero is interpreted as an infinite timeout.
+     * @param readTimeoutMillis           The read timeout that should be used when requesting remote data,                                    in milliseconds. A timeout of zero is interpreted as an infinite timeout.
+     * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP                                    to HTTPS and vice versa) are enabled when fetching remote data.
      */
     public MyDefaultDataSource(Context context, TransferListener<? super DataSource> listener,
                                String userAgent, int connectTimeoutMillis, int readTimeoutMillis,
@@ -81,15 +77,14 @@ public class MyDefaultDataSource implements DataSource {
                 new DefaultHttpDataSource(userAgent, null, listener, connectTimeoutMillis,
                         readTimeoutMillis, allowCrossProtocolRedirects, null));
     }
+
     /**
      * Constructs a new instance that delegates to a provided {@link DataSource} for URI schemes other
      * than file, asset and content.
      *
-     * @param context        A context.
-     *                       constants in {@link Base64}
+     * @param context        A context.                       constants in {@link Base64}
      * @param listener       An optional listener.
-     * @param baseDataSource A {@link DataSource} to use for URI schemes other than file, asset and
-     *                       content. This {@link DataSource} should normally support at least http(s).
+     * @param baseDataSource A {@link DataSource} to use for URI schemes other than file, asset and                       content. This {@link DataSource} should normally support at least http(s).
      */
     public MyDefaultDataSource(Context context, TransferListener<? super DataSource> listener,
                                DataSource baseDataSource) {
@@ -98,6 +93,16 @@ public class MyDefaultDataSource implements DataSource {
         this.baseDataSource = Assertions.checkNotNull(baseDataSource);
     }
 
+    /**
+     * Instantiates a new My default data source.
+     *
+     * @param context         the context
+     * @param cipher          the cipher
+     * @param secretKeySpec   the secret key spec
+     * @param ivParameterSpec the iv parameter spec
+     * @param listener        the listener
+     * @param baseDataSource  the base data source
+     */
     public MyDefaultDataSource(@NonNull Context context, @NonNull Cipher cipher, @NonNull SecretKeySpec secretKeySpec, @NonNull IvParameterSpec ivParameterSpec, @NonNull TransferListener<? super DataSource> listener, @NonNull DataSource baseDataSource) {
         this.context = context.getApplicationContext();
         mCipher = cipher;

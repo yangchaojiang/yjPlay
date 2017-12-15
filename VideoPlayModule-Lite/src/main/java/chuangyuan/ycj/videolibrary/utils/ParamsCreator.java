@@ -17,6 +17,11 @@ public class ParamsCreator {
     /***像素密度***/
     private int densityDpi;
 
+    /**
+     * Instantiates a new Params creator.
+     *
+     * @param context the context
+     */
     public ParamsCreator(@NonNull Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         screenWidth = wm.getDefaultDisplay().getWidth();
@@ -29,7 +34,7 @@ public class ParamsCreator {
     /**
      * 获得默认圆的半径
      *
-     * @return int
+     * @return int default circle radius
      */
     public int getDefaultCircleRadius() {
         //1440
@@ -78,7 +83,7 @@ public class ParamsCreator {
     /**
      * 获得默认圆的间距‘
      *
-     * @return int
+     * @return int default circle spacing
      */
     public int getDefaultCircleSpacing() {
         //1440

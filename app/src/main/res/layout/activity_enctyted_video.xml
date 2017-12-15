@@ -10,13 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="encryptVideo"
-        android:text="下载并加密视频" />
+        android:text="@string/down_hint" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="playVideo"
-        android:text="播放视频" />
+        android:text="@string/play_video" />
     <ProgressBar
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:id="@+id/progressBar"

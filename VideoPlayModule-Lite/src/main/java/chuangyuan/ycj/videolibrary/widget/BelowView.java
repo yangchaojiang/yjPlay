@@ -24,7 +24,6 @@ import chuangyuan.ycj.videolibrary.R;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:  多线路浮层
  */
-
 public class BelowView {
     private View convertView;
     private Context context;
@@ -33,6 +32,12 @@ public class BelowView {
     private ListView listView;
     private OnItemClickListener onItemClickListener;
 
+    /**
+     * Instantiates a new Below view.
+     *
+     * @param c        the c
+     * @param listName the list name
+     */
     public BelowView(@NonNull Context c, @Nullable List<String> listName) {
         this.context = c;
         this.convertView = View.inflate(c, R.layout.simple_exo_belowview, null);
@@ -45,6 +50,12 @@ public class BelowView {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * Show below view.
+     *
+     * @param view                   the view
+     * @param canceledOnTouchOutside the canceled on touch outside
+     */
     public void showBelowView(@NonNull View view, boolean canceledOnTouchOutside) {
         if (pw == null) {
             int height = (int) context.getResources().getDimension(R.dimen.dp30) * listView.getAdapter().getCount() + 40;
@@ -68,31 +79,52 @@ public class BelowView {
         this.pw.showAsDropDown(view, -view.getWidth() / 4, 0);
     }
 
+    /**
+     * Sets animation.
+     *
+     * @param animationStyle the animation style
+     */
     public void setAnimation(@AnimatorRes int animationStyle) {
         this.animationStyle = animationStyle;
     }
 
+    /**
+     * Gets below view.
+     *
+     * @return the below view
+     */
     public View getBelowView() {
         return this.convertView;
     }
 
+    /**
+     * Dismiss below view.
+     */
     public void dismissBelowView() {
         if (this.pw != null && pw.isShowing()) {
             this.pw.dismiss();
         }
     }
 
+    /**
+     * Sets on item click listener.
+     *
+     * @param onItemClickListener the on item click listener
+     */
     public void setOnItemClickListener(@Nullable OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
+    /**
+     * The interface On item click listener.
+     */
     public interface OnItemClickListener {
         /**
          * item 点击双股事件
          *
          * @param position 索引
          * @param name     名称
-         **/
+         */
         void onItemClick(int position, String name);
 
     }

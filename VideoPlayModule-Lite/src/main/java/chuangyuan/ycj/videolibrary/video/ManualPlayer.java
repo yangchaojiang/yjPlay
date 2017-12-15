@@ -37,22 +37,57 @@ public final class ManualPlayer extends GestureVideoPlayer {
         }
     };
 
+    /**
+     * Instantiates a new Manual player.
+     *
+     * @param activity the activity
+     * @param reId     the re id
+     */
     public ManualPlayer(@NonNull Activity activity, @IdRes int reId) {
         this(activity, reId, null);
     }
+
+    /**
+     * Instantiates a new Manual player.
+     *
+     * @param activity   the activity
+     * @param playerView the player view
+     */
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this(activity, playerView, null);
     }
 
+    /**
+     * Instantiates a new Manual player.
+     *
+     * @param activity the activity
+     * @param reId     the re id
+     * @param listener the listener
+     */
     public ManualPlayer(@NonNull Activity activity, @IdRes int reId, @Nullable DataSourceListener listener) {
         this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
     }
+
+    /**
+     * Instantiates a new Manual player.
+     *
+     * @param activity   the activity
+     * @param playerView the player view
+     * @param listener   the listener
+     */
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         super(activity, playerView, listener);
         getPlayerViewListener().setControllerHideOnTouch(false);
         getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
     }
 
+    /**
+     * Instantiates a new Manual player.
+     *
+     * @param activity           the activity
+     * @param mediaSourceBuilder the media source builder
+     * @param playerView         the player view
+     */
     public ManualPlayer(@NonNull Activity activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
         super(activity, mediaSourceBuilder, playerView);
         getPlayerViewListener().setControllerHideOnTouch(false);
@@ -92,7 +127,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
 
     /**
      * 列表暂停
-     **/
+     */
     void onListPause() {
         isPause = true;
         if (player != null) {
@@ -112,8 +147,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
      * 重置
      *
      * @param s s
-     **/
-
+     */
     public void reset(boolean s) {
         if (player != null) {
             unNetworkBroadcastReceiver();
@@ -137,7 +171,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
     /****
      * 设置点击播放按钮回调, 交给用户处理
      * @param onClickListener 回调实例
-     * ***/
+     */
     public void setOnPlayClickListener(@Nullable View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }

@@ -8,31 +8,33 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.TrafficStats;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.view.WindowManager;
+
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.util.Assertions;
-
+import com.google.android.exoplayer2.util.Util;
 
 
 /**
- * @author yangc
- *         date 2017/2/25
- *         E-Mail:1007181167@qq.com
- *         Description：
+ * The type Video play utils.
+ *
+ * @author yangc          date 2017/2/25         E-Mail:1007181167@qq.com         Description：
  */
 public class VideoPlayUtils {
     /***
      * 获取地当前网速
      *
      * @param activity 活动对象
-     * @return long
-     **/
+     * @return long total rx bytes
+     */
     public static long getTotalRxBytes(@NonNull Activity activity) {
         return TrafficStats.getUidRxBytes(activity.getApplicationInfo().uid) == TrafficStats.UNSUPPORTED ? 0 : (TrafficStats.getTotalRxBytes() / 1024);//转为KB
     }
@@ -41,7 +43,7 @@ public class VideoPlayUtils {
      * kb 转换mb
      *
      * @param k 该参数表示kb的值
-     * @return double
+     * @return double m
      */
     public static double getM(long k) {
 
@@ -55,7 +57,7 @@ public class VideoPlayUtils {
      * 检查当前网络是否可用
      *
      * @param activity 活动
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isNetworkAvailable(@NonNull Activity activity) {
         Context context = activity.getApplicationContext();
@@ -83,7 +85,7 @@ public class VideoPlayUtils {
      * 检查当前网络是否可用
      *
      * @param mContext 活动
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isWifi(@NonNull Context mContext) {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext
@@ -97,8 +99,8 @@ public class VideoPlayUtils {
      * 是否TYPE_SOURCE 异常
      *
      * @param e 异常
-     * @return boolean
-     ***/
+     * @return boolean boolean
+     */
     public static boolean isBehindLiveWindow(@NonNull ExoPlaybackException e) {
         if (e.type != ExoPlaybackException.TYPE_SOURCE) {
             return false;
@@ -118,8 +120,8 @@ public class VideoPlayUtils {
      * 得到活动对象
      *
      * @param context 上下文
-     * @return Activity
-     **/
+     * @return Activity activity
+     */
     public static Activity scanForActivity(@NonNull Context context) {
         if (context instanceof Activity) {
             return (Activity) context;
@@ -133,8 +135,8 @@ public class VideoPlayUtils {
      * 得到活动对象
      *
      * @param context 上下文
-     * @return AppCompatActivity
-     **/
+     * @return AppCompatActivity app comp activity
+     */
     @Nullable
     public static AppCompatActivity getAppCompActivity(@NonNull Context context) {
         if (context instanceof AppCompatActivity) {
@@ -149,7 +151,7 @@ public class VideoPlayUtils {
      * 得到活动对象
      *
      * @param context 上下文
-     **/
+     */
     public static void showActionBar(@NonNull Context context) {
         AppCompatActivity appCompActivity = getAppCompActivity(context);
         if (appCompActivity != null) {
@@ -166,7 +168,7 @@ public class VideoPlayUtils {
      * 隐藏标题栏
      *
      * @param context 上下文
-     **/
+     */
     public static void hideActionBar(@NonNull Context context) {
         AppCompatActivity appCompActivity = getAppCompActivity(context);
         if (appCompActivity != null) {
@@ -185,13 +187,13 @@ public class VideoPlayUtils {
      * 获取当前手机横屏状态
      *
      * @param activity 活动
-     * @return int
-     ***/
+     * @return int boolean
+     */
     public static boolean isLand(@NonNull Context activity) {
         Resources resources = activity.getResources();
         assert resources != null;
         Configuration configuration = resources.getConfiguration();
-        Assertions.checkState(configuration!= null);
+        Assertions.checkState(configuration != null);
         return resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
@@ -199,8 +201,8 @@ public class VideoPlayUtils {
      * 获取当前手机状态
      *
      * @param activity 活动
-     * @return int
-     ***/
+     * @return int orientation
+     */
     public static int getOrientation(@NonNull Activity activity) {
         Resources resources = activity.getResources();
         if (resources == null || resources.getConfiguration() == null) {
@@ -214,12 +216,51 @@ public class VideoPlayUtils {
      *
      * @param context 山下文
      * @param dpValue dp单位
-     * @return int
+     * @return int int
      */
     public static int dip2px(@NonNull Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+    /**
+     * Makes a best guess to infer the type from a file name.
+     *
+     * @param fileName Name of the file. It can include the path of the file.
+     * @return The content type.
+     */
+    /**
+     * Makes a best guess to infer the type from a {@link Uri}.
+     *
+     * @param uri The {@link Uri}.
+     * @return The content type.
+     */
+    @C.ContentType
+    public static int inferContentType(Uri uri) {
+        String path = uri.getPath();
+        return path == null ? C.TYPE_OTHER : inferContentType(path);
+    }
 
 
+    /**
+     * Infer content type int.
+     *
+     * @param fileName the file name
+     * @return the int
+     */
+    @C.ContentType
+    public static int inferContentType(String fileName) {
+        fileName = Util.toLowerInvariant(fileName);
+        if (fileName.matches(".*m3u8.*")) {
+            return C.TYPE_HLS;
+        } else if (fileName.matches(".*mpd.*")) {
+            return C.TYPE_DASH;
+        } else if (fileName.matches(".*\\.ism(l)?(/manifest(\\(.+\\))?)?")) {
+            return C.TYPE_SS;
+        } else {
+            return C.TYPE_OTHER;
+        }
+    }
 }
+
+
+

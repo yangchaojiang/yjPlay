@@ -21,5 +21,6 @@
     <string name="exo_play_reminder">提示</string>
     <string name="exo_play_wifi_hint_no">您当前网络不是wifi，是否继续观看</string>
     <string name="hint_replay_list">重新播放</string>
+    <string name="media_error">没有找到 当前视频类型,或者不支持当前类型，依赖完整版</string>
     <string name="net_network_no_hint">您当前网络不可用,请检查你网络</string>
 </resources>

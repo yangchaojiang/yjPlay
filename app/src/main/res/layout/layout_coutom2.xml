@@ -35,6 +35,6 @@
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="跳过广告" />
+        android:text="@string/Skip_the_advertising" />
 
 </LinearLayout>

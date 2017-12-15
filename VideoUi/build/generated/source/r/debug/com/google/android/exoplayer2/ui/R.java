@@ -871,9 +871,10 @@ public final class R {
         public static int exo_play_reminder = 0x7f15002e;
         public static int exo_play_wifi_hint_no = 0x7f15002f;
         public static int hint_replay_list = 0x7f150030;
-        public static int net_network_no_hint = 0x7f150031;
-        public static int search_menu_title = 0x7f150032;
-        public static int status_bar_notification_info_overflow = 0x7f150033;
+        public static int media_error = 0x7f150031;
+        public static int net_network_no_hint = 0x7f150032;
+        public static int search_menu_title = 0x7f150033;
+        public static int status_bar_notification_info_overflow = 0x7f150034;
     }
     public static final class style {
         public static int AlertDialog_AppCompat = 0x7f160001;

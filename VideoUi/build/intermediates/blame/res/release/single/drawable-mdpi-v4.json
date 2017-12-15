@@ -24,6 +24,10 @@
         "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\drawable-mdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
     },
     {
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\exo_controls_shuffle.png",
+        "source": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-mdpi\\exo_controls_shuffle.png"
+    },
+    {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png",
         "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\7217d8bac3a12a1791ad885126131b82\\res\\drawable-mdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
     },

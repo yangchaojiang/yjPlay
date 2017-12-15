@@ -27,7 +27,6 @@ import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:  常规媒体流的下载器。支持断点下载
  */
-
 public final class DefaultProgressDownloader implements Downloader {
 
     private static final int BUFFER_SIZE_BYTES = 128 * 1024;
@@ -77,7 +76,7 @@ public final class DefaultProgressDownloader implements Downloader {
 
     /***
      * 取消下载任务
-     * **/
+     */
     public void cancel() {
         if (service != null) {
             service.shutdown();
@@ -92,6 +91,12 @@ public final class DefaultProgressDownloader implements Downloader {
         private ProgressListener listener;
         private DefaultProgressDownloader defaultProgressDownloader;
 
+        /**
+         * Instantiates a new My runnable.
+         *
+         * @param listener the listener
+         * @param th       the th
+         */
         MyRunnable(@Nullable ProgressListener listener, @NonNull DefaultProgressDownloader th) {
             this.listener = listener;
             this.defaultProgressDownloader = th;
@@ -120,6 +125,9 @@ public final class DefaultProgressDownloader implements Downloader {
         }
     }
 
+    /**
+     * The type Builder.
+     */
     public static class Builder {
         private Context context;
         private Uri uri;
@@ -131,13 +139,20 @@ public final class DefaultProgressDownloader implements Downloader {
         private String cacheDir;
         private long  maxCacheSize ;
 
+        /**
+         * Instantiates a new Builder.
+         *
+         * @param context the context
+         */
         public Builder(@NonNull Context context) {
             this.context = context;
         }
 
         /**
+         * Sets cache.
+         *
          * @param cache 缓存文件实例
-         * @return Builder
+         * @return Builder cache
          */
         public Builder setCache(@NonNull Cache cache) {
             this.simpleCache = cache;
@@ -145,8 +160,10 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
+         * Sets cache file dir.
+         *
          * @param cacheDir 缓存文件所在目录
-         * @return Builder
+         * @return Builder cache file dir
          */
         public Builder setCacheFileDir(@NonNull String cacheDir) {
             this.cacheDir = cacheDir;
@@ -154,9 +171,10 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
-         * @param secretKey 如果不是null，那么在使用AES / CBC的文件系统中缓存密钥将被加密
-         *                  密钥必须是16字节长.
-         * @return Builder
+         * Sets secret key.
+         *
+         * @param secretKey 如果不是null，那么在使用AES / CBC的文件系统中缓存密钥将被加密                  密钥必须是16字节长.
+         * @return Builder secret key
          */
         public Builder setSecretKey(@Nullable byte[] secretKey) {
             this.secretKey = secretKey;
@@ -173,8 +191,10 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
+         * Sets uri.
+         *
          * @param uri 需要下载uri
-         * @return Builder
+         * @return Builder uri
          */
         public Builder setUri(@NonNull String uri) {
             this.uri = Uri.parse(uri);
@@ -182,8 +202,10 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
+         * Sets uri.
+         *
          * @param uri 需要下载uri
-         * @return Builder
+         * @return Builder uri
          */
         public Builder setUri(@NonNull Uri uri) {
             this.uri = uri;
@@ -191,16 +213,21 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
+         * Sets max cache size.
+         *
          * @param maxCacheSize 缓存大小
-         * @return Builder
+         * @return Builder max cache size
          */
         public Builder setMaxCacheSize( long maxCacheSize) {
             this.uri = uri;
             return this;
         }
+
         /**
+         * Sets http data source.
+         *
          * @param upstreamFactory 下载时需要数据数据源工厂类
-         * @return Builder
+         * @return Builder http data source
          */
         public Builder setHttpDataSource(@NonNull DataSource.Factory upstreamFactory) {
             this.upstreamFactory = upstreamFactory;
@@ -208,8 +235,10 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
+         * Sets downloader helper.
+         *
          * @param constructorHelper constructorHelper
-         * @return Builder
+         * @return Builder downloader helper
          */
         public Builder setDownloaderHelper(@NonNull DownloaderConstructorHelper constructorHelper) {
             this.constructorHelper = constructorHelper;
@@ -217,7 +246,9 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
-         * @return DefaultProgressDownloader
+         * Build default progress downloader.
+         *
+         * @return DefaultProgressDownloader default progress downloader
          */
         public DefaultProgressDownloader build() {
             if (simpleCache == null) {

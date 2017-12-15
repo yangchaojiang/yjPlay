@@ -24,14 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="默认缓存播放" />
+            android:text="@string/default_cache" />
 
         <Button
             android:id="@+id/button11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="自定义下载缓存" />
+            android:text="@string/custom_cache" />
     </LinearLayout>
 
     <chuangyuan.ycj.videolibrary.widget.VideoPlayerView

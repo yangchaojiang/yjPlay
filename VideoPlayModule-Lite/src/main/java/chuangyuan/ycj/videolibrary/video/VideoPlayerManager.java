@@ -18,11 +18,19 @@ public class VideoPlayerManager {
     private VideoPlayerManager() {
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static VideoPlayerManager getInstance() {
         return Holder.holder;
     }
 
     private static final class Holder {
+        /**
+         * The Holder.
+         */
         static VideoPlayerManager holder = new VideoPlayerManager();
     }
 
@@ -30,7 +38,7 @@ public class VideoPlayerManager {
      * 设置当前播放 控制类
      *
      * @param videoPlayer 播放页
-     **/
+     */
     public void setCurrentVideoPlayer(@NonNull ManualPlayer videoPlayer) {
         releaseVideoPlayer();
         this.mVideoPlayer = videoPlayer;
@@ -38,7 +46,7 @@ public class VideoPlayerManager {
 
     /***
      * 释放当前播放
-     **/
+     */
     public void releaseVideoPlayer() {
         if (mVideoPlayer != null) {
             mVideoPlayer.reset(false);
@@ -48,7 +56,7 @@ public class VideoPlayerManager {
     /***
      * d手机屏幕旋转配置
      * @param newConfig newConfig
-     **/
+     */
     public void onConfigurationChanged(Configuration newConfig) {
         if (mVideoPlayer != null) {
             mVideoPlayer.onConfigurationChanged(newConfig);
@@ -58,15 +66,15 @@ public class VideoPlayerManager {
     /***
      * 设置返回建监听
      *
-     * @return boolean
-     **/
+     * @return boolean boolean
+     */
     public boolean onBackPressed() {
         return mVideoPlayer == null || mVideoPlayer.onBackPressed();
     }
 
     /**
      * 页面暂停播放暂停
-     **/
+     */
     public void onPause() {
         if (mVideoPlayer != null) {
             mVideoPlayer.onListPause();
@@ -75,7 +83,7 @@ public class VideoPlayerManager {
 
     /**
      * 页面恢复
-     **/
+     */
     public void onResume() {
         if (mVideoPlayer != null) {
             mVideoPlayer.onResume();
@@ -84,7 +92,7 @@ public class VideoPlayerManager {
 
     /**
      * 页面销毁
-     **/
+     */
     public void onDestroy() {
         if (mVideoPlayer != null) {
             mVideoPlayer.onDestroy();
@@ -95,8 +103,8 @@ public class VideoPlayerManager {
     /**
      * 获取当前播放类
      *
-     * @return ManualPlayer
-     **/
+     * @return ManualPlayer video player
+     */
     @Nullable
     public ManualPlayer getVideoPlayer() {
         return mVideoPlayer;
@@ -105,8 +113,8 @@ public class VideoPlayerManager {
     /**
      * 获取当前状态
      *
-     * @return ManualPlayer
-     **/
+     * @return ManualPlayer boolean
+     */
     boolean isClick() {
         return isClick;
     }
@@ -115,7 +123,7 @@ public class VideoPlayerManager {
      * 获取当前播放类
      *
      * @param click 实例
-     **/
+     */
     public void setClick(boolean click) {
         isClick = click;
     }

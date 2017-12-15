@@ -19,6 +19,8 @@ import chuangyuan.ycj.videolibrary.utils.ParamsCreator;
 
 
 /**
+ * The type Exo video anim.
+ *
  * @author yangc
  */
 public class ExoVideoAnim extends View {
@@ -35,10 +37,21 @@ public class ExoVideoAnim extends View {
     private int increment = 2;
 
 
+    /**
+     * Instantiates a new Exo video anim.
+     *
+     * @param context the context
+     */
     public ExoVideoAnim(@NonNull Context context) {
         super(context);
     }
 
+    /**
+     * Instantiates a new Exo video anim.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public ExoVideoAnim(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
         ParamsCreator paramsCreator = new ParamsCreator(this.getContext());

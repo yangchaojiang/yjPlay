@@ -12,6 +12,7 @@
   <string name="exo_controls_repeat_one_description">"重复播放单个视频"</string>
   <string name="exo_controls_shuffle_description">"随机播放"</string>
   <!--我的-->
+  <string name="media_error">没有找到 当前视频类型,或者不支持当前类型，依赖完整版</string>
   <string name="exo_play_error_hint">播放异常,视频地址异常，或者网络不可用</string>
   <string name="exo_play_btn_hnt">继续播放</string>
   <string name="net_network_no_hint">您当前网络不可用,请检查你网络</string>

@@ -36,10 +36,10 @@ public class EncryptedFileDataSourceFactory implements DataSource.Factory {
     private DataSource.Factory baseDataSourceFactory;
 
     /**
-     * @param context A context.
-     *                for {@link DefaultDataSource}.
-     * @param key     key
-     * {@link  com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory}.
+     * Instantiates a new Encrypted file data source factory.
+     *
+     * @param context A context.                for {@link DefaultDataSource}.
+     * @param key     key {@link  com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory}.
      */
     @Deprecated
     public EncryptedFileDataSourceFactory(Context context, String key) {
@@ -47,10 +47,27 @@ public class EncryptedFileDataSourceFactory implements DataSource.Factory {
         this.key = key;
     }
 
+    /**
+     * Instantiates a new Encrypted file data source factory.
+     *
+     * @param context         the context
+     * @param cipher          the cipher
+     * @param secretKeySpec   the secret key spec
+     * @param ivParameterSpec the iv parameter spec
+     */
     public EncryptedFileDataSourceFactory(Context context, Cipher cipher, SecretKeySpec secretKeySpec, IvParameterSpec ivParameterSpec) {
         this(context, cipher, secretKeySpec, ivParameterSpec, new DefaultBandwidthMeter());
     }
 
+    /**
+     * Instantiates a new Encrypted file data source factory.
+     *
+     * @param context         the context
+     * @param cipher          the cipher
+     * @param secretKeySpec   the secret key spec
+     * @param ivParameterSpec the iv parameter spec
+     * @param listener        the listener
+     */
     public EncryptedFileDataSourceFactory(Context context, Cipher cipher, SecretKeySpec secretKeySpec, IvParameterSpec ivParameterSpec, TransferListener<? super DataSource> listener) {
         mCipher = cipher;
         mSecretKeySpec = secretKeySpec;

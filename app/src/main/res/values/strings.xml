@@ -1,18 +1,11 @@
 <resources>
     <string name="app_name">yjPlayVideo</string>
-    <string name="url_hls">http://ivi.bupt.edu.cn/hls/cctv2.m3u8</string>
-    <string name="exo_play_wifi_hint_no">您当前网络不是wifi，是否继续观看视频</string>
-    <string name="exo_play_reminder">提示</string>
-    <string name="Detailed_play">默认详细播放</string>
-    <string name="The_list_of_play">列表播放</string>
-    <string name="Custom_layout">自定义布局 </string>
-    <string name="Customize_the_start_button_event">自定义事件</string>
-    <string name="_15m">Continue playing (15 m)</string>
 
-    <string name="error_hint">出错了</string>
-    <string name="uri_test">http://mp4.vjshi.com/2017-09-07/368307259eca2a94c987943c830f13ae.mp4</string>
-    <string name="uri_test_1">http://mp4.vjshi.com/2016-12-22/e54d476ad49891bd1adda49280a20692.mp4</string>
+    <string name="url_hls">http://ivi.bupt.edu.cn/hls/cctv2.m3u8</string>
     <string name="uri_test_3">http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4</string>
+    <string name="uri_test">http://mp4.vjshi.com/2017-09-19/e1920013741c5c66d408c7cdb3d9eddf.mp4</string>
+    <string name="uri_test_1">http://mp4.vjshi.com/2016-12-22/e54d476ad49891bd1adda49280a20692.mp4</string>
+
     <string name="uri_test_h">http://mp4.vjshi.com/2017-08-16/af83af63d018816474067b51a835f4a2.mp4</string>
     <string name="uri_test_5">http://mp4.vjshi.com/2017-10-19/53bfeb9eb92c1748596eaf2a1e649020.mp4</string>
     <string name="uri_test_6">http://mp4.vjshi.com/2016-10-23/a0511ea830bb0620f94a5340a1879800.mp4</string>
@@ -27,40 +20,6 @@
     <string name="new_message_notification_title_template">New message: %1$s</string>
     <string name="ad_tag_url"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=]]></string>
 
-    <!-- TODO: remove this placeholder text -->
-    <string name="new_message_notification_placeholder_text_template">You said %1$s and lorem ipsum
-        dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
-        semper venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis.
-        Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper
-        ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
-        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
-        tortor.
-    </string>
 
-    <string name="action_share">Share</string>
-    <string name="action_reply">Reply</string>
 
-    <string name="error_drm_not_supported">Protected content not supported on API levels below 18</string>
-
-    <string name="error_drm_unsupported_scheme">This device does not support the required DRM scheme</string>
-
-    <string name="error_drm_unknown">An unknown DRM error occurred</string>
-
-    <string name="error_no_decoder">This device does not provide a decoder for </string>
-
-    <string name="error_no_secure_decoder">This device does not provide a secure decoder for</string>
-
-    <string name="error_querying_decoders">Unable to query device decoders</string>
-
-    <string name="error_instantiating_decoder">Unable to instantiate decoder</string>
-
-    <string name="error_unsupported_video">Media includes video tracks, but none are playable by this device</string>
-
-    <string name="error_unsupported_audio">Media includes audio tracks, but none are playable by this device</string>
-
-    <string name="storage_permission_denied">Permission to access storage was denied</string>
-
-    <string name="sample_list_load_error">One or more sample lists failed to load</string>
-
-    <string name="ima_not_loaded">Playing sample without ads, as the IMA extension was not loaded</string>
 </resources>

@@ -25,37 +25,35 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
     private CacheDataSource.EventListener listener;
 
     /***
-     * @param  context 上下文
-     ***/
+     * @param context 上下文
+     */
     public DefaultCacheDataSourceFactory(@NonNull Context context) {
         this(context, 1024 * 1024 * 1024L * 1024, null, null);
     }
 
     /***
-     * @param  context 上下文
+     * @param context 上下文
      * @param maxCacheSize 缓存大小
-     *
-     ***/
+     */
     public DefaultCacheDataSourceFactory(@NonNull Context context, long maxCacheSize) {
         this(context, maxCacheSize, null, null);
     }
 
     /***
-     * @param  context 上下文
+     * @param context 上下文
      * @param maxCacheSize 缓存大小
-     * @param secretKey If not null, cache keys will be stored encrypted on filesystem using AES/CBC.
-     *     The key must be 16 bytes long.
-     * **/
+     * @param secretKey If not null, cache keys will be stored encrypted on filesystem using AES/CBC.     The key must be 16 bytes long.
+     */
     public DefaultCacheDataSourceFactory(@NonNull Context context, long maxCacheSize, byte[] secretKey) {
         this(context, maxCacheSize, secretKey, null);
     }
 
     /***
-     * @param  context 上下文
+     * @param context 上下文
      * @param maxCacheSize 缓存大小
-     * @param secretKey If not null, cache keys will be stored encrypted on filesystem using AES/CBC.
-     *     The key must be 16 bytes long.
-     ***/
+     * @param secretKey If not null, cache keys will be stored encrypted on filesystem using AES/CBC.     The key must be 16 bytes long.
+     * @param listener the listener
+     */
     public DefaultCacheDataSourceFactory(@NonNull Context context, long maxCacheSize, byte[] secretKey, @Nullable CacheDataSource.EventListener listener) {
         defaultDatasourceFactory = new JDefaultDataSourceFactory(context);
         simpleCache = new SimpleCache(new File(context.getExternalCacheDir(), "media1"), new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);

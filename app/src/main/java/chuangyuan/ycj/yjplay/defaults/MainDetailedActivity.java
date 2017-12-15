@@ -9,17 +9,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
-
 import java.util.Arrays;
-
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.widget.BelowView;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
-
 public class MainDetailedActivity extends Activity {
 
     private ExoUserPlayer exoPlayerManager;
@@ -49,10 +45,11 @@ public class MainDetailedActivity extends Activity {
         // exoPlayerManager.setPlayUri(getString(R.string.uri_test_3),getString(R.string.uri_test_h));
         // exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4");
         test = new String[]{getString(R.string.uri_test_9), getString(R.string.uri_test_7), getString(R.string.uri_test_8)};
-         String[] name = {"超清", "高清", "标清"};
-//        //开启线路设置
+        String[] name = {"超清", "高清", "标清"};
+        //开启线路设置
         exoPlayerManager.setShowVideoSwitch(true);
-        exoPlayerManager.setPlaySwitchUri(0,0,getString(R.string.uri_test_11), Arrays.asList(test),Arrays.asList(name));
+        // exoPlayerManager.setPlaySwitchUri(0,test,name);
+        exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
         //exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.mp4");
         //开始启动播放视频
         //exoPlayerManager.startPlayer();

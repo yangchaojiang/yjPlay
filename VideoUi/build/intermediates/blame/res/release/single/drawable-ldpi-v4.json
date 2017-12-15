@@ -20,6 +20,10 @@
         "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_sentiment_very_dissatisfied_white_48px.png"
     },
     {
+        "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\exo_controls_shuffle.png",
+        "source": "E:\\project\\yjPlay\\VideoUi\\src\\main\\res\\drawable-ldpi\\exo_controls_shuffle.png"
+    },
+    {
         "merged": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_replay_.png",
         "source": "E:\\project\\yjPlay\\VideoUi\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_replay_.png"
     },

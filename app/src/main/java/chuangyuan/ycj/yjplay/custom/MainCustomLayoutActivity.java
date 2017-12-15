@@ -60,7 +60,6 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         //设置加载显示模式
         exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
         exoPlayerManager.setPlayUri(url);
-       // exoPlayerManager.setPlayUri("http://ytnbin.oss-cn-beijing.aliyuncs.com/2017/12/video/1512631425851.mp4");
         exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

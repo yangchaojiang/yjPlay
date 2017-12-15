@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -9,60 +18,72 @@
     tools:context="chuangyuan.ycj.yjplay.MainActivity">
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Detailed_play" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/The_list_of_play" />
 
     <Button
+        android:textAllCaps="false"
+
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Custom_layout" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Customize_the_start_button_event" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="广告视频" />
+        android:text="@string/im_btn_hint" />
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="弹窗广告视频" />
+        android:text="@string/googlesdk" />
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="自定义媒体数据" />
+        android:text="@string/custom_media" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AES加密视频" />
+        android:text="@string/aes_hint_btn" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="简单加密视频" />
+        android:text="@string/simple_video_btn" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="离线缓存播放" />
+        android:text="@string/cache_bideo_btn" />
 </LinearLayout>
+</ScrollView>
