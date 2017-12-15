@@ -44,7 +44,7 @@
 
   dependencies {
      //完整版
-     compile 'com.ycjiang:VideoPlayModule:1.9.8`'
+     compile 'com.ycjiang:VideoPlayModule:1.9.81'
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
      compile 'com.ycjiang:VideoPlayModule-Lite:1.9.81'
 
