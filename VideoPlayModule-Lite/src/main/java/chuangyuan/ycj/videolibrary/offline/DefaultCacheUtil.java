@@ -16,7 +16,6 @@
 package chuangyuan.ycj.videolibrary.offline;
 
 import android.net.Uri;
-import android.os.Looper;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.offline.Downloader;
@@ -139,7 +138,7 @@ public final class DefaultCacheUtil {
     public static void cache(DataSpec dataSpec, Cache cache, DataSource upstream,
                              CachingCounters counters) throws IOException, InterruptedException {
         cache(dataSpec, cache, new CacheDataSource(cache, upstream),
-                new byte[DEFAULT_BUFFER_SIZE_BYTES], null, 0, counters, false, null,null);
+                new byte[DEFAULT_BUFFER_SIZE_BYTES], null, 0, counters, false, null, null);
     }
 
     /**
@@ -161,7 +160,7 @@ public final class DefaultCacheUtil {
      */
     public static void cache(DataSpec dataSpec, Cache cache, CacheDataSource dataSource,
                              byte[] buffer, PriorityTaskManager priorityTaskManager, int priority,
-                             CachingCounters counters, boolean enableEOFException, Downloader.ProgressListener progressListener,DefaultProgressDownloader downloader)
+                             CachingCounters counters, boolean enableEOFException, Downloader.ProgressListener progressListener, DefaultProgressDownloader downloader)
             throws IOException, InterruptedException {
         Assertions.checkNotNull(dataSource);
         Assertions.checkNotNull(buffer);
@@ -184,7 +183,7 @@ public final class DefaultCacheUtil {
                 // There is a hole in the cache which is at least "-blockLength" long.
                 blockLength = -blockLength;
                 long read = readAndDiscard(dataSpec, start, blockLength, dataSource, buffer,
-                        priorityTaskManager, priority, counters, progressListener,downloader);
+                        priorityTaskManager, priority, counters, progressListener, downloader);
 
                 if (read < blockLength) {
                     // Reached to the end of the data.
@@ -218,7 +217,7 @@ public final class DefaultCacheUtil {
      */
     private static long readAndDiscard(DataSpec dataSpec, long absoluteStreamPosition, long length,
                                        DataSource dataSource, byte[] buffer, PriorityTaskManager priorityTaskManager, int priority,
-                                       CachingCounters counters, Downloader.ProgressListener listener,DefaultProgressDownloader downloader) throws IOException, InterruptedException {
+                                       CachingCounters counters, Downloader.ProgressListener listener, DefaultProgressDownloader downloader) throws IOException, InterruptedException {
         while (true) {
             if (priorityTaskManager != null) {
                 // Wait for any other thread with higher priority to finish its job.
@@ -256,8 +255,8 @@ public final class DefaultCacheUtil {
                     totalRead += read;
                     counters.newlyCachedBytes += read;
                     if (listener != null) {
-                       float  downloadPercentage=counters.newlyCachedBytes * 100 / counters.contentLength;
-                        if (System.currentTimeMillis() - currentTimeMillis >60||downloadPercentage==100.0f) {
+                        float downloadPercentage = counters.newlyCachedBytes * 100 / counters.contentLength;
+                        if (System.currentTimeMillis() - currentTimeMillis > 60 || downloadPercentage == 100.0f) {
                             currentTimeMillis = System.currentTimeMillis();
                             listener.onDownloadProgress(downloader, downloadPercentage, counters.contentLength);
                         }

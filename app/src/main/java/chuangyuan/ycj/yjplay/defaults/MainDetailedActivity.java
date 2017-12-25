@@ -13,12 +13,13 @@ import java.util.Arrays;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
+import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
 public class MainDetailedActivity extends Activity {
 
-    private ExoUserPlayer exoPlayerManager;
+    private GestureVideoPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";
     String[] test;
@@ -29,7 +30,7 @@ public class MainDetailedActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
         videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new ExoUserPlayer(this, videoPlayerView, new DataSource(this));
+        exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView, new DataSource(this));
         //设置视频标题
         exoPlayerManager.setTitle("视频标题");
         //设置水印图
@@ -141,8 +142,8 @@ public class MainDetailedActivity extends Activity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+      //  exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
-        exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
     }
 
     @Override

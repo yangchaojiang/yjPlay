@@ -1,7 +1,5 @@
 package com.google.android.exoplayer2.ui;
 
-import android.graphics.drawable.Drawable;
-import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.view.View;

@@ -222,7 +222,7 @@ public final class VideoPlayerView extends BaseView {
     private void exitFullView() {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getExoFullscreen().setChecked(false);
-        doOnConfigurationChanged(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        doOnConfigurationChanged(Configuration.ORIENTATION_PORTRAIT);
     }
 
     /***
@@ -317,22 +317,21 @@ public final class VideoPlayerView extends BaseView {
     /***
      * 点击事件监听
      */
-    private  View.OnClickListener onClickListener = new View.OnClickListener() {
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
 
         public void onClick(View v) {
             if (v.getId() == R.id.exo_video_fullscreen || v.getId() == R.id.sexo_video_fullscreen) {
-                //切竖屏
+                //切竖屏portrait screen
                 if (VideoPlayUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE) {
-                    doOnConfigurationChanged(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                    //切横屏
+                    doOnConfigurationChanged(Configuration.ORIENTATION_PORTRAIT);
+                    //切横屏landscape
                 } else if (VideoPlayUtils.getOrientation(activity) == Configuration.ORIENTATION_PORTRAIT) {
-                    doOnConfigurationChanged(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+                    doOnConfigurationChanged(Configuration.ORIENTATION_LANDSCAPE);
                 }
             } else if (v.getId() == R.id.exo_controls_back) {
-                mExoPlayerListener.onBack();
+                activity.onBackPressed();
             } else if (v.getId() == R.id.exo_player_error_btn_id) {
                 if (VideoPlayUtils.isNetworkAvailable(activity)) {
                     showErrorState(View.GONE);

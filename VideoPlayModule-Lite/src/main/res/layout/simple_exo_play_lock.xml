@@ -13,6 +13,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:button="@drawable/toggle_lock" />
+
     <chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar
         android:id="@+id/exo_player_lock_progress"
         android:layout_width="match_parent"

@@ -37,11 +37,6 @@ public interface ExoPlayerListener {
     void playVideoUri();
 
     /***
-     *返回建回调
-     */
-    void onBack();
-
-    /***
      *得到内核控制类
      * @return ExoUserPlayer play
      */

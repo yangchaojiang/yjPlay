@@ -18,12 +18,12 @@
         <activity
             android:hardwareAccelerated="true"
             android:name=".defaults.MainDetailedActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".MainListActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".custom.MainCustomLayoutActivity"
@@ -32,7 +32,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".custom.MainListInfoCustomActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity

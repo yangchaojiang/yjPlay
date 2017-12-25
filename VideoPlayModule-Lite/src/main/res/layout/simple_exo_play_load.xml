@@ -6,8 +6,7 @@
     android:background="#33000000"
     android:gravity="center"
     android:clickable="false"
-    android:orientation="vertical"
-     >
+    android:orientation="vertical">
 
 
     <chuangyuan.ycj.videolibrary.widget.ExoVideoAnim

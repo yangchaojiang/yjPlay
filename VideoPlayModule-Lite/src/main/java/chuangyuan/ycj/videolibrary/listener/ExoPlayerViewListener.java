@@ -8,9 +8,6 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 
 import java.util.List;
 
-import chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar;
-import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
-
 /**
  * The interface Exo player view listener.
  *
@@ -227,5 +224,5 @@ public interface ExoPlayerViewListener {
      * @param name        name
      * @param switchIndex switchIndex;
      */
-    void setSwitchName(@NonNull List<String> name,int switchIndex);
+    void setSwitchName(@NonNull List<String> name, int switchIndex);
 }

@@ -16,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.util.Util;
 
 import java.lang.ref.WeakReference;
@@ -352,7 +351,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
                     newPosition = 0;
                 }
 
-                showProgressDialog(newPosition, duration,Util.getStringForTime(formatBuilder, formatter, newPosition), Util.getStringForTime(formatBuilder, formatter, duration));
+                showProgressDialog(newPosition, duration, Util.getStringForTime(formatBuilder, formatter, newPosition), Util.getStringForTime(formatBuilder, formatter, duration));
             } else {
                 float percent = deltaY / getPlayerViewListener().getHeight();
                 if (volumeControl) {

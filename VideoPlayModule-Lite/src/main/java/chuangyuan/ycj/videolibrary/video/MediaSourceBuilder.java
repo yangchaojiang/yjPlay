@@ -1,5 +1,3 @@
-
-
 package chuangyuan.ycj.videolibrary.video;
 
 import android.content.Context;
@@ -18,9 +16,7 @@ import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.MergingMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.util.Util;
 
 import java.util.List;
 

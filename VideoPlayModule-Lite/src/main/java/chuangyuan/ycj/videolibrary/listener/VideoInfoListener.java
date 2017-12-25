@@ -36,5 +36,5 @@ public interface VideoInfoListener {
      *暂停还是播放
      * @param playWhenReady 暂停还是播放
      */
-    void  isPlaying(boolean playWhenReady);
+    void isPlaying(boolean playWhenReady);
 }

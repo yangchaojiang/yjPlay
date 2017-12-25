@@ -44,9 +44,9 @@
 
   dependencies {
      //完整版
-     compile 'com.ycjiang:VideoPlayModule:1.9.81'
+     compile 'com.ycjiang:VideoPlayModule:1.9.82'
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-     compile 'com.ycjiang:VideoPlayModule-Lite:1.9.81'
+     compile 'com.ycjiang:VideoPlayModule-Lite:1.9.82'
 
   }
   ````
@@ -367,6 +367,7 @@
    *  1在列表控件使用属性 ”app:controller_layout_id="@layout/simple_exo_playback＿list_view"“  //提供默列表控制布局
    *  2.player_list="true" 设置为true 开启列表模式
    *  3.demo:
+       ````
               public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
               .......
               @Override

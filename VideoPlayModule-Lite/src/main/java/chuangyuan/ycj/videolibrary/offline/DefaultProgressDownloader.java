@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.offline.Downloader;
 import com.google.android.exoplayer2.offline.DownloaderConstructorHelper;
@@ -15,10 +16,12 @@ import com.google.android.exoplayer2.upstream.cache.CacheUtil;
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
 import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 import com.google.android.exoplayer2.util.PriorityTaskManager;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 
 /**
@@ -115,8 +118,8 @@ public final class DefaultProgressDownloader implements Downloader {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    if (listener!=null){
-                        listener.onDownloadProgress(defaultProgressDownloader,-1,defaultProgressDownloader.getDownloadedBytes());
+                    if (listener != null) {
+                        listener.onDownloadProgress(defaultProgressDownloader, -1, defaultProgressDownloader.getDownloadedBytes());
                     }
                 } finally {
                     priorityTaskManager.remove(C.PRIORITY_DOWNLOAD);
@@ -137,7 +140,7 @@ public final class DefaultProgressDownloader implements Downloader {
         private DownloaderConstructorHelper constructorHelper;
         private byte[] secretKey;
         private String cacheDir;
-        private long  maxCacheSize ;
+        private long maxCacheSize;
 
         /**
          * Instantiates a new Builder.
@@ -218,7 +221,7 @@ public final class DefaultProgressDownloader implements Downloader {
          * @param maxCacheSize 缓存大小
          * @return Builder max cache size
          */
-        public Builder setMaxCacheSize( long maxCacheSize) {
+        public Builder setMaxCacheSize(long maxCacheSize) {
             this.uri = uri;
             return this;
         }
@@ -252,8 +255,8 @@ public final class DefaultProgressDownloader implements Downloader {
          */
         public DefaultProgressDownloader build() {
             if (simpleCache == null) {
-                if (maxCacheSize==0){
-                    maxCacheSize=1024*1024*1024L*1024;
+                if (maxCacheSize == 0) {
+                    maxCacheSize = 1024 * 1024 * 1024L * 1024;
                 }
                 File file;
                 if (cacheDir == null) {
@@ -261,7 +264,7 @@ public final class DefaultProgressDownloader implements Downloader {
                 } else {
                     file = new File(cacheDir, "media");
                 }
-                simpleCache = new SimpleCache(file,  new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
+                simpleCache = new SimpleCache(file, new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
             }
             if (upstreamFactory == null) {
                 upstreamFactory = new JDefaultDataSourceFactory(context);

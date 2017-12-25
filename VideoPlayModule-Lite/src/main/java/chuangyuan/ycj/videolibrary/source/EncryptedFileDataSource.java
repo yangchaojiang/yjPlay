@@ -29,14 +29,14 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public final class EncryptedFileDataSource implements DataSource {
 
-  private final TransferListener<? super EncryptedFileDataSource> mTransferListener;
-  private StreamingCipherInputStream mInputStream;
-  private Uri mUri;
-  private long mBytesRemaining;
-  private boolean mOpened;
-  private Cipher mCipher;
-  private SecretKeySpec mSecretKeySpec;
-  private IvParameterSpec mIvParameterSpec;
+    private final TransferListener<? super EncryptedFileDataSource> mTransferListener;
+    private StreamingCipherInputStream mInputStream;
+    private Uri mUri;
+    private long mBytesRemaining;
+    private boolean mOpened;
+    private Cipher mCipher;
+    private SecretKeySpec mSecretKeySpec;
+    private IvParameterSpec mIvParameterSpec;
 
     /**
      * Instantiates a new Encrypted file data source.
@@ -47,155 +47,155 @@ public final class EncryptedFileDataSource implements DataSource {
      * @param listener        the listener
      */
     public EncryptedFileDataSource(Cipher cipher, SecretKeySpec secretKeySpec, IvParameterSpec ivParameterSpec, TransferListener<? super EncryptedFileDataSource> listener) {
-    mCipher = cipher;
-    mSecretKeySpec = secretKeySpec;
-    mIvParameterSpec = ivParameterSpec;
-    mTransferListener = listener;
-  }
+        mCipher = cipher;
+        mSecretKeySpec = secretKeySpec;
+        mIvParameterSpec = ivParameterSpec;
+        mTransferListener = listener;
+    }
 
-  @Override
-  public long open(DataSpec dataSpec) throws EncryptedFileDataSourceException {
-    // if we're open, we shouldn't need to open again, fast-fail
-    if (mOpened) {
-      return mBytesRemaining;
-    }
-    // #getUri is part of the contract...
-    mUri = dataSpec.uri;
-    // put all our throwable work in a single block, wrap the error in a custom Exception
-    try {
-      setupInputStream();
-      skipToPosition(dataSpec);
-      computeBytesRemaining(dataSpec);
-    } catch (IOException e) {
-      throw new EncryptedFileDataSourceException(e);
-    }
-    // if we made it this far, we're open
-    mOpened = true;
-    // notify
-    if (mTransferListener != null) {
-      mTransferListener.onTransferStart(this, dataSpec);
-    }
-    // report
-    return mBytesRemaining;
-  }
-
-  private void setupInputStream() throws FileNotFoundException {
-    File encryptedFile = new File(mUri.getPath());
-    FileInputStream fileInputStream = new FileInputStream(encryptedFile);
-    mInputStream = new StreamingCipherInputStream(fileInputStream, mCipher, mSecretKeySpec, mIvParameterSpec);
-  }
-
-  private void skipToPosition(DataSpec dataSpec) throws IOException {
-    mInputStream.forceSkip(dataSpec.position);
-  }
-
-  private void computeBytesRemaining(DataSpec dataSpec) throws IOException {
-    if (dataSpec.length != C.LENGTH_UNSET) {
-      mBytesRemaining = dataSpec.length;
-    } else {
-      mBytesRemaining = mInputStream.available();
-      if (mBytesRemaining == Integer.MAX_VALUE) {
-        mBytesRemaining = C.LENGTH_UNSET;
-      }
-    }
-  }
-
-  @Override
-  public int read(byte[] buffer, int offset, int readLength) throws EncryptedFileDataSourceException {
-    // fast-fail if there's 0 quantity requested or we think we've already processed everything
-    if (readLength == 0) {
-      return 0;
-    } else if (mBytesRemaining == 0) {
-      return C.RESULT_END_OF_INPUT;
-    }
-    // constrain the read length and try to read from the cipher input stream
-    int bytesToRead = getBytesToRead(readLength);
-    int bytesRead;
-    try {
-      bytesRead = mInputStream.read(buffer, offset, bytesToRead);
-    } catch (IOException e) {
-      throw new EncryptedFileDataSourceException(e);
-    }
-    // if we get a -1 that means we failed to read - we're either going to EOF error or broadcast EOF
-    if (bytesRead == -1) {
-      if (mBytesRemaining != C.LENGTH_UNSET) {
-        throw new EncryptedFileDataSourceException(new EOFException());
-      }
-      return C.RESULT_END_OF_INPUT;
-    }
-    // we can't decrement bytes remaining if it's just a flag representation (as opposed to a mutable numeric quantity)
-    if (mBytesRemaining != C.LENGTH_UNSET) {
-      mBytesRemaining -= bytesRead;
-    }
-    // notify
-    if (mTransferListener != null) {
-      mTransferListener.onBytesTransferred(this, bytesRead);
-    }
-    // report
-    return bytesRead;
-  }
-
-  private int getBytesToRead(int bytesToRead) {
-    if (mBytesRemaining == C.LENGTH_UNSET) {
-      return bytesToRead;
-    }
-    return (int) Math.min(mBytesRemaining, bytesToRead);
-  }
-
-  @Override
-  public Uri getUri() {
-    return mUri;
-  }
-
-  @Override
-  public void close() throws EncryptedFileDataSourceException {
-    mUri = null;
-    try {
-      if (mInputStream != null) {
-        mInputStream.close();
-      }
-
-    } catch (IOException e) {
-      throw new EncryptedFileDataSourceException(e);
-    } finally {
-      mInputStream = null;
-      mCipher=null;
-      mIvParameterSpec=null;
-      mSecretKeySpec=null;
-      if (mOpened) {
-        mOpened = false;
-        if (mTransferListener != null) {
-          mTransferListener.onTransferEnd(this);
+    @Override
+    public long open(DataSpec dataSpec) throws EncryptedFileDataSourceException {
+        // if we're open, we shouldn't need to open again, fast-fail
+        if (mOpened) {
+            return mBytesRemaining;
         }
-      }
+        // #getUri is part of the contract...
+        mUri = dataSpec.uri;
+        // put all our throwable work in a single block, wrap the error in a custom Exception
+        try {
+            setupInputStream();
+            skipToPosition(dataSpec);
+            computeBytesRemaining(dataSpec);
+        } catch (IOException e) {
+            throw new EncryptedFileDataSourceException(e);
+        }
+        // if we made it this far, we're open
+        mOpened = true;
+        // notify
+        if (mTransferListener != null) {
+            mTransferListener.onTransferStart(this, dataSpec);
+        }
+        // report
+        return mBytesRemaining;
     }
-  }
+
+    private void setupInputStream() throws FileNotFoundException {
+        File encryptedFile = new File(mUri.getPath());
+        FileInputStream fileInputStream = new FileInputStream(encryptedFile);
+        mInputStream = new StreamingCipherInputStream(fileInputStream, mCipher, mSecretKeySpec, mIvParameterSpec);
+    }
+
+    private void skipToPosition(DataSpec dataSpec) throws IOException {
+        mInputStream.forceSkip(dataSpec.position);
+    }
+
+    private void computeBytesRemaining(DataSpec dataSpec) throws IOException {
+        if (dataSpec.length != C.LENGTH_UNSET) {
+            mBytesRemaining = dataSpec.length;
+        } else {
+            mBytesRemaining = mInputStream.available();
+            if (mBytesRemaining == Integer.MAX_VALUE) {
+                mBytesRemaining = C.LENGTH_UNSET;
+            }
+        }
+    }
+
+    @Override
+    public int read(byte[] buffer, int offset, int readLength) throws EncryptedFileDataSourceException {
+        // fast-fail if there's 0 quantity requested or we think we've already processed everything
+        if (readLength == 0) {
+            return 0;
+        } else if (mBytesRemaining == 0) {
+            return C.RESULT_END_OF_INPUT;
+        }
+        // constrain the read length and try to read from the cipher input stream
+        int bytesToRead = getBytesToRead(readLength);
+        int bytesRead;
+        try {
+            bytesRead = mInputStream.read(buffer, offset, bytesToRead);
+        } catch (IOException e) {
+            throw new EncryptedFileDataSourceException(e);
+        }
+        // if we get a -1 that means we failed to read - we're either going to EOF error or broadcast EOF
+        if (bytesRead == -1) {
+            if (mBytesRemaining != C.LENGTH_UNSET) {
+                throw new EncryptedFileDataSourceException(new EOFException());
+            }
+            return C.RESULT_END_OF_INPUT;
+        }
+        // we can't decrement bytes remaining if it's just a flag representation (as opposed to a mutable numeric quantity)
+        if (mBytesRemaining != C.LENGTH_UNSET) {
+            mBytesRemaining -= bytesRead;
+        }
+        // notify
+        if (mTransferListener != null) {
+            mTransferListener.onBytesTransferred(this, bytesRead);
+        }
+        // report
+        return bytesRead;
+    }
+
+    private int getBytesToRead(int bytesToRead) {
+        if (mBytesRemaining == C.LENGTH_UNSET) {
+            return bytesToRead;
+        }
+        return (int) Math.min(mBytesRemaining, bytesToRead);
+    }
+
+    @Override
+    public Uri getUri() {
+        return mUri;
+    }
+
+    @Override
+    public void close() throws EncryptedFileDataSourceException {
+        mUri = null;
+        try {
+            if (mInputStream != null) {
+                mInputStream.close();
+            }
+
+        } catch (IOException e) {
+            throw new EncryptedFileDataSourceException(e);
+        } finally {
+            mInputStream = null;
+            mCipher = null;
+            mIvParameterSpec = null;
+            mSecretKeySpec = null;
+            if (mOpened) {
+                mOpened = false;
+                if (mTransferListener != null) {
+                    mTransferListener.onTransferEnd(this);
+                }
+            }
+        }
+    }
 
     /**
      * The type Encrypted file data source exception.
      */
-    public  final class EncryptedFileDataSourceException extends IOException {
+    public final class EncryptedFileDataSourceException extends IOException {
         /**
          * Instantiates a new Encrypted file data source exception.
          *
          * @param cause the cause
          */
         public EncryptedFileDataSourceException(IOException cause) {
-      super(cause);
+            super(cause);
+        }
     }
-  }
 
     /**
      * The type Streaming cipher input stream.
      */
-    public  static   class StreamingCipherInputStream extends CipherInputStream {
+    public static class StreamingCipherInputStream extends CipherInputStream {
 
-    private static final int AES_BLOCK_SIZE = 16;
+        private static final int AES_BLOCK_SIZE = 16;
 
-    private InputStream mUpstream;
-    private Cipher mCipher;
-    private SecretKeySpec mSecretKeySpec;
-    private IvParameterSpec mIvParameterSpec;
+        private InputStream mUpstream;
+        private Cipher mCipher;
+        private SecretKeySpec mSecretKeySpec;
+        private IvParameterSpec mIvParameterSpec;
 
         /**
          * Instantiates a new Streaming cipher input stream.
@@ -206,17 +206,17 @@ public final class EncryptedFileDataSource implements DataSource {
          * @param ivParameterSpec the iv parameter spec
          */
         public StreamingCipherInputStream(InputStream inputStream, Cipher cipher, SecretKeySpec secretKeySpec, IvParameterSpec ivParameterSpec) {
-      super(inputStream, cipher);
-      mUpstream = inputStream;
-      mCipher = cipher;
-      mSecretKeySpec = secretKeySpec;
-      mIvParameterSpec = ivParameterSpec;
-    }
+            super(inputStream, cipher);
+            mUpstream = inputStream;
+            mCipher = cipher;
+            mSecretKeySpec = secretKeySpec;
+            mIvParameterSpec = ivParameterSpec;
+        }
 
-    @Override
-    public int read(byte[] b, int off, int len) throws IOException {
-      return super.read(b, off, len);
-    }
+        @Override
+        public int read(byte[] b, int off, int len) throws IOException {
+            return super.read(b, off, len);
+        }
 
         /**
          * Force skip long.
@@ -226,41 +226,41 @@ public final class EncryptedFileDataSource implements DataSource {
          * @throws IOException the io exception
          */
         public long forceSkip(long bytesToSkip) throws IOException {
-      long skipped = mUpstream.skip(bytesToSkip);
-      try {
-        int skip = (int) (bytesToSkip % AES_BLOCK_SIZE);
-        long blockOffset = bytesToSkip - skip;
-        long numberOfBlocks = blockOffset / AES_BLOCK_SIZE;
-        // from here to the next inline comment, i don't understand
-        BigInteger ivForOffsetAsBigInteger = new BigInteger(1, mIvParameterSpec.getIV()).add(BigInteger.valueOf(numberOfBlocks));
-        byte[] ivForOffsetByteArray = ivForOffsetAsBigInteger.toByteArray();
-        IvParameterSpec computedIvParameterSpecForOffset;
-        if (ivForOffsetByteArray.length < AES_BLOCK_SIZE) {
-          byte[] resizedIvForOffsetByteArray = new byte[AES_BLOCK_SIZE];
-          System.arraycopy(ivForOffsetByteArray, 0, resizedIvForOffsetByteArray, AES_BLOCK_SIZE - ivForOffsetByteArray.length, ivForOffsetByteArray.length);
-          computedIvParameterSpecForOffset = new IvParameterSpec(resizedIvForOffsetByteArray);
-        } else {
-          computedIvParameterSpecForOffset = new IvParameterSpec(ivForOffsetByteArray, ivForOffsetByteArray.length - AES_BLOCK_SIZE, AES_BLOCK_SIZE);
+            long skipped = mUpstream.skip(bytesToSkip);
+            try {
+                int skip = (int) (bytesToSkip % AES_BLOCK_SIZE);
+                long blockOffset = bytesToSkip - skip;
+                long numberOfBlocks = blockOffset / AES_BLOCK_SIZE;
+                // from here to the next inline comment, i don't understand
+                BigInteger ivForOffsetAsBigInteger = new BigInteger(1, mIvParameterSpec.getIV()).add(BigInteger.valueOf(numberOfBlocks));
+                byte[] ivForOffsetByteArray = ivForOffsetAsBigInteger.toByteArray();
+                IvParameterSpec computedIvParameterSpecForOffset;
+                if (ivForOffsetByteArray.length < AES_BLOCK_SIZE) {
+                    byte[] resizedIvForOffsetByteArray = new byte[AES_BLOCK_SIZE];
+                    System.arraycopy(ivForOffsetByteArray, 0, resizedIvForOffsetByteArray, AES_BLOCK_SIZE - ivForOffsetByteArray.length, ivForOffsetByteArray.length);
+                    computedIvParameterSpecForOffset = new IvParameterSpec(resizedIvForOffsetByteArray);
+                } else {
+                    computedIvParameterSpecForOffset = new IvParameterSpec(ivForOffsetByteArray, ivForOffsetByteArray.length - AES_BLOCK_SIZE, AES_BLOCK_SIZE);
+                }
+                mCipher.init(Cipher.ENCRYPT_MODE, mSecretKeySpec, computedIvParameterSpecForOffset);
+                byte[] skipBuffer = new byte[skip];
+                // i get that we need to update, but i don't get how we're able to take the shortcut from here to the previous comment
+                mCipher.update(skipBuffer, 0, skip, skipBuffer);
+                Arrays.fill(skipBuffer, (byte) 0);
+            } catch (Exception e) {
+                return 0;
+            }
+            return skipped;
         }
-        mCipher.init(Cipher.ENCRYPT_MODE, mSecretKeySpec, computedIvParameterSpecForOffset);
-        byte[] skipBuffer = new byte[skip];
-        // i get that we need to update, but i don't get how we're able to take the shortcut from here to the previous comment
-        mCipher.update(skipBuffer, 0, skip, skipBuffer);
-        Arrays.fill(skipBuffer, (byte) 0);
-      } catch (Exception e) {
-        return 0;
-      }
-      return skipped;
-    }
 
-    // We need to return the available bytes from the upstream.
-    // In this implementation we're front loading it, but it's possible the value might change during the lifetime
-    // of this instance, and reference to the stream should be retained and queried for available bytes instead
-    @Override
-    public int available() throws IOException {
-      return mUpstream.available();
-    }
+        // We need to return the available bytes from the upstream.
+        // In this implementation we're front loading it, but it's possible the value might change during the lifetime
+        // of this instance, and reference to the stream should be retained and queried for available bytes instead
+        @Override
+        public int available() throws IOException {
+            return mUpstream.available();
+        }
 
-  }
+    }
 
 }

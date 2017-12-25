@@ -160,7 +160,7 @@ public class MainListActivity extends AppCompatActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);//横竖屏切换
+     //   VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
     }
 

@@ -17,11 +17,11 @@ import chuangyuan.ycj.videolibrary.listener.LoadListener;
 /**
  * The type Buffering load control.
  *
- * @author yangc  date 2017/10/6 E-Mail:yangchaojiang@outlook.com Deprecated: 数据缓存工厂类
+ * @author yangc  date 2017/10/6 E-Mail:yangchaojiang@outlook.com Deprecated:
  */
 public class BufferingLoadControl implements LoadControl {
 
-    private  static  final String TAG=BufferingLoadControl.class.getName();
+    private static final String TAG = BufferingLoadControl.class.getName();
     /**
      * The constant DEFAULT_MIN_BUFFER_MS.
      */
@@ -54,8 +54,8 @@ public class BufferingLoadControl implements LoadControl {
     /**
      * The Need buffering.
      */
-    public   boolean needBuffering = true;
-    private    LoadListener listener;
+    public boolean needBuffering = true;
+    private LoadListener listener;
 
     /**
      * Instantiates a new Buffering load control.
@@ -126,25 +126,25 @@ public class BufferingLoadControl implements LoadControl {
 
     @Override
     public void onStopped() {
-        Log.d(TAG,"onStopped");
+        Log.d(TAG, "onStopped");
         reset(true);
     }
 
     @Override
     public void onReleased() {
-        Log.d(TAG,"onReleased");
+        Log.d(TAG, "onReleased");
         reset(true);
     }
 
     @Override
     public Allocator getAllocator() {
-        Log.d(TAG,"getAllocator");
+        Log.d(TAG, "getAllocator");
         return allocator;
     }
 
     @Override
     public boolean shouldStartPlayback(long bufferedDurationUs, boolean rebuffering) {
-        long minBufferDurationUs = rebuffering ? bufferForPlaybackAfterRebufferUs :bufferForPlaybackUs;
+        long minBufferDurationUs = rebuffering ? bufferForPlaybackAfterRebufferUs : bufferForPlaybackUs;
         return minBufferDurationUs <= 0 || bufferedDurationUs >= minBufferDurationUs;
     }
 
@@ -152,15 +152,15 @@ public class BufferingLoadControl implements LoadControl {
     public boolean shouldContinueLoading(long bufferedDurationUs) {
         int bufferTimeState = getBufferTimeState(bufferedDurationUs);
         boolean targetBufferSizeReached = allocator.getTotalBytesAllocated() >= targetBufferSize;
-            if (listener!=null&&!targetBufferSizeReached){
-                long pro=allocator.getTotalBytesAllocated()*100/bufferForPlaybackUs;
-                Log.d(TAG,"shouldContinueLoading:"+pro);
-                listener.onProgress(pro>100?100:pro);
-            }
+        if (listener != null && !targetBufferSizeReached) {
+            long pro = allocator.getTotalBytesAllocated() * 100 / bufferForPlaybackUs;
+            Log.d(TAG, "shouldContinueLoading:" + pro);
+            listener.onProgress(pro > 100 ? 100 : pro);
+        }
 
         boolean wasBuffering = isBuffering;
         isBuffering = bufferTimeState == BELOW_LOW_WATERMARK
-                || (bufferTimeState == BETWEEN_WATERMARKS && isBuffering &&!targetBufferSizeReached);
+                || (bufferTimeState == BETWEEN_WATERMARKS && isBuffering && !targetBufferSizeReached);
         if (priorityTaskManager != null && isBuffering != wasBuffering) {
             if (isBuffering) {
                 priorityTaskManager.add(C.PRIORITY_PLAYBACK);
@@ -184,7 +184,7 @@ public class BufferingLoadControl implements LoadControl {
         if (resetAllocator) {
             allocator.reset();
         }
-        listener=null;
+        listener = null;
     }
 
     /**

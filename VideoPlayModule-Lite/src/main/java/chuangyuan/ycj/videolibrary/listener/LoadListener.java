@@ -10,5 +10,5 @@ public interface LoadListener {
      * 进度
      * @param pro 进度值 0-100
      */
-    void   onProgress(long pro);
+    void onProgress(long pro);
 }

@@ -17,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -25,12 +24,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.AnimUtils;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.R;
@@ -399,7 +396,7 @@ abstract class BaseView extends FrameLayout {
                 if (lockCheckBox.isChecked()) {
                     if (visibility == View.VISIBLE) {
                         playerView.getControllerView().hideNo();
-                        showBackView(GONE,true);
+                        showBackView(GONE, true);
                     }
                 } else
                     exoPlayLockLayout.setVisibility(visibility);
@@ -436,7 +433,7 @@ abstract class BaseView extends FrameLayout {
             playerView.hideController();
             showLoadState(GONE);
             showReplay(GONE);
-            showBackView(VISIBLE,true);
+            showBackView(VISIBLE, true);
             showLockState(GONE);
         }
         if (exoPlayErrorLayout != null) {
@@ -457,7 +454,7 @@ abstract class BaseView extends FrameLayout {
             showErrorState(GONE);
             showBtnContinueHint(GONE);
             showLockState(GONE);
-            showBackView(VISIBLE,true);
+            showBackView(VISIBLE, true);
         }
         if (playReplayLayout != null) {
             playReplayLayout.setVisibility(visibility);
@@ -470,12 +467,12 @@ abstract class BaseView extends FrameLayout {
      * @param visibility 状态
      * @param is is
      */
-    protected void showBackView(int visibility,boolean is) {
+    protected void showBackView(int visibility, boolean is) {
         if (exoControlsBack != null) {
             if (isListPlayer() && !isLand) {
                 exoControlsBack.setVisibility(GONE);
             } else {
-                if (visibility == VISIBLE&&is) {
+                if (visibility == VISIBLE && is) {
                     exoControlsBack.setTranslationY(0);
                     exoControlsBack.setAlpha(1f);
                 }
@@ -496,7 +493,7 @@ abstract class BaseView extends FrameLayout {
             showReplay(GONE);
             showErrorState(GONE);
             showPreViewLayout(GONE);
-            showBackView(VISIBLE,true);
+            showBackView(VISIBLE, true);
         }
         if (playBtnHintLayout != null) {
             playBtnHintLayout.setVisibility(visibility);
@@ -537,7 +534,7 @@ abstract class BaseView extends FrameLayout {
      * @param bitmap the bitmap
      */
     protected void showBottomView(int visibility, Bitmap bitmap) {
-         exoPreviewBottomImage.setVisibility(visibility);
+        exoPreviewBottomImage.setVisibility(visibility);
         if (bitmap != null) {
             exoPreviewBottomImage.setImageBitmap(bitmap);
         }

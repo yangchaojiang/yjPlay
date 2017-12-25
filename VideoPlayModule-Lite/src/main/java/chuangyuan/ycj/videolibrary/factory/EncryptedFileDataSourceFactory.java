@@ -1,7 +1,6 @@
 package chuangyuan.ycj.videolibrary.factory;
 
 import android.content.Context;
-import android.util.Base64;
 
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
@@ -9,7 +8,6 @@ import com.google.android.exoplayer2.upstream.DefaultDataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
-
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

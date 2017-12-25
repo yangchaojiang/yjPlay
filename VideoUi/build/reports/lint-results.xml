@@ -19,38 +19,6 @@
     </issue>
 
     <issue
-        id="RequiredSize"
-        severity="Error"
-        message="The required `layout_width` and `layout_height` attributes are missing"
-        category="Correctness"
-        priority="4"
-        summary="Missing `layout_width` or `layout_height` attributes"
-        explanation="All views must specify an explicit `layout_width` and `layout_height` attribute. There is a runtime check for this, so if you fail to specify a size, an exception is thrown at runtime.&#xA;&#xA;It&apos;s possible to specify these widths via styles as well. GridLayout, as a special case, does not require you to specify a size."
-        errorLine1="            &lt;chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar"
-        errorLine2="            ^">
-        <location
-            file="E:\project\yjPlay\VideoUi\src\main\res\layout\exo_playback_control_view.xml"
-            line="102"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="RequiredSize"
-        severity="Error"
-        message="The required `layout_width` and `layout_height` attributes are missing"
-        category="Correctness"
-        priority="4"
-        summary="Missing `layout_width` or `layout_height` attributes"
-        explanation="All views must specify an explicit `layout_width` and `layout_height` attribute. There is a runtime check for this, so if you fail to specify a size, an exception is thrown at runtime.&#xA;&#xA;It&apos;s possible to specify these widths via styles as well. GridLayout, as a special case, does not require you to specify a size."
-        errorLine1="        &lt;chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar"
-        errorLine2="        ^">
-        <location
-            file="E:\project\yjPlay\VideoUi\src\main\res\layout\simple_exo_playback_control_view.xml"
-            line="26"
-            column="9"/>
-    </issue>
-
-    <issue
         id="MissingTranslation"
         severity="Fatal"
         message="&quot;`exo_fenge`&quot; is not translated in &quot;en&quot; (English), &quot;zh-CN&quot; (Chinese: China)"
@@ -1206,11 +1174,11 @@
         summary="Accessibility in Custom Views"
         explanation="If a `View` that overrides `onTouchEvent` or uses an `OnTouchListener` does not also implement `performClick` and call it when clicks are detected, the `View` may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in `View#performClick` as some accessibility services invoke `performClick` when a click action should occur."
         errorLine1="    this.playedAdGroups = playedAdGroups;"
-        errorLine2="           ~~~~~~~~~~~~">
+        errorLine2="         ~~~~~~~~~~~~">
         <location
             file="E:\project\yjPlay\VideoUi\src\main\java\com\google\android\exoplayer2\ui\DefaultTimeBar.java"
-            line="385"
-            column="12"/>
+            line="387"
+            column="10"/>
     </issue>
 
     <issue

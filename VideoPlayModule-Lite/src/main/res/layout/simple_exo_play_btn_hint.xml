@@ -5,8 +5,7 @@
     android:clickable="true"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@android:color/black"
-     >
+    android:background="@android:color/black">
 
     <TextView
         android:id="@id/exo_player_btn_hint_btn_id"

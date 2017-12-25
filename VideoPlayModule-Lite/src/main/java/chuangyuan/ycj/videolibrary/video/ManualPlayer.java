@@ -1,13 +1,10 @@
 package chuangyuan.ycj.videolibrary.video;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.google.android.exoplayer2.util.Util;
 
@@ -21,21 +18,7 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * Description： 手动控制播放播放器
  */
 public final class ManualPlayer extends GestureVideoPlayer {
-    private View.OnClickListener onClickListener;
-    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-        @SuppressLint("ClickableViewAccessibility")
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (onClickListener != null) {
-                    onClickListener.onClick(v);
-                } else {
-                    startPlayer();
-                }
-            }
-            return false;
-        }
-    };
+
 
     /**
      * Instantiates a new Manual player.
@@ -140,7 +123,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
     public void onDestroy() {
         super.onDestroy();
         onTouchListener = null;
-        onClickListener = null;
+
     }
 
     /**
@@ -168,12 +151,5 @@ public final class ManualPlayer extends GestureVideoPlayer {
         }
     }
 
-    /****
-     * 设置点击播放按钮回调, 交给用户处理
-     * @param onClickListener 回调实例
-     */
-    public void setOnPlayClickListener(@Nullable View.OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
 
 }

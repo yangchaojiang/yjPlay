@@ -17,10 +17,12 @@ package com.google.android.exoplayer2.ui;
 
 import android.annotation.SuppressLint;
 import android.widget.TextView;
+
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.decoder.DecoderCounters;
+
 import java.util.Locale;
 
 /**

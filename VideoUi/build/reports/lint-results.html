@@ -173,10 +173,10 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 3 errors and 74 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 1 error and 74 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Fri Dec 15 18:34:59 CST 2017      </nav>
+Check performed at Mon Dec 25 12:19:35 CST 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -184,7 +184,6 @@ Check performed at Fri Dec 15 18:34:59 CST 2017      </nav>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
       <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (1)</a>
-      <a class="mdl-navigation__link" href="#RequiredSize"><i class="material-icons error-icon">error</i>Missing <code>layout_width</code> or <code>layout_height</code> attributes (2)</a>
       <a class="mdl-navigation__link" href="#MissingTranslation"><i class="material-icons error-icon">error</i>Incomplete translation (1)</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (1)</a>
       <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (53)</a>
@@ -211,9 +210,6 @@ Check performed at Fri Dec 15 18:34:59 CST 2017      </nav>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
-<tr>
-<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons error-icon">error</i>
-<a href="#RequiredSize">RequiredSize</a>: Missing <code>layout_width</code> or <code>layout_height</code> attributes</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Correctness:Messages">Correctness:Messages</a>
 </td></tr>
 <tr>
@@ -304,63 +300,6 @@ To suppress this error, use the issue id "GradleDependency" as explained in the 
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationGradleDependencyLink" onclick="reveal('explanationGradleDependency');">
 Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="GradleDependencyCardLink" onclick="hideid('GradleDependencyCard');">
-Dismiss</button>            </div>
-            </div>
-          </section><a name="RequiredSize"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="RequiredSizeCard" style="display: block;">
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Missing layout_width or layout_height attributes</h2>
-  </div>
-              <div class="mdl-card__supporting-text">
-<div class="issue">
-<div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/exo_playback_control_view.xml">../../src/main/res/layout/exo_playback_control_view.xml</a>:102</span>: <span class="message">The required <code>layout_width</code> and <code>layout_height</code> attributes are missing</span><br /><pre class="errorlines">
-<span class="lineno">  99 </span>                <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"14sp"</span>
-<span class="lineno"> 100 </span>                <span class="prefix">android:</span><span class="attribute">textStyle</span>=<span class="value">"bold"</span> />
-<span class="lineno"> 101 </span>
-<span class="caretline"><span class="lineno"> 102 </span>            <span class="error"><span class="tag">&lt;chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar</span><span class="attribute"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
-</span><span class="lineno"> 103 </span><span class="attribute">                </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_progress"</span>
-<span class="lineno"> 104 </span>                <span class="attribute">style</span>=<span class="value">"@style/ExoMediaTimeBar"</span> />
-<span class="lineno"> 105 </span>
-</pre>
-
-<span class="location"><a href="../../src/main/res/layout/simple_exo_playback_control_view.xml">../../src/main/res/layout/simple_exo_playback_control_view.xml</a>:26</span>: <span class="message">The required <code>layout_width</code> and <code>layout_height</code> attributes are missing</span><br /><pre class="errorlines">
-<span class="lineno"> 23 </span><span class="attribute">            </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@+id/exo_pause"</span>
-<span class="lineno"> 24 </span>            <span class="attribute">style</span>=<span class="value">"@style/ExoMediaButton.Pause"</span> />
-<span class="lineno"> 25 </span>
-<span class="caretline"><span class="lineno"> 26 </span>        <span class="error"><span class="tag">&lt;chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar</span><span class="attribute"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
-</span><span class="lineno"> 27 </span><span class="attribute">            </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@id/exo_progress"</span>
-<span class="lineno"> 28 </span>            <span class="attribute">style</span>=<span class="value">"@style/ExoMediaTimeBar"</span> />
-<span class="lineno"> 29 </span>
-</pre>
-
-</div>
-<div class="metadata"><div class="explanation" id="explanationRequiredSize" style="display: none;">
-All views must specify an explicit <code>layout_width</code> and <code>layout_height</code> attribute. There is a runtime check for this, so if you fail to specify a size, an exception is thrown at runtime.<br/>
-<br/>
-It's possible to specify these widths via styles as well. GridLayout, as a special case, does not require you to specify a size.<br/>To suppress this error, use the issue id "RequiredSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-<br/></div>
-</div>
-</div>
-<div class="chips">
-<span class="mdl-chip">
-    <span class="mdl-chip__text">RequiredSize</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Correctness</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Error</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Priority 4/10</span>
-</span>
-</div>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationRequiredSizeLink" onclick="reveal('explanationRequiredSize');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="RequiredSizeCardLink" onclick="hideid('RequiredSizeCard');">
 Dismiss</button>            </div>
             </div>
           </section>
@@ -1228,14 +1167,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java">../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java</a>:385</span>: <span class="message">Custom view <code>DefaultTimeBar</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">
-<span class="lineno"> 382 </span>        || (adGroupTimesMs != <span class="keyword">null</span> &amp;&amp; playedAdGroups != <span class="keyword">null</span>));
-<span class="lineno"> 383 </span>    <span class="keyword">this</span>.adGroupCount = adGroupCount;
-<span class="lineno"> 384 </span>    <span class="keyword">this</span>.adGroupTimesMs = adGroupTimesMs;
-<span class="caretline"><span class="lineno"> 385 </span>    <span class="keyword">this</span>.pl<span class="warning">ayedAdGroups</span> = playedAdGroups;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 386 </span>    update();
-<span class="lineno"> 387 </span>  }
-<span class="lineno"> 388 </span>
+<span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java">../../src/main/java/com/google/android/exoplayer2/ui/DefaultTimeBar.java</a>:387</span>: <span class="message">Custom view <code>DefaultTimeBar</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">
+<span class="lineno"> 384 </span>        || (adGroupTimesMs != <span class="keyword">null</span> &amp;&amp; playedAdGroups != <span class="keyword">null</span>));
+<span class="lineno"> 385 </span>    <span class="keyword">this</span>.adGroupCount = adGroupCount;
+<span class="lineno"> 386 </span>    <span class="keyword">this</span>.adGroupTimesMs = adGroupTimesMs;
+<span class="caretline"><span class="lineno"> 387 </span>    <span class="keyword">this</span>.<span class="warning">playedAdGrou</span>ps = playedAdGroups;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 388 </span>    update();
+<span class="lineno"> 389 </span>  }
+<span class="lineno"> 390 </span>
 </pre>
 
 <span class="location"><a href="../../src/main/java/com/google/android/exoplayer2/ui/SimpleExoPlayerView.java">../../src/main/java/com/google/android/exoplayer2/ui/SimpleExoPlayerView.java</a>:739</span>: <span class="message">Custom view <code>SimpleExoPlayerView</code> overrides <code>onTouchEvent</code> but not <code>performClick</code></span><br /><pre class="errorlines">

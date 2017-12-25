@@ -5,8 +5,7 @@
     android:background="@drawable/exo_error_bg"
     android:clickable="false"
     android:gravity="center"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:clickable="false"

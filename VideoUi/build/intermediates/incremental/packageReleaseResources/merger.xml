@@ -142,11 +142,11 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">12sp</item>
     </style><style name="ExoMediaTimeBar">
-        <item name=" android:layout_width">0dp</item>
-        <item name=" android:layout_height">wrap_content</item>
-        <item name=" android:layout_gravity">center_vertical</item>
-        <item name=" android:layout_marginRight">10dp</item>
-        <item name=" android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="bar_height">2dp</item>
         <item name="buffered_color">@android:color/white</item>
         <item name="played_color">#FF7000</item>

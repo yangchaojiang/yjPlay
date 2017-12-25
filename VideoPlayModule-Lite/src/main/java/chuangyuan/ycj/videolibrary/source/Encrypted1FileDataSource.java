@@ -2,6 +2,7 @@ package chuangyuan.ycj.videolibrary.source;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
@@ -37,7 +38,7 @@ public class Encrypted1FileDataSource implements DataSource {
 
     }
 
-    private   TransferListener<? super Encrypted1FileDataSource> listener;
+    private TransferListener<? super Encrypted1FileDataSource> listener;
 
     private RandomAccessFile file;
     private Uri uri;
@@ -61,10 +62,10 @@ public class Encrypted1FileDataSource implements DataSource {
      * @param key      加密字符key
      * @param listener An optional listener.
      */
-    public Encrypted1FileDataSource(@NonNull  String key, TransferListener<? super Encrypted1FileDataSource> listener) {
+    public Encrypted1FileDataSource(@NonNull String key, TransferListener<? super Encrypted1FileDataSource> listener) {
         this.listener = listener;
         this.key = key;
-        this.length=key.getBytes().length;
+        this.length = key.getBytes().length;
     }
 
     /***
@@ -90,7 +91,7 @@ public class Encrypted1FileDataSource implements DataSource {
     }
 
     @Override
-    public long open(DataSpec dataSpec) throws  FileDataSourceException {
+    public long open(DataSpec dataSpec) throws FileDataSourceException {
         try {
             uri = dataSpec.uri;
             file = new RandomAccessFile(dataSpec.uri.getPath(), "r");
@@ -131,7 +132,7 @@ public class Encrypted1FileDataSource implements DataSource {
                 }
                 bytesRead = file.read(buffer, offset, (int) Math.min(bytesRemaining, readLength));
             } catch (IOException e) {
-                throw new  FileDataSourceException(e);
+                throw new FileDataSourceException(e);
             }
 
             if (bytesRead > 0) {
@@ -151,14 +152,14 @@ public class Encrypted1FileDataSource implements DataSource {
     }
 
     @Override
-    public void close() throws  FileDataSourceException {
+    public void close() throws FileDataSourceException {
         uri = null;
         try {
             if (file != null) {
                 file.close();
             }
         } catch (IOException e) {
-            throw new  FileDataSourceException(e);
+            throw new FileDataSourceException(e);
         } finally {
             file = null;
             if (opened) {

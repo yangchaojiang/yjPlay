@@ -1,7 +1,5 @@
-
 package chuangyuan.ycj.videolibrary.video;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -65,8 +63,9 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
  * The type Exo user player.
- *
- * @author yangc          date 2017/2/28         E-Mail:1007181167@qq.com         Description：积累
+ * author yangc   date 2017/2/28
+ * E-Mail:1007181167@qq.com
+ * Description：积累
  */
 public class ExoUserPlayer {
     private static final String TAG = ExoUserPlayer.class.getName();
@@ -79,19 +78,7 @@ public class ExoUserPlayer {
     /*** 是否循环播放  0 不开启,获取当前视频窗口位置***/
     private int loopingCount = 0, resumeWindow;
     /*** 是否手动暂停,是否已经在停止恢复,播放结束,已经加载,是否选择多分辨率*/
-    boolean handPause, /**
-     * The Is pause.
-     */
-    isPause, /**
-     * The Is end.
-     */
-    isEnd, /**
-     * The Is load.
-     */
-    isLoad, /**
-     * The Is switch.
-     */
-    isSwitch;
+    boolean handPause, isPause, isLoad, isEnd, isSwitch;
     /*** 定时任务类 ***/
     private ScheduledExecutorService timer;
     /*** 网络状态监听***/
@@ -114,6 +101,7 @@ public class ExoUserPlayer {
     private PlaybackParameters playbackParameters;
     /*** 如果DRM得到保护，可能是null ***/
     private DrmSessionManager<FrameworkMediaCrypto> drmSessionManager;
+    private View.OnClickListener onClickListener;
 
     /****
      * @param activity 活动对象
@@ -175,22 +163,26 @@ public class ExoUserPlayer {
         initView();
     }
 
+    protected View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (onClickListener != null) {
+                    onClickListener.onClick(v);
+                } else {
+                    startPlayer();
+                }
+            }
+            return false;
+        }
+    };
+
     private void initView() {
         playComponentListener = new PlayComponentListener();
         videoPlayerView.setExoPlayerListener(playComponentListener);
-        View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    startPlayer();
-                }
-                return false;
-            }
-        };
         getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
         player = createFullPlayer();
-
     }
 
     /***
@@ -271,6 +263,7 @@ public class ExoUserPlayer {
             componentListener = null;
             videoInfoListener = null;
             playComponentListener = null;
+            onClickListener = null;
         }
     }
 
@@ -278,6 +271,7 @@ public class ExoUserPlayer {
      * 初始化播放实例
      */
     public void startPlayer() {
+        Log.d(TAG, "onTouch");
         getPlayerViewListener().setPlayerBtnOnTouch(null);
         createPlayers();
         registerReceiverNet();
@@ -709,6 +703,14 @@ public class ExoUserPlayer {
         this.videoInfoListener = videoInfoListener;
     }
 
+    /****
+     * 设置点击播放按钮回调, 交给用户处理
+     * @param onClickListener 回调实例
+     */
+    public void setOnPlayClickListener(@Nullable View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
     /***
      * 设置多个视频状态回调
      * @param windowListener 实例
@@ -901,11 +903,6 @@ public class ExoUserPlayer {
             return ExoUserPlayer.this;
         }
 
-
-        @Override
-        public void onBack() {
-            activity.onBackPressed();
-        }
     }
 
     /***

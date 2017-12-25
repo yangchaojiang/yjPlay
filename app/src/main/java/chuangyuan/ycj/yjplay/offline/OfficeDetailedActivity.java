@@ -87,7 +87,6 @@ public class OfficeDetailedActivity extends Activity {
         if (downloader != null) {
             downloader.cancel();
         }
-
     }
 
 
