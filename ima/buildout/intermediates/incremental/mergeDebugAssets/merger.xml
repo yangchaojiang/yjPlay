@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\demo\google\ExoPlayer\extensions\ima\src\main\assets"/><source path="E:\demo\google\ExoPlayer\extensions\ima\buildout\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\demo\google\ExoPlayer\extensions\ima\src\debug\assets"/></dataSet></merger>

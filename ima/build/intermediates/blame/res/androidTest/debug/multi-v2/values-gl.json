@@ -1,0 +1,43 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\project\\yjPlay\\ima\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-gl\\values-gl.xml",
+            "map": [
+                {
+                    "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-ads-11.6.2.aar\\28872107a66356d5d37f287640a38260\\res\\values-gl\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "237,306,431,496,562,646,763",
+                        "endColumns": "68,124,64,65,83,116,71",
+                        "endOffsets": "305,430,495,561,645,762,834"
+                    },
+                    "to": {
+                        "startLines": "3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "298,371,500,569,639,727,848",
+                        "endColumns": "72,128,68,69,87,120,75",
+                        "endOffsets": "366,495,564,634,722,843,919"
+                    }
+                },
+                {
+                    "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.6.2.aar\\572ff71f68c3a9ed872ead5375baa87f\\res\\values-gl\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "285",
+                        "endColumns": "192",
+                        "endOffsets": "477"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "105",
+                        "endColumns": "192",
+                        "endOffsets": "293"
+                    }
+                }
+            ]
+        }
+    ]
+}

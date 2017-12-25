@@ -1,0 +1,31 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml:1:1-5:12
+	package
+		ADDED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml:2:5-52
+		INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+		INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml:1:11-69
+meta-data#com.google.android.gms.version
+ADDED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml:3:3-4:62
+	android:value
+		ADDED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml:4:7-60
+	android:name
+		ADDED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml:3:14-59
+uses-sdk
+INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+		ADDED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+		INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+		ADDED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml
+		INJECTED from E:\demo\google\ExoPlayer\extensions\ima\src\main\AndroidManifest.xml

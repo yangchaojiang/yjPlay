@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="exo_video_switch_text">
+    <item>super</item>
+    <item>high</item>
+    <item>standard</item>
+  </array>
+    <string name="exo_controls_fastforward_description">"Fast-forward"</string>
+    <string name="exo_controls_next_description">"Next track"</string>
+    <string name="exo_controls_pause_description">"Pause"</string>
+    <string name="exo_controls_play_description">"Play"</string>
+    <string name="exo_controls_previous_description">"Previous track"</string>
+    <string name="exo_controls_repeat_all_description">"Repeat all"</string>
+    <string name="exo_controls_repeat_off_description">"Repeat none"</string>
+    <string name="exo_controls_repeat_one_description">"Repeat one"</string>
+    <string name="exo_controls_rewind_description">"Rewind"</string>
+    <string name="exo_controls_shuffle_description">Shuffle</string>
+    <string name="exo_controls_stop_description">"Stop"</string>
+    <string name="exo_play_btn_hnt">Continue to play</string>
+    <string name="exo_play_error_hint">Play exception, video address exception, or network unavailable</string>
+    <string name="exo_play_reminder">hint</string>
+    <string name="exo_play_wifi_hint_no">Your current network is not wifi, do you continue to watch</string>
+    <string name="hint_replay_list">replay</string>
+    <string name="media_error">The current video type is not found, or the current type is not supported, depending on the full version</string>
+    <string name="net_network_no_hint">Your current network is unavailable, please check your network</string>
+</resources>
