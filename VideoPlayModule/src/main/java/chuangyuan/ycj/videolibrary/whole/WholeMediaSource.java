@@ -34,6 +34,7 @@ public class WholeMediaSource extends MediaSourceBuilder {
         super(context, listener);
     }
 
+
     @Override
     public MediaSource initMediaSource(Uri uri) {
         int streamType = VideoPlayUtils.inferContentType(uri);
