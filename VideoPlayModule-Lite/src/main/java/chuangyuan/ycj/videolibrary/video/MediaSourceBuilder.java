@@ -10,12 +10,12 @@ import android.util.Log;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.source.AdaptiveMediaSourceEventListener;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.MediaSourceEventListener;
 import com.google.android.exoplayer2.upstream.DataSource;
 
 import java.util.List;
@@ -34,25 +34,18 @@ import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
  */
 public class MediaSourceBuilder {
     private static final String TAG = MediaSourceBuilder.class.getName();
-    /**
-     * The Context.
-     */
+    /*** The Context.*/
     protected Context context;
-    /**
-     * The Main handler.
-     */
+    /*** The Main handler.*/
     protected Handler mainHandler = null;
     private MediaSource mediaSource;
-    /**
-     * The Listener.
-     */
+    /*** The Listener. */
     protected DataSourceListener listener;
-    /**
-     * The Source event listener.
-     */
-    protected AdaptiveMediaSourceEventListener sourceEventListener;
+    /** * The Source event listener. */
+    protected MediaSourceEventListener sourceEventListener;
     private int indexType = -1;
     private List<String> videoUri;
+    private int loopingCount = 0;
 
     /***
      * 初始化
@@ -167,22 +160,14 @@ public class MediaSourceBuilder {
         mediaSource = new ConcatenatingMediaSource(firstSources);
     }
 
-    /**
-     * 返回循环播放实例
-     *
-     * @param loopCount the loop count
-     * @return LoopingMediaSource looping
-     */
-    LoopingMediaSource setLooping(@Size(min = 1) int loopCount) {
-        return new LoopingMediaSource(mediaSource, loopCount);
-    }
 
     /***
-     * 获取视频数据源
-     * @return the media source
+     * 设置循环播放视频   Integer.MAX_VALUE 无线循环
+     *
+     * @param loopingCount 必须大于0
      */
-    MediaSource getMediaSource() {
-        return mediaSource;
+    public void setLooping(@Size(min = 1) int loopingCount) {
+        this.loopingCount = loopingCount;
     }
 
     /***
@@ -192,6 +177,18 @@ public class MediaSourceBuilder {
     public void setMediaSource(MediaSource mediaSource) {
         this.mediaSource = mediaSource;
     }
+
+    /***
+     * 获取视频数据源
+     * @return the media source
+     */
+    MediaSource getMediaSource() {
+        if (loopingCount > 0) {
+            return new LoopingMediaSource(mediaSource, loopingCount);
+        }
+        return mediaSource;
+    }
+
 
     /***
      * 初始化数据源工厂
@@ -272,7 +269,7 @@ public class MediaSourceBuilder {
      *
      * @param sourceEventListener 实例
      */
-    public void setAdaptiveMediaSourceEventListener(AdaptiveMediaSourceEventListener sourceEventListener) {
+    public void setAdaptiveMediaSourceEventListener(MediaSourceEventListener sourceEventListener) {
         this.sourceEventListener = sourceEventListener;
     }
 
@@ -287,7 +284,11 @@ public class MediaSourceBuilder {
         switch (streamType) {
             case C.TYPE_OTHER:
                 Log.d(TAG, "TYPE_OTHER");
-                return new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null, uri.getPath());
+                return new ExtractorMediaSource.Factory(getDataSource())
+                        .setExtractorsFactory(new DefaultExtractorsFactory())
+                        .setMinLoadableRetryCount(5)
+                        .setCustomCacheKey(uri.getPath())
+                        .createMediaSource(uri, mainHandler, null);
             default:
                 throw new IllegalStateException(context.getString(R.string.media_error));
         }

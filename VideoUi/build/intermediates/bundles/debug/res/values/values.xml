@@ -31,6 +31,7 @@
     <color name="exo_edit_mode_background_color">#FFF4F3F0</color>
     <color name="primary_dark">#3d3b3b</color>
     <color name="simple_exo_color_33">#33000000</color>
+    <color name="simple_exo_color_switch_item">#FF6E0B</color>
     <color name="simple_exo_style_Accent">#FF4081</color>
     <color name="simple_exo_style_color">#005fff</color>
     <declare-styleable name="AspectRatioFrameLayout"><attr name="resize_mode"/></declare-styleable>
@@ -38,7 +39,7 @@
     <declare-styleable name="PlaybackControlView"><attr name="show_timeout"/><attr name="rewind_increment"/><attr name="fastforward_increment"/><attr name="repeat_toggle_modes"/><attr name="controller_layout_id"/><attr name="show_shuffle_button"/><attr name="player_fullscreen_image_selector"/></declare-styleable>
     <declare-styleable name="SimpleExoPlayerView"><attr format="boolean" name="use_artwork"/><attr format="reference" name="default_artwork"/><attr format="boolean" name="use_controller"/><attr format="boolean" name="hide_on_touch"/><attr format="boolean" name="auto_show"/><attr format="color" name="shutter_background_color"/><attr name="resize_mode"/><attr name="surface_type"/><attr name="show_timeout"/><attr name="rewind_increment"/><attr name="fastforward_increment"/><attr name="player_layout_id"/><attr name="controller_layout_id"/><attr name="show_shuffle_button"/></declare-styleable>
     <dimen name="controls_title__marginRight">60dp</dimen>
-    <dimen name="dp30">35dp</dimen>
+    <dimen name="dp30">40dp</dimen>
     <dimen name="exo_media_button_height">35dp</dimen>
     <dimen name="exo_media_button_height_2">50dp</dimen>
     <dimen name="exo_media_button_width">35dp</dimen>

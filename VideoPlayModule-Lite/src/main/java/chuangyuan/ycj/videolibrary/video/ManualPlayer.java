@@ -5,8 +5,12 @@ import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.android.exoplayer2.util.Util;
+
+
+import java.util.WeakHashMap;
 
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -18,8 +22,6 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * Description： 手动控制播放播放器
  */
 public final class ManualPlayer extends GestureVideoPlayer {
-
-
     /**
      * Instantiates a new Manual player.
      *
@@ -110,12 +112,15 @@ public final class ManualPlayer extends GestureVideoPlayer {
 
     /**
      * 列表暂停
+     * @param   reset 是否重置的 true  重置 false
      */
-    void onListPause() {
-        isPause = true;
-        if (player != null) {
-            handPause = !player.getPlayWhenReady();
-            reset(false);
+    void onListPause(boolean reset) {
+        if (reset) {
+            isPause = true;
+            if (player != null) {
+                handPause = !player.getPlayWhenReady();
+                reset(false);
+            }
         }
     }
 
@@ -123,22 +128,20 @@ public final class ManualPlayer extends GestureVideoPlayer {
     public void onDestroy() {
         super.onDestroy();
         onTouchListener = null;
-
     }
+
 
     /**
      * 重置
-     *
      * @param s s
      */
     public void reset(boolean s) {
         if (player != null) {
             unNetworkBroadcastReceiver();
-            if (isEnd || s) {
-                setPosition(0);
-            } else {
-                updateResumePosition();
-            }
+//            if (isEnd || s) {
+//                setPosition(0);
+//            }
+            setPosition(0);
             player.stop();
             player.removeListener(componentListener);
             getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
@@ -150,6 +153,5 @@ public final class ManualPlayer extends GestureVideoPlayer {
             player = null;
         }
     }
-
 
 }

@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
+
 /**
  * author yangc
  * date 2017/2/27
@@ -28,9 +30,7 @@ public class VideoPlayerManager {
     }
 
     private static final class Holder {
-        /**
-         * The Holder.
-         */
+
         static VideoPlayerManager holder = new VideoPlayerManager();
     }
 
@@ -40,7 +40,9 @@ public class VideoPlayerManager {
      * @param videoPlayer 播放页
      */
     public void setCurrentVideoPlayer(@NonNull ManualPlayer videoPlayer) {
-        releaseVideoPlayer();
+        if (mVideoPlayer == null || !videoPlayer.toString().equals(mVideoPlayer.toString())) {
+            releaseVideoPlayer();
+        }
         this.mVideoPlayer = videoPlayer;
     }
 
@@ -50,6 +52,7 @@ public class VideoPlayerManager {
     public void releaseVideoPlayer() {
         if (mVideoPlayer != null) {
             mVideoPlayer.reset(false);
+            mVideoPlayer = null;
         }
     }
 
@@ -74,10 +77,12 @@ public class VideoPlayerManager {
 
     /**
      * 页面暂停播放暂停
+     *
+     * @param isReset isReset  没有特殊情况 默认 true 释放
      */
-    public void onPause() {
+    public void onPause(boolean isReset) {
         if (mVideoPlayer != null) {
-            mVideoPlayer.onListPause();
+            mVideoPlayer.onListPause(isReset);
         }
     }
 
@@ -107,7 +112,10 @@ public class VideoPlayerManager {
      */
     @Nullable
     public ManualPlayer getVideoPlayer() {
-        return mVideoPlayer;
+        if (mVideoPlayer != null && mVideoPlayer.getPlayer() != null) {
+            return mVideoPlayer;
+        }
+        return null;
     }
 
     /**
@@ -126,5 +134,32 @@ public class VideoPlayerManager {
      */
     public void setClick(boolean click) {
         isClick = click;
+    }
+
+    /*****
+     * @param player 播放控制器
+     *@param  newPlayerView 新的view
+     * ****/
+    public void switchTargetView(@NonNull ManualPlayer player, @Nullable VideoPlayerView newPlayerView, boolean isPlay) {
+        VideoPlayerView oldPlayerView = player.getVideoPlayerView();
+        if (oldPlayerView == newPlayerView) {
+            return;
+        }
+        if (newPlayerView != null) {
+            newPlayerView.getPlayerView().setPlayer(player.getPlayer());
+            player.setVideoPlayerView(newPlayerView);
+        }
+        if (oldPlayerView != null) {
+            oldPlayerView.resets();
+            oldPlayerView.getPlayerView().setPlayer(null);
+        }
+        if (isPlay) {
+            player.setStartOrPause(true);
+        } else {
+            if (newPlayerView != null) {
+                player.reset(true);
+            }
+        }
+
     }
 }

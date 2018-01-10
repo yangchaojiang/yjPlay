@@ -11,48 +11,43 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.exoplayer2.ExoPlaybackException;
 
 import chuangyuan.ycj.videolibrary.listener.LoadModelType;
-import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
+import chuangyuan.ycj.videolibrary.video.ManualPlayer;
+import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
-import chuangyuan.ycj.yjplay.data.DataSource;
 import chuangyuan.ycj.yjplay.R;
+import chuangyuan.ycj.yjplay.data.DataSource;
 
 
 public class MainListInfoCustomActivity extends AppCompatActivity {
-
-    private GestureVideoPlayer exoPlayerManager;
-    private VideoPlayerView videoPlayerView;
+    private ManualPlayer exoPlayerManager;
     public static final String VIEW_NAME_HEADER_IMAGE = "123";
     private static final String TAG = "OfficeDetailedActivity";
-    private long currPosition = 0;
-    private boolean isEnd;
-    private String url = "";
-
+    private  boolean isEnd;
+    private boolean isBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom);
-        currPosition = getIntent().getLongExtra("currPosition", 0);
-        url = getIntent().getStringExtra("uri");
-        videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
+        long  currPosition = getIntent().getLongExtra("currPosition", 0);
+        VideoPlayerView   videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
         ViewCompat.setTransitionName(videoPlayerView, VIEW_NAME_HEADER_IMAGE);
-        exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView, new DataSource(getApplication()));
-        exoPlayerManager.setPosition(currPosition);
+        exoPlayerManager = VideoPlayerManager.getInstance().getVideoPlayer();
+        //如果为空，自己new一个
+        if (exoPlayerManager == null) {
+            exoPlayerManager = new ManualPlayer(this, videoPlayerView, new DataSource(this));
+            exoPlayerManager.setPlayUri(getIntent().getStringExtra("uri"));
+            exoPlayerManager.setPosition(currPosition);
+            exoPlayerManager.startPlayer();
+        } else {
+            VideoPlayerManager.getInstance().switchTargetView(exoPlayerManager, videoPlayerView, true);
+            exoPlayerManager.setPosition(currPosition);
+        }
         exoPlayerManager.setTitle("自定义视频标题");
         //设置加载显示模式
         exoPlayerManager.setLoadModel(LoadModelType.SPEED);
-        exoPlayerManager.setPlayUri(url);
-        //播放视频
-        exoPlayerManager.startPlayer();
-        Glide.with(this)
-                .load(getString(R.string.uri_test_image))
-                .placeholder(R.mipmap.test)
-                .fitCenter()
-                .into(videoPlayerView.getPreviewImage());
-
         //自定义布局使用
         videoPlayerView.getReplayLayout().findViewById(R.id.replay_btn_imageView).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,33 +67,11 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
                 Toast.makeText(MainListInfoCustomActivity.this, "自定义提示", Toast.LENGTH_SHORT).show();
             }
         });
-        exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
-            @Override
-            public void onPlayStart() {
-
-            }
-
-            @Override
-            public void onLoadingChanged() {
-
-            }
-
-            @Override
-            public void onPlayerError(ExoPlaybackException e) {
-
-            }
-
-            @Override
-            public void onPlayEnd() {
-                isEnd = true;
-            }
-
-
-            @Override
-            public void isPlaying(boolean playWhenReady) {
-                //  Toast.makeText(getApplication(),"playWhenReady"+playWhenReady,Toast.LENGTH_SHORT).show();
-            }
-        });
+        Glide.with(this)
+                .load(getString(R.string.uri_test_image))
+                .placeholder(R.mipmap.test)
+                .fitCenter()
+                .into(videoPlayerView.getPreviewImage());
     }
 
     @Override
@@ -112,13 +85,20 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause");
-        exoPlayerManager.onPause();
+        //是返回不是列表控制类就释放，是列表的不能释放，还要做还原处理
+       if (!isBack||VideoPlayerManager.getInstance().getVideoPlayer()==null){
+           exoPlayerManager.onPause();
+       }
+
     }
 
 
     @Override
     protected void onDestroy() {
-        exoPlayerManager.onDestroy();
+        //是返回不是列表控制类就释放，是列表的不能释放，还要做还原处理
+        if (!isBack||VideoPlayerManager.getInstance().getVideoPlayer() == null) {
+            exoPlayerManager.onDestroy();
+        }
         super.onDestroy();
     }
 
@@ -130,11 +110,15 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //获取数据返回获取
+        long currPosition = exoPlayerManager.getCurrentPosition();
         if (exoPlayerManager.onBackPressed()) {//使用播放返回键监听
+            isBack=true;
             Toast.makeText(MainListInfoCustomActivity.this, "返回", Toast.LENGTH_LONG).show();
             Intent intent = new Intent();
             intent.putExtra("isEnd", isEnd);
-            intent.putExtra("currPosition", exoPlayerManager.getCurrentPosition());
+            intent.putExtra("currPosition", currPosition);
+            Log.d(TAG, "sss:" + exoPlayerManager.getCurrentPosition());
             setResult(RESULT_OK, intent);
             ActivityCompat.finishAfterTransition(this);
         }

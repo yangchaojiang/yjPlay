@@ -239,6 +239,11 @@ public final class ImaAdsLoader extends Player.DefaultEventListener implements A
   // AdsLoader implementation.
 
   @Override
+  public void setSupportedContentTypes(int... contentTypes) {
+
+  }
+
+  @Override
   public void attachPlayer(ExoPlayer player, EventListener eventListener, ViewGroup adUiViewGroup) {
     this.player = player;
     this.eventListener = eventListener;

@@ -27,7 +27,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.3.1'
-   compile('com.google.android.exoplayer:exoplayer-core:2.6.0', {
+   compile('com.google.android.exoplayer:exoplayer-core:2.6.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'

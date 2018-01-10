@@ -173,10 +173,10 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 1 error and 74 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 1 error and 75 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Tue Dec 26 16:10:43 CST 2017      </nav>
+Check performed at Wed Jan 10 20:51:28 CST 2018      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -186,7 +186,7 @@ Check performed at Tue Dec 26 16:10:43 CST 2017      </nav>
       <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (1)</a>
       <a class="mdl-navigation__link" href="#MissingTranslation"><i class="material-icons error-icon">error</i>Incomplete translation (1)</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (1)</a>
-      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (53)</a>
+      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (54)</a>
       <a class="mdl-navigation__link" href="#UnusedNamespace"><i class="material-icons warning-icon">warning</i>Unused namespace (1)</a>
       <a class="mdl-navigation__link" href="#IconLocation"><i class="material-icons warning-icon">warning</i>Image defined in density-independent drawable folder (3)</a>
       <a class="mdl-navigation__link" href="#IconDensities"><i class="material-icons warning-icon">warning</i>Icon densities validation (1)</a>
@@ -221,7 +221,7 @@ Check performed at Tue Dec 26 16:10:43 CST 2017      </nav>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#Overdraw">Overdraw</a>: Overdraw: Painting regions more than once</td></tr>
 <tr>
-<td class="countColumn">53</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">54</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UnusedResources">UnusedResources</a>: Unused resources</td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -270,7 +270,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 27 </span>dependencies {
 <span class="lineno"> 28 </span>    compile fileTree(include: [<span class="string">'*.jar'</span>], dir: <span class="string">'libs'</span>)
 <span class="caretline"><span class="lineno"> 29 </span>    <span class="warning">compile <span class="string">'com.android.support:appcompat-v7:25.3.1'</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 30 </span>   compile(<span class="string">'com.google.android.exoplayer:exoplayer-core:2.6.0'</span>, {
+<span class="lineno"> 30 </span>   compile(<span class="string">'com.google.android.exoplayer:exoplayer-core:2.6.1'</span>, {
 <span class="lineno"> 31 </span>        exclude group: <span class="string">'com.android.support'</span>, module: <span class="string">'support-annotations'</span>
 <span class="lineno"> 32 </span>        exclude group: <span class="string">'com.android.support'</span>, module: <span class="string">'support-compat'</span>
 </pre>
@@ -443,7 +443,7 @@ Dismiss</button>            </div>
 <span class="caretline"><span class="lineno">  6 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"simple_exo_style_color"</span></span>>#005fff<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_33"</span>>#33000000<span class="tag">&lt;/color></span>
 <span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"primary_dark"</span>>#3d3b3b<span class="tag">&lt;/color></span>
-<span class="lineno">  9 </span><span class="tag">&lt;/resources></span>
+<span class="lineno">  9 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_switch_item"</span>>#FF6E0B<span class="tag">&lt;/color></span>
 </pre>
 
 <span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:7</span>: <span class="message">The resource <code>R.color.simple_exo_color_33</code> appears to be unused</span><br /><pre class="errorlines">
@@ -452,7 +452,8 @@ Dismiss</button>            </div>
 <span class="lineno">  6 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_color"</span>>#005fff<span class="tag">&lt;/color></span>
 <span class="caretline"><span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"simple_exo_color_33"</span></span>>#33000000<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"primary_dark"</span>>#3d3b3b<span class="tag">&lt;/color></span>
-<span class="lineno">  9 </span><span class="tag">&lt;/resources></span>
+<span class="lineno">  9 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_switch_item"</span>>#FF6E0B<span class="tag">&lt;/color></span>
+<span class="lineno"> 10 </span><span class="tag">&lt;/resources></span>
 </pre>
 
 <span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:8</span>: <span class="message">The resource <code>R.color.primary_dark</code> appears to be unused</span><br /><pre class="errorlines">
@@ -460,15 +461,24 @@ Dismiss</button>            </div>
 <span class="lineno">  6 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_color"</span>>#005fff<span class="tag">&lt;/color></span>
 <span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_33"</span>>#33000000<span class="tag">&lt;/color></span>
 <span class="caretline"><span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"primary_dark"</span></span>>#3d3b3b<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  9 </span><span class="tag">&lt;/resources></span>
+<span class="lineno">  9 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_switch_item"</span>>#FF6E0B<span class="tag">&lt;/color></span>
+<span class="lineno"> 10 </span><span class="tag">&lt;/resources></span>
 </pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 48 More Occurrences...</button>
+<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 49 More Occurrences...</button>
 <div id="UnusedResourcesDiv" style="display: none">
+<span class="location"><a href="../../src/main/res/values/constants.xml">../../src/main/res/values/constants.xml</a>:9</span>: <span class="message">The resource <code>R.color.simple_exo_color_switch_item</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  6 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_style_color"</span>>#005fff<span class="tag">&lt;/color></span>
+<span class="lineno">  7 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"simple_exo_color_33"</span>>#33000000<span class="tag">&lt;/color></span>
+<span class="lineno">  8 </span>  <span class="tag">&lt;color</span><span class="attribute"> name</span>=<span class="value">"primary_dark"</span>>#3d3b3b<span class="tag">&lt;/color></span>
+<span class="caretline"><span class="lineno">  9 </span>  <span class="tag">&lt;color</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"simple_exo_color_switch_item"</span></span>>#FF6E0B<span class="tag">&lt;/color></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 10 </span><span class="tag">&lt;/resources></span>
+</pre>
+
 <span class="location"><a href="../../src/main/res/values/dimen.xml">../../src/main/res/values/dimen.xml</a>:3</span>: <span class="message">The resource <code>R.dimen.dp30</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="lineno"> 1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
 <span class="lineno"> 2 </span><span class="tag">&lt;resources></span>
-<span class="caretline"><span class="lineno"> 3 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"dp30"</span></span>>35dp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno"> 3 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"dp30"</span></span>>40dp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 4 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"controls_title__marginRight"</span>>60dp<span class="tag">&lt;/dimen></span>
 <span class="lineno"> 5 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"exo_media_button_width"</span>>35dp<span class="tag">&lt;/dimen></span>
 <span class="lineno"> 6 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"exo_media_button_height"</span>>35dp<span class="tag">&lt;/dimen></span>
@@ -499,8 +509,8 @@ Dismiss</button>            </div>
 <span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
 </pre>
 
-<ul></ul><button id="Location9DivLink" onclick="reveal('Location9Div');" />+ 3 Additional Locations...</button>
-<div id="Location9Div" style="display: none">
+<ul></ul><button id="Location10DivLink" onclick="reveal('Location10Div');" />+ 3 Additional Locations...</button>
+<div id="Location10Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_fastforward.png">../../src/main/res/drawable-hdpi/exo_controls_fastforward.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xhdpi/exo_controls_fastforward.png">../../src/main/res/drawable-xhdpi/exo_controls_fastforward.png</a></span>
@@ -517,8 +527,8 @@ Additional locations: <ul>
 <span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
 </pre>
 
-<ul></ul><button id="Location10DivLink" onclick="reveal('Location10Div');" />+ 3 Additional Locations...</button>
-<div id="Location10Div" style="display: none">
+<ul></ul><button id="Location11DivLink" onclick="reveal('Location11Div');" />+ 3 Additional Locations...</button>
+<div id="Location11Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_next.png">../../src/main/res/drawable-hdpi/exo_controls_next.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xhdpi/exo_controls_next.png">../../src/main/res/drawable-xhdpi/exo_controls_next.png</a></span>
@@ -535,8 +545,8 @@ Additional locations: <ul>
 <span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
 </pre>
 
-<ul></ul><button id="Location11DivLink" onclick="reveal('Location11Div');" />+ 3 Additional Locations...</button>
-<div id="Location11Div" style="display: none">
+<ul></ul><button id="Location12DivLink" onclick="reveal('Location12Div');" />+ 3 Additional Locations...</button>
+<div id="Location12Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_previous.png">../../src/main/res/drawable-hdpi/exo_controls_previous.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xhdpi/exo_controls_previous.png">../../src/main/res/drawable-xhdpi/exo_controls_previous.png</a></span>
@@ -553,8 +563,8 @@ Additional locations: <ul>
 <span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
 </pre>
 
-<ul></ul><button id="Location12DivLink" onclick="reveal('Location12Div');" />+ 3 Additional Locations...</button>
-<div id="Location12Div" style="display: none">
+<ul></ul><button id="Location13DivLink" onclick="reveal('Location13Div');" />+ 3 Additional Locations...</button>
+<div id="Location13Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_rewind.png">../../src/main/res/drawable-hdpi/exo_controls_rewind.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xhdpi/exo_controls_rewind.png">../../src/main/res/drawable-xhdpi/exo_controls_rewind.png</a></span>
@@ -571,8 +581,8 @@ Additional locations: <ul>
 <span class="lineno"> 18 </span>    <span class="prefix">android:</span><span class="attribute">viewportHeight</span>=<span class="value">"24.0"</span>
 </pre>
 
-<ul></ul><button id="Location13DivLink" onclick="reveal('Location13Div');" />+ 5 Additional Locations...</button>
-<div id="Location13Div" style="display: none">
+<ul></ul><button id="Location14DivLink" onclick="reveal('Location14Div');" />+ 5 Additional Locations...</button>
+<div id="Location14Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/drawable-hdpi/exo_controls_shuffle.png">../../src/main/res/drawable-hdpi/exo_controls_shuffle.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-ldpi/exo_controls_shuffle.png">../../src/main/res/drawable-ldpi/exo_controls_shuffle.png</a></span>
@@ -709,8 +719,8 @@ Additional locations: <ul>
 <span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_play_description"</span>>Play<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location31DivLink" onclick="reveal('Location31Div');" />+ 2 Additional Locations...</button>
-<div id="Location31Div" style="display: none">
+<ul></ul><button id="Location32DivLink" onclick="reveal('Location32Div');" />+ 2 Additional Locations...</button>
+<div id="Location32Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:18</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:3</span>
@@ -726,8 +736,8 @@ Additional locations: <ul>
 <span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_stop_description"</span>>Stop<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location32DivLink" onclick="reveal('Location32Div');" />+ 2 Additional Locations...</button>
-<div id="Location32Div" style="display: none">
+<ul></ul><button id="Location33DivLink" onclick="reveal('Location33Div');" />+ 2 Additional Locations...</button>
+<div id="Location33Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:19</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:4</span>
@@ -743,8 +753,8 @@ Additional locations: <ul>
 <span class="lineno"> 23 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_off_description"</span>>Repeat none<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location33DivLink" onclick="reveal('Location33Div');" />+ 2 Additional Locations...</button>
-<div id="Location33Div" style="display: none">
+<ul></ul><button id="Location34DivLink" onclick="reveal('Location34Div');" />+ 2 Additional Locations...</button>
+<div id="Location34Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:22</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:7</span>
@@ -760,8 +770,8 @@ Additional locations: <ul>
 <span class="lineno"> 24 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_all_description"</span>>"Repeat all"<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location34DivLink" onclick="reveal('Location34Div');" />+ 2 Additional Locations...</button>
-<div id="Location34Div" style="display: none">
+<ul></ul><button id="Location35DivLink" onclick="reveal('Location35Div');" />+ 2 Additional Locations...</button>
+<div id="Location35Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:23</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:8</span>
@@ -777,8 +787,8 @@ Additional locations: <ul>
 <span class="lineno"> 25 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_controls_repeat_one_description"</span>>"Repeat one"<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location35DivLink" onclick="reveal('Location35Div');" />+ 2 Additional Locations...</button>
-<div id="Location35Div" style="display: none">
+<ul></ul><button id="Location36DivLink" onclick="reveal('Location36Div');" />+ 2 Additional Locations...</button>
+<div id="Location36Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:24</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:9</span>
@@ -794,8 +804,8 @@ Additional locations: <ul>
 <span class="lineno"> 29 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_error_hint"</span>>Play exception, video address exception, or network unavailable<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location36DivLink" onclick="reveal('Location36Div');" />+ 2 Additional Locations...</button>
-<div id="Location36Div" style="display: none">
+<ul></ul><button id="Location37DivLink" onclick="reveal('Location37Div');" />+ 2 Additional Locations...</button>
+<div id="Location37Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:28</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:13</span>
@@ -811,8 +821,8 @@ Additional locations: <ul>
 <span class="lineno"> 31 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"net_network_no_hint"</span>>Your current network is unavailable, please check your network<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location37DivLink" onclick="reveal('Location37Div');" />+ 2 Additional Locations...</button>
-<div id="Location37Div" style="display: none">
+<ul></ul><button id="Location38DivLink" onclick="reveal('Location38Div');" />+ 2 Additional Locations...</button>
+<div id="Location38Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:31</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:15</span>
@@ -828,8 +838,8 @@ Additional locations: <ul>
 <span class="lineno"> 32 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_reminder"</span>>hint<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location38DivLink" onclick="reveal('Location38Div');" />+ 2 Additional Locations...</button>
-<div id="Location38Div" style="display: none">
+<ul></ul><button id="Location39DivLink" onclick="reveal('Location39Div');" />+ 2 Additional Locations...</button>
+<div id="Location39Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:32</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:16</span>
@@ -845,8 +855,8 @@ Additional locations: <ul>
 <span class="lineno"> 33 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"exo_play_wifi_hint_no"</span>>Your current network is not wifi, do you continue to watch<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location39DivLink" onclick="reveal('Location39Div');" />+ 2 Additional Locations...</button>
-<div id="Location39Div" style="display: none">
+<ul></ul><button id="Location40DivLink" onclick="reveal('Location40Div');" />+ 2 Additional Locations...</button>
+<div id="Location40Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:33</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:17</span>
@@ -862,8 +872,8 @@ Additional locations: <ul>
 <span class="lineno"> 34 </span>  <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"hint_replay_list"</span>>replay<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location40DivLink" onclick="reveal('Location40Div');" />+ 2 Additional Locations...</button>
-<div id="Location40Div" style="display: none">
+<ul></ul><button id="Location41DivLink" onclick="reveal('Location41Div');" />+ 2 Additional Locations...</button>
+<div id="Location41Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:34</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:18</span>
@@ -879,8 +889,8 @@ Additional locations: <ul>
 <span class="lineno"> 35 </span>  <span class="tag">&lt;array</span><span class="attribute"> name</span>=<span class="value">"exo_video_switch_text"</span>>
 </pre>
 
-<ul></ul><button id="Location41DivLink" onclick="reveal('Location41Div');" />+ 2 Additional Locations...</button>
-<div id="Location41Div" style="display: none">
+<ul></ul><button id="Location42DivLink" onclick="reveal('Location42Div');" />+ 2 Additional Locations...</button>
+<div id="Location42Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:35</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:19</span>
@@ -896,8 +906,8 @@ Additional locations: <ul>
 <span class="lineno"> 36 </span>      <span class="tag">&lt;item></span>super<span class="tag">&lt;/item></span>
 </pre>
 
-<ul></ul><button id="Location42DivLink" onclick="reveal('Location42Div');" />+ 2 Additional Locations...</button>
-<div id="Location42Div" style="display: none">
+<ul></ul><button id="Location43DivLink" onclick="reveal('Location43Div');" />+ 2 Additional Locations...</button>
+<div id="Location43Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:36</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:20</span>
@@ -913,8 +923,8 @@ Additional locations: <ul>
 <span class="lineno"> 37 </span>      <span class="tag">&lt;item></span>high<span class="tag">&lt;/item></span>
 </pre>
 
-<ul></ul><button id="Location43DivLink" onclick="reveal('Location43Div');" />+ 2 Additional Locations...</button>
-<div id="Location43Div" style="display: none">
+<ul></ul><button id="Location44DivLink" onclick="reveal('Location44Div');" />+ 2 Additional Locations...</button>
+<div id="Location44Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:37</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:21</span>
@@ -930,8 +940,8 @@ Additional locations: <ul>
 <span class="lineno"> 38 </span>      <span class="tag">&lt;item></span>standard<span class="tag">&lt;/item></span>
 </pre>
 
-<ul></ul><button id="Location44DivLink" onclick="reveal('Location44Div');" />+ 2 Additional Locations...</button>
-<div id="Location44Div" style="display: none">
+<ul></ul><button id="Location45DivLink" onclick="reveal('Location45Div');" />+ 2 Additional Locations...</button>
+<div id="Location45Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-en/strings.xml">../../src/main/res/values-en/strings.xml</a>:38</span>
 <li> <span class="location"><a href="../../src/main/res/values-zh-rCN/strings.xml">../../src/main/res/values-zh-rCN/strings.xml</a>:22</span>
@@ -987,17 +997,7 @@ Additional locations: <ul>
 <span class="lineno">  59 </span>  <span class="tag">&lt;/style></span>
 </pre>
 
-<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:145</span>: <span class="message">The resource <code>R.style.ExoMediaButton_Pause2</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 142 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"unplayed_color"</span>>#a5ffffff<span class="tag">&lt;/item></span>
-<span class="lineno"> 143 </span>    <span class="tag">&lt;/style></span>
-<span class="lineno"> 144 </span>
-<span class="caretline"><span class="lineno"> 145 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"ExoMediaButton.Pause2"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 146 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_width"</span>>64dp<span class="tag">&lt;/item></span>
-<span class="lineno"> 147 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_height"</span>>64dp<span class="tag">&lt;/item></span>
-<span class="lineno"> 148 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_centerHorizontal"</span>>true<span class="tag">&lt;/item></span>
-</pre>
-
-<br/><b>NOTE: 3 results omitted.</b><br/><br/></div>
+<br/><b>NOTE: 4 results omitted.</b><br/><br/></div>
 </div>
 <div class="metadata"><div class="explanation" id="explanationUnusedResources" style="display: none;">
 Unused resources make applications larger and slow down builds.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>

@@ -333,12 +333,12 @@ public final class R {
         public static int secondary_text_default_material_light = 0x7f06004d;
         public static int secondary_text_disabled_material_dark = 0x7f06004e;
         public static int secondary_text_disabled_material_light = 0x7f06004f;
-        public static int switch_thumb_disabled_material_dark = 0x7f060053;
-        public static int switch_thumb_disabled_material_light = 0x7f060054;
-        public static int switch_thumb_material_dark = 0x7f060055;
-        public static int switch_thumb_material_light = 0x7f060056;
-        public static int switch_thumb_normal_material_dark = 0x7f060057;
-        public static int switch_thumb_normal_material_light = 0x7f060058;
+        public static int switch_thumb_disabled_material_dark = 0x7f060054;
+        public static int switch_thumb_disabled_material_light = 0x7f060055;
+        public static int switch_thumb_material_dark = 0x7f060056;
+        public static int switch_thumb_material_light = 0x7f060057;
+        public static int switch_thumb_normal_material_dark = 0x7f060058;
+        public static int switch_thumb_normal_material_light = 0x7f060059;
     }
     public static final class dimen {
         public static int abc_action_bar_content_inset_material = 0x7f080001;

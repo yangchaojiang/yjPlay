@@ -41,8 +41,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-   // compile project(':VideoPlayModule')
-    compile 'com.ycjiang:VideoPlayModule:1.9.83'
+    compile project(':VideoPlayModule')
+   // compile 'com.ycjiang:VideoPlayModule:1.9.83'
     //compile 'com.ycjiang:VideoPlayModule-Lite:1.9.5'
     compile 'com.google.android.exoplayer:extension-okhttp:r2.5.2'
     compile 'com.google.android.exoplayer:extension-rtmp:r2.5.4'

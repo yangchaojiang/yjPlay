@@ -46,6 +46,7 @@
     </LinearLayout>
 
     <ImageView
+        android:background="@android:color/transparent"
         android:id="@id/exo_preview_image"
         style="@style/MediaPreViewImage" />
 

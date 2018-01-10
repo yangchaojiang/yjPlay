@@ -4,10 +4,12 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.text.SpannableString;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.TextView;
@@ -88,7 +90,6 @@ public final class VideoPlayerView extends BaseView {
             lockCheckBox.setOnClickListener(onClickListener);
             lockCheckBox.setVisibility(isOpenLock ? VISIBLE : GONE);
         }
-        this.setOnSystemUiVisibilityChangeListener(uiVisibilityChangeListener);
         playerView.setControllerVisibilityListener(visibilityListener);
         playerView.getControllerView().setAnimatorListener(animatorListener);
         playerView.getControllerView().setUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
@@ -109,9 +110,6 @@ public final class VideoPlayerView extends BaseView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (hideNavigationAction != null) {
-            removeCallbacks(hideNavigationAction);
-        }
         if (hideAction != null) {
             removeCallbacks(hideAction);
         }
@@ -120,7 +118,6 @@ public final class VideoPlayerView extends BaseView {
             animatorListener = null;
             exoPlayerViewListener = null;
             onClickListener = null;
-            uiVisibilityChangeListener = null;
             onItemClickListener = null;
             visibilityListener = null;
         }
@@ -130,11 +127,13 @@ public final class VideoPlayerView extends BaseView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
-        boolean is = isListPlayer && getPlay() != null && manualPlayer != null;
+        boolean is = isListPlayer && getPlay() != null;
         if (is) {
-            if (getPlay().toString().equals(manualPlayer.toString())) {
-                manualPlayer.reset(true);
+            ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
+            Log.d(TAG,toString()+"");
+            if (manualPlayer!=null&&getPlay().toString().equals(manualPlayer.toString())) {
+                setTag(manualPlayer.getCurrentPosition());
+                manualPlayer.reset(false);
             }
         } else {
             onDestroy();
@@ -154,7 +153,14 @@ public final class VideoPlayerView extends BaseView {
             }
             isLand = true;
             VideoPlayUtils.hideActionBar(activity);
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                activity.getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            }
             //判断是否开启多线路支持
             if (isShowVideoSwitch) {
                 TextView switchText = getSwitchText();
@@ -175,7 +181,7 @@ public final class VideoPlayerView extends BaseView {
                 return;
             }
             isLand = false;
-            activity.getWindow().getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             VideoPlayUtils.showActionBar(activity);
             //多线路支持隐藏
             getSwitchText().setVisibility(GONE);
@@ -237,6 +243,32 @@ public final class VideoPlayerView extends BaseView {
         compatCheckBox.setOnClickListener(onClickListener);
     }
 
+    /****
+     * 重置
+     * ***/
+    public void resets() {
+        removeCallbacks(hideAction);
+        if (playReplayLayout != null) {
+            playReplayLayout.setVisibility(GONE);
+        }
+        if (exoLoadingLayout != null) {
+            exoLoadingLayout.setVisibility(GONE);
+        }
+        if (exoPlayErrorLayout != null) {
+            exoPlayErrorLayout.setVisibility(GONE);
+        }
+        if (playBtnHintLayout != null) {
+            playBtnHintLayout.setVisibility(GONE);
+        }
+        if (getPlaybackControlView() != null) {
+            getPlaybackControlView().hideNo();
+            getPlaybackControlView().showNo();
+            exoPlayerViewListener.showPreview(VISIBLE);
+        }
+        showPreViewLayout(VISIBLE);
+
+    }
+
     /***
      * 锁屏按钮显示隐藏
      * **/
@@ -249,17 +281,6 @@ public final class VideoPlayerView extends BaseView {
                 } else {
                     AnimUtils.setInAnimX(lockCheckBox).start();
                 }
-            }
-        }
-    };
-    /***
-     * 虚拟导航键显示和隐藏
-     * **/
-    private final Runnable hideNavigationAction = new Runnable() {
-        @Override
-        public void run() {
-            if (isLand) {
-                setSystemUiVisibility(SYSTEM_UI_FLAG_HIDE_NAVIGATION);
             }
         }
     };
@@ -301,19 +322,6 @@ public final class VideoPlayerView extends BaseView {
             }
         }
     };
-    /***
-     * 导航虚拟监听
-     ***/
-    private OnSystemUiVisibilityChangeListener uiVisibilityChangeListener = new OnSystemUiVisibilityChangeListener() {
-        @Override
-        public void onSystemUiVisibilityChange(int visibility) {
-            removeCallbacks(hideNavigationAction);
-            if (visibility == VISIBLE && playerView != null) {
-                postDelayed(hideNavigationAction, 4000);
-            }
-        }
-    };
-
     /***
      * 点击事件监听
      */
@@ -364,7 +372,7 @@ public final class VideoPlayerView extends BaseView {
                         }
                     });
                 }
-                belowView.showBelowView(v, true);
+                belowView.showBelowView(v, true,getSwitchIndex());
                 //提示播放
             } else if (v.getId() == R.id.exo_player_btn_hint_btn_id) {
                 showBtnContinueHint(View.GONE);
@@ -556,27 +564,7 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public void reset() {
-            removeCallbacks(hideNavigationAction);
-            removeCallbacks(hideAction);
-            if (playReplayLayout != null) {
-                playReplayLayout.setVisibility(GONE);
-            }
-            if (exoLoadingLayout != null) {
-                exoLoadingLayout.setVisibility(GONE);
-            }
-            if (exoPlayErrorLayout != null) {
-                exoPlayErrorLayout.setVisibility(GONE);
-            }
-            if (playBtnHintLayout != null) {
-                playBtnHintLayout.setVisibility(GONE);
-            }
-            if (getPlaybackControlView() != null) {
-                getPlaybackControlView().hideNo();
-                getPlaybackControlView().showNo();
-                showPreview(VISIBLE);
-            }
-            showPreViewLayout(VISIBLE);
-
+            resets();
         }
 
         @Override
@@ -640,4 +628,5 @@ public final class VideoPlayerView extends BaseView {
         }
 
     };
+
 }

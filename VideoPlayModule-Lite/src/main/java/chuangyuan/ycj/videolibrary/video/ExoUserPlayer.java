@@ -74,9 +74,9 @@ public class ExoUserPlayer {
     /*** 播放view实例***/
     private VideoPlayerView videoPlayerView;
     /*** 获取网速大小,获取最后的时间戳,获取当前进度 ***/
-    private long lastTotalRxBytes = 0, lastTimeStamp = 0, resumePosition;
+    private Long lastTotalRxBytes = 0L, lastTimeStamp = 0L, resumePosition = 0L;
     /*** 是否循环播放  0 不开启,获取当前视频窗口位置***/
-    private int loopingCount = 0, resumeWindow;
+    private int resumeWindow = 0;
     /*** 是否手动暂停,是否已经在停止恢复,播放结束,已经加载,是否选择多分辨率*/
     boolean handPause, isPause, isLoad, isEnd, isSwitch;
     /*** 定时任务类 ***/
@@ -185,6 +185,25 @@ public class ExoUserPlayer {
         player = createFullPlayer();
     }
 
+    public void setVideoPlayerView(@NonNull VideoPlayerView videoPlayerView) {
+        mPlayerViewListener = null;
+        this.videoPlayerView = videoPlayerView;
+        videoPlayerView.setExoPlayerListener(playComponentListener);
+        if (player == null) {
+            player = createFullPlayer();
+        }
+        player.addListener(componentListener);
+        getPlayerViewListener().showPreview(View.GONE);
+        getPlayerViewListener().hideController(false);
+        getPlayerViewListener().setControllerHideOnTouch(true);
+        isEnd = false;
+        isLoad = true;
+    }
+
+    public PlayComponentListener getPlayComponentListener() {
+        return playComponentListener;
+    }
+
     /***
      * 获取交互view接口实例
      * @return ExoPlayerViewListener player view listener
@@ -230,7 +249,7 @@ public class ExoUserPlayer {
     /***
      * 释放资源
      */
-    protected void releasePlayers() {
+    public void releasePlayers() {
         updateResumePosition();
         unNetworkBroadcastReceiver();
         if (player != null) {
@@ -338,7 +357,7 @@ public class ExoUserPlayer {
     /***
      * 创建实例播放实例，开始缓冲
      */
-    protected void onPlayNoAlertVideo() {
+    public void onPlayNoAlertVideo() {
         if (player == null) {
             player = createFullPlayer();
         }
@@ -351,11 +370,7 @@ public class ExoUserPlayer {
         } else {
             player.setPlayWhenReady(true);
         }
-        if (loopingCount == 0) {
-            player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
-        } else {
-            player.prepare(mediaSourceBuilder.setLooping(loopingCount), !haveResumePosition, false);
-        }
+        player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         player.addListener(componentListener);
         if (mPlayerViewListener != null) {
             mPlayerViewListener.showPreview(View.GONE);
@@ -463,6 +478,7 @@ public class ExoUserPlayer {
      * @param uri 路径
      */
     public void setPlayUri(@NonNull Uri uri) {
+        mediaSourceBuilder.release();
         mediaSourceBuilder.setMediaUri(uri);
     }
 
@@ -592,7 +608,7 @@ public class ExoUserPlayer {
      * @param loopingCount 必须大于0
      */
     public void setLooping(@Size(min = 1) int loopingCount) {
-        this.loopingCount = loopingCount;
+        mediaSourceBuilder.setLooping(loopingCount);
     }
 
     /***
@@ -711,6 +727,10 @@ public class ExoUserPlayer {
         this.onClickListener = onClickListener;
     }
 
+    public VideoPlayerView getVideoPlayerView() {
+        return videoPlayerView;
+    }
+
     /***
      * 设置多个视频状态回调
      * @param windowListener 实例
@@ -801,7 +821,6 @@ public class ExoUserPlayer {
             getPlayerViewListener().exitFull();
             return false;
         } else {
-            releasePlayers();
             return true;
         }
     }
@@ -826,6 +845,7 @@ public class ExoUserPlayer {
         }
         mNetworkBroadcastReceiver = null;
     }
+
 
     /***
      * 网络监听类

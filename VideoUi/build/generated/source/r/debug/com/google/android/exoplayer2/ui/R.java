@@ -369,14 +369,15 @@ public final class R {
         public static int secondary_text_disabled_material_dark = 0x7f06004e;
         public static int secondary_text_disabled_material_light = 0x7f06004f;
         public static int simple_exo_color_33 = 0x7f060050;
-        public static int simple_exo_style_Accent = 0x7f060051;
-        public static int simple_exo_style_color = 0x7f060052;
-        public static int switch_thumb_disabled_material_dark = 0x7f060053;
-        public static int switch_thumb_disabled_material_light = 0x7f060054;
-        public static int switch_thumb_material_dark = 0x7f060055;
-        public static int switch_thumb_material_light = 0x7f060056;
-        public static int switch_thumb_normal_material_dark = 0x7f060057;
-        public static int switch_thumb_normal_material_light = 0x7f060058;
+        public static int simple_exo_color_switch_item = 0x7f060051;
+        public static int simple_exo_style_Accent = 0x7f060052;
+        public static int simple_exo_style_color = 0x7f060053;
+        public static int switch_thumb_disabled_material_dark = 0x7f060054;
+        public static int switch_thumb_disabled_material_light = 0x7f060055;
+        public static int switch_thumb_material_dark = 0x7f060056;
+        public static int switch_thumb_material_light = 0x7f060057;
+        public static int switch_thumb_normal_material_dark = 0x7f060058;
+        public static int switch_thumb_normal_material_light = 0x7f060059;
     }
     public static final class dimen {
         public static int abc_action_bar_content_inset_material = 0x7f080001;

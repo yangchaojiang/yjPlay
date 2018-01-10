@@ -138,12 +138,29 @@
     <issue
         id="UnusedResources"
         severity="Warning"
+        message="The resource `R.color.simple_exo_color_switch_item` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="  &lt;color name=&quot;simple_exo_color_switch_item&quot;>#FF6E0B&lt;/color>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="E:\project\yjPlay\VideoUi\src\main\res\values\constants.xml"
+            line="9"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
         message="The resource `R.dimen.dp30` appears to be unused"
         category="Performance"
         priority="3"
         summary="Unused resources"
         explanation="Unused resources make applications larger and slow down builds."
-        errorLine1="    &lt;dimen name=&quot;dp30&quot;>35dp&lt;/dimen>"
+        errorLine1="    &lt;dimen name=&quot;dp30&quot;>40dp&lt;/dimen>"
         errorLine2="           ~~~~~~~~~~~"
         quickfix="studio">
         <location

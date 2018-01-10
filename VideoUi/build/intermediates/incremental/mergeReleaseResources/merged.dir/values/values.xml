@@ -95,6 +95,7 @@
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
     <color name="simple_exo_color_33">#33000000</color>
+    <color name="simple_exo_color_switch_item">#FF6E0B</color>
     <color name="simple_exo_style_Accent">#FF4081</color>
     <color name="simple_exo_style_color">#005fff</color>
     <color name="switch_thumb_disabled_material_dark">#ff616161</color>
@@ -314,7 +315,7 @@
     <dimen name="controls_title__marginRight">60dp</dimen>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
-    <dimen name="dp30">35dp</dimen>
+    <dimen name="dp30">40dp</dimen>
     <dimen name="exo_media_button_height">35dp</dimen>
     <dimen name="exo_media_button_height_2">50dp</dimen>
     <dimen name="exo_media_button_width">35dp</dimen>

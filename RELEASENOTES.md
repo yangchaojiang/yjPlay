@@ -1,8 +1,15 @@
  ## 更新日志
+ ### 1.9.91
+   * 1.增加列表到详情播放完美过滤。无需二次加载[#58](https://github.com/yangchaojiang/yjPlay/issues/58)。
+   * 2.多线路选择增加高亮显示[#61](https://github.com/yangchaojiang/yjPlay/issues/61)。
+   * 3.优化屏全屏处理。
+   * 4.升级内核版本[#2.6.1](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#261)
+   * 5.修复bug[#31](https://github.com/yangchaojiang/yjPlay/issues/31)
+   * 6.改进mediaSource实例化方式。
  ### 1.9.81
-   * 1.新增加广告和多分辨率同时支持[35](https://github.com/yangchaojiang/yjPlay/issues/35)。
+   * 1.新增加广告和多分辨率同时支持[#35](https://github.com/yangchaojiang/yjPlay/issues/35)。
    * 2.增加自定义预览布局设置，更容易实现自定义视频封面图UI样式。
-   * 3.修改对视频链接类型判断bug[42](https://github.com/yangchaojiang/yjPlay/issues/42)。
+   * 3.修改对视频链接类型判断bug[#42](https://github.com/yangchaojiang/yjPlay/issues/42)。
    * 4.优化广告可能出现没有切换视频下拖拽进度条快进，出现多次回调处理。
    * 5.修复播放完成后，可能按钮没有显示问题。
    * 6.优化视频图封面图代码控制，更简介处理。
@@ -14,7 +21,7 @@
    * 3.升级内核版本[2.6.0](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#260)
    * 4.增加全屏和返回按钮图标自定义。
    * 5.修复缓存问题实现真正实现离线缓存播放。
-   * 6.修复bug[31](https://github.com/yangchaojiang/yjPlay/issues/31)
+   * 6.修复bug[#31](https://github.com/yangchaojiang/yjPlay/issues/31)
    * 7.其他逻辑优化和代码分离。
    * 8.优化使用说明。
  ### 1.9.5

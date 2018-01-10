@@ -10,6 +10,8 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
+import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory;
+import com.google.android.exoplayer2.source.hls.HlsDataSourceFactory;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource;
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
@@ -40,17 +42,25 @@ public class WholeMediaSource extends MediaSourceBuilder {
         int streamType = VideoPlayUtils.inferContentType(uri);
         switch (streamType) {
             case C.TYPE_SS:
-                return new SsMediaSource(uri, new DefaultDataSourceFactory(context, null,
-                        getDataSource()),
-                        new DefaultSsChunkSource.Factory(getDataSource()),
-                        mainHandler, sourceEventListener);
+                return new  SsMediaSource.Factory(new DefaultSsChunkSource.Factory(getDataSource()), new DefaultDataSourceFactory(context, null,
+                        getDataSource()))
+                        .setMinLoadableRetryCount(5)
+                        .createMediaSource(uri,mainHandler,sourceEventListener);
             case C.TYPE_DASH:
-                return new DashMediaSource(uri, new DefaultDataSourceFactory(context, null, getDataSource()),
-                        new DefaultDashChunkSource.Factory(getDataSource()), mainHandler, sourceEventListener);
+                 new DashMediaSource.Factory(new DefaultDashChunkSource.Factory(getDataSource())
+                         ,new DefaultDataSourceFactory(context, null, getDataSource()))
+                         .setMinLoadableRetryCount(5)
+                         .createMediaSource(uri, mainHandler, sourceEventListener);
             case C.TYPE_OTHER:
-                return new ExtractorMediaSource(uri, getDataSource(), new DefaultExtractorsFactory(), mainHandler, null,uri.getPath());
+                return new  ExtractorMediaSource.Factory( getDataSource())
+                         .setExtractorsFactory( new DefaultExtractorsFactory())
+                        .setMinLoadableRetryCount(5)
+                        .setCustomCacheKey(uri.getPath())
+                        .createMediaSource(uri,mainHandler,null);
             case C.TYPE_HLS:
-                return new HlsMediaSource(uri, getDataSource(), 5, mainHandler, sourceEventListener);
+                return new HlsMediaSource.Factory(new DefaultHlsDataSourceFactory( getDataSource()))
+                        .setMinLoadableRetryCount(5)
+                        .createMediaSource(uri, mainHandler, sourceEventListener);
 
             default:
                 throw new IllegalStateException(":Unsupported type: " + streamType);

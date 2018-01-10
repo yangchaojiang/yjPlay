@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 
 import java.util.ArrayList;
@@ -24,18 +23,21 @@ import java.util.List;
 
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
+import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.adapter.BRVAHTestAdapter;
 import chuangyuan.ycj.yjplay.custom.MainCustomLayoutActivity;
 import chuangyuan.ycj.yjplay.custom.MainListInfoCustomActivity;
 
-import static android.support.v4.app.ActivityOptionsCompat.*;
+import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation;
 
 
 public class MainListActivity extends AppCompatActivity {
-    RecyclerView easyRecyclerView;
-    BRVAHTestAdapter adapter;
-    Toolbar toolbar;
+    private RecyclerView easyRecyclerView;
+    private BRVAHTestAdapter adapter;
+    private Toolbar toolbar;
     private LinearLayoutManager linearLayoutManager;
+    private int clickPosition;
+    private boolean isReset = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,28 +89,13 @@ public class MainListActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                int firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
-                if (position - firstItemPosition >= 0) {
-                    //得到要更新的item的view
-                    start(view, adapter.getItem(position).toString());
+                //得到要更新的item的view
+                clickPosition = position;
+                start(view, adapter.getItem(position).toString());
 
-                }
             }
 
         });
-       /* adapter.setOnSwitchItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                int firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
-                if (position - firstItemPosition >= 0) {
-                    //得到要更新的item的view
-                    View view = easyRecyclerView.getChildAt(position - firstItemPosition);
-                    start(view);
-
-                }
-            }
-        });*/
-
     }
 
     private void start(View view, String uri) {
@@ -116,6 +103,7 @@ public class MainListActivity extends AppCompatActivity {
         long currPosition = 0;
         ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
         if (manualPlayer != null) {
+            isReset = false;
             currPosition = manualPlayer.getCurrentPosition();
         }
         Log.d("currPosition", currPosition + "");
@@ -130,9 +118,11 @@ public class MainListActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        Log.d(MainListActivity.class.getName(), "onPause");
         super.onPause();
-        VideoPlayerManager.getInstance().onPause();
+        Log.d(MainListActivity.class.getName(), "onPause");
+        //如果进入详情播放则不暂停视频释放资源//为空内部已经处理
+        VideoPlayerManager.getInstance().onPause(isReset);
+
     }
 
     @Override
@@ -160,7 +150,7 @@ public class MainListActivity extends AppCompatActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-     //   VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);//横竖屏切换
+        VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
     }
 
@@ -168,14 +158,17 @@ public class MainListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 10 && resultCode == RESULT_OK && data != null) {
             boolean isEnd = data.getBooleanExtra("isEnd", false);
+            long currPosition = data.getLongExtra("currPosition", 0);
             if (!isEnd) {
-                long currPosition = data.getLongExtra("currPosition", 0);
+                Log.d("onActivityResult", "onActivityResult:" + currPosition);
                 ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
                 if (manualPlayer != null) {
+                    //从详情页面需要的重新的原来view复原//否测原来无法播放
+                    VideoPlayerView videoPlayerView = (VideoPlayerView) adapter.getViewByPosition(clickPosition, R.id.exo_play_context_id);
+                    VideoPlayerManager.getInstance().switchTargetView(manualPlayer, videoPlayerView, false);
                     manualPlayer.setPosition(currPosition);
                 }
             }
-
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

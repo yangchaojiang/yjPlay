@@ -261,7 +261,7 @@ abstract class BaseView extends FrameLayout {
         exoPreviewBottomImage = (ImageView) playerView.findViewById(R.id.exo_preview_image_bottom);
         if (playerView.findViewById(R.id.exo_preview_image) != null) {
             exoPreviewImage = (ImageView) playerView.findViewById(R.id.exo_preview_image);
-            exoPreviewImage.setBackgroundResource(android.R.color.black);
+            exoPreviewImage.setBackgroundResource(android.R.color.transparent);
         } else {
             exoPreviewImage = exoPreviewBottomImage;
         }
@@ -614,7 +614,14 @@ abstract class BaseView extends FrameLayout {
         }
         return nameSwitch;
     }
-
+    /**
+     * Gets name switch.
+     *
+     * @return the name switch
+     */
+    protected int getSwitchIndex() {
+        return switchIndex;
+    }
     /**
      * 设置多分辨显示文字
      *

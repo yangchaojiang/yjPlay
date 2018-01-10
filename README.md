@@ -17,8 +17,8 @@
    * 5 广告视频预览(轻松实现，完美切换)。
    * 6 视频清晰度切换。
    * 7 [缓存下载加密视频功能（边播变缓存轻松实现](README_EN_VIDEO.md)。
-   * 8 支持自定义多种 Okttp,Rtmp,Https,Cronet等协议。
-   * 9 支持列表集合数据播放视频（完美切换）
+   * 8 支持自定义多种 kttp,Rtmp,Https,Cronet等协议。
+   * 9 支持列表集合数据O播放视频（详情播放完美过度）
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
    * 11 支持网络类型 提示是否播放(可自定义冰屏蔽)。
    * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
@@ -33,7 +33,7 @@
    * 21 支持播放锁屏功能和控制动画效果，返回按钮和全屏按钮图标自定义。
  <!--more-->
 
- ### [更新日志1.9.8→》戳我查看](RELEASENOTES.md)
+ ### [更新日志1.9.91→》戳我查看](RELEASENOTES.md)
  
  ### 一.引用类库
   ````
@@ -44,9 +44,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:1.9.83' 
+      compile 'com.ycjiang:VideoPlayModule:1.9.91' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-     compile 'com.ycjiang:VideoPlayModule-Lite:1.9.83'
+     compile 'com.ycjiang:VideoPlayModule-Lite:1.9.91'
 
   }
   ````
@@ -55,9 +55,7 @@
 
  ### 二.控件属性
 
-
  >>  #### 1.控件属性
-  >>>>控件自定义属性
  ````
    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
          android:id="@+id/exo_play_context_id"
@@ -462,6 +460,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
- 
+ ### 混淆声明
+   -dontwarn chuangyuan.ycj.**
+   
+   -keep class chuangyuan.ycj.** { *;}
  
 

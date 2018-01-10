@@ -2,7 +2,9 @@ package chuangyuan.ycj.yjplay.custom;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,13 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.exoplayer2.ExoPlaybackException;
 
 import chuangyuan.ycj.videolibrary.listener.LoadModelType;
 import chuangyuan.ycj.videolibrary.listener.OnGestureBrightnessListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureProgressListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureVolumeListener;
+import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
+import chuangyuan.ycj.videolibrary.whole.WholeMediaSource;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.data.DataSource;
 import chuangyuan.ycj.yjplay.R;
@@ -38,7 +43,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
     private ImageView videoAudioImg, videoBrightnessImg;
     /***显示音频和亮度***/
     private ProgressBar videoAudioPro, videoBrightnessPro;
-
+    WholeMediaSource  wholeMediaSource;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +57,14 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         videoAudioPro = (ProgressBar) findViewById(R.id.exo_video_audio_pro);
         videoBrightnessImg = (ImageView) findViewById(R.id.exo_video_brightness_img);
         videoBrightnessPro = (ProgressBar) findViewById(R.id.exo_video_brightness_pro);
-        ViewCompat.setTransitionName(videoPlayerView, VIEW_NAME_HEADER_IMAGE);
-        exoPlayerManager = new ManualPlayer(this, videoPlayerView, new DataSource(getApplication()));
+        wholeMediaSource=new WholeMediaSource(this,new DataSource(getApplication()));
+        exoPlayerManager = new ManualPlayer(this, wholeMediaSource,videoPlayerView);
         videoPlayerView.setOpenLock(false);
         exoPlayerManager.setPosition(currPosition);
         exoPlayerManager.setTitle("自定义视频标题");
         //设置加载显示模式
         exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
-        exoPlayerManager.setPlayUri(url);
+        wholeMediaSource.setMediaUri(Uri.parse(url));
         exoPlayerManager.setOnPlayClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +132,34 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
                 videoAudioImg.setImageResource(currIndex == 0 ? R.drawable.ic_volume_off_white_48px : R.drawable.ic_volume_up_white_48px);
             }
         });
+        exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
+            @Override
+            public void onPlayStart() {
+
+            }
+
+            @Override
+            public void onLoadingChanged() {
+
+            }
+
+            @Override
+            public void onPlayerError(@Nullable ExoPlaybackException e) {
+
+            }
+
+            @Override
+            public void onPlayEnd() {
+                wholeMediaSource.release();
+                wholeMediaSource.setMediaUri(Uri.parse(getString(R.string.url_hls)));
+                exoPlayerManager.startPlayer();
+            }
+
+            @Override
+            public void isPlaying(boolean playWhenReady) {
+
+            }
+        });
 
     }
 
@@ -163,8 +196,6 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
             Toast.makeText(MainCustomLayoutActivity.this, "返回", Toast.LENGTH_LONG).show();
             finish();
         }
-
     }
-
 
 }
