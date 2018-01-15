@@ -47,7 +47,7 @@ public class WholeMediaSource extends MediaSourceBuilder {
                         .setMinLoadableRetryCount(5)
                         .createMediaSource(uri,mainHandler,sourceEventListener);
             case C.TYPE_DASH:
-                 new DashMediaSource.Factory(new DefaultDashChunkSource.Factory(getDataSource())
+                return new DashMediaSource.Factory(new DefaultDashChunkSource.Factory(getDataSource())
                          ,new DefaultDataSourceFactory(context, null, getDataSource()))
                          .setMinLoadableRetryCount(5)
                          .createMediaSource(uri, mainHandler, sourceEventListener);

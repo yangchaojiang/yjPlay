@@ -1,4 +1,7 @@
  ## 更新日志
+ ### 1.9.93
+   * 1.修复播放源为DASH类型返回错误[#62](https://github.com/yangchaojiang/yjPlay/issues/62)。
+  
  ### 1.9.91
    * 1.增加列表到详情播放完美过滤。无需二次加载[#58](https://github.com/yangchaojiang/yjPlay/issues/58)。
    * 2.多线路选择增加高亮显示[#61](https://github.com/yangchaojiang/yjPlay/issues/61)。
