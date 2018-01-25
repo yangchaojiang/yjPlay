@@ -1,6 +1,6 @@
 # yjPlay
 
-[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.9.83) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.9.83/link)
+[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.9.93) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.9.93/link)
  
 
   ### [View English instructions→Poking me ](en/README.md)
@@ -33,7 +33,7 @@
    * 21 支持播放锁屏功能和控制动画效果，返回按钮和全屏按钮图标自定义。
  <!--more-->
 
- ### [更新日志1.9.91→》戳我查看](RELEASENOTES.md)
+ ### [更新日志1.9.93→》戳我查看](RELEASENOTES.md)
  
  ### 一.引用类库
   ````
