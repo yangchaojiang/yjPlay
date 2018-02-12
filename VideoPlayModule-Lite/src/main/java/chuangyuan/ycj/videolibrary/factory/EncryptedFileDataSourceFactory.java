@@ -13,7 +13,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import chuangyuan.ycj.videolibrary.source.Encrypted1FileDataSource;
 import chuangyuan.ycj.videolibrary.source.MyDefaultDataSource;
 
 /**
@@ -80,8 +79,6 @@ public class EncryptedFileDataSourceFactory implements DataSource.Factory {
     public DataSource createDataSource() {
         if (null != mCipher) {
             return new MyDefaultDataSource(context, mCipher, mSecretKeySpec, mIvParameterSpec, mTransferListener, baseDataSourceFactory.createDataSource());
-        } else if (key != null) {
-            return new Encrypted1FileDataSource(key, new DefaultBandwidthMeter());
         } else {
             return new DefaultDataSource(context, new DefaultBandwidthMeter(), baseDataSourceFactory.createDataSource());
         }

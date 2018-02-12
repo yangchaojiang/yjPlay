@@ -20,4 +20,5 @@
     <string name="Skip_the_advertising">Skip the advertising</string>
     <string name="default_cache">Default cache playback</string>
     <string name="custom_cache">Customize the download cache</string>
+    <string name="simple_fragment">FragmentList</string>
 </resources>

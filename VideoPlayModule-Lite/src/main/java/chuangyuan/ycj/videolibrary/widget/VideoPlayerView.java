@@ -130,9 +130,7 @@ public final class VideoPlayerView extends BaseView {
         boolean is = isListPlayer && getPlay() != null;
         if (is) {
             ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
-            Log.d(TAG,toString()+"");
             if (manualPlayer!=null&&getPlay().toString().equals(manualPlayer.toString())) {
-                setTag(manualPlayer.getCurrentPosition());
                 manualPlayer.reset(false);
             }
         } else {
@@ -169,6 +167,7 @@ public final class VideoPlayerView extends BaseView {
                     switchText.setText(getNameSwitch().get(switchIndex));
                 }
             }
+
             lockCheckBox.setChecked(false);
             //列表显示
             showListBack(VISIBLE);
@@ -181,7 +180,7 @@ public final class VideoPlayerView extends BaseView {
                 return;
             }
             isLand = false;
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+            activity.getWindow().getDecorView().setSystemUiVisibility(setSystemUiVisibility);
             VideoPlayUtils.showActionBar(activity);
             //多线路支持隐藏
             getSwitchText().setVisibility(GONE);
@@ -626,7 +625,6 @@ public final class VideoPlayerView extends BaseView {
         public void setSwitchName(@NonNull List<String> name, int switchIndex) {
             VideoPlayerView.this.setSwitchName(name, switchIndex);
         }
-
     };
 
 }

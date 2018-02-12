@@ -225,4 +225,5 @@ public interface ExoPlayerViewListener {
      * @param switchIndex switchIndex;
      */
     void setSwitchName(@NonNull List<String> name, int switchIndex);
+
 }

@@ -36,6 +36,9 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
     protected void convert(final TestVideoHolder helper, String item) {
         helper.userPlayer.setTitle("" + helper.getAdapterPosition());
         helper.userPlayer.setPlayUri(item);
+        //设置列表item播放当前进度一定设置.不然不会保存进度
+        helper.userPlayer.setTag(helper.getAdapterPosition());
+       // helper.playerView.setTag(helper.getAdapterPosition());
         Glide.with(context)
                .load(context.getString(R.string.uri_test_image))
                 .placeholder(R.mipmap.test)

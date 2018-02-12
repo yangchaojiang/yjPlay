@@ -77,6 +77,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
         public void bindData(String videoBean) {
             userPlayer.setTitle("" + getAdapterPosition());
+            userPlayer.setTag(getAdapterPosition());
             userPlayer.setPlayUri(videoBean);
             Glide.with(mContext)
                     .load(mContext.getString(R.string.uri_test_image))

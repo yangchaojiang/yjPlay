@@ -5,10 +5,8 @@ import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.android.exoplayer2.util.Util;
-
 
 import java.util.WeakHashMap;
 
@@ -22,6 +20,16 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * Description： 手动控制播放播放器
  */
 public final class ManualPlayer extends GestureVideoPlayer {
+    /**
+     * 记录视频进度缓存map
+     **/
+    private static WeakHashMap<Integer, Long> tags = new WeakHashMap<>();
+    /**
+     * 记录视频当前窗口缓存map
+     **/
+    private static WeakHashMap<Integer, Integer> tags2 = new WeakHashMap<>();
+    private int position;
+
     /**
      * Instantiates a new Manual player.
      *
@@ -87,6 +95,13 @@ public final class ManualPlayer extends GestureVideoPlayer {
         if (getPlayerViewListener().isList()) {
             handPause = false;
             VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
+            if (tags.get(position) != null && tags2.get(position) != null) {
+                int positions = tags.get(position).intValue();
+                int index = tags2.get(position);
+                setPosition(index, positions);
+                tags.remove(position);
+                tags2.remove(position);
+            }
         }
         getPlayerViewListener().setPlayerBtnOnTouch(null);
         createPlayers();
@@ -112,7 +127,8 @@ public final class ManualPlayer extends GestureVideoPlayer {
 
     /**
      * 列表暂停
-     * @param   reset 是否重置的 true  重置 false
+     *
+     * @param reset 是否重置的 true  重置 false
      */
     void onListPause(boolean reset) {
         if (reset) {
@@ -127,21 +143,26 @@ public final class ManualPlayer extends GestureVideoPlayer {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        tags.clear();
+        tags2.clear();
         onTouchListener = null;
     }
 
 
     /**
      * 重置
+     *
      * @param s s
      */
     public void reset(boolean s) {
         if (player != null) {
             unNetworkBroadcastReceiver();
-//            if (isEnd || s) {
-//                setPosition(0);
-//            }
-            setPosition(0);
+            if (!s) {
+                setPosition(0);
+            } else {
+                tags.put(position, player.getCurrentPosition());
+                tags2.put(position, player.getCurrentWindowIndex());
+            }
             player.stop();
             player.removeListener(componentListener);
             getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
@@ -154,4 +175,11 @@ public final class ManualPlayer extends GestureVideoPlayer {
         }
     }
 
+    /****
+     * 设置tag 标记 防止列表复用进度导致,
+     * @param position  position
+     * **/
+    public void setTag(int position) {
+        this.position = position;
+    }
 }

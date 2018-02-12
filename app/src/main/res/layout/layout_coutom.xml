@@ -6,6 +6,14 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <com.center.toolbar.TitleToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:title="标题"
+        app:titleTextColor="@android:color/white"
+        app:title_gravity="center" />
     <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
         android:id="@+id/exo_play_context_id"
         android:layout_width="match_parent"

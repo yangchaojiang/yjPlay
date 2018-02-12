@@ -19,6 +19,8 @@ import chuangyuan.ycj.yjplay.defaults.GuangGaoPlayerdActivity;
 import chuangyuan.ycj.yjplay.defaults.MainDetailedActivity;
 import chuangyuan.ycj.yjplay.encrypt.Encrypted3VideoActivity;
 import chuangyuan.ycj.yjplay.encrypt.EncryptedVideoActivity;
+import chuangyuan.ycj.yjplay.fragment.ListFragmentActivity;
+import chuangyuan.ycj.yjplay.fragment.ViewPagerActivity;
 import chuangyuan.ycj.yjplay.ima.ImaPlayerActivity;
 import chuangyuan.ycj.yjplay.media.MainCustomMediaActivity;
 import chuangyuan.ycj.yjplay.offline.OfficeDetailedActivity;
@@ -135,6 +137,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, ImaPlayerActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button11)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, ListFragmentActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button12)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                         startActivity(intent);
                     }
                 });

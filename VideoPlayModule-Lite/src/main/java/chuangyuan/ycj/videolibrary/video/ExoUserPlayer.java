@@ -163,7 +163,7 @@ public class ExoUserPlayer {
         initView();
     }
 
-    protected View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -290,7 +290,6 @@ public class ExoUserPlayer {
      * 初始化播放实例
      */
     public void startPlayer() {
-        Log.d(TAG, "onTouch");
         getPlayerViewListener().setPlayerBtnOnTouch(null);
         createPlayers();
         registerReceiverNet();
@@ -945,6 +944,7 @@ public class ExoUserPlayer {
         @Override
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
             Log.d(TAG, "onTracksChanged:" + currentWindowIndex + "_:" + player.getCurrentTimeline().getWindowCount());
+            Log.d(TAG, "onTracksChanged:" + player.getNextWindowIndex() + "_:" + player.getCurrentTimeline().getWindowCount());
             if (getWindowCount() > 1) {
                 if (isRemove) {
                     isRemove = false;

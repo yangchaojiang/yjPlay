@@ -34,7 +34,7 @@
  <!--more-->
 
 
- ### [更新日志1.9.93→》戳我查看](RELEASENOTES.md)
+ ### [更新日志1.9.94→》戳我查看](RELEASENOTES.md)
  
  ### 一.引用类库
   ````
@@ -45,9 +45,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:1.9.93' 
+      compile 'com.ycjiang:VideoPlayModule:1.9.94' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-     compile 'com.ycjiang:VideoPlayModule-Lite:1.9.93'
+     compile 'com.ycjiang:VideoPlayModule-Lite:1.9.94'
 
   }
   ````
@@ -96,12 +96,13 @@
  >> #### 2.属性说明
    >
     1.   player_layout_id  播放器布局，  
-         player_layout_id 目前支持指定布局simple_exo_playback_control_view 后续版本，开放自定义使用
+         player_layout_id 目前支持指定布局simple_exo_view.xml 后续版本，开放自定义使用
    >
-    2. controller_layout_id  控制器布局`  默认有三种布局
+    2. controller_layout_id  控制器布局`  默认有四种布局
         1.simple_exo_playback_control_view.xml  //视频封面控制布局下面，比较常规使用
         2.simple_exo_playback_list_view.xml.xml //在列表播放使用控制布局
         3.simple_exo_playback_top_view.xml.xml  //视频封面控制布局上面
+        4.exo_playback_control_view.xml         //exo 提供默认风格
 
    * **注意： 列表播放只能选择texture_view 不能选择surface_view，详情页面播放推荐surface_view**
    >
@@ -200,7 +201,7 @@
             exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
            String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
            String[] name={"超清","高清","标清"};
-           exoPlayerManager.setPlaySwitchUri(test,name);
+           exoPlayerManager.setPlaySwitchUri(0,test,name);
           //开始启动播放视频
            exoPlayerManager.startPlayer();
 
@@ -230,11 +231,14 @@
 
    5.设置开始播放进度
 
-         exoPlayerManager.setPosition(1000)
+         exoPlayerManager.setPosition(1000);
+          exoPlayerManager.setPosition(windowIndex,1000)
 
    6.设置封面图
 
-           videoPlayerView.setPreviewImage(bimtap);或者 videoPlayerView.getPreviewImage())
+           videoPlayerView.setPreviewImage(bimtap);
+           videoPlayerView.getPreviewImage())
+           videoPlayerView.setPreviewImage(R.res.image)
 
    7.设置视频路径
 
@@ -247,11 +251,13 @@
           //开启多线路设置，默认关闭
           exoPlayerManager.setShowVideoSwitch(true);
           //支持List列表
-          String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
+           String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
           "http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
            http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
            String[] name={"超清","高清","标清"};
-           exoPlayerManager.setPlaySwitchUri(test,name);
+           exoPlayerManager.setPlaySwitchUri(0,test,name);
+           //多分辨路和广告视频设置
+           exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
     
     
    9.设置视频加载提示显示模式（默认LoadModelType.SPEED (网速模式)）
@@ -272,7 +278,7 @@
             //如果自己在播放视频时特出处理。实现该接口回调
            //视频切换回调处理，进行布局处理，控制布局显示
             exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
-                     @Override
+            @Override
             public void onCurrentIndex(int currentIndex, int windowCount) {
                          if (currentIndex == 0) {
                              //屏蔽控制布局
@@ -299,6 +305,7 @@
          });
     
    13.设置监听回调VideoInfoListener
+   
          exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
                        @Override
                        public void onPlayStart() {
@@ -362,11 +369,21 @@
 
 
  ### 三.列表
+ 
    1.列表播放，只能使用ManualPlayer,在你的VideoHolder
-   *  1在列表控件使用属性 ”app:controller_layout_id="@layout/simple_exo_playback＿list_view"“  //提供默列表控制布局
+   *  1.在列表控件使用属性 ”app:controller_layout_id="@layout/simple_exo_playback＿list_view"“  //提供默列表控制布局
+  
    *  2.player_list="true" 设置为true 开启列表模式
-   *  3.demo:
-       ````
+  
+   *  3.设置列表item 没有播放完成当前视频播放进度,不然不会保存播放进度---> userPlayer.setTag(getAdapterPosition());
+   
+   *  3.设置列表item 没有播放完成当前视频播放进度,不然不会保存播放进度---> userPlayer.setTag(getAdapterPosition());
+  
+   *  3.设置列表item 没有播放完成当前视频播放进度,不然不会保存播放进度---> userPlayer.setTag(getAdapterPosition());
+  
+   *  4.demo:
+       
+       
               public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
               .......
               @Override
@@ -389,20 +406,23 @@
                       playerView = (VideoPlayerView) itemView.findViewById(R.id.item_exo_player_view);
                       userPlayer = new ManualPlayer((Activity) mContext, playerView);
                   }
-                 /**
-                 *绑定数据源
-                 ***/
+                 /***绑定数据源***/
                   public void bindData(String videoBean) {
                       userPlayer.setTitles("" + getAdapterPosition());
                       userPlayer.setPlayUri(videoBean);
+                      //设置列表item播放当前视频播放进度.不然不会保存视频播放进度
+                      userPlayer.setTag(helper.getAdapterPosition());
                       Glide.with(mContext) .load("....") .into(playerView.getPreviewImage());
                   }
               }
-     ````
+              
+              
    >>注意 更多adapter 实例请参考demo程序
               
   2.列表播放周期方法 列表在Activity或者Fragment  实现相应周期方法
   >> 在viewPager使用，不要在实现 Fragment onDestroy（）方法周期， onPause()也会释放资源。
+  >> onDestroy 用户页面销毁处理,不是释放资源.
+  >> onDestroy 用户页面销毁处理,不是释放资源.
   >> onDestroy 用户页面销毁处理,不是释放资源.
 
                       protected void onPause() {

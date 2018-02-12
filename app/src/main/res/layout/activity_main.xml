@@ -85,5 +85,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cache_bideo_btn" />
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/button11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/simple_fragment" />
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/button12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ViewPagerFragment" />
 </LinearLayout>
 </ScrollView>

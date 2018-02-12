@@ -141,6 +141,7 @@ abstract class BaseView extends FrameLayout {
     @DrawableRes
     int icBackImage = R.drawable.ic_exo_back;
 
+      int setSystemUiVisibility=0;
     /**
      * Instantiates a new Base view.
      *
@@ -265,6 +266,7 @@ abstract class BaseView extends FrameLayout {
         } else {
             exoPreviewImage = exoPreviewBottomImage;
         }
+        setSystemUiVisibility= activity.getWindow().getDecorView().getSystemUiVisibility();
     }
 
     /***

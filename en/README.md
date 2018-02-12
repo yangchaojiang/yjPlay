@@ -95,13 +95,14 @@
  >> #### 2.attribute specification
    >
     1.   player_layout_id  播放器布局， //必选
-         player_layout_id 目前支持指定布局simple_exo_playback_control_view 后续版本，开放自定义使用
+         player_layout_id 目前支持指定布局simple_exo_view.xml 后续版本，开放自定义使用
 
    >
-    2. controller_layout_id  控制器布局`  默认有三种布局
-        1.simple_exo_playback_control_view.xml  //视频封面控制布局下面，比较常规使用
-        2.simple_exo_playback_list_view.xml.xml //在列表播放使用控制布局
-        3.simple_exo_playback_top_view.xml.xml  //视频封面控制布局上面
+    2. controller_layout_id  Controller layout`  There are four default layouts
+        1.simple_exo_playback_control_view.xml  //Video cover control layout below, more conventional use
+        2.simple_exo_playback_list_view.xml.xml //Play in the list using the control layout
+        3.simple_exo_playback_top_view.xml.xml  //Video cover control layout above
+        4.exo_playback_control_view.xml         //exo Provide the default style
 
    *  **Note: only texture view cannot select the surface view, and the details page plays the recommended surface view**
    >
@@ -204,7 +205,7 @@
             exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
            String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
            String[] name={"超清","高清","标清"};
-           exoPlayerManager.setPlaySwitchUri(test,name);
+           exoPlayerManager.setPlaySwitchUri(0,test,name);
            //开始启动播放视频
            exoPlayerManager.startPlayer(); 
 
@@ -250,6 +251,8 @@
            http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
            String[] name={"super","high","standard"};
            exoPlayerManager.setPlaySwitchUri(test,name);
+            //Multi-resolution and ad settings
+           exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
     
  
    9.Set video loading prompt display mode (default Load Model Type.speed)
