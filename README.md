@@ -1,6 +1,6 @@
 # yjPlay
 
-[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.9.93) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.9.93/link)
+[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.9.93) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.9.94/link)
  
 
   ### [View English instructions→Poking me ](en/README.md)
