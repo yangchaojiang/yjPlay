@@ -42,7 +42,7 @@ public class MediaSourceBuilder {
     /*** The Listener. */
     protected DataSourceListener listener;
     /** * The Source event listener. */
-    protected MediaSourceEventListener sourceEventListener;
+    protected MediaSourceEventListener sourceEventListener=null;
     private int indexType = -1;
     private List<String> videoUri;
     private int loopingCount = 0;

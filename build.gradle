@@ -29,7 +29,7 @@ allprojects {
         minSdkVersion=16
         versionCode = 16
         versionName = "3.0"
-        publish_version='1.9.94'
+        publish_version='1.9.96'
     }
     tasks.withType(Javadoc) {
         options{

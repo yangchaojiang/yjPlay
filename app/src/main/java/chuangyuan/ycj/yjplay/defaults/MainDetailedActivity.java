@@ -44,8 +44,10 @@ public class MainDetailedActivity extends Activity {
         //设置开始播放进度
         // exoPlayerManager.setPosition(1000);
         // exoPlayerManager.setPlayUri(getString(R.string.uri_test_3),getString(R.string.uri_test_h));
+             String tes="/storage/emulated/0/DCIM/Camera/VID_20180215_131926.mp4";
         // exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4");
-        test = new String[]{getString(R.string.uri_test_9), getString(R.string.uri_test_7), getString(R.string.uri_test_8)};
+        test = new String[]{"/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4","/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4","/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4"};
+       // test = new String[]{getString(R.string.uri_test_9), getString(R.string.uri_test_7), getString(R.string.uri_test_8)};
         String[] name = {"超清", "高清", "标清"};
         //开启线路设置
          exoPlayerManager.setShowVideoSwitch(true);
@@ -110,7 +112,7 @@ public class MainDetailedActivity extends Activity {
 
             @Override
             public void onPlayEnd() {
-                Toast.makeText(getApplication(), "asd", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplication(), "asd", Toast.LENGTH_SHORT).show();
             }
 
 

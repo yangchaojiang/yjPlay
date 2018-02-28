@@ -2,6 +2,7 @@ package chuangyuan.ycj.videolibrary.whole;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.google.android.exoplayer2.C;
@@ -34,11 +35,12 @@ public class WholeMediaSource extends MediaSourceBuilder {
 
     public WholeMediaSource(@NonNull Context context, @Nullable DataSourceListener listener) {
         super(context, listener);
+        mainHandler = new Handler();
     }
 
 
     @Override
-    public MediaSource initMediaSource(Uri uri) {
+    public MediaSource initMediaSource(@NonNull Uri uri) {
         int streamType = VideoPlayUtils.inferContentType(uri);
         switch (streamType) {
             case C.TYPE_SS:
@@ -56,7 +58,7 @@ public class WholeMediaSource extends MediaSourceBuilder {
                          .setExtractorsFactory( new DefaultExtractorsFactory())
                         .setMinLoadableRetryCount(5)
                         .setCustomCacheKey(uri.getPath())
-                        .createMediaSource(uri,mainHandler,null);
+                        .createMediaSource(uri,null,null);
             case C.TYPE_HLS:
                 return new HlsMediaSource.Factory(new DefaultHlsDataSourceFactory( getDataSource()))
                         .setMinLoadableRetryCount(5)

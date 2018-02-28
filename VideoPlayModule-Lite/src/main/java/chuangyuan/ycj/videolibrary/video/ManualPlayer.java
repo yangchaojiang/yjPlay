@@ -175,6 +175,14 @@ public final class ManualPlayer extends GestureVideoPlayer {
         }
     }
 
+    /***
+     * 重置点击事件
+     * **/
+    public void resetInit() {
+        getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
+        getPlayerViewListener().reset();
+    }
+
     /****
      * 设置tag 标记 防止列表复用进度导致,
      * @param position  position

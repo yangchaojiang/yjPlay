@@ -139,6 +139,7 @@ public class VideoPlayerManager {
     /*****
      * @param player 播放控制器
      *@param  newPlayerView 新的view
+     *@param    isPlay  isPlay 是否播放
      * ****/
     public void switchTargetView(@NonNull ManualPlayer player, @Nullable VideoPlayerView newPlayerView, boolean isPlay) {
         VideoPlayerView oldPlayerView = player.getVideoPlayerView();
@@ -157,7 +158,7 @@ public class VideoPlayerManager {
             player.setStartOrPause(true);
         } else {
             if (newPlayerView != null) {
-                player.reset(true);
+                player.resetInit();
             }
         }
 
