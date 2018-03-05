@@ -1,6 +1,5 @@
 # yjPlay
  
-[ ![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/_latestVersion)
  
   ### gif The display has the point card, the frame number is low, actually very fluent
   #### [Download preview apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-debug.apk)
@@ -41,9 +40,9 @@
 
   dependencies {
       //full edition
-      compile 'com.ycjiang:VideoPlayModule:1.9.96'
+      compile 'com.ycjiang:VideoPlayModule:2.1.0'
       // lite version （no smoothstreaming,dash,hls,Only regular on-demand）
-      compile 'com.ycjiang:VideoPlayModule-Lite:1.9.96'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.0'
 
 
   }

@@ -4,6 +4,6 @@
     <!-- android:value="@integer/google_play_services_version"/> -->
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="25" />
+        android:targetSdkVersion="26" />
 
 </manifest>

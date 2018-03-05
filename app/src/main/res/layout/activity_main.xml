@@ -72,12 +72,6 @@
         android:layout_height="wrap_content"
         android:text="@string/aes_hint_btn" />
 
-    <Button
-        android:textAllCaps="false"
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/simple_video_btn" />
 
     <Button
         android:textAllCaps="false"

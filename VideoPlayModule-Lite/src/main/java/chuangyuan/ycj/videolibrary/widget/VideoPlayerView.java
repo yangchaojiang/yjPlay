@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.text.SpannableString;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.TextView;
@@ -17,10 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.AnimUtils;
-import com.google.android.exoplayer2.ui.PlaybackControlView;
-
+import com.google.android.exoplayer2.ui.PlayerControlView;
 import java.util.List;
-
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
@@ -286,7 +283,7 @@ public final class VideoPlayerView extends BaseView {
     /****
      * 控制类显示隐藏监听
      ***/
-    private PlaybackControlView.VisibilityListener visibilityListener = new PlaybackControlView.VisibilityListener() {
+    private PlayerControlView.VisibilityListener visibilityListener = new PlayerControlView.VisibilityListener() {
         @Override
         public void onVisibilityChange(int visibility) {
             if (activity == null) return;

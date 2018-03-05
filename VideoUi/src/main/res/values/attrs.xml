@@ -30,34 +30,10 @@
     <flag name="all" value="2"/>
   </attr>
 
-  <declare-styleable name="SimpleExoPlayerView">
-    <attr name="use_artwork" format="boolean"/>
-    <attr name="default_artwork" format="reference"/>
-    <attr name="use_controller" format="boolean"/>
-    <attr name="hide_on_touch" format="boolean"/>
-    <attr name="auto_show" format="boolean"/>
-    <attr name="shutter_background_color" format="color"/>
-    <attr name="resize_mode"/>
-    <attr name="surface_type"/>
-    <attr name="show_timeout"/>
-    <attr name="rewind_increment"/>
-    <attr name="fastforward_increment"/>
-    <attr name="player_layout_id"/>
-    <attr name="controller_layout_id"/>
-    <attr name="show_shuffle_button"/>
-  </declare-styleable>
+
 
   <declare-styleable name="AspectRatioFrameLayout">
     <attr name="resize_mode"/>
-  </declare-styleable>
-  <declare-styleable name="PlaybackControlView">
-    <attr name="show_timeout"/>
-    <attr name="rewind_increment"/>
-    <attr name="fastforward_increment"/>
-    <attr name="repeat_toggle_modes"/>
-    <attr name="controller_layout_id"/>
-    <attr name="show_shuffle_button"/>
-    <attr name="player_fullscreen_image_selector"/>
   </declare-styleable>
 
   <declare-styleable name="DefaultTimeBar">
@@ -75,5 +51,34 @@
     <attr name="ad_marker_color" format="color"/>
     <attr name="played_ad_marker_color" format="color"/>
   </declare-styleable>
+  <declare-styleable name="PlayerView">
+    <attr name="use_artwork" format="boolean"/>
+    <attr name="shutter_background_color" format="color"/>
+    <attr name="default_artwork" format="reference"/>
+    <attr name="use_controller" format="boolean"/>
+    <attr name="hide_on_touch" format="boolean"/>
+    <attr name="hide_during_ads" format="boolean"/>
+    <attr name="auto_show" format="boolean"/>
+    <attr name="resize_mode"/>
+    <attr name="surface_type"/>
+    <attr name="player_layout_id"/>
+    <!-- PlayerControlView attributes -->
+    <attr name="show_timeout"/>
+    <attr name="rewind_increment"/>
+    <attr name="fastforward_increment"/>
+    <attr name="repeat_toggle_modes"/>
+    <attr name="show_shuffle_button"/>
+    <attr name="controller_layout_id"/>
+  </declare-styleable>
 
+
+
+  <declare-styleable name="PlayerControlView">
+    <attr name="show_timeout"/>
+    <attr name="rewind_increment"/>
+    <attr name="fastforward_increment"/>
+    <attr name="repeat_toggle_modes"/>
+    <attr name="show_shuffle_button"/>
+    <attr name="controller_layout_id"/>
+  </declare-styleable>
 </resources>

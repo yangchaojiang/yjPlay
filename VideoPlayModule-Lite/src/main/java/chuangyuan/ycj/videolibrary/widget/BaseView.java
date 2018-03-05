@@ -24,8 +24,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.PlaybackControlView;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.android.exoplayer2.ui.PlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,7 @@ abstract class BaseView extends FrameLayout {
     /***全屏按钮和锁屏按钮*/
     protected AppCompatCheckBox lockCheckBox;
     /***播放view*/
-    protected final SimpleExoPlayerView playerView;
+    protected final PlayerView playerView;
     /***视视频标题,清晰度切换,实时视频,加载速度显示,控制进度*/
     protected TextView videoLoadingShowText, /**
      * The Video dialog pro text.
@@ -172,7 +172,7 @@ abstract class BaseView extends FrameLayout {
         super(context, attrs, defStyleAttr);
         activity = (Activity) context;
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        playerView = new SimpleExoPlayerView(getContext(), attrs);
+        playerView = new PlayerView(getContext(), attrs);
         addView(playerView, params);
         int userWatermark = 0;
         int replayId = R.layout.simple_exo_play_replay;
@@ -641,7 +641,7 @@ abstract class BaseView extends FrameLayout {
      * @return PlaybackControlView playback control view
      */
     @Nullable
-    public PlaybackControlView getPlaybackControlView() {
+    public PlayerControlView getPlaybackControlView() {
         return playerView != null ? playerView.getControllerView() : null;
     }
 
@@ -777,7 +777,7 @@ abstract class BaseView extends FrameLayout {
      * @return SimpleExoPlayerView player view
      */
     @NonNull
-    public SimpleExoPlayerView getPlayerView() {
+    public PlayerView getPlayerView() {
         return playerView;
     }
 

@@ -142,9 +142,13 @@ public class GestureVideoPlayer extends ExoUserPlayer {
     private void endGesture() {
         volume = -1;
         brightness = -1f;
-        if (newPosition >= 0) {
-            player.seekTo(newPosition);
-            newPosition = -1;
+        if (onGestureProgressListener!=null){
+            onGestureProgressListener.endGestureProgress(newPosition);
+        }else {
+            if (newPosition >= 0) {
+                player.seekTo(newPosition);
+                newPosition = -1;
+            }
         }
         getPlayerViewListener().showGestureView(View.GONE);
     }

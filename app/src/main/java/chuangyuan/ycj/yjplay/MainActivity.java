@@ -116,14 +116,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-        findViewById(R.id.button8)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, Encrypted3VideoActivity.class);
-                        startActivity(intent);
-                    }
-                });
         findViewById(R.id.button9)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override

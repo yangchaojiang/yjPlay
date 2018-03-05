@@ -36,7 +36,7 @@ public class OfficeDataSource implements DataSourceListener {
     @Override
     public DataSource.Factory getDataSourceFactory() {
         //采用默认
-        return new DefaultCacheDataSourceFactory(context,100000000,"1234567887654321".getBytes(),eventListener);
+        return new DefaultCacheDataSourceFactory(context,100000000,null,eventListener);
         //自定义配置
       /*  LeastRecentlyUsedCacheEvictor evictor = new LeastRecentlyUsedCacheEvictor(100000000);
         SimpleCache simpleCache = new SimpleCache

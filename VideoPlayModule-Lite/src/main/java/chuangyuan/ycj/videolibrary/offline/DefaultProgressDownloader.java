@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.offline.Downloader;
 import com.google.android.exoplayer2.offline.DownloaderConstructorHelper;
+import com.google.android.exoplayer2.offline.ProgressiveDownloader;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.cache.Cache;
@@ -92,7 +93,7 @@ public final class DefaultProgressDownloader implements Downloader {
      * **/
     private class MyRunnable implements java.lang.Runnable {
         private ProgressListener listener;
-        private DefaultProgressDownloader defaultProgressDownloader;
+        private DefaultProgressDownloader th;
 
         /**
          * Instantiates a new My runnable.
@@ -102,24 +103,24 @@ public final class DefaultProgressDownloader implements Downloader {
          */
         MyRunnable(@Nullable ProgressListener listener, @NonNull DefaultProgressDownloader th) {
             this.listener = listener;
-            this.defaultProgressDownloader = th;
+            this.th = th;
 
         }
 
         @Override
         public void run() {
-            if (defaultProgressDownloader != null) {
+           if (th != null) {
                 priorityTaskManager.add(C.PRIORITY_DOWNLOAD);
                 try {
                     byte[] buffer = new byte[BUFFER_SIZE_BYTES];
                     DefaultCacheUtil.cache(dataSpec, cache, dataSource, buffer, priorityTaskManager, C.PRIORITY_DOWNLOAD,
-                            cachingCounters, true, listener, defaultProgressDownloader);
+                            cachingCounters, true, listener, th);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                     if (listener != null) {
-                        listener.onDownloadProgress(defaultProgressDownloader, -1, defaultProgressDownloader.getDownloadedBytes());
+                        listener.onDownloadProgress(th, -1, th.getDownloadedBytes());
                     }
                 } finally {
                     priorityTaskManager.remove(C.PRIORITY_DOWNLOAD);

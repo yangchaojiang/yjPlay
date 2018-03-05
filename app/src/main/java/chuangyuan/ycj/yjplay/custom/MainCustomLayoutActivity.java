@@ -54,12 +54,12 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         currPosition = getIntent().getLongExtra("currPosition", 0);
         url = getIntent().getStringExtra("uri");
-        videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
-        exo_video_dialog_pro_text = (TextView) findViewById(R.id.exo_video_dialog_pro_text);
-        videoAudioImg = (ImageView) findViewById(R.id.exo_video_audio_img);
-        videoAudioPro = (ProgressBar) findViewById(R.id.exo_video_audio_pro);
-        videoBrightnessImg = (ImageView) findViewById(R.id.exo_video_brightness_img);
-        videoBrightnessPro = (ProgressBar) findViewById(R.id.exo_video_brightness_pro);
+        videoPlayerView = findViewById(R.id.exo_play_context_id);
+        exo_video_dialog_pro_text = findViewById(R.id.exo_video_dialog_pro_text);
+        videoAudioImg =  findViewById(R.id.exo_video_audio_img);
+        videoAudioPro =  findViewById(R.id.exo_video_audio_pro);
+        videoBrightnessImg = findViewById(R.id.exo_video_brightness_img);
+        videoBrightnessPro =  findViewById(R.id.exo_video_brightness_pro);
         wholeMediaSource=new WholeMediaSource(this,new DataSource(getApplication()));
         exoPlayerManager = new ManualPlayer(this, wholeMediaSource,videoPlayerView);
         videoPlayerView.setOpenLock(false);
@@ -121,6 +121,11 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
                 videoPlayerView.getGestureProgressLayout().setVisibility(View.VISIBLE);
                 exo_video_dialog_pro_text.setTextColor(Color.RED);
                 exo_video_dialog_pro_text.setText(seekTime + "/" + totalTime);
+            }
+
+            @Override
+            public void endGestureProgress(long position) {
+                exoPlayerManager.getPlayer().seekTo(position);
             }
         });
         //重写自定义手势监听事件，

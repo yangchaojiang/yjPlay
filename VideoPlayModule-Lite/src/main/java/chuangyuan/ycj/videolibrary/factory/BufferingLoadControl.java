@@ -14,6 +14,7 @@ import com.google.android.exoplayer2.util.Util;
 
 import chuangyuan.ycj.videolibrary.listener.LoadListener;
 
+
 /**
  * The type Buffering load control.
  *
@@ -21,90 +22,139 @@ import chuangyuan.ycj.videolibrary.listener.LoadListener;
  */
 public class BufferingLoadControl implements LoadControl {
 
-    private static final String TAG = BufferingLoadControl.class.getName();
+
     /**
-     * The constant DEFAULT_MIN_BUFFER_MS.
+     * The default minimum duration of media that the player will attempt to ensure is buffered at all
+     * times, in milliseconds.
      */
     public static final int DEFAULT_MIN_BUFFER_MS = 15000;
+
     /**
-     * The constant DEFAULT_MAX_BUFFER_MS.
+     * The default maximum duration of media that the player will attempt to buffer, in milliseconds.
      */
     public static final int DEFAULT_MAX_BUFFER_MS = 30000;
+
     /**
-     * The constant DEFAULT_BUFFER_FOR_PLAYBACK_MS.
+     * The default duration of media that must be buffered for playback to start or resume following a
+     * user action such as a seek, in milliseconds.
      */
     public static final int DEFAULT_BUFFER_FOR_PLAYBACK_MS = 2500;
-    /**
-     * The constant DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS.
-     */
-    public static final int DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS = 5000;
 
-    private static final int ABOVE_HIGH_WATERMARK = 0;
-    private static final int BETWEEN_WATERMARKS = 1;
-    private static final int BELOW_LOW_WATERMARK = 2;
+    /**
+     * The default duration of media that must be buffered for playback to resume after a rebuffer,
+     * in milliseconds. A rebuffer is defined to be caused by buffer depletion rather than a user
+     * action.
+     */
+    public static final int DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS  = 5000;
+
+    /**
+     * The default target buffer size in bytes. When set to {@link C#LENGTH_UNSET}, the load control
+     * automatically determines its target buffer size.
+     */
+    public static final int DEFAULT_TARGET_BUFFER_BYTES = C.LENGTH_UNSET;
+
+    /** The default prioritization of buffer time constraints over size constraints. */
+    public static final boolean DEFAULT_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS = true;
+
     private final DefaultAllocator allocator;
+
     private final long minBufferUs;
     private final long maxBufferUs;
     private final long bufferForPlaybackUs;
     private final long bufferForPlaybackAfterRebufferUs;
+    private final int targetBufferBytesOverwrite;
+    private final boolean prioritizeTimeOverSizeThresholds;
     private final PriorityTaskManager priorityTaskManager;
 
     private int targetBufferSize;
     private boolean isBuffering;
-    /**
-     * The Need buffering.
-     */
-    public boolean needBuffering = true;
     private LoadListener listener;
-
     /**
-     * Instantiates a new Buffering load control.
+     * Constructs a new instance, using the {@code DEFAULT_*} constants defined in this class.
      */
     public BufferingLoadControl() {
-        this(new DefaultAllocator(true, C.DEFAULT_BUFFER_SEGMENT_SIZE));
-    }
-
-    /**
-     * Instantiates a new Buffering load control.
-     *
-     * @param allocator the allocator
-     */
-    public BufferingLoadControl(DefaultAllocator allocator) {
-        this(allocator, DEFAULT_MIN_BUFFER_MS, DEFAULT_MAX_BUFFER_MS,
+        this( new DefaultAllocator(true, C.DEFAULT_BUFFER_SEGMENT_SIZE),
+                DEFAULT_MIN_BUFFER_MS,
+                DEFAULT_MAX_BUFFER_MS,
                 DEFAULT_BUFFER_FOR_PLAYBACK_MS,
-                DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS);
+                DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS,
+                DEFAULT_TARGET_BUFFER_BYTES,
+                DEFAULT_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS);
+    }
+    /**
+     * Constructs a new instance.
+     *
+     * @param allocator The {@link DefaultAllocator} used by the loader.
+     * @param minBufferMs The minimum duration of media that the player will attempt to ensure is
+     *     buffered at all times, in milliseconds.
+     * @param maxBufferMs The maximum duration of media that the player will attempt buffer, in
+     *     milliseconds.
+     * @param bufferForPlaybackMs The duration of media that must be buffered for playback to start or
+     *     resume following a user action such as a seek, in milliseconds.
+     * @param bufferForPlaybackAfterRebufferMs The default duration of media that must be buffered for
+     *     playback to resume after a rebuffer, in milliseconds. A rebuffer is defined to be caused by
+     *     buffer depletion rather than a user action.
+     * @param targetBufferBytes The target buffer size in bytes. If set to {@link C#LENGTH_UNSET}, the
+     *     target buffer size will be calculated using {@link #calculateTargetBufferSize(Renderer[],
+     *     TrackSelectionArray)}.
+     * @param prioritizeTimeOverSizeThresholds Whether the load control prioritizes buffer time
+     */
+    public BufferingLoadControl(
+            DefaultAllocator allocator,
+            int minBufferMs,
+            int maxBufferMs,
+            int bufferForPlaybackMs,
+            int bufferForPlaybackAfterRebufferMs,
+            int targetBufferBytes,
+            boolean prioritizeTimeOverSizeThresholds) {
+        this(
+                allocator,
+                minBufferMs,
+                maxBufferMs,
+                bufferForPlaybackMs,
+                bufferForPlaybackAfterRebufferMs,
+                targetBufferBytes,
+                prioritizeTimeOverSizeThresholds,
+                null);
     }
 
     /**
-     * Instantiates a new Buffering load control.
+     * Constructs a new instance.
      *
-     * @param allocator                        the allocator
-     * @param minBufferMs                      the min buffer ms
-     * @param maxBufferMs                      the max buffer ms
-     * @param bufferForPlaybackMs              the buffer for playback ms
-     * @param bufferForPlaybackAfterRebufferMs the buffer for playback after rebuffer ms
+     * @param allocator The {@link DefaultAllocator} used by the loader.
+     * @param minBufferMs The minimum duration of media that the player will attempt to ensure is
+     *     buffered at all times, in milliseconds.
+     * @param maxBufferMs The maximum duration of media that the player will attempt buffer, in
+     *     milliseconds.
+     * @param bufferForPlaybackMs The duration of media that must be buffered for playback to start or
+     *     resume following a user action such as a seek, in milliseconds.
+     * @param bufferForPlaybackAfterRebufferMs The default duration of media that must be buffered for
+     *     playback to resume after a rebuffer, in milliseconds. A rebuffer is defined to be caused by
+     *     buffer depletion rather than a user action.
+     * @param targetBufferBytes The target buffer size in bytes. If set to {@link C#LENGTH_UNSET}, the
+     *     target buffer size will be calculated using {@link #calculateTargetBufferSize(Renderer[],
+     *     TrackSelectionArray)}.
+     * @param prioritizeTimeOverSizeThresholds Whether the load control prioritizes buffer time
+     *     constraints over buffer size constraints.
+     * @param priorityTaskManager If not null, registers itself as a task with priority {@link
+     *     C#PRIORITY_PLAYBACK} during loading periods, and unregisters itself during draining
      */
-    public BufferingLoadControl(DefaultAllocator allocator, int minBufferMs, int maxBufferMs, long bufferForPlaybackMs, long bufferForPlaybackAfterRebufferMs) {
-        this(allocator, minBufferMs, maxBufferMs, bufferForPlaybackMs,
-                bufferForPlaybackAfterRebufferMs, null);
-    }
-
-    /**
-     * Instantiates a new Buffering load control.
-     *
-     * @param allocator                        the allocator
-     * @param minBufferMs                      the min buffer ms
-     * @param maxBufferMs                      the max buffer ms
-     * @param bufferForPlaybackMs              the buffer for playback ms
-     * @param bufferForPlaybackAfterRebufferMs the buffer for playback after rebuffer ms
-     * @param priorityTaskManager              the priority task manager
-     */
-    public BufferingLoadControl(DefaultAllocator allocator, int minBufferMs, int maxBufferMs, long bufferForPlaybackMs, long bufferForPlaybackAfterRebufferMs, PriorityTaskManager priorityTaskManager) {
+    public BufferingLoadControl(
+            DefaultAllocator allocator,
+            int minBufferMs,
+            int maxBufferMs,
+            int bufferForPlaybackMs,
+            int bufferForPlaybackAfterRebufferMs,
+            int targetBufferBytes,
+            boolean prioritizeTimeOverSizeThresholds,
+            PriorityTaskManager priorityTaskManager) {
         this.allocator = allocator;
-        minBufferUs = minBufferMs * 2000L;
-        maxBufferUs = maxBufferMs * 2000L;
-        bufferForPlaybackUs = bufferForPlaybackMs * 2000L;
-        bufferForPlaybackAfterRebufferUs = bufferForPlaybackAfterRebufferMs * 2000L;
+        minBufferUs = minBufferMs * 1000L;
+        maxBufferUs = maxBufferMs * 1000L;
+        bufferForPlaybackUs = bufferForPlaybackMs * 1000L;
+        bufferForPlaybackAfterRebufferUs = bufferForPlaybackAfterRebufferMs * 1000L;
+        targetBufferBytesOverwrite = targetBufferBytes;
+        this.prioritizeTimeOverSizeThresholds = prioritizeTimeOverSizeThresholds;
         this.priorityTaskManager = priorityTaskManager;
     }
 
@@ -114,53 +164,67 @@ public class BufferingLoadControl implements LoadControl {
     }
 
     @Override
-    public void onTracksSelected(Renderer[] renderers, TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-        targetBufferSize = 0;
-        for (int i = 0; i < renderers.length; i++) {
-            if (trackSelections.get(i) != null) {
-                targetBufferSize += Util.getDefaultBufferSize(renderers[i].getTrackType());
-            }
-        }
+    public void onTracksSelected(Renderer[] renderers, TrackGroupArray trackGroups,
+                                 TrackSelectionArray trackSelections) {
+        targetBufferSize =
+                targetBufferBytesOverwrite == C.LENGTH_UNSET
+                        ? calculateTargetBufferSize(renderers, trackSelections)
+                        : targetBufferBytesOverwrite;
         allocator.setTargetBufferSize(targetBufferSize);
     }
 
     @Override
     public void onStopped() {
-        Log.d(TAG, "onStopped");
+        listener=null;
         reset(true);
     }
 
     @Override
     public void onReleased() {
-        Log.d(TAG, "onReleased");
         reset(true);
     }
 
     @Override
     public Allocator getAllocator() {
-        Log.d(TAG, "getAllocator");
         return allocator;
     }
 
     @Override
-    public boolean shouldStartPlayback(long bufferedDurationUs, boolean rebuffering) {
-        long minBufferDurationUs = rebuffering ? bufferForPlaybackAfterRebufferUs : bufferForPlaybackUs;
-        return minBufferDurationUs <= 0 || bufferedDurationUs >= minBufferDurationUs;
+    public long getBackBufferDurationUs() {
+        return 0;
     }
 
     @Override
-    public boolean shouldContinueLoading(long bufferedDurationUs) {
-        int bufferTimeState = getBufferTimeState(bufferedDurationUs);
+    public boolean retainBackBufferFromKeyframe() {
+        return false;
+    }
+
+    @Override
+    public boolean shouldContinueLoading(long bufferedDurationUs, float playbackSpeed) {
         boolean targetBufferSizeReached = allocator.getTotalBytesAllocated() >= targetBufferSize;
+
+        long pro = allocator.getTotalBytesAllocated() * 100 / bufferForPlaybackUs;
+
+        Log.d(BufferingLoadControl.class.getName(),"playbackSpeed:"+playbackSpeed);
+        Log.d(BufferingLoadControl.class.getName(),"targetBufferSizeReached:"+targetBufferSizeReached);
         if (listener != null && !targetBufferSizeReached) {
-            long pro = allocator.getTotalBytesAllocated() * 100 / bufferForPlaybackUs;
-            Log.d(TAG, "shouldContinueLoading:" + pro);
+
             listener.onProgress(pro > 100 ? 100 : pro);
         }
 
         boolean wasBuffering = isBuffering;
-        isBuffering = bufferTimeState == BELOW_LOW_WATERMARK
-                || (bufferTimeState == BETWEEN_WATERMARKS && isBuffering && !targetBufferSizeReached);
+        if (prioritizeTimeOverSizeThresholds) {
+            isBuffering =
+                    bufferedDurationUs < minBufferUs // below low watermark
+                            || (bufferedDurationUs <= maxBufferUs // between watermarks
+                            && isBuffering
+                            && !targetBufferSizeReached);
+        } else {
+            isBuffering =
+                    !targetBufferSizeReached
+                            && (bufferedDurationUs < minBufferUs // below low watermark
+                            || (bufferedDurationUs <= maxBufferUs && isBuffering)); // between watermarks
+        }
         if (priorityTaskManager != null && isBuffering != wasBuffering) {
             if (isBuffering) {
                 priorityTaskManager.add(C.PRIORITY_PLAYBACK);
@@ -168,11 +232,37 @@ public class BufferingLoadControl implements LoadControl {
                 priorityTaskManager.remove(C.PRIORITY_PLAYBACK);
             }
         }
-        return isBuffering && needBuffering;
+        return isBuffering;
     }
 
-    private int getBufferTimeState(long bufferedDurationUs) {
-        return bufferedDurationUs > maxBufferUs ? ABOVE_HIGH_WATERMARK : (bufferedDurationUs < minBufferUs ? BELOW_LOW_WATERMARK : BETWEEN_WATERMARKS);
+    @Override
+    public boolean shouldStartPlayback(
+            long bufferedDurationUs, float playbackSpeed, boolean rebuffering) {
+        bufferedDurationUs = Util.getPlayoutDurationForMediaDuration(bufferedDurationUs, playbackSpeed);
+        long minBufferDurationUs = rebuffering ? bufferForPlaybackAfterRebufferUs : bufferForPlaybackUs;
+        return minBufferDurationUs <= 0
+                || bufferedDurationUs >= minBufferDurationUs
+                || (!prioritizeTimeOverSizeThresholds
+                && allocator.getTotalBytesAllocated() >= targetBufferSize);
+    }
+
+    /**
+     * Calculate target buffer size in bytes based on the selected tracks. The player will try not to
+     * exceed this target buffer. Only used when {@code targetBufferBytes} is {@link C#LENGTH_UNSET}.
+     *
+     * @param renderers The renderers for which the track were selected.
+     * @param trackSelectionArray The selected tracks.
+     * @return The target buffer size in bytes.
+     */
+    protected int calculateTargetBufferSize(
+            Renderer[] renderers, TrackSelectionArray trackSelectionArray) {
+        int targetBufferSize = 0;
+        for (int i = 0; i < renderers.length; i++) {
+            if (trackSelectionArray.get(i) != null) {
+                targetBufferSize += Util.getDefaultBufferSize(renderers[i].getTrackType());
+            }
+        }
+        return targetBufferSize;
     }
 
     private void reset(boolean resetAllocator) {
@@ -184,9 +274,7 @@ public class BufferingLoadControl implements LoadControl {
         if (resetAllocator) {
             allocator.reset();
         }
-        listener = null;
     }
-
     /**
      * Sets listener.
      *

@@ -333,7 +333,7 @@ public class DefaultTimeBar extends View implements TimeBar {
 
   @Override
   public boolean isOpenSeek() {
-    return false;
+    return true;
   }
 
   @Override

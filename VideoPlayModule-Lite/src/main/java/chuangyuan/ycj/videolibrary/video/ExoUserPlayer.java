@@ -100,7 +100,7 @@ public class ExoUserPlayer {
     /***数据源管理类*/
     MediaSourceBuilder mediaSourceBuilder;
     /*** 加载模式实例***/
-    private LoadModelType modelType;
+    private LoadModelType modelType = LoadModelType.SPEED;
     /*** 设置播放参数***/
     private PlaybackParameters playbackParameters;
     /*** 如果DRM得到保护，可能是null ***/
@@ -167,7 +167,7 @@ public class ExoUserPlayer {
         initView();
     }
 
-     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+    View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -189,22 +189,22 @@ public class ExoUserPlayer {
         mediaSourceBuilder.setAdaptiveMediaSourceEventListener(new MediaSourceEventListener() {
             @Override
             public void onLoadStarted(DataSpec dataSpec, int dataType, int trackType, Format trackFormat, int trackSelectionReason, Object trackSelectionData, long mediaStartTimeMs, long mediaEndTimeMs, long elapsedRealtimeMs) {
-                 Log.d(TAG,"onLoadStarted:"+dataSpec.length);
+                Log.d(TAG, "onLoadStarted:" + dataSpec.length);
             }
 
             @Override
             public void onLoadCompleted(DataSpec dataSpec, int dataType, int trackType, Format trackFormat, int trackSelectionReason, Object trackSelectionData, long mediaStartTimeMs, long mediaEndTimeMs, long elapsedRealtimeMs, long loadDurationMs, long bytesLoaded) {
-                Log.d(TAG,"onLoadCompleted:"+dataSpec.length);
+                Log.d(TAG, "onLoadCompleted:" + dataSpec.length);
             }
 
             @Override
             public void onLoadCanceled(DataSpec dataSpec, int dataType, int trackType, Format trackFormat, int trackSelectionReason, Object trackSelectionData, long mediaStartTimeMs, long mediaEndTimeMs, long elapsedRealtimeMs, long loadDurationMs, long bytesLoaded) {
-                Log.d(TAG,"onLoadCanceled:"+dataSpec.length);
+                Log.d(TAG, "onLoadCanceled:" + dataSpec.length);
             }
 
             @Override
             public void onLoadError(DataSpec dataSpec, int dataType, int trackType, Format trackFormat, int trackSelectionReason, Object trackSelectionData, long mediaStartTimeMs, long mediaEndTimeMs, long elapsedRealtimeMs, long loadDurationMs, long bytesLoaded, IOException error, boolean wasCanceled) {
-                Log.d(TAG,"onLoadError:"+dataSpec.length);
+                Log.d(TAG, "onLoadError:" + dataSpec.length);
             }
 
             @Override
@@ -284,10 +284,9 @@ public class ExoUserPlayer {
         updateResumePosition();
         unNetworkBroadcastReceiver();
         if (player != null) {
+            player.removeListener(componentListener);
             player.stop();
             player.release();
-            player.removeMetadataOutput(null);
-            player.removeListener(componentListener);
             player = null;
         }
         if (mediaSourceBuilder != null) {
@@ -366,7 +365,7 @@ public class ExoUserPlayer {
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(new DefaultBandwidthMeter());
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
         BufferingLoadControl loadControl = new BufferingLoadControl();
-        if (null == modelType) {
+        if (LoadModelType.SPEED == modelType) {
             setDefaultLoadModel();
         } else {
             loadControl.setListener(new LoadListener() {
@@ -571,6 +570,25 @@ public class ExoUserPlayer {
     }
 
     /***
+     * 设置进度
+     * @param  positionMs  positionMs
+     */
+    public void seekTo(long positionMs) {
+        if (player != null) {
+            player.seekTo(positionMs);
+        }
+    }
+    /***
+     * 设置进度
+     * @param  windowIndex  windowIndex
+     * @param  positionMs  positionMs
+     */
+    public void seekTo(int windowIndex, long positionMs) {
+        if (player != null) {
+            player.seekTo(windowIndex,positionMs);
+        }
+    }
+    /***
      * 返回视频总数
      * @return int window count
      */
@@ -772,7 +790,7 @@ public class ExoUserPlayer {
     /****
      * 重置进度
      */
-    void updateResumePosition() {
+    private void updateResumePosition() {
         if (player != null) {
             resumeWindow = player.getCurrentWindowIndex();
             resumePosition = player.isCurrentWindowSeekable() ? Math.max(0, player.getCurrentPosition()) : C.TIME_UNSET;
@@ -793,7 +811,7 @@ public class ExoUserPlayer {
     private TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            if (getPlayerViewListener().isLoadingShow()) {
+            if (getPlayerViewListener().isLoadingShow() && LoadModelType.SPEED == modelType) {
                 getPlayerViewListener().showNetSpeed(getNetSpeed());
             }
         }
@@ -958,13 +976,12 @@ public class ExoUserPlayer {
     /***
      * view 给控制类 回调类
      */
-    Player.EventListener componentListener = new Player.EventListener() {
+    protected Player.EventListener componentListener = new Player.EventListener() {
         boolean isRemove;
         private int currentWindowIndex;
 
         @Override
-        public void onTimelineChanged(Timeline timeline, Object manifest) {
-            //为了兼容广告视频和多分辨设置
+        public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
             if (isSwitch) {
                 isSwitch = false;
                 isRemove = true;
@@ -1080,7 +1097,6 @@ public class ExoUserPlayer {
 
         @Override
         public void onLoadingChanged(boolean isLoading) {
-
         }
 
         @Override

@@ -56,7 +56,7 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
      */
     public DefaultCacheDataSourceFactory(@NonNull Context context, long maxCacheSize, byte[] secretKey, @Nullable CacheDataSource.EventListener listener) {
         defaultDatasourceFactory = new JDefaultDataSourceFactory(context);
-        simpleCache = new SimpleCache(new File(context.getExternalCacheDir(), "media1"), new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
+        simpleCache = new SimpleCache(new File(context.getExternalCacheDir(), "media"), new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
         this.listener = listener;
     }
 

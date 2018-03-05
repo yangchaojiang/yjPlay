@@ -1,4 +1,9 @@
  ## 更新日志
+  #### 2.1.0
+   * 1.升级内核版本[#2.7.0](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#270)
+   * 2.增加视频快进快退控制处理。
+   * 3.依赖v7 [25.3.1]版本升级到[26.1.0]版本。
+   * 4.其他优化。
   ### 1.9.96
    * 1.列表点击按钮无法播放bug[#74](https://github.com/yangchaojiang/yjPlay/issues/74)。
   ### 1.9.94

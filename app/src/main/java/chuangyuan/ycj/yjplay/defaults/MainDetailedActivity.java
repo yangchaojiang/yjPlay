@@ -29,7 +29,7 @@ public class MainDetailedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
-        videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
+        videoPlayerView = findViewById(R.id.exo_play_context_id);
         exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView, new DataSource(this));
         //设置视频标题
         exoPlayerManager.setTitle("视频标题");
@@ -44,16 +44,15 @@ public class MainDetailedActivity extends Activity {
         //设置开始播放进度
         // exoPlayerManager.setPosition(1000);
         // exoPlayerManager.setPlayUri(getString(R.string.uri_test_3),getString(R.string.uri_test_h));
-             String tes="/storage/emulated/0/DCIM/Camera/VID_20180215_131926.mp4";
+         //    String tes="/storage/emulated/0/DCIM/Camera/VID_20180215_131926.mp4";
         // exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4");
-        test = new String[]{"/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4","/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4","/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4"};
-       // test = new String[]{getString(R.string.uri_test_9), getString(R.string.uri_test_7), getString(R.string.uri_test_8)};
+      //  test = new String[]{"/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4","/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4","/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4"};
+        test = new String[]{getString(R.string.uri_test_9), getString(R.string.uri_test_7), getString(R.string.uri_test_8)};
         String[] name = {"超清", "高清", "标清"};
         //开启线路设置
          exoPlayerManager.setShowVideoSwitch(true);
-        // exoPlayerManager.setPlaySwitchUri(0,test,name);
-        exoPlayerManager.setPlaySwitchUri(0,test,name);
-     // exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
+        //exoPlayerManager.setPlaySwitchUri(0,test,name);
+        exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
         exoPlayerManager.startPlayer();
      //  exoPlayerManager.setPlayUri("http://live.aikan.miguvideo.com/wd_r2/cctv/cctv1hd/1200/01.m3u8");
         //exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.mp4");

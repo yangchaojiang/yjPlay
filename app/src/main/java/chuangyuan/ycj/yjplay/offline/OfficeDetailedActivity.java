@@ -13,6 +13,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.offline.Downloader;
+import com.google.android.exoplayer2.offline.DownloaderConstructorHelper;
+import com.google.android.exoplayer2.offline.ProgressiveDownloader;
+import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
+import com.google.android.exoplayer2.upstream.cache.SimpleCache;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.Executors;
 
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 import chuangyuan.ycj.videolibrary.offline.DefaultProgressDownloader;
@@ -41,7 +49,7 @@ public class OfficeDetailedActivity extends Activity {
         findViewById(R.id.button10).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exoPlayerManager.setPlayUri(getString(R.string.uri_test_h));
+                exoPlayerManager.setPlayUri(getString(R.string.uri_test_1));
                 exoPlayerManager.startPlayer();
             }
         });
@@ -49,7 +57,7 @@ public class OfficeDetailedActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exoPlayerManager.setPlayUri(getString(R.string.uri_test_1));
+                exoPlayerManager.setPlayUri(getString(R.string.uri_test_8));
                 if (progressBar.getProgress() == 100) {
                     exoPlayerManager.startPlayer();
                 } else {
@@ -112,7 +120,7 @@ public class OfficeDetailedActivity extends Activity {
         downloader = new DefaultProgressDownloader.Builder(this)
                 .setMaxCacheSize(100000000)
                 //设置你缓存目录
-                .setCacheFileDir(this.getExternalCacheDir().getAbsolutePath())
+                //  .setCacheFileDir(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath())
                 //缓存文件加密,那么在使用AES / CBC的文件系统中缓存密钥将被加密  密钥必须是16字节长.
                 .setSecretKey("1234567887654321".getBytes())
                 .setUri(getString(R.string.uri_test_1))
@@ -126,6 +134,7 @@ public class OfficeDetailedActivity extends Activity {
             button.setText("播放");
             exoPlayerManager.startPlayer();
         } else {
+
             downloader.download(new Downloader.ProgressListener() {
                 @Override
                 public void onDownloadProgress(Downloader downloader, float downloadPercentage, long downloadedBytes) {
@@ -142,4 +151,45 @@ public class OfficeDetailedActivity extends Activity {
 
         }
     }
+
+    /***
+     * 自定义下载
+     * ***/
+    private void customDwons() {
+        SimpleCache simpleCache = new SimpleCache(new File(getExternalCacheDir(), "media"), new LeastRecentlyUsedCacheEvictor(1000000000), "1234567887654321".getBytes());
+        final ProgressiveDownloader downloader = new ProgressiveDownloader(getString(R.string.uri_test_8), "1234567887654321",
+                new DownloaderConstructorHelper(simpleCache, new JDefaultDataSourceFactory(this)));
+        downloader.init();
+        if ((int) downloader.getDownloadPercentage() == 100) {
+            Toast.makeText(getApplicationContext(), "下载完成" + downloader.getDownloadPercentage(), Toast.LENGTH_SHORT).show();
+            progressBar.setProgress(100);
+            button.setText("播放");
+            exoPlayerManager.startPlayer();
+        } else {
+
+            Executors.newSingleThreadExecutor().submit(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        downloader.download(new Downloader.ProgressListener() {
+                            @Override
+                            public void onDownloadProgress(Downloader downloader, float downloadPercentage, long downloadedBytes) {
+                                Log.d(TAG, "downloadPercentage:" + downloadPercentage);
+                                Log.d(TAG, "downloadPercentage:" + downloadedBytes);
+
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "catch" + e.getMessage());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "catch" + e.getMessage());
+                    }
+                }
+            });
+
+
+        }
     }
+}

@@ -23,13 +23,13 @@ allprojects {
 
 
     project.ext {
-        compileSdkVersion=25
-        targetSdkVersion=25
+        compileSdkVersion=27
+        targetSdkVersion=26
         buildToolsVersion='26.0.3'
         minSdkVersion=16
         versionCode = 16
         versionName = "3.0"
-        publish_version='1.9.96'
+        publish_version='2.1.0'
     }
     tasks.withType(Javadoc) {
         options{

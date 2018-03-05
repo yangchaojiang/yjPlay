@@ -62,6 +62,7 @@ int attr allowSingleTap 0x01010259
 int attr allowTaskReparenting 0x01010204
 int attr allowUndo 0x010104df
 int attr alpha 0x0101031f
+int attr alphabeticModifiers 0x0101054e
 int attr alphabeticShortcut 0x010101e3
 int attr alwaysDrawnWithCache 0x010100ef
 int attr alwaysRetainTaskState 0x01010203
@@ -81,6 +82,7 @@ int attr antialias 0x0101011a
 int attr anyDensity 0x0101026c
 int attr apduServiceBanner 0x010103ed
 int attr apiKey 0x01010211
+int attr appCategory 0x01010545
 int attr author 0x010102b4
 int attr authorities 0x01010018
 int attr autoAdvanceViewId 0x0101030f
@@ -88,10 +90,17 @@ int attr autoCompleteTextViewStyle 0x0101006b
 int attr autoLink 0x010100b0
 int attr autoMirrored 0x010103ea
 int attr autoRemoveFromRecents 0x01010447
+int attr autoSizeMaxTextSize 0x01010546
+int attr autoSizeMinTextSize 0x01010538
+int attr autoSizePresetSizes 0x01010537
+int attr autoSizeStepGranularity 0x01010536
+int attr autoSizeTextType 0x01010535
 int attr autoStart 0x010102b5
 int attr autoText 0x0101016a
 int attr autoUrlDetect 0x0101028c
 int attr autoVerify 0x010104ee
+int attr autofillHints 0x01010556
+int attr autofilledHighlight 0x01010568
 int attr background 0x010100d4
 int attr backgroundDimAmount 0x01010032
 int attr backgroundDimEnabled 0x0101021f
@@ -141,6 +150,7 @@ int attr canPerformGestures 0x0101050d
 int attr canRecord 0x0101051c
 int attr canRequestEnhancedWebAccessibility 0x010103d8
 int attr canRequestFilterKeyEvents 0x010103d9
+int attr canRequestFingerprintGestures 0x0101054d
 int attr canRequestTouchExplorationMode 0x010103d7
 int attr canRetrieveWindowContent 0x01010385
 int attr candidatesTextStyleSpans 0x01010230
@@ -152,6 +162,7 @@ int attr centerDark 0x010100c8
 int attr centerMedium 0x010100cf
 int attr centerX 0x010101a2
 int attr centerY 0x010101a3
+int attr certDigest 0x01010548
 int attr checkBoxPreferenceStyle 0x0101008f
 int attr checkMark 0x01010108
 int attr checkMarkTint 0x010104a7
@@ -169,6 +180,7 @@ int attr childIndicatorLeft 0x0101010f
 int attr childIndicatorRight 0x01010110
 int attr childIndicatorStart 0x010103d3
 int attr choiceMode 0x0101012b
+int attr classLoader 0x0101056b
 int attr clearTaskOnLaunch 0x01010015
 int attr clickable 0x010100e5
 int attr clipChildren 0x010100ea
@@ -190,10 +202,12 @@ int attr colorControlActivated 0x0101042a
 int attr colorControlHighlight 0x0101042c
 int attr colorControlNormal 0x01010429
 int attr colorEdgeEffect 0x010104ce
+int attr colorError 0x01010543
 int attr colorFocusedHighlight 0x0101038f
 int attr colorForeground 0x01010030
 int attr colorForegroundInverse 0x01010206
 int attr colorLongPressedHighlight 0x0101038e
+int attr colorMode 0x0101054a
 int attr colorMultiSelectHighlight 0x01010391
 int attr colorPressedHighlight 0x0101038d
 int attr colorPrimary 0x01010433
@@ -246,6 +260,7 @@ int attr dateTextAppearance 0x01010349
 int attr dayOfWeekBackground 0x01010494
 int attr dayOfWeekTextAppearance 0x01010495
 int attr debuggable 0x0101000f
+int attr defaultFocusHighlightEnabled 0x01010562
 int attr defaultHeight 0x010104f5
 int attr defaultToDeviceProtectedStorage 0x01010504
 int attr defaultValue 0x010101ed
@@ -377,9 +392,17 @@ int attr fitsSystemWindows 0x010100dd
 int attr flipInterval 0x01010179
 int attr focusable 0x010100da
 int attr focusableInTouchMode 0x010100db
+int attr focusedByDefault 0x01010544
 int attr focusedMonthDateColor 0x01010343
+int attr font 0x01010532
 int attr fontFamily 0x010103ac
 int attr fontFeatureSettings 0x010104b7
+int attr fontProviderAuthority 0x01010550
+int attr fontProviderCerts 0x0101055d
+int attr fontProviderPackage 0x01010557
+int attr fontProviderQuery 0x01010551
+int attr fontStyle 0x0101053f
+int attr fontWeight 0x01010533
 int attr footerDividersEnabled 0x0101022f
 int attr forceHasOverlappingRendering 0x01010521
 int attr foreground 0x01010109
@@ -463,6 +486,9 @@ int attr hotSpotY 0x01010518
 int attr hyphenationFrequency 0x010104de
 int attr icon 0x01010002
 int attr iconPreview 0x01010249
+int attr iconSpaceReserved 0x01010561
+int attr iconTint 0x0101055e
+int attr iconTintMode 0x0101055f
 int attr iconifiedByDefault 0x010102fa
 int attr id 0x010100d0
 int attr ignoreGravity 0x010101ff
@@ -479,6 +505,7 @@ int attr imeSubtypeLocale 0x010102ec
 int attr imeSubtypeMode 0x010102ed
 int attr immersive 0x010102c0
 int attr importantForAccessibility 0x010103aa
+int attr importantForAutofill 0x01010558
 int attr inAnimation 0x01010177
 int attr includeFontPadding 0x0101015f
 int attr includeInGlobalSearch 0x0101026e
@@ -513,17 +540,21 @@ int attr isAlwaysSyncable 0x01010333
 int attr isAsciiCapable 0x010103e9
 int attr isAuxiliary 0x0101037f
 int attr isDefault 0x01010221
+int attr isFeatureSplit 0x0101055b
 int attr isGame 0x010103f4
 int attr isIndicator 0x01010147
 int attr isModifier 0x01010246
 int attr isRepeatable 0x01010248
 int attr isScrollContainer 0x0101024e
+int attr isStatic 0x0101055a
 int attr isSticky 0x01010247
 int attr isolatedProcess 0x010103a9
+int attr isolatedSplits 0x0101054b
 int attr itemBackground 0x01010130
 int attr itemIconDisabledAlpha 0x01010131
 int attr itemPadding 0x0101032d
 int attr itemTextAppearance 0x0101012c
+int attr justificationMode 0x01010567
 int attr keepScreenOn 0x01010216
 int attr key 0x010101e8
 int attr keyBackground 0x01010233
@@ -541,6 +572,7 @@ int attr keyTextSize 0x01010234
 int attr keyWidth 0x0101023d
 int attr keyboardLayout 0x010103ab
 int attr keyboardMode 0x0101024d
+int attr keyboardNavigationCluster 0x01010540
 int attr keycode 0x010100c5
 int attr killAfterRestore 0x0101029c
 int attr label 0x01010001
@@ -585,10 +617,12 @@ int attr layout_height 0x010100f5
 int attr layout_margin 0x010100f6
 int attr layout_marginBottom 0x010100fa
 int attr layout_marginEnd 0x010103b6
+int attr layout_marginHorizontal 0x0101053b
 int attr layout_marginLeft 0x010100f7
 int attr layout_marginRight 0x010100f9
 int attr layout_marginStart 0x010103b5
 int attr layout_marginTop 0x010100f8
+int attr layout_marginVertical 0x0101053c
 int attr layout_row 0x0101037b
 int attr layout_rowSpan 0x0101037c
 int attr layout_rowWeight 0x01010458
@@ -637,6 +671,7 @@ int attr mapViewStyle 0x0101008a
 int attr marqueeRepeatLimit 0x0101021d
 int attr matchOrder 0x0101044f
 int attr max 0x01010136
+int attr maxAspectRatio 0x01010560
 int attr maxButtonHeight 0x010104fd
 int attr maxDate 0x01010340
 int attr maxEms 0x01010157
@@ -656,6 +691,7 @@ int attr mediaRouteButtonStyle 0x010103ad
 int attr mediaRouteTypes 0x010103ae
 int attr menuCategory 0x010101de
 int attr mimeType 0x01010026
+int attr min 0x01010539
 int attr minDate 0x0101033f
 int attr minEms 0x0101015a
 int attr minHeight 0x01010140
@@ -675,12 +711,14 @@ int attr multiArch 0x0101048e
 int attr multiprocess 0x01010013
 int attr name 0x01010003
 int attr navigationBarColor 0x01010452
+int attr navigationBarDividerColor 0x0101056d
 int attr navigationContentDescription 0x010104c1
 int attr navigationIcon 0x010104c0
 int attr navigationMode 0x010102cf
 int attr negativeButtonText 0x010101f6
 int attr nestedScrollingEnabled 0x01010436
 int attr networkSecurityConfig 0x01010527
+int attr nextClusterForward 0x01010542
 int attr nextFocusDown 0x010100e4
 int attr nextFocusForward 0x0101033c
 int attr nextFocusLeft 0x010100e1
@@ -697,6 +735,7 @@ int attr numbersInnerTextColor 0x010104e1
 int attr numbersSelectorColor 0x010104a3
 int attr numbersTextColor 0x010104a1
 int attr numeric 0x01010165
+int attr numericModifiers 0x0101054f
 int attr numericShortcut 0x010101e4
 int attr offset 0x01010514
 int attr onClick 0x0101026f
@@ -718,11 +757,13 @@ int attr packageNames 0x01010381
 int attr padding 0x010100d5
 int attr paddingBottom 0x010100d9
 int attr paddingEnd 0x010103b4
+int attr paddingHorizontal 0x0101053d
 int attr paddingLeft 0x010100d6
 int attr paddingMode 0x01010457
 int attr paddingRight 0x010100d8
 int attr paddingStart 0x010103b3
 int attr paddingTop 0x010100d7
+int attr paddingVertical 0x0101053e
 int attr panelBackground 0x0101005e
 int attr panelColorBackground 0x01010061
 int attr panelColorForeground 0x01010060
@@ -742,6 +783,7 @@ int attr permissionGroupFlags 0x010103c5
 int attr persistableMode 0x0101042d
 int attr persistent 0x0101000d
 int attr persistentDrawingCache 0x010100ee
+int attr persistentWhenFeatureAvailable 0x01010563
 int attr phoneNumber 0x01010167
 int attr pivotX 0x010101b5
 int attr pivotY 0x010101b6
@@ -767,6 +809,7 @@ int attr preferenceScreenStyle 0x0101008b
 int attr preferenceStyle 0x0101008e
 int attr presentationTheme 0x010103c0
 int attr previewImage 0x010102da
+int attr primaryContentAlpha 0x01010552
 int attr priority 0x0101001c
 int attr privateImeOptions 0x01010223
 int attr process 0x01010011
@@ -809,6 +852,8 @@ int attr ratingBarStyleIndicator 0x01010210
 int attr ratingBarStyleSmall 0x0101007d
 int attr readPermission 0x01010007
 int attr recognitionService 0x0101049c
+int attr recreateOnConfigChanges 0x01010547
+int attr recycleEnabled 0x01010559
 int attr relinquishTaskIdentity 0x01010476
 int attr reparent 0x010104bc
 int attr reparentWithOverlay 0x010104bd
@@ -822,7 +867,9 @@ int attr reqTouchScreen 0x01010227
 int attr requireDeviceUnlock 0x010103ec
 int attr required 0x0101028e
 int attr requiredAccountType 0x010103d6
+int attr requiredFeature 0x01010554
 int attr requiredForAllUsers 0x010103d0
+int attr requiredNotFeature 0x01010555
 int attr requiresFadingEdge 0x010103a5
 int attr requiresSmallestWidthDp 0x01010364
 int attr resizeClip 0x010104cf
@@ -841,6 +888,7 @@ int attr right 0x010101af
 int attr ringtonePreferenceStyle 0x01010093
 int attr ringtoneType 0x010101f9
 int attr rotation 0x01010326
+int attr rotationAnimation 0x0101053a
 int attr rotationX 0x01010327
 int attr rotationY 0x01010328
 int attr roundIcon 0x0101052c
@@ -889,6 +937,7 @@ int attr searchSuggestPath 0x010101d7
 int attr searchSuggestSelection 0x010101d8
 int attr searchSuggestThreshold 0x0101026d
 int attr searchViewStyle 0x01010480
+int attr secondaryContentAlpha 0x01010553
 int attr secondaryProgress 0x01010138
 int attr secondaryProgressTint 0x01010467
 int attr secondaryProgressTintMode 0x01010468
@@ -925,9 +974,11 @@ int attr showOnLockScreen 0x010103c9
 int attr showSilent 0x010101fb
 int attr showText 0x010104ad
 int attr showWeekNumber 0x0101033e
+int attr showWhenLocked 0x01010569
 int attr shownWeekCount 0x01010341
 int attr shrinkColumns 0x0101014a
 int attr singleLine 0x0101015d
+int attr singleLineTitle 0x0101055c
 int attr singleUser 0x010103bf
 int attr slideEdge 0x01010430
 int attr smallIcon 0x0101029e
@@ -941,6 +992,7 @@ int attr spinnerMode 0x010102f1
 int attr spinnerStyle 0x01010081
 int attr spinnersShown 0x0101034b
 int attr splitMotionEvents 0x010102ef
+int attr splitName 0x01010549
 int attr splitTrack 0x0101044c
 int attr spotShadowAlpha 0x010104bf
 int attr src 0x01010119
@@ -1036,6 +1088,8 @@ int attr targetDescriptions 0x010103a0
 int attr targetId 0x010103dc
 int attr targetName 0x0101044d
 int attr targetPackage 0x01010021
+int attr targetProcesses 0x01010541
+int attr targetSandboxVersion 0x0101054c
 int attr targetSdkVersion 0x01010270
 int attr taskAffinity 0x01010012
 int attr taskCloseEnterAnimation 0x010100be
@@ -1151,6 +1205,7 @@ int attr toXScale 0x010101c3
 int attr toYDelta 0x010101c9
 int attr toYScale 0x010101c5
 int attr toolbarStyle 0x010104aa
+int attr tooltipText 0x01010534
 int attr top 0x010101ae
 int attr topBright 0x010100cb
 int attr topDark 0x010100c7
@@ -1178,6 +1233,7 @@ int attr trimPathEnd 0x01010409
 int attr trimPathOffset 0x0101040a
 int attr trimPathStart 0x01010408
 int attr tunerCount 0x0101051d
+int attr turnScreenOn 0x0101056a
 int attr type 0x010101a1
 int attr typeface 0x01010096
 int attr uiOptions 0x01010398
@@ -1209,6 +1265,7 @@ int attr viewportHeight 0x01010403
 int attr viewportWidth 0x01010402
 int attr visibility 0x010100dc
 int attr visible 0x01010194
+int attr visibleToInstantApps 0x01010531
 int attr vmSafeMode 0x010102b8
 int attr voiceIcon 0x01010484
 int attr voiceLanguage 0x01010255
@@ -1260,6 +1317,7 @@ int attr windowFullscreen 0x0101020d
 int attr windowHideAnimation 0x010100b7
 int attr windowIsFloating 0x01010057
 int attr windowIsTranslucent 0x01010058
+int attr windowLightNavigationBar 0x0101056c
 int attr windowLightStatusBar 0x010104e0
 int attr windowMinWidthMajor 0x01010356
 int attr windowMinWidthMinor 0x01010357
@@ -1276,6 +1334,7 @@ int attr windowSharedElementsUseOverlay 0x010104bb
 int attr windowShowAnimation 0x010100b6
 int attr windowShowWallpaper 0x01010292
 int attr windowSoftInputMode 0x0101022b
+int attr windowSplashscreenContent 0x01010564
 int attr windowSwipeToDismiss 0x010103f3
 int attr windowTitleBackgroundStyle 0x0101005c
 int attr windowTitleSize 0x0101005a

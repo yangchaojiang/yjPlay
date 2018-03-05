@@ -36,12 +36,12 @@ public class MainCustomMediaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom);
         url = getIntent().getStringExtra("uri");
-        videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
+        videoPlayerView =findViewById(R.id.exo_play_context_id);
         mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
         exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
         exoPlayerManager.setTitle("自定义视频标题");
         //设置加载显示模式
-        exoPlayerManager.setLoadModel(LoadModelType.SPEED);
+        exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
         //http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd
        // MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse("rtsp://183.207.208.80:554/live_rtsp?source=025200060360101:1&user=025300000002499&session=no&device=025200060360101&timestamp=20171117110042&encrypt=5b601c621c6a9db0cb2dabf3a6ff9205"));
         //mediaSourceBuilder.setMediaSource(source);

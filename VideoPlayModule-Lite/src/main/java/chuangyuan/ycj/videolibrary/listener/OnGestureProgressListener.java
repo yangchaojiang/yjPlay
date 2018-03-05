@@ -17,4 +17,10 @@ public interface OnGestureProgressListener {
      */
     void showProgressDialog(long seekTimePosition, long duration, String seekTime, String totalTime);
 
+    /****
+     * 滑动进度结束
+     *
+     * @param newPosition 滑动的时间
+     * */
+    void endGestureProgress(long newPosition);
 }
