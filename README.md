@@ -1,6 +1,6 @@
 # yjPlay
 
-[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=1.9.96) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/1.9.96/link)
+[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg?version=2.1.0) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/2.1.0/link)
  
 
   ### [View English instructions→Poking me ](en/README.md)
@@ -34,7 +34,7 @@
  <!--more-->
 
 
- ### [更新日志1.9.94→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.1.0→》戳我查看](RELEASENOTES.md)
  
  ### 一.引用类库
   ````
