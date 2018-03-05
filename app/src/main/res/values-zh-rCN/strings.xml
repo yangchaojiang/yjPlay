@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">yjPlayVideo</string>
+    <string name="play_video">播放视频</string>
+    <string name="down_hint">下载并加密视频</string>
+    <string name="exo_play_wifi_hint_no">您当前网络不是wifi，是否继续观看视频</string>
+    <string name="exo_play_reminder">提示</string>
+    <string name="Detailed_play">默认详细播放</string>
+    <string name="The_list_of_play">列表播放</string>
+    <string name="Custom_layout">自定义布局 </string>
+    <string name="Customize_the_start_button_event">自定义事件</string>
+    <string name="_15m">继续播放 (15 m)</string>
+    <string name="error_hint">出错了</string>
+    <string name="im_btn_hint">广告视频</string>
+    <string name="googlesdk">googleSDK广告视频</string>
+    <string name="custom_media">自定义媒体数据</string>
+    <string name="aes_hint_btn">AES加密视频</string>
+    <string name="cache_bideo_btn">离线缓存播放</string>
+    <string name="simple_video_btn">简单加密视频</string>
+    <string name="Skip_the_advertising">跳过广告</string>
+    <string name="default_cache">默认缓存播放</string>
+    <string name="custom_cache">自定义下载缓存</string>
+    <string name="simple_fragment">Fragment列表</string>
+</resources>
