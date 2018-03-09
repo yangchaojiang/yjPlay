@@ -1,10 +1,11 @@
  ## 更新日志
-  #### 2.1.31
+  #### 2.1.35
    * 1.移除简单加密和aes加密处理。改用离线加载类统一处理。
    * 2.完善离线下载类，移除内部多余类。
    * 3.修复手势滑动左右问题[#78](https://github.com/yangchaojiang/yjPlay/issues/78)。
    * 4.修复手势滑动进度还原问题[#76](https://github.com/yangchaojiang/yjPlay/issues/76)。
    * 4.修复手势滑动进度还原问题[#76](https://github.com/yangchaojiang/yjPlay/issues/76)。
+   * 5.修复d第一次加载不出现加载效果[#79](https://github.com/yangchaojiang/yjPlay/issues/76)。
   #### 2.1.3
    * 1.升级内核版本[#2.7.0](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#270)
    * 2.增加视频快进快退控制处理。
