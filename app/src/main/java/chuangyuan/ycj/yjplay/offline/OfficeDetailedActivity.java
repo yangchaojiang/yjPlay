@@ -2,6 +2,7 @@ package chuangyuan.ycj.yjplay.offline;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -36,15 +38,16 @@ public class OfficeDetailedActivity extends Activity {
     private static final String TAG = "OfficeDetailedActivity";
     private ProgressBar progressBar;
     private Button button;
-
+  private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_office);
-        videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
+        videoPlayerView =  findViewById(R.id.exo_play_context_id);
+        textView=findViewById(R.id.textView);
         exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView,
                 new OfficeDataSource(this, null));
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar =  findViewById(R.id.progressBar);
         exoPlayerManager.setTitle("视频标题");
         findViewById(R.id.button10).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +56,7 @@ public class OfficeDetailedActivity extends Activity {
                 exoPlayerManager.startPlayer();
             }
         });
-        button = (Button) findViewById(R.id.button11);
+        button = findViewById(R.id.button11);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +66,6 @@ public class OfficeDetailedActivity extends Activity {
                 } else {
                     customDwon();
                 }
-
-
             }
         });
         Glide.with(this)
@@ -120,35 +121,31 @@ public class OfficeDetailedActivity extends Activity {
         downloader = new DefaultProgressDownloader.Builder(this)
                 .setMaxCacheSize(100000000)
                 //设置你缓存目录
-                //  .setCacheFileDir(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath())
+                //.setCacheFileDir(new File(getExternalCacheDir(), "media"))
                 //缓存文件加密,那么在使用AES / CBC的文件系统中缓存密钥将被加密  密钥必须是16字节长.
                 .setSecretKey("1234567887654321".getBytes())
-                .setUri(getString(R.string.uri_test_1))
+                .setUri(getString(R.string.uri_test_8))
                 //设置下载数据加载工厂类
                 .setHttpDataSource(new JDefaultDataSourceFactory(this))
                 .build();
-        downloader.init();
         if ((int) downloader.getDownloadPercentage() == 100) {
             Toast.makeText(getApplicationContext(), "下载完成" + downloader.getDownloadPercentage(), Toast.LENGTH_SHORT).show();
             progressBar.setProgress(100);
             button.setText("播放");
             exoPlayerManager.startPlayer();
         } else {
-
             downloader.download(new Downloader.ProgressListener() {
                 @Override
                 public void onDownloadProgress(Downloader downloader, float downloadPercentage, long downloadedBytes) {
                     Log.d(TAG, "downloadPercentage:" + downloadPercentage + "downloadedBytes:" + downloadedBytes);
                     progressBar.setProgress((int) downloadPercentage);
+                    textView.setText("sdsd:"+(int) downloadPercentage);
                     if ((int) downloadPercentage == 100) {
-                        Looper.prepare();
                         Toast.makeText(getApplicationContext(), "下载完成", Toast.LENGTH_SHORT).show();
                         button.setText("播放");
-                        Looper.loop();
                     }
                 }
             });
-
         }
     }
 
@@ -156,8 +153,9 @@ public class OfficeDetailedActivity extends Activity {
      * 自定义下载
      * ***/
     private void customDwons() {
+        String text=(getString(R.string.uri_test_8));
         SimpleCache simpleCache = new SimpleCache(new File(getExternalCacheDir(), "media"), new LeastRecentlyUsedCacheEvictor(1000000000), "1234567887654321".getBytes());
-        final ProgressiveDownloader downloader = new ProgressiveDownloader(getString(R.string.uri_test_8), "1234567887654321",
+        final ProgressiveDownloader downloader = new ProgressiveDownloader(text, Uri.parse(text).toString(),
                 new DownloaderConstructorHelper(simpleCache, new JDefaultDataSourceFactory(this)));
         downloader.init();
         if ((int) downloader.getDownloadPercentage() == 100) {
@@ -166,7 +164,6 @@ public class OfficeDetailedActivity extends Activity {
             button.setText("播放");
             exoPlayerManager.startPlayer();
         } else {
-
             Executors.newSingleThreadExecutor().submit(new Runnable() {
                 @Override
                 public void run() {
@@ -176,7 +173,6 @@ public class OfficeDetailedActivity extends Activity {
                             public void onDownloadProgress(Downloader downloader, float downloadPercentage, long downloadedBytes) {
                                 Log.d(TAG, "downloadPercentage:" + downloadPercentage);
                                 Log.d(TAG, "downloadPercentage:" + downloadedBytes);
-
                             }
                         });
                     } catch (InterruptedException e) {
@@ -188,8 +184,6 @@ public class OfficeDetailedActivity extends Activity {
                     }
                 }
             });
-
-
         }
     }
 }

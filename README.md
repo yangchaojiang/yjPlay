@@ -19,7 +19,7 @@
    * 8 支持自定义多种 kttp,Rtmp,Https,Cronet等协议。
    * 9 支持列表集合数据O播放视频（详情播放完美过度）
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
-   * 11 支持网络类型 提示是否播放(可自定义冰屏蔽)。
+   * 11 支持网络类型 提示是否播放(可自定义屏蔽)。
    * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
    * 13 支持视频加载中显示模式（网速模式和百分比模式）。
    * 14 支持视频加速慢速播放。
@@ -27,17 +27,13 @@
    * 16 **1.7.0**支持自定义MediaSource。
    * 17 **1.7.0**增加 手势 亮度调节，视频进度，音量 布局自定义。
    * 18 支持精简版和完整版，选择使用更丰富。
-   * 19 [支持自定义AES视频加密,简单加密→戳我](README_EN_VIDEO.md)
-   * 20 增加自定义离线下载辅助类DefaultProgressDownloader(支持（AES/CBC）加密文件处理),HlsDownloader,DashDownloader,SsDownloader,SegmentDownloader。
+   * 19 支持自定义AES视频加密,简单加密→戳我(2.1.31版本已弃用)
+   * 20 [增加自定义离线下载辅助类DefaultProgressDownloader(支持（AES/CBC）加密文件处理)](README_EN_VIDEO.md)),HlsDownloader,DashDownloader,SsDownloader,SegmentDownloader。
    * 21 支持播放锁屏功能和控制动画效果，返回按钮和全屏按钮图标自定义。
  <!--more-->
 
-
-<<<<<<< HEAD
  ### [更新日志2.1.0→》戳我查看](RELEASENOTES.md)
-=======
- ### [更新日志1.9.96→》戳我查看](RELEASENOTES.md)
->>>>>>> a2addb980326dca03f96c69c3af4697f13ce8073
+
  
  ### 一.引用类库
   ````
@@ -48,9 +44,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.3' 
+      compile 'com.ycjiang:VideoPlayModule:2.1.31' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-     compile 'com.ycjiang:VideoPlayModule-Lite:2.1.3'
+     compile 'com.ycjiang:VideoPlayModule-Lite:2.1.31'
 
   }
   ````

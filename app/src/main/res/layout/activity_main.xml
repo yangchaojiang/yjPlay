@@ -67,14 +67,6 @@
 
     <Button
         android:textAllCaps="false"
-        android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/aes_hint_btn" />
-
-
-    <Button
-        android:textAllCaps="false"
         android:id="@+id/button9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

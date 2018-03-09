@@ -12,7 +12,6 @@
     <string name="im_btn_hint">advertisement video</string>
     <string name="googlesdk">googleSDK advertisement video</string>
     <string name="custom_media">Customize media data</string>
-    <string name="aes_hint_btn">AES encryption video</string>
     <string name="cache_bideo_btn">Offline cache playback</string>
     <string name="simple_video_btn">Simple encryption video</string>
     <string name="play_video">play video</string>

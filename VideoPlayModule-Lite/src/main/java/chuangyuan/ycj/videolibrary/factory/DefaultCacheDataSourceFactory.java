@@ -5,13 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.FileDataSource;
-import com.google.android.exoplayer2.upstream.cache.CacheDataSink;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
 import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 
 import java.io.File;
+
 
 
 /**
@@ -22,13 +21,12 @@ import java.io.File;
 public class DefaultCacheDataSourceFactory implements DataSource.Factory {
     private final JDefaultDataSourceFactory defaultDatasourceFactory;
     private SimpleCache simpleCache;
-    private CacheDataSource.EventListener listener;
 
     /***
      * @param context 上下文
      */
     public DefaultCacheDataSourceFactory(@NonNull Context context) {
-        this(context, 1024 * 1024 * 1024L * 1024, null, null);
+        this(context,null, 1024 * 1024 * 1024L * 1024, null, null);
     }
 
     /***
@@ -36,7 +34,7 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
      * @param maxCacheSize 缓存大小
      */
     public DefaultCacheDataSourceFactory(@NonNull Context context, long maxCacheSize) {
-        this(context, maxCacheSize, null, null);
+        this(context,null, maxCacheSize, null, null);
     }
 
     /***
@@ -45,7 +43,7 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
      * @param secretKey If not null, cache keys will be stored encrypted on filesystem using AES/CBC.     The key must be 16 bytes long.
      */
     public DefaultCacheDataSourceFactory(@NonNull Context context, long maxCacheSize, byte[] secretKey) {
-        this(context, maxCacheSize, secretKey, null);
+        this(context, null,maxCacheSize, secretKey, null);
     }
 
     /***
@@ -54,16 +52,28 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
      * @param secretKey If not null, cache keys will be stored encrypted on filesystem using AES/CBC.     The key must be 16 bytes long.
      * @param listener the listener
      */
-    public DefaultCacheDataSourceFactory(@NonNull Context context, long maxCacheSize, byte[] secretKey, @Nullable CacheDataSource.EventListener listener) {
+    public DefaultCacheDataSourceFactory(@NonNull Context context,long maxCacheSize, byte[] secretKey, @Nullable CacheDataSource.EventListener listener) {
+        this(context, null,maxCacheSize, secretKey, listener);
+        }
+    /***
+     * @param context 上下文
+     * @param dirFile 缓存路径
+     * @param maxCacheSize 缓存大小
+     * @param secretKey If not null, cache keys will be stored encrypted on filesystem using AES/CBC.     The key must be 16 bytes long.
+     * @param listener the listener
+     */
+    public DefaultCacheDataSourceFactory(@NonNull Context context, String dirFile,long maxCacheSize, byte[] secretKey, @Nullable CacheDataSource.EventListener listener) {
+        if (dirFile == null) {
+            simpleCache = new SimpleCache(new File(context.getExternalCacheDir(), "media"), new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
+        }else {
+            simpleCache = new SimpleCache(new File(dirFile), new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
+        }
         defaultDatasourceFactory = new JDefaultDataSourceFactory(context);
-        simpleCache = new SimpleCache(new File(context.getExternalCacheDir(), "media"), new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
-        this.listener = listener;
+
     }
 
     @Override
     public DataSource createDataSource() {
-        return new CacheDataSource(simpleCache, defaultDatasourceFactory.createDataSource(),
-                new FileDataSource(), new CacheDataSink(simpleCache, CacheDataSource.DEFAULT_MAX_CACHE_FILE_SIZE),
-                0, listener);
+        return new CacheDataSource(simpleCache,defaultDatasourceFactory.createDataSource(),0);
     }
 }

@@ -3,17 +3,10 @@ package chuangyuan.ycj.yjplay.offline;
 import android.content.Context;
 
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.FileDataSourceFactory;
-import com.google.android.exoplayer2.upstream.cache.CacheDataSinkFactory;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
-import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory;
-import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
-import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 
-import java.io.File;
 
 import chuangyuan.ycj.videolibrary.factory.DefaultCacheDataSourceFactory;
-import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 
 
@@ -36,7 +29,7 @@ public class OfficeDataSource implements DataSourceListener {
     @Override
     public DataSource.Factory getDataSourceFactory() {
         //采用默认
-        return new DefaultCacheDataSourceFactory(context,100000000,null,eventListener);
+        return new DefaultCacheDataSourceFactory(context,100000000,"1234567887654321".getBytes(),eventListener);
         //自定义配置
       /*  LeastRecentlyUsedCacheEvictor evictor = new LeastRecentlyUsedCacheEvictor(100000000);
         SimpleCache simpleCache = new SimpleCache

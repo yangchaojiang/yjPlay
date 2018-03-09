@@ -133,8 +133,6 @@ abstract class BaseView extends FrameLayout {
      * The Switch index.
      */
     protected int switchIndex;
-    /***多分辨路点击回调*/
-    protected BelowView.OnItemClickListener onItemClickListener;
     /**
      * The Ic back image.
      */
@@ -255,13 +253,13 @@ abstract class BaseView extends FrameLayout {
         }
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(VideoPlayUtils.dip2px(getContext(), 35f), VideoPlayUtils.dip2px(getContext(), 35f));
         frameLayout.addView(exoControlsBack, frameLayout.getChildCount(), layoutParams);
-        exoPlayWatermark = (ImageView) playerView.findViewById(R.id.exo_player_watermark);
-        videoLoadingShowText = (TextView) playerView.findViewById(R.id.exo_loading_show_text);
-        exoPlayerLockProgress = (ExoDefaultTimeBar) exoPlayLockLayout.findViewById(R.id.exo_player_lock_progress);
-        lockCheckBox = (AppCompatCheckBox) exoPlayLockLayout.findViewById(R.id.exo_player_lock_btn_id);
-        exoPreviewBottomImage = (ImageView) playerView.findViewById(R.id.exo_preview_image_bottom);
+        exoPlayWatermark =  playerView.findViewById(R.id.exo_player_watermark);
+        videoLoadingShowText = playerView.findViewById(R.id.exo_loading_show_text);
+        exoPlayerLockProgress =  exoPlayLockLayout.findViewById(R.id.exo_player_lock_progress);
+        lockCheckBox = exoPlayLockLayout.findViewById(R.id.exo_player_lock_btn_id);
+        exoPreviewBottomImage =  playerView.findViewById(R.id.exo_preview_image_bottom);
         if (playerView.findViewById(R.id.exo_preview_image) != null) {
-            exoPreviewImage = (ImageView) playerView.findViewById(R.id.exo_preview_image);
+            exoPreviewImage = playerView.findViewById(R.id.exo_preview_image);
             exoPreviewImage.setBackgroundResource(android.R.color.transparent);
         } else {
             exoPreviewImage = exoPreviewBottomImage;
@@ -277,15 +275,15 @@ abstract class BaseView extends FrameLayout {
      */
     protected void intiGestureView(int audioId, int brightnessId, int videoProgressId) {
         if (audioId == R.layout.simple_video_audio_brightness_dialog) {
-            videoAudioImg = (ImageView) exoAudioLayout.findViewById(R.id.exo_video_audio_brightness_img);
-            videoAudioPro = (ProgressBar) exoAudioLayout.findViewById(R.id.exo_video_audio_brightness_pro);
+            videoAudioImg = exoAudioLayout.findViewById(R.id.exo_video_audio_brightness_img);
+            videoAudioPro = exoAudioLayout.findViewById(R.id.exo_video_audio_brightness_pro);
         }
         if (brightnessId == R.layout.simple_video_audio_brightness_dialog) {
-            videoBrightnessImg = (ImageView) exoBrightnessLayout.findViewById(R.id.exo_video_audio_brightness_img);
-            videoBrightnessPro = (ProgressBar) exoBrightnessLayout.findViewById(R.id.exo_video_audio_brightness_pro);
+            videoBrightnessImg =  exoBrightnessLayout.findViewById(R.id.exo_video_audio_brightness_img);
+            videoBrightnessPro = exoBrightnessLayout.findViewById(R.id.exo_video_audio_brightness_pro);
         }
         if (videoProgressId == R.layout.simple_exo_video_progress_dialog) {
-            videoDialogProText = (TextView) dialogProLayout.findViewById(R.id.exo_video_dialog_pro_text);
+            videoDialogProText = dialogProLayout.findViewById(R.id.exo_video_dialog_pro_text);
         }
     }
 
@@ -312,7 +310,6 @@ abstract class BaseView extends FrameLayout {
         if (activity != null && activity.isFinishing()) {
             nameSwitch = null;
             activity = null;
-            onItemClickListener = null;
         }
     }
 
@@ -378,7 +375,7 @@ abstract class BaseView extends FrameLayout {
             if (parent != null) {
                 parent.removeView(playerView);
             }
-            ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+            ViewGroup contentView =activity.findViewById(android.R.id.content);
             LayoutParams params = new LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
@@ -595,16 +592,6 @@ abstract class BaseView extends FrameLayout {
     public void setOpenLock(boolean openLock) {
         isOpenLock = openLock;
     }
-
-    /**
-     * 设置选择回调
-     *
-     * @param onItemClickListener onItemClickListener
-     */
-    public void setOnSwitchItemClickListener(@Nullable BelowView.OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
     /**
      * Gets name switch.
      *

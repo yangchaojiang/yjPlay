@@ -24,8 +24,8 @@
    * 16 Support for custom Media Source.
    * 17 **1.7.0**Increase signal brightness adjustment, video progress, volume layout customization。
    * 18 Support the lite version and full version, choose to use more abundant。
-   * 19 [Video support AES encryption, Base64 encryption (unstable), three kinds of simple encryption to poke me→戳我](../README_EN_VIDEO.md)
-    * 20 Add the Default Progress Downloader for offline downloads(Support (AES/CBC) encrypted file processing),HlsDownloader,DashDownloader,SsDownloader,SegmentDownloader。
+   * 19 Video support AES encryption, Base64 encryption (unstable), three kinds of simple encryption to poke me(Discarded)
+    * 20 [Default Progress Downloader for offline downloads(Support (AES/CBC) encrypted file processing)](../README_EN_VIDEO.md),HlsDownloader,DashDownloader,SsDownloader,SegmentDownloader。
     * 21 Support to play lock screen function and control layout animation effect。
  <!--more-->
 
@@ -40,9 +40,9 @@
 
   dependencies {
       //full edition
-      compile 'com.ycjiang:VideoPlayModule:2.1.3'
+      compile 'com.ycjiang:VideoPlayModule:2.1.31'
       // lite version （no smoothstreaming,dash,hls,Only regular on-demand）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.3'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.31'
 
 
   }

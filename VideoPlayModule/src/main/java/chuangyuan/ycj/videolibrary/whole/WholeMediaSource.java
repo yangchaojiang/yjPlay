@@ -56,8 +56,8 @@ public class WholeMediaSource extends MediaSourceBuilder {
             case C.TYPE_OTHER:
                 return new  ExtractorMediaSource.Factory( getDataSource())
                          .setExtractorsFactory( new DefaultExtractorsFactory())
+                        .setCustomCacheKey(uri.toString())
                         .setMinLoadableRetryCount(5)
-                        .setCustomCacheKey(uri.getPath())
                         .createMediaSource(uri,null,null);
             case C.TYPE_HLS:
                 return new HlsMediaSource.Factory(new DefaultHlsDataSourceFactory( getDataSource()))

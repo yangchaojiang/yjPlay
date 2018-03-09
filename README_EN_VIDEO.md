@@ -42,59 +42,49 @@ public class OfficeDataSource implements DataSourceListener {
     }
  }
  ````
- 2.使用,自动缓存你服务器视频资源。
+
+ 
+ ### 二.使用离线下载帮助类 AES加密视频
+  1.实例化离线下载帮助类
+```
+  //设置下载缓存实例
+        downloader = new DefaultProgressDownloader.Builder(this)
+                .setMaxCacheSize(100000000)
+                //设置你缓存目录
+                //.setCacheFileDir(new File(getExternalCacheDir(), "media"))
+                //缓存文件加密,那么在使用AES / CBC的文件系统中缓存密钥将被加密  密钥必须是16字节长.
+                .setSecretKey("1234567887654321".getBytes())
+                .setUri(getString(R.string.uri_test_8))
+                //设置下载数据加载工厂类
+                .setHttpDataSource(new JDefaultDataSourceFactory(this))
+                .build();
+        if ((int) downloader.getDownloadPercentage() == 100) {
+            Toast.makeText(getApplicationContext(), "下载完成" + downloader.getDownloadPercentage(), Toast.LENGTH_SHORT).show();
+            progressBar.setProgress(100);
+            button.setText("播放");
+            exoPlayerManager.startPlayer();
+        } else {
+            downloader.download(new Downloader.ProgressListener() {
+                @Override
+                public void onDownloadProgress(Downloader downloader, float downloadPercentage, long downloadedBytes) {
+                    Log.d(TAG, "downloadPercentage:" + downloadPercentage + "downloadedBytes:" + downloadedBytes);
+                    progressBar.setProgress((int) downloadPercentage);
+                    textView.setText("sdsd:"+(int) downloadPercentage);
+                    if ((int) downloadPercentage == 100) {
+                        Toast.makeText(getApplicationContext(), "下载完成", Toast.LENGTH_SHORT).show();
+                        button.setText("播放");
+                    }
+                }
+            });
+        }
+
+```
+ 2.使用,自动缓存你服务器视频资源。视频还是原来传入网络视频链接,自动识别该视频有缓存文件。
  ````
   //实例化播放器控制类,传入您自定义数据实例
   exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView,new OfficeDataSource(this,null));
- ```` 
+ ````
  
- ### 二.自定义AES加密视频
-  1.实例化解密数据源
-```
-public class EnctyptDataSource implements DataSourceListener {
-    public static final String TAG = "DataSource";
-    private Context context;
-    private Cipher cipher;
-    private SecretKeySpec mSecretKeySpec;
-    private IvParameterSpec mIvParameterSpec;
-
-      /***
-         * @param context context
-         * @param cipher cipher
-         *  @param mSecretKeySpec mSecretKeySpec
-         *  @param   mIvParameterSpec     mSecretKeySpec
-         * **/
-    public EnctyptDataSource(Context context, Cipher cipher, SecretKeySpec mSecretKeySpec, IvParameterSpec mIvParameterSpec) {
-        this.context = context;
-        this.cipher = cipher;
-        this.mSecretKeySpec = mSecretKeySpec;
-        this.mIvParameterSpec = mIvParameterSpec;
-    }
-    @Override
-    public DataSource.Factory getDataSourceFactory() {
-      //初始化解密工厂类
-        return new EncryptedFileDataSourceFactory(context,cipher, mSecretKeySpec, mIvParameterSpec);
-    }
-}
-
-```
-2.使用
-````
-//实例化你加密解密类
- exoPlayerManager = new ExoUserPlayer(this, mSimpleExoPlayerView, new EnctyptDataSource(this, mCipher, mSecretKeySpec, mIvParameterSpec));
- //传入你加密视频路径
-  Uri uri = Uri.fromFile(mEncryptedFile);
-  exoPlayerManager.setPlayUri(uri);
-  exoPlayerManager.startPlayer();
-````
-3.加密处理
->> 注意:原来FileOutputStream 换成CipherOutputStream 流 进行写加密文件操作,其他操作不变。
-````
-//写文件输出流 
- FileOutputStream fos = new FileOutputStream(mFile.getAbsolutePath(), false);
-//加密输出流 
-  CipherOutputStream cipherOutputStream = new CipherOutputStream(fos, mCipher);
-````
  ### 三.使用自定义下载加密查看demo[OfficeDetailedActivity实例]()
 
 

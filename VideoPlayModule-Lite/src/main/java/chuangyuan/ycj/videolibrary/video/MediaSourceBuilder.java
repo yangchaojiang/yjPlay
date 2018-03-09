@@ -287,7 +287,7 @@ public class MediaSourceBuilder {
                 return new ExtractorMediaSource.Factory(getDataSource())
                         .setExtractorsFactory(new DefaultExtractorsFactory())
                         .setMinLoadableRetryCount(5)
-                        .setCustomCacheKey(uri.getPath())
+                        .setCustomCacheKey(uri.toString())
                         .createMediaSource(uri, mainHandler, null);
             default:
                 throw new IllegalStateException(context.getString(R.string.media_error));

@@ -2,26 +2,24 @@ package chuangyuan.ycj.videolibrary.offline;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.offline.Downloader;
 import com.google.android.exoplayer2.offline.DownloaderConstructorHelper;
 import com.google.android.exoplayer2.offline.ProgressiveDownloader;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.cache.Cache;
-import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
-import com.google.android.exoplayer2.upstream.cache.CacheUtil;
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
 import com.google.android.exoplayer2.upstream.cache.SimpleCache;
-import com.google.android.exoplayer2.util.PriorityTaskManager;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 
@@ -31,51 +29,61 @@ import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:  常规媒体流的下载器。支持断点下载
  */
-public final class DefaultProgressDownloader implements Downloader {
+public final class DefaultProgressDownloader {
 
-    private static final int BUFFER_SIZE_BYTES = 128 * 1024;
-    private final DataSpec dataSpec;
-    private final Cache cache;
-    private final CacheDataSource dataSource;
-    private final PriorityTaskManager priorityTaskManager;
-    private final DefaultCacheUtil.CachingCounters cachingCounters;
-    private ExecutorService service;
+    private final ProgressiveDownloader downloader;
+    @Nullable
+    private Downloader.ProgressListener listener;
+    @Nullable
+    private ScheduledExecutorService service;
+    private final Handler handler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int ss = (int) getDownloadPercentage();
+            if (listener != null) {
+                listener.onDownloadProgress(downloader, getDownloadPercentage(), getDownloadedBytes());
+            }
+            if (ss == 100) {
+                cancel();
+            }
+        }
+    };
 
-    private DefaultProgressDownloader(
-            Uri uri, String customCacheKey, DownloaderConstructorHelper constructorHelper) {
-        this.dataSpec = new DataSpec(uri, 0, C.LENGTH_UNSET, customCacheKey, 0);
-        this.cache = constructorHelper.getCache();
-        this.dataSource = constructorHelper.buildCacheDataSource(false);
-        this.priorityTaskManager = constructorHelper.getPriorityTaskManager();
-        cachingCounters = new DefaultCacheUtil.CachingCounters();
+    private DefaultProgressDownloader(Uri uri, DownloaderConstructorHelper constructorHelper) {
+        downloader = new ProgressiveDownloader(uri.toString(), uri.toString(), constructorHelper);
+        downloader.init();
+
     }
 
-    @Override
-    public void init() {
-        DefaultCacheUtil.getCached(dataSpec, cache, cachingCounters);
-    }
 
-    @Override
+    /****
+     * @param  listener  下载回调
+     * 为-1 就是下载错误，进度
+     * ***/
     public void download(@Nullable Downloader.ProgressListener listener) {
-        service = Executors.newSingleThreadExecutor();
-        service.submit(new MyRunnable(listener, this));
+        service = Executors.newScheduledThreadPool(2);
+        this.listener = listener;
+        service.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(1);
+            }
+        }, 0, 200, TimeUnit.MILLISECONDS);
+        service.execute(new MyRunnable());
+
     }
 
-    @Override
     public void remove() {
-        CacheUtil.remove(cache, CacheUtil.getKey(dataSpec));
+        downloader.remove();
     }
 
-    @Override
     public long getDownloadedBytes() {
-        return cachingCounters.totalCachedBytes();
+        return downloader.getDownloadedBytes();
     }
 
-    @Override
     public float getDownloadPercentage() {
-        long contentLength = cachingCounters.contentLength;
-        return contentLength == C.LENGTH_UNSET ? Float.NaN
-                : ((cachingCounters.totalCachedBytes() * 100f) / contentLength);
+        return downloader.getDownloadPercentage();
     }
 
     /***
@@ -86,44 +94,24 @@ public final class DefaultProgressDownloader implements Downloader {
             service.shutdown();
             service = null;
         }
+        if (handler != null) {
+            handler.removeMessages(1);
+        }
     }
 
     /***
      * 线程下载任务
      * **/
-    private class MyRunnable implements java.lang.Runnable {
-        private ProgressListener listener;
-        private DefaultProgressDownloader th;
-
-        /**
-         * Instantiates a new My runnable.
-         *
-         * @param listener the listener
-         * @param th       the th
-         */
-        MyRunnable(@Nullable ProgressListener listener, @NonNull DefaultProgressDownloader th) {
-            this.listener = listener;
-            this.th = th;
-
-        }
-
+    private final class MyRunnable implements java.lang.Runnable {
         @Override
         public void run() {
-           if (th != null) {
-                priorityTaskManager.add(C.PRIORITY_DOWNLOAD);
-                try {
-                    byte[] buffer = new byte[BUFFER_SIZE_BYTES];
-                    DefaultCacheUtil.cache(dataSpec, cache, dataSource, buffer, priorityTaskManager, C.PRIORITY_DOWNLOAD,
-                            cachingCounters, true, listener, th);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    if (listener != null) {
-                        listener.onDownloadProgress(th, -1, th.getDownloadedBytes());
-                    }
-                } finally {
-                    priorityTaskManager.remove(C.PRIORITY_DOWNLOAD);
+            try {
+                downloader.download(listener);
+            } catch (Exception e) {
+                e.printStackTrace();
+                cancel();
+                if (listener != null) {
+                    listener.onDownloadProgress(downloader, -1, -1);
                 }
             }
         }
@@ -135,7 +123,6 @@ public final class DefaultProgressDownloader implements Downloader {
     public static class Builder {
         private Context context;
         private Uri uri;
-        private String customCacheKey;
         private Cache simpleCache;
         private DataSource.Factory upstreamFactory;
         private DownloaderConstructorHelper constructorHelper;
@@ -186,15 +173,6 @@ public final class DefaultProgressDownloader implements Downloader {
         }
 
         /**
-         * @param customCacheKey 唯一标识原始流的自定义键。用于缓存索引。可能是null
-         * @return Builder
-         */
-        private Builder setCustomCacheKey(@Nullable String customCacheKey) {
-            this.customCacheKey = customCacheKey;
-            return this;
-        }
-
-        /**
          * Sets uri.
          *
          * @param uri 需要下载uri
@@ -223,7 +201,7 @@ public final class DefaultProgressDownloader implements Downloader {
          * @return Builder max cache size
          */
         public Builder setMaxCacheSize(long maxCacheSize) {
-            this.uri = uri;
+            this.maxCacheSize = maxCacheSize;
             return this;
         }
 
@@ -273,7 +251,7 @@ public final class DefaultProgressDownloader implements Downloader {
             if (constructorHelper == null) {
                 constructorHelper = new DownloaderConstructorHelper(simpleCache, upstreamFactory);
             }
-            return new DefaultProgressDownloader(uri, uri.getPath(), constructorHelper);
+            return new DefaultProgressDownloader(uri, constructorHelper);
         }
     }
 }

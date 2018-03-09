@@ -51,7 +51,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
     /*** 手势操作管理 ***/
     private final GestureDetector gestureDetector;
     /*** 屏幕最大宽度 ****/
-    private int screenWidthPixels;
+    private int screeHeightPixels;
     /***格式字符 ****/
     private StringBuilder formatBuilder;
     /***格式化类 ***/
@@ -127,7 +127,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
         audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
         assert audioManager != null;
         mMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
+        screeHeightPixels = activity.getResources().getDisplayMetrics().heightPixels;
     }
 
     @Override
@@ -145,6 +145,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
         if (newPosition >= 0) {
             if (onGestureProgressListener != null) {
                 onGestureProgressListener.endGestureProgress(newPosition);
+                newPosition = -1;
             } else {
                 player.seekTo(newPosition);
                 newPosition = -1;
@@ -341,20 +342,19 @@ public class GestureVideoPlayer extends ExoUserPlayer {
             float deltaX = mOldX - e2.getX();
             if (firstTouch) {
                 toSeek = Math.abs(distanceX) >= Math.abs(distanceY);
-                volumeControl = mOldX > screenWidthPixels * 0.5f;
+                volumeControl = mOldX > screeHeightPixels * 0.5f;
                 firstTouch = false;
             }
             if (toSeek) {
                 deltaX = -deltaX;
                 long position = player.getCurrentPosition();
                 long duration = player.getDuration();
-                long newPosition = (int) (position + deltaX * duration / screenWidthPixels);
+                long newPosition = (int) (position + deltaX * duration / screeHeightPixels);
                 if (newPosition > duration) {
                     newPosition = duration;
                 } else if (newPosition <= 0) {
                     newPosition = 0;
                 }
-
                 showProgressDialog(newPosition, duration, Util.getStringForTime(formatBuilder, formatter, newPosition), Util.getStringForTime(formatBuilder, formatter, duration));
             } else {
                 float percent = deltaY / getPlayerViewListener().getHeight();

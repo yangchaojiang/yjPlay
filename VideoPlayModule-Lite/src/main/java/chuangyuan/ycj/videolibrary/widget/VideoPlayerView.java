@@ -115,7 +115,6 @@ public final class VideoPlayerView extends BaseView {
             animatorListener = null;
             exoPlayerViewListener = null;
             onClickListener = null;
-            onItemClickListener = null;
             visibilityListener = null;
         }
     }
@@ -358,11 +357,7 @@ public final class VideoPlayerView extends BaseView {
                     belowView.setOnItemClickListener(new BelowView.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position, String name) {
-                            if (onItemClickListener != null) {
-                                onItemClickListener.onItemClick(position, name);
-                            } else {
                                 mExoPlayerListener.switchUri(position);
-                            }
                             getSwitchText().setText(name);
                             belowView.dismissBelowView();
                         }

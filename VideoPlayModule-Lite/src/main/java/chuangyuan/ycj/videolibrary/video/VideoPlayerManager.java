@@ -29,7 +29,7 @@ public class VideoPlayerManager {
         return Holder.holder;
     }
 
-    private static final class Holder {
+    private static  class Holder {
 
         static VideoPlayerManager holder = new VideoPlayerManager();
     }
