@@ -24,7 +24,6 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -32,18 +31,15 @@ import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.drm.DrmSessionManager;
 import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
 import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource;
-import com.google.android.exoplayer2.source.MediaSourceEventListener;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.util.Util;
 
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -52,7 +48,6 @@ import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import chuangyuan.ycj.videolibrary.factory.BufferingLoadControl;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
@@ -186,37 +181,6 @@ public class ExoUserPlayer {
         playComponentListener = new PlayComponentListener();
         videoPlayerView.setExoPlayerListener(playComponentListener);
         getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
-        mediaSourceBuilder.setAdaptiveMediaSourceEventListener(new MediaSourceEventListener() {
-            @Override
-            public void onLoadStarted(DataSpec dataSpec, int dataType, int trackType, Format trackFormat, int trackSelectionReason, Object trackSelectionData, long mediaStartTimeMs, long mediaEndTimeMs, long elapsedRealtimeMs) {
-                Log.d(TAG, "onLoadStarted:" + dataSpec.length);
-            }
-
-            @Override
-            public void onLoadCompleted(DataSpec dataSpec, int dataType, int trackType, Format trackFormat, int trackSelectionReason, Object trackSelectionData, long mediaStartTimeMs, long mediaEndTimeMs, long elapsedRealtimeMs, long loadDurationMs, long bytesLoaded) {
-                Log.d(TAG, "onLoadCompleted:" + dataSpec.length);
-            }
-
-            @Override
-            public void onLoadCanceled(DataSpec dataSpec, int dataType, int trackType, Format trackFormat, int trackSelectionReason, Object trackSelectionData, long mediaStartTimeMs, long mediaEndTimeMs, long elapsedRealtimeMs, long loadDurationMs, long bytesLoaded) {
-                Log.d(TAG, "onLoadCanceled:" + dataSpec.length);
-            }
-
-            @Override
-            public void onLoadError(DataSpec dataSpec, int dataType, int trackType, Format trackFormat, int trackSelectionReason, Object trackSelectionData, long mediaStartTimeMs, long mediaEndTimeMs, long elapsedRealtimeMs, long loadDurationMs, long bytesLoaded, IOException error, boolean wasCanceled) {
-                Log.d(TAG, "onLoadError:" + dataSpec.length);
-            }
-
-            @Override
-            public void onUpstreamDiscarded(int trackType, long mediaStartTimeMs, long mediaEndTimeMs) {
-
-            }
-
-            @Override
-            public void onDownstreamFormatChanged(int trackType, Format trackFormat, int trackSelectionReason, Object trackSelectionData, long mediaTimeMs) {
-
-            }
-        });
         player = createFullPlayer();
     }
 
@@ -399,8 +363,8 @@ public class ExoUserPlayer {
         } else {
             player.setPlayWhenReady(true);
         }
-        player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         player.addListener(componentListener);
+        player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         if (mPlayerViewListener != null) {
             mPlayerViewListener.showPreview(View.GONE);
             mPlayerViewListener.hideController(false);

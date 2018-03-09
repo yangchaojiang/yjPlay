@@ -32,12 +32,6 @@
    * 21 支持播放锁屏功能和控制动画效果，返回按钮和全屏按钮图标自定义。
  <!--more-->
 
-<<<<<<< HEAD
- ### [更新日志2.1.0→》戳我查看](RELEASENOTES.md)
-
-=======
-
-
  ### [更新日志2.1.0→》戳我查看](RELEASENOTES.md)
 >>>>>>> 3680839446a3612f3eb9649b928ee62e9b3a4cbd
  
@@ -50,9 +44,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.32' 
+      compile 'com.ycjiang:VideoPlayModule:2.1.35' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-     compile 'com.ycjiang:VideoPlayModule-Lite:2.1.32'
+     compile 'com.ycjiang:VideoPlayModule-Lite:2.1.35'
 
   }
   ````
