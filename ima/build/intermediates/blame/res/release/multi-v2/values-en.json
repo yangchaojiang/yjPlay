@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\project\\yjPlay\\ima\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-en\\values-en.xml",
+            "map": [
+                {
+                    "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\values-en\\values-en.xml",
+                    "from": {
+                        "startLines": "2,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,178,258,329,396,461,540,617,695,772,841,910,975,1037,1149,1200,1309,1361,1506",
+                        "endLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
+                        "endColumns": "10,79,70,66,64,78,76,77,76,68,68,64,61,111,50,108,51,144,110",
+                        "endOffsets": "173,253,324,391,456,535,612,690,767,836,905,970,1032,1144,1195,1304,1356,1501,1612"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\values-en\\values-en.xml",
+            "map": [
+                {
+                    "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\values-en\\values-en.xml",
+                    "from": {
+                        "startLines": "2,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,178,258,329,396,461,540,617,695,772,841,910,975,1037,1149,1200,1309,1361,1506",
+                        "endLines": "6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
+                        "endColumns": "10,79,70,66,64,78,76,77,76,68,68,64,61,111,50,108,51,144,110",
+                        "endOffsets": "173,253,324,391,456,535,612,690,767,836,905,970,1032,1144,1195,1304,1356,1501,1612"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,116 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\values-az\\values-az.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.6.2.aar\\877e9b9ed6a6b0d597de92a0015e8a15\\res\\values-az\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "285",
+                        "endColumns": "220",
+                        "endOffsets": "505"
+                    },
+                    "to": {
+                        "startLines": "20",
+                        "startColumns": "4",
+                        "startOffsets": "1943",
+                        "endColumns": "220",
+                        "endOffsets": "2159"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-ads-11.6.2.aar\\ac4f33a07f8835e4966f6ea2f94b176f\\res\\values-az\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "237,314,436,504,571,651,761",
+                        "endColumns": "76,121,67,66,79,109,69",
+                        "endOffsets": "313,435,503,570,650,760,830"
+                    },
+                    "to": {
+                        "startLines": "21,22,23,24,25,26,27",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "2164,2245,2371,2443,2514,2598,2712",
+                        "endColumns": "80,125,71,70,83,113,73",
+                        "endOffsets": "2240,2366,2438,2509,2593,2707,2781"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\values-az\\values-az.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,163,271,394,493,605,693,800,914,995,1074,1159,1266,1373,1473,1582,1686,1796,1893,1976",
+                        "endColumns": "107,107,122,98,111,87,106,113,80,78,84,106,106,99,108,103,109,96,82,100",
+                        "endOffsets": "158,266,389,488,600,688,795,909,990,1069,1154,1261,1368,1468,1577,1681,1791,1888,1971,2072"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,28,29",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,213,321,444,543,655,743,850,964,1045,1124,1209,1316,1423,1523,1632,1736,1846,2786,2869",
+                        "endColumns": "107,107,122,98,111,87,106,113,80,78,84,106,106,99,108,103,109,96,82,100",
+                        "endOffsets": "208,316,439,538,650,738,845,959,1040,1119,1204,1311,1418,1518,1627,1731,1841,1938,2864,2965"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "E:\\project\\yjPlay\\ima\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-az\\values-az.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.6.2.aar\\877e9b9ed6a6b0d597de92a0015e8a15\\res\\values-az\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "285",
+                        "endColumns": "220",
+                        "endOffsets": "505"
+                    },
+                    "to": {
+                        "startLines": "20",
+                        "startColumns": "4",
+                        "startOffsets": "1943",
+                        "endColumns": "220",
+                        "endOffsets": "2159"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-ads-11.6.2.aar\\ac4f33a07f8835e4966f6ea2f94b176f\\res\\values-az\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "237,314,436,504,571,651,761",
+                        "endColumns": "76,121,67,66,79,109,69",
+                        "endOffsets": "313,435,503,570,650,760,830"
+                    },
+                    "to": {
+                        "startLines": "21,22,23,24,25,26,27",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "2164,2245,2371,2443,2514,2598,2712",
+                        "endColumns": "80,125,71,70,83,113,73",
+                        "endOffsets": "2240,2366,2438,2509,2593,2707,2781"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\values-az\\values-az.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,163,271,394,493,605,693,800,914,995,1074,1159,1266,1373,1473,1582,1686,1796,1893,1976",
+                        "endColumns": "107,107,122,98,111,87,106,113,80,78,84,106,106,99,108,103,109,96,82,100",
+                        "endOffsets": "158,266,389,488,600,688,795,909,990,1069,1154,1261,1368,1468,1577,1681,1791,1888,1971,2072"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,28,29",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,213,321,444,543,655,743,850,964,1045,1124,1209,1316,1423,1523,1632,1736,1846,2786,2869",
+                        "endColumns": "107,107,122,98,111,87,106,113,80,78,84,106,106,99,108,103,109,96,82,100",
+                        "endOffsets": "208,316,439,538,650,738,845,959,1040,1119,1204,1311,1418,1518,1627,1731,1841,1938,2864,2965"
+                    }
+                }
+            ]
+        }
+    ]
+}

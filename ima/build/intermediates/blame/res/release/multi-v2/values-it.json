@@ -1,0 +1,116 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\project\\yjPlay\\ima\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-it\\values-it.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\values-it\\values-it.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,164,272,395,495,604,688,797,922,999,1075,1156,1262,1370,1468,1572,1677,1784,1906,2006,2089",
+                        "endColumns": "108,107,122,99,108,83,108,124,76,75,80,105,107,97,103,104,106,121,99,82,100",
+                        "endOffsets": "159,267,390,490,599,683,792,917,994,1070,1151,1257,1365,1463,1567,1672,1779,1901,2001,2084,2185"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,214,322,445,545,654,738,847,972,1049,1125,1206,1312,1420,1518,1622,1727,1834,1956,2879,2962",
+                        "endColumns": "108,107,122,99,108,83,108,124,76,75,80,105,107,97,103,104,106,121,99,82,100",
+                        "endOffsets": "209,317,440,540,649,733,842,967,1044,1120,1201,1307,1415,1513,1617,1722,1829,1951,2051,2957,3058"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.6.2.aar\\877e9b9ed6a6b0d597de92a0015e8a15\\res\\values-it\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "285",
+                        "endColumns": "194",
+                        "endOffsets": "479"
+                    },
+                    "to": {
+                        "startLines": "21",
+                        "startColumns": "4",
+                        "startOffsets": "2056",
+                        "endColumns": "194",
+                        "endOffsets": "2246"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-ads-11.6.2.aar\\ac4f33a07f8835e4966f6ea2f94b176f\\res\\values-it\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "237,308,437,502,567,650,762",
+                        "endColumns": "70,128,64,64,82,111,74",
+                        "endOffsets": "307,436,501,566,649,761,836"
+                    },
+                    "to": {
+                        "startLines": "22,23,24,25,26,27,28",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "2251,2326,2459,2528,2597,2684,2800",
+                        "endColumns": "74,132,68,68,86,115,78",
+                        "endOffsets": "2321,2454,2523,2592,2679,2795,2874"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\values-it\\values-it.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\values-it\\values-it.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,164,272,395,495,604,688,797,922,999,1075,1156,1262,1370,1468,1572,1677,1784,1906,2006,2089",
+                        "endColumns": "108,107,122,99,108,83,108,124,76,75,80,105,107,97,103,104,106,121,99,82,100",
+                        "endOffsets": "159,267,390,490,599,683,792,917,994,1070,1151,1257,1365,1463,1567,1672,1779,1901,2001,2084,2185"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,214,322,445,545,654,738,847,972,1049,1125,1206,1312,1420,1518,1622,1727,1834,1956,2879,2962",
+                        "endColumns": "108,107,122,99,108,83,108,124,76,75,80,105,107,97,103,104,106,121,99,82,100",
+                        "endOffsets": "209,317,440,540,649,733,842,967,1044,1120,1201,1307,1415,1513,1617,1722,1829,1951,2051,2957,3058"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.6.2.aar\\877e9b9ed6a6b0d597de92a0015e8a15\\res\\values-it\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "285",
+                        "endColumns": "194",
+                        "endOffsets": "479"
+                    },
+                    "to": {
+                        "startLines": "21",
+                        "startColumns": "4",
+                        "startOffsets": "2056",
+                        "endColumns": "194",
+                        "endOffsets": "2246"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-ads-11.6.2.aar\\ac4f33a07f8835e4966f6ea2f94b176f\\res\\values-it\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "237,308,437,502,567,650,762",
+                        "endColumns": "70,128,64,64,82,111,74",
+                        "endOffsets": "307,436,501,566,649,761,836"
+                    },
+                    "to": {
+                        "startLines": "22,23,24,25,26,27,28",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "2251,2326,2459,2528,2597,2684,2800",
+                        "endColumns": "74,132,68,68,86,115,78",
+                        "endOffsets": "2321,2454,2523,2592,2679,2795,2874"
+                    }
+                }
+            ]
+        }
+    ]
+}

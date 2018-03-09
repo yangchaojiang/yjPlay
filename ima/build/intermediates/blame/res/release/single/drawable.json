@@ -1,0 +1,206 @@
+[
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b3e902d0ab595d15d3b3af9e30eccd6\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\exo_error_bg.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\exo_error_bg.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b3e902d0ab595d15d3b3af9e30eccd6\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\btn_continue_drawable.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\btn_continue_drawable.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\exo_bg_video_top.9.png",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\exo_bg_video_top.9.png"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\exo_bg_video_bottom.9.png",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\exo_bg_video_bottom.9.png"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\simple_video_dialog_progress.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\simple_video_dialog_progress.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\simple_video_dialog_progress_bg.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\simple_video_dialog_progress_bg.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\toggle_lock.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\toggle_lock.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\ic_fullscreen_selector.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\ic_fullscreen_selector.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\ic_black.png",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\ic_black.png"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\tooltip_frame_dark.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\tooltip_frame_dark.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b3e902d0ab595d15d3b3af9e30eccd6\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\seek_progress.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\seek_progress.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\tooltip_frame_light.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\tooltip_frame_light.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3b3e902d0ab595d15d3b3af9e30eccd6\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\list_view_back.xml",
+        "source": "E:\\project\\yjPlay\\VideoUi\\build\\intermediates\\bundles\\release\\res\\drawable\\list_view_back.xml"
+    },
+    {
+        "merged": "E:\\project\\yjPlay\\ima\\build\\intermediates\\res\\merged\\release\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\yangc\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\55a44cdcbafb7f6f973b230df99075e1\\res\\drawable\\abc_tab_indicator_material.xml"
+    }
+]
