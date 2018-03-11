@@ -341,7 +341,6 @@ public class ExoUserPlayer {
         }
         DefaultRenderersFactory rf = new DefaultRenderersFactory(activity, drmSessionManager, DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON);
         SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(rf, trackSelector, loadControl);
-        player.setPlaybackParameters(playbackParameters);
         getPlayerViewListener().setPlayer(player);
         return player;
     }
@@ -364,6 +363,7 @@ public class ExoUserPlayer {
             player.setPlayWhenReady(true);
         }
         player.addListener(componentListener);
+        player.setPlaybackParameters(playbackParameters);
         player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         if (mPlayerViewListener != null) {
             mPlayerViewListener.showPreview(View.GONE);

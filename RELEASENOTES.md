@@ -1,4 +1,6 @@
  ## 更新日志
+  #### 2.1.37
+  * 1.修复[setPlaybackParameters（f，f） 没有效果#82](https://github.com/yangchaojiang/yjPlay/issues/82)  
   #### 2.1.35
    * 1.移除简单加密和aes加密处理。改用离线加载类统一处理。
    * 2.完善离线下载类，移除内部多余类。
