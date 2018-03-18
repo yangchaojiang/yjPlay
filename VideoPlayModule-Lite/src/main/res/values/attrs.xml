@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--加载动画控件-->
     <declare-styleable name="exoVideoAnim">
         <attr name="circleRadius" format="dimension" />
         <attr name="circleSpacing" format="dimension" />
@@ -8,7 +9,10 @@
 
     <declare-styleable name="VideoPlayerView">
         <!--默认展位图-->
-        <attr name="default_artwork" format="reference" />
+        <attr name="default_artwork" format="reference"  />
+
+        <!--水印占位图-->
+        <attr name="user_watermark" format="reference" />
         <!--用户控制布局-->
         <attr name="use_controller" format="boolean" />
         <!--预览是否有touch事件-->
@@ -17,10 +21,6 @@
         <attr name="resize_mode" />
         <!--view渲染方式-->
         <attr name="surface_type" />
-        <!--水印占位图-->
-        <attr name="user_watermark" format="reference" />
-
-        <attr name="auto_show" format="boolean" />
         <!--设置控制布局显示时间-->
         <attr name="show_timeout" format="integer" />
         <!--播放进度倒退增量-->
@@ -53,6 +53,8 @@
         <attr name="player_back_image" format="reference" />
         <!--自定义预览布局-->
         <attr name="player_preview_layout_id" format="reference" />
+        <!--点击播放是否隐藏预览布局-->
+        <attr name="player_is_hide_preview" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="DefaultTimeBar">

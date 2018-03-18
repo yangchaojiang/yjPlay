@@ -13,23 +13,26 @@
    * 1 ExoUserPlayer  基本播放。
    * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势。
    * 3 ManualPlayer   可自定义触发播放。
-   * 5 广告视频预览(轻松实现，完美切换)。
-   * 6 视频清晰度切换。
-   * 7 [缓存下载加密视频功能（边播变缓存轻松实现](README_EN_VIDEO.md)。
+   * 5 支持广告视频预览(轻松实现，完美切换，<font color="red">可自定义</font>)。
+   * 6 支持多种分辨率视频切换。
+   * 7 [缓存下载加密视频功能（边播变缓存轻松实现](README_EN_VIDEO.md)<font color="red">不是使用AndroidVideoCache</font>。
    * 8 支持自定义多种 kttp,Rtmp,Https,Cronet等协议。
-   * 9 支持列表集合数据O播放视频（详情播放完美过度）
+   * 9 支持列表集合 播放视频（<font color="red">列表到详情播放完美过度</font>）
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
    * 11 支持网络类型 提示是否播放(可自定义屏蔽)。
-   * 12 **1.5.5**增加,视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
+   * 12 支持视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
    * 13 支持视频加载中显示模式（网速模式和百分比模式）。
    * 14 支持视频加速慢速播放。
-   * 15 支持视频封面图（两种模式封面图）。
-   * 16 **1.7.0**支持自定义MediaSource。
-   * 17 **1.7.0**增加 手势 亮度调节，视频进度，音量 布局自定义。
+   * 15 支持多种视频封面图（两种模式封面图）。
+   * 16 支持支持自定义[MediaSource]()。
+   * 17 支持增加 手势 亮度调节，视频进度，音量 布局自定义。
    * 18 支持精简版和完整版，选择使用更丰富。
    * 19 支持自定义AES视频加密,简单加密→戳我(2.1.31版本已弃用)
    * 20 [增加自定义离线下载辅助类DefaultProgressDownloader(支持（AES/CBC）加密文件处理)](README_EN_VIDEO.md)),HlsDownloader,DashDownloader,SsDownloader,SegmentDownloader。
-   * 21 支持播放锁屏功能和控制动画效果，返回按钮和全屏按钮图标自定义。
+   * 21 支持播放锁屏功能和控制布局显示显示动画效果.
+   * 22 支持返回按钮和全屏按钮图标自定义。
+   * 23 支持加载中是否展示加载布局或者加载显示预览布局。
+   * 24 支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
  <!--more-->
 
  ### [更新日志2.1.37→》戳我查看](RELEASENOTES.md)
@@ -53,14 +56,21 @@
   >>> mavenCentral(url: "https://dl.bintray.com/ycjiang/ycjiang")
 
  ### 二.控件属性
-
+   >>>> 基本使用如下
+   ````
+         <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+                 android:id="@+id/exo_play_context_id"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@android:color/transparent"
+                 />
+ ````
  >>  #### 1.控件属性
  ````
    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
          android:id="@+id/exo_play_context_id"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
-         android:background="@android:color/transparent"
          app:controller_layout_id="@layout/simple_exo_playback_control_view"
          app:player_layout_id="@layout/simple_exo_view"
          app:player_replay_layout_id="@layout/custom_play_replay"
@@ -70,6 +80,8 @@
          app:player_gesture_audio_layout_id="@layout/custom_gesture_audio"
          app:player_gesture_bright_layout_id="@layout/custom_gesture_brightness"
          app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
+         app:player_preview_layout_id="@layout/exo_default_preview_layout"
+         app:player_is_hide_preview="true"
          app:resize_mode="fit"
          app:show_timeout="3000"
          app:surface_type="texture_view"
@@ -82,15 +94,6 @@
          app:player_back_image="@drawable/ic_back_custom"
           />
    ````
-   >>>> 基本使用如下
-   ````
-         <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
-                 android:id="@+id/exo_play_context_id"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:background="@android:color/transparent"
-                 />
- ````
  >> #### 2.属性说明
    >
     1.   player_layout_id  播放器布局，  
@@ -162,8 +165,16 @@
              <item android:drawable="@drawable/ic_custom_full_in" android:state_checked="false" />
          </selector>
    >
-    20.  player_back_image   自定义返回按钮图标   
-    
+    20.  player_back_image   自定义返回按钮图标  
+     
+   >
+    21.  player_preview_layout_id   自定义封面图布局
+        默认
+        >>exo_default_preview_layout.xml
+   >
+     22.  player_is_hide_preview    true false 默认false
+     >>点击时播放加载中是否隐藏封面布局，视频加载完毕隐藏封面图布局。      
+        
  >> #### 3.修改网络对话框提示文字内容
       app.strings.xml
       <string name="exo_play_reminder">您当前网络不是wifi，是否继续观看视频</string>

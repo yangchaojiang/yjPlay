@@ -31,7 +31,7 @@ public class ImaPlayerActivity extends Activity {
         sdkSettings.setLanguage("zh");
         adsLoader = new ImaAdsLoader( this, Uri.parse(getString(R.string.ad_tag_url)),sdkSettings);
         mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(this.getApplication()));
-        videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
+        videoPlayerView =   findViewById(R.id.exo_play_context_id);
         exoPlayerManager = new GestureVideoPlayer(this,mediaSourceBuilder,videoPlayerView );
         exoPlayerManager.setTitle("视频标题");
         exoPlayerManager.setExoPlayWatermarkImg(R.mipmap.watermark_big);

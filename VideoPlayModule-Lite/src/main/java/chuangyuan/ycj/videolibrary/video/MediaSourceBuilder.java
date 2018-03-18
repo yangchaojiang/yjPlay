@@ -283,7 +283,6 @@ public class MediaSourceBuilder {
         int streamType = VideoPlayUtils.inferContentType(uri);
         switch (streamType) {
             case C.TYPE_OTHER:
-                Log.d(TAG, "TYPE_OTHER");
                 return new ExtractorMediaSource.Factory(getDataSource())
                         .setExtractorsFactory(new DefaultExtractorsFactory())
                         .setMinLoadableRetryCount(5)

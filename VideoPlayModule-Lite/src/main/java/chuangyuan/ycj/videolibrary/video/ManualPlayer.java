@@ -71,7 +71,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         super(activity, playerView, listener);
         getPlayerViewListener().setControllerHideOnTouch(false);
-        getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
+        getPlayerViewListener().setPlayerBtnOnTouch(true);
     }
 
     /**
@@ -84,7 +84,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
     public ManualPlayer(@NonNull Activity activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
         super(activity, mediaSourceBuilder, playerView);
         getPlayerViewListener().setControllerHideOnTouch(false);
-        getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
+        getPlayerViewListener().setPlayerBtnOnTouch(true);
     }
 
     /***
@@ -103,7 +103,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
                 tags2.remove(position);
             }
         }
-        getPlayerViewListener().setPlayerBtnOnTouch(null);
+        getPlayerViewListener().setPlayerBtnOnTouch(false);
         createPlayers();
         registerReceiverNet();
     }
@@ -113,7 +113,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
         boolean is = (Util.SDK_INT <= Build.VERSION_CODES.M || player == null) && isLoad;
         if (is) {
             if (getPlayerViewListener().isList()) {
-                getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
+                getPlayerViewListener().setPlayerBtnOnTouch(true);
             } else {
                 createPlayers();
             }
@@ -145,10 +145,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
         super.onDestroy();
         tags.clear();
         tags2.clear();
-        onTouchListener = null;
     }
-
-
     /**
      * 重置
      *
@@ -165,7 +162,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
             }
             player.stop();
             player.removeListener(componentListener);
-            getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
+            getPlayerViewListener().setPlayerBtnOnTouch(true);
             getPlayerViewListener().reset();
             player.release();
             if (mediaSourceBuilder != null) {
@@ -179,7 +176,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
      * 重置点击事件
      * **/
     public void resetInit() {
-        getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
+        getPlayerViewListener().setPlayerBtnOnTouch(true);
         getPlayerViewListener().reset();
     }
 

@@ -14,6 +14,8 @@
 -->
 <resources>
     <item name="exo_video_switch" type="id" />
+    <!--自定义布局播放按钮-->
+    <item name="exo_default_play" type="id" />
 
     <item name="exo_preview_image_bottom" type="id" />
     <!--列表播放占位图-->
@@ -41,25 +43,43 @@
     <item name="exo_player_replay_btn_id" type="id" />
     <!--锁按钮-->
     <item name="exo_player_lock_btn_id" type="id" />
+
     <item name="exo_preview_play" type="id" />
 
     <item name="exo_content_frame" type="id" />
+
     <item name="exo_shutter" type="id" />
+
     <item name="exo_subtitles" type="id" />
+
     <item name="exo_artwork" type="id" />
+
     <item name="exo_controller_placeholder" type="id" />
+
     <item name="exo_controller" type="id" />
+
     <item name="exo_overlay" type="id" />
+
     <item name="exo_play" type="id" />
+
     <item name="exo_pause" type="id" />
+
     <item name="exo_rew" type="id" />
+
     <item name="exo_ffwd" type="id" />
+
     <item name="exo_prev" type="id" />
+
     <item name="exo_next" type="id" />
+
     <item name="exo_repeat_toggle" type="id" />
+
     <item name="exo_duration" type="id" />
+
     <item name="exo_position" type="id" />
+
     <item name="exo_progress" type="id" />
+
     <item name="exo_shuffle" type="id"/>
 
 </resources>

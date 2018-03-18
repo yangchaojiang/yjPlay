@@ -1,4 +1,10 @@
  ## 更新日志
+  #### 2.1.41
+   * 1.升级内核版本[#2.7.1](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#271)
+   * 2.优化自定义封面布局让播放封面随心配置。
+   * 3.增加点击播放时控制是否显示封面图还是隐藏。
+   * 4.控制布局上下布局显示隐藏动画完善。
+   * 5.其他优化。
   #### 2.1.37
   * 1.修复[setPlaybackParameters（f，f） 没有效果#82](https://github.com/yangchaojiang/yjPlay/issues/82)  
   #### 2.1.35

@@ -13,6 +13,7 @@
         app:controller_layout_id="@layout/simple_exo_playback_list_view"
         app:player_layout_id="@layout/simple_exo_view"
         app:player_preview_layout_id="@layout/simple_exo_preview_view"
+        app:player_is_hide_preview="false"
         app:resize_mode="fit"
         app:show_timeout="3000"
         app:hide_on_touch="false"

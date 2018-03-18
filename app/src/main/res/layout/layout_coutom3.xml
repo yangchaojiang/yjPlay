@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:background="@android:color/transparent"
-        app:controller_layout_id="@layout/simple_exo_playback_control_view"
+        app:controller_layout_id="@layout/custom_exo_playback_top_view"
         app:player_layout_id="@layout/simple_exo_view"
         app:player_replay_layout_id="@layout/custom_play_replay"
         app:player_error_layout_id="@layout/custom_play_error"

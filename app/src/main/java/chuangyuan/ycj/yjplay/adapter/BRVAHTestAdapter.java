@@ -34,13 +34,17 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
 
     @Override
     protected void convert(final TestVideoHolder helper, String item) {
-        helper.userPlayer.setTitle("" + helper.getAdapterPosition());
+
         helper.userPlayer.setPlayUri(item);
-        //设置列表item播放当前进度一定设置.不然不会保存进度
         helper.userPlayer.setTag(helper.getAdapterPosition());
-       // helper.playerView.setTag(helper.getAdapterPosition());
+        //设置列表item播放当前进度一定设置.不然不会保存进度
+        // helper.playerView.setTag(helper.getAdapterPosition());
+        //使用自定义预览布局
+        helper.setText(R.id.exo_controls_title2, helper.getAdapterPosition()+"自定义预览标题");
+        //如果使用自定义预览的布局，播放器标题根据业务是否设置
+        helper.userPlayer.setTitle("自定义预览标题" + helper.getAdapterPosition());
         Glide.with(context)
-               .load(context.getString(R.string.uri_test_image))
+                .load(context.getString(R.string.uri_test_image))
                 .placeholder(R.mipmap.test)
                 .into(helper.playerView.getPreviewImage());
         helper.userPlayer.setVideoInfoListener(new VideoInfoListener() {
@@ -93,7 +97,7 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
 
         public TestVideoHolder(View view) {
             super(view);
-            playerView = (VideoPlayerView) view.findViewById(R.id.exo_play_context_id);
+            playerView = view.findViewById(R.id.exo_play_context_id);
             itemView = view;
             userPlayer = new ManualPlayer((Activity) context, playerView);
         }

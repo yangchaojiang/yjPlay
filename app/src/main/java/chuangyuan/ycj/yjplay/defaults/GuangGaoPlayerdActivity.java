@@ -30,7 +30,7 @@ public class GuangGaoPlayerdActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom2);
-        videoPlayerView = (VideoPlayerView) findViewById(R.id.exo_play_context_id);
+        videoPlayerView =   findViewById(R.id.exo_play_context_id);
         exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView);
         exoPlayerManager.setTitle("视频标题");
         exoPlayerManager.setExoPlayWatermarkImg(R.mipmap.watermark_big);

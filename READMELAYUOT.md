@@ -10,6 +10,9 @@
   2. 错误布局→ **<font color="red">android:id="@id/exo_player_error_btn_id"</font>**
   3. 非wifi播放提示布局→ **<font color="red">android:id="@id/exo_player_btn_hint_btn_id"</font>**
   4. 加载布局→ **<font color="red">android:id="@id/exo_loading_show_text"</font>**
+  5. 封面图布局——播放按钮指定ID→ **<font color="red"> android:id="@id/exo_preview_play"<font>**
+  6. 封面图布局——封面图imageView ID→ **<font color="red"> android:id="@id/exo_preview_image"<font>**  
+
  >>注意：
  >>
  >>**1.如果指定不指定id 系统不执行相应事件处理<br/>
@@ -142,10 +145,11 @@
 2.代码使用
 ````
 //实现你手势信息回调接口
-  //exoPlayerManager.setOnGestureBrightnessListener();//亮度
-  //exoPlayerManager.setOnGestureProgressListener(); //进度调节
-  // exoPlayerManager.setOnGestureVolumeListener(); //音频
+    exoPlayerManager.setOnGestureBrightnessListener();//亮度
+    exoPlayerManager.setOnGestureProgressListener(); //进度 
+    exoPlayerManager.setOnGestureVolumeListener(); //音频
   //以下示例代码  
+  //亮度 
    exoPlayerManager.setOnGestureBrightnessListener(new OnGestureBrightnessListener() {
             @Override
             public void setBrightnessPosition(int mMax, int currIndex) {
@@ -157,6 +161,7 @@
                 videoBrightnessPro.setProgress(currIndex);
             }
         });
+        //进度 
         exoPlayerManager.setOnGestureProgressListener(new OnGestureProgressListener() {
             @Override
             public void showProgressDialog(long seekTimePosition, long duration, String seekTime, String totalTime) {
@@ -165,7 +170,13 @@
                 exo_video_dialog_pro_text.setTextColor(Color.RED);
                 exo_video_dialog_pro_text.setText(seekTime + "/" + totalTime);
             }
+            //进度完毕设置
+             @Override
+              public void endGestureProgress(long position) {
+                 exoPlayerManager.seekTo(position);
+          }
         });
+         //音频
         exoPlayerManager.setOnGestureVolumeListener(new OnGestureVolumeListener() {
             @Override
             public void setVolumePosition(int mMax, int currIndex) {
@@ -178,6 +189,24 @@
             }
         });
 ````
+
+### 三. 封面图布局自定义布局(配合使用使用自定义控制布局)
+  1.布局引用
+  ````
+   <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+          android:id="@+id/exo_play_context_id"
+          android:layout_width="match_parent"
+          android:layout_height="200dp"
+          app:player_preview_layout_id="@layout/exo_default_preview_layout"
+          ....
+            />
+  ````
+  >>注意:
+  
+  1.播放按钮指定ID→ **<font color="red"> android:id="@id/exo_preview_play"<font>**
+  2.封面图imageView ID→ **<font color="red"> android:id="@id/exo_preview_image"<font>**
+ 
+
 3.注意事项：
   * 1.你不需要关心手势操作后，布局隐藏问题。自动隐藏布局，专注你需要显示内容央视就可以了。
   * 2.手势布局可以自定义其中一个或者两个布局。有使用者自己决定需要自定义布局。

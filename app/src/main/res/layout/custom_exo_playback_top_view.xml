@@ -10,22 +10,12 @@
 
     <LinearLayout
         android:id="@id/exo_controller_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/exo_bg_video_bottom"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingRight="30dp"
-        android:visibility="visible">
+        style="@style/ExoMediaControllerBottom">
 
         <TextView
             android:id="@id/exo_position"
             style="@style/ExoMediaCurrPosition"
             android:layout_marginLeft="10dp"
-            android:textSize="12sp"
             tools:text="06:21" />
 
         <TextView
@@ -41,19 +31,19 @@
             tools:text="06:21" />
 
         <chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar
-            android:id="@id/exo_progress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             app:bar_height="2dp"
             app:buffered_color="@android:color/white"
-            app:played_color="#FF7000"
-            app:unplayed_color="#a5ffffff" />
+            app:played_color="#26e75c"
+            app:unplayed_color="#a5436af9"
+            android:id="@id/exo_progress"
+            style="@style/ExoMediaTimeBar" />
 
         <TextView style="@style/ExoMediaTextSwitch" />
-    </LinearLayout>
 
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@id/exo_video_fullscreen"
+            style="@style/ExoMediaButton.Fullscreen" />
+    </LinearLayout>
     <ImageView
         android:id="@id/exo_preview_image"
         android:layout_width="match_parent"

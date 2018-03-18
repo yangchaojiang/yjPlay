@@ -1,6 +1,8 @@
 package chuangyuan.ycj.videolibrary.listener;
 
 
+import android.view.View;
+
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
@@ -14,11 +16,6 @@ public interface ExoPlayerListener {
      * 播放控制类回调
      */
     void onCreatePlayers();
-
-    /***
-     *清除进度
-     */
-    void onClearPosition();
 
     /***
      *释放控制类
@@ -42,5 +39,12 @@ public interface ExoPlayerListener {
      */
     ExoUserPlayer getPlay();
 
-
+    /***
+     *播放视频
+     */
+    void startPlayers();
+    /***
+     * 点击回调事件回调
+     * **/
+    View.OnClickListener    getClickListener();
 }

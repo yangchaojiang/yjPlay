@@ -145,14 +145,15 @@ public interface ExoPlayerViewListener {
     /***
      * 控制布局封面图操作
      * @param visibility 类型
+     * @param   isPlayer  是否时开售播放触发
      */
-    void showPreview(int visibility);
+    void showPreview(int visibility,boolean isPlayer);
 
     /***
      * 设置开始播放OnTouch布局事件
-     * @param listener 实例
+     * @param isTouch 实例
      */
-    void setPlayerBtnOnTouch(View.OnTouchListener listener);
+    void setPlayerBtnOnTouch(boolean isTouch);
 
     /***
      * 重置布局

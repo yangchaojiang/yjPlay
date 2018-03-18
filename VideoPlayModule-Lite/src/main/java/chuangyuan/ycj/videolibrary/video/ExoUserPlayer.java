@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -48,6 +47,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import chuangyuan.ycj.videolibrary.factory.BufferingLoadControl;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
@@ -162,29 +162,19 @@ public class ExoUserPlayer {
         initView();
     }
 
-    View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (onClickListener != null) {
-                    onClickListener.onClick(v);
-                } else {
-                    startPlayer();
-                }
-            }
-            return false;
-        }
-    };
 
     private void initView() {
         playComponentListener = new PlayComponentListener();
         videoPlayerView.setExoPlayerListener(playComponentListener);
-        getPlayerViewListener().setPlayerBtnOnTouch(onTouchListener);
+        getPlayerViewListener().setPlayerBtnOnTouch(true);
         player = createFullPlayer();
     }
 
-    public void setVideoPlayerView(@NonNull VideoPlayerView videoPlayerView) {
+    /*****
+     * 设置视频控件view  主要用来列表进入详情播放使用
+     * @param videoPlayerView videoPlayerView
+     * **/
+      void setVideoPlayerView(@NonNull VideoPlayerView videoPlayerView) {
         mPlayerViewListener = null;
         this.videoPlayerView = videoPlayerView;
         videoPlayerView.setExoPlayerListener(playComponentListener);
@@ -192,7 +182,7 @@ public class ExoUserPlayer {
             player = createFullPlayer();
         }
         player.addListener(componentListener);
-        getPlayerViewListener().showPreview(View.GONE);
+         getPlayerViewListener().showPreview(View.GONE,false);
         getPlayerViewListener().hideController(false);
         getPlayerViewListener().setControllerHideOnTouch(true);
         isEnd = false;
@@ -284,7 +274,7 @@ public class ExoUserPlayer {
      * 初始化播放实例
      */
     public void startPlayer() {
-        getPlayerViewListener().setPlayerBtnOnTouch(null);
+        getPlayerViewListener().setPlayerBtnOnTouch(false);
         createPlayers();
         registerReceiverNet();
     }
@@ -366,7 +356,7 @@ public class ExoUserPlayer {
         player.setPlaybackParameters(playbackParameters);
         player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         if (mPlayerViewListener != null) {
-            mPlayerViewListener.showPreview(View.GONE);
+            mPlayerViewListener.showPreview(View.GONE,true);
             mPlayerViewListener.hideController(false);
             mPlayerViewListener.setControllerHideOnTouch(true);
         }
@@ -542,6 +532,7 @@ public class ExoUserPlayer {
             player.seekTo(positionMs);
         }
     }
+
     /***
      * 设置进度
      * @param  windowIndex  windowIndex
@@ -549,9 +540,10 @@ public class ExoUserPlayer {
      */
     public void seekTo(int windowIndex, long positionMs) {
         if (player != null) {
-            player.seekTo(windowIndex,positionMs);
+            player.seekTo(windowIndex, positionMs);
         }
     }
+
     /***
      * 返回视频总数
      * @return int window count
@@ -904,11 +896,6 @@ public class ExoUserPlayer {
             createPlayers();
         }
 
-        @Override
-        public void onClearPosition() {
-            clearResumePosition();
-
-        }
 
         @Override
         public void replayPlayers() {
@@ -935,6 +922,17 @@ public class ExoUserPlayer {
             return ExoUserPlayer.this;
         }
 
+        @Override
+        public void startPlayers() {
+            startPlayer();
+        }
+
+        @Override
+        public View.OnClickListener getClickListener() {
+            return onClickListener;
+        }
+
+
     }
 
     /***
@@ -955,8 +953,8 @@ public class ExoUserPlayer {
 
         @Override
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-            Log.d(TAG, "onTracksChanged:" + currentWindowIndex + "_:" + player.getCurrentTimeline().getWindowCount());
-            Log.d(TAG, "onTracksChanged:" + player.getNextWindowIndex() + "_:" + player.getCurrentTimeline().getWindowCount());
+            // Log.d(TAG, "onTracksChanged:" + currentWindowIndex + "_:" + player.getCurrentTimeline().getWindowCount());
+            //   Log.d(TAG, "onTracksChanged:" + player.getNextWindowIndex() + "_:" + player.getCurrentTimeline().getWindowCount());
             if (getWindowCount() > 1) {
                 if (isRemove) {
                     isRemove = false;
@@ -1008,7 +1006,6 @@ public class ExoUserPlayer {
             Log.d(TAG, "onPlayerStateChanged:" + playbackState + "+playWhenReady:" + playWhenReady);
             switch (playbackState) {
                 case Player.STATE_BUFFERING:
-                    Log.d(TAG, "onPlayerStateChanged:加载中。。。");
                     if (playWhenReady) {
                         getPlayerViewListener().showLoadStateView(View.VISIBLE);
                     }
@@ -1030,7 +1027,8 @@ public class ExoUserPlayer {
                     getPlayerViewListener().showErrorStateView(View.VISIBLE);
                     break;
                 case Player.STATE_READY:
-                    Log.d(TAG, "onPlayerStateChanged:ready。。。");
+                    Log.d(TAG, "onPlayerStateChanged:准备播放");
+                    mPlayerViewListener.showPreview(View.GONE,false);
                     getPlayerViewListener().showLoadStateView(View.GONE);
                     if (videoInfoListener != null) {
                         isPause = false;
@@ -1061,6 +1059,7 @@ public class ExoUserPlayer {
 
         @Override
         public void onLoadingChanged(boolean isLoading) {
+
         }
 
         @Override

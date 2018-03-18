@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@id/exo_preview_image"
+        style="@style/MediaPreViewImage" />
+
+    <ImageButton
+        android:id="@id/exo_preview_play"
+        style="@style/ExoMediaButton.Play2"
+        android:src="@drawable/ic_exo_start" />
+</RelativeLayout>

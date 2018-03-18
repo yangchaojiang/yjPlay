@@ -51,6 +51,7 @@
     <item name="exo_controller_placeholder" type="id"/>
     <item name="exo_controls_back" type="id"/>
     <item name="exo_controls_title" type="id"/>
+    <item name="exo_default_play" type="id"/>
     <item name="exo_duration" type="id"/>
     <item name="exo_ffwd" type="id"/>
     <item name="exo_loading_show_text" type="id"/>

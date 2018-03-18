@@ -798,8 +798,8 @@ public class PlayerView extends FrameLayout {
     if (!controllerHideOnTouch) {
       return false;
     } else if (!controller.isVisible()) {
-      maybeShowController(true);
       controller.setInAnim();
+      maybeShowController(true);
     } else if (controllerHideOnTouch) {
       controller.setOutAnim();
     }

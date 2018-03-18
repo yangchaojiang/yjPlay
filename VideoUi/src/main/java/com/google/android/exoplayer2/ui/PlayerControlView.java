@@ -250,13 +250,6 @@ public class PlayerControlView extends FrameLayout {
         }
       };
 
-  private final Runnable hideAction =
-      new Runnable() {
-        @Override
-        public void run() {
-          hide();
-        }
-      };
 
   public PlayerControlView(Context context) {
     this(context, null);
@@ -352,7 +345,7 @@ public class PlayerControlView extends FrameLayout {
     if (fastForwardButton != null) {
       fastForwardButton.setOnClickListener(componentListener);
     }
-    repeatToggleButton = (ImageView) findViewById(R.id.exo_repeat_toggle);
+    repeatToggleButton = findViewById(R.id.exo_repeat_toggle);
     if (repeatToggleButton != null) {
       repeatToggleButton.setOnClickListener(componentListener);
     }
@@ -805,6 +798,9 @@ public class PlayerControlView extends FrameLayout {
     if (positionView != null && !scrubbing) {
       positionView.setText(Util.getStringForTime(formatBuilder, formatter, position));
     }
+    if (updateProgressListener!=null){
+      updateProgressListener.updateProgress(position,bufferedPosition,duration);
+    }
     if (timeBar != null) {
       timeBar.setPosition(position);
       timeBar.setBufferedPosition(bufferedPosition);
@@ -961,14 +957,6 @@ public class PlayerControlView extends FrameLayout {
   }
 
   @Override
-  public void onDetachedFromWindow() {
-    super.onDetachedFromWindow();
-    isAttachedToWindow = false;
-    removeCallbacks(updateProgressAction);
-    removeCallbacks(hideAction);
-  }
-
-  @Override
   public boolean dispatchKeyEvent(KeyEvent event) {
     return dispatchMediaKeyEvent(event) || super.dispatchKeyEvent(event);
   }
@@ -1061,7 +1049,21 @@ public class PlayerControlView extends FrameLayout {
   private final View exoControllerBottom;
   private AnimUtils.AnimatorListener animatorListener;
   private AnimUtils.UpdateProgressListener updateProgressListener;
-
+  private final Runnable hideAction =
+          new Runnable() {
+            @Override
+            public void run() {
+              setOutAnim();
+            }
+          };
+  @Override
+  public void onDetachedFromWindow() {
+    super.onDetachedFromWindow();
+    isAttachedToWindow = false;
+    removeCallbacks(updateProgressAction);
+    removeCallbacks(hideAction);
+    releaseAnim();
+  }
   /**
    * 设置标题
    *
@@ -1128,6 +1130,8 @@ public class PlayerControlView extends FrameLayout {
   public int getIcFullscreenSelector() {
     return icFullscreenSelector;
   }
+
+
   public void releaseAnim() {
     if (controlsTitleText != null && controlsTitleText.animate() != null) {
       controlsTitleText.animate().cancel();

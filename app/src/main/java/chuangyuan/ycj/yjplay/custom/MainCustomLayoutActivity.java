@@ -125,7 +125,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
 
             @Override
             public void endGestureProgress(long position) {
-                exoPlayerManager.getPlayer().seekTo(position);
+                exoPlayerManager.seekTo(position);
             }
         });
         //重写自定义手势监听事件，

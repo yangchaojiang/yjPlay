@@ -12,7 +12,7 @@
         android:layout_height="200dp"
         android:background="@android:color/transparent"
         app:auto_show="true"
-        app:controller_layout_id="@layout/simple_exo_playback_top_view"
+        app:controller_layout_id="@layout/custom_exo_playback_top_view"
         app:fastforward_increment="0"
         app:paddingEnd="0dp"
         app:paddingStart="0dp"
