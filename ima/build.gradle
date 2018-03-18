@@ -25,7 +25,7 @@ android {
 }
 
 dependencies {
-    compile project(':VideoPlayModule')
+    compile 'com.ycjiang:VideoPlayModule:2.1.41'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.google.ads.interactivemedia.v3:interactivemedia:3.7.4'
     compile 'com.google.android.gms:play-services-ads:11.6.2'
