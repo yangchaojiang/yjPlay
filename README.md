@@ -1,6 +1,6 @@
 # yjPlay
 
-[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule-Lite/images/download.svg) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule-Lite/_latestVersion)
+[![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/_latestVersion)
 
   ### [View English instructions→Poking me ](en/README.md)
 
@@ -46,9 +46,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.37' 
+      compile 'com.ycjiang:VideoPlayModule:2.1.41' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-     compile 'com.ycjiang:VideoPlayModule-Lite:2.1.37'
+     compile 'com.ycjiang:VideoPlayModule-Lite:2.1.41'
 
   }
   ````
