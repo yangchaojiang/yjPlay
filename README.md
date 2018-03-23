@@ -1,3 +1,4 @@
+
 # yjPlay
 
 [![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/_latestVersion)
@@ -468,9 +469,14 @@
           缓存 : CacheDataSourceFactory
           http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
           Priority : PriorityDataSourceFactory
- #### 2 自定义数据源引用
-      compile 'com.google.android.exoplayer:extension-okhttp:r2.5.1'
-      compile 'com.google.android.exoplayer:extension-rtmp:r2.5.1'
+ #### 2 自定义数据源引用(根据自己需求选用)
+      compile 'com.google.android.exoplayer:extension-okhttp:2.7.1'
+      compile 'com.google.android.exoplayer:extension-rtmp:2.7.1'
+      compile 'com.google.android.exoplayer:extension-gvr:2.7.1'
+      compile 'com.google.android.exoplayer:extension-cast:2.7.1'
+      compile 'com.google.android.exoplayer:extension-mediasession:2.7.1'
+      compile 'com.google.android.exoplayer:extension-ima:2.7.1'
+      compile 'com.google.android.exoplayer:extension-leanback:2.7.1'
 
 ### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
 ### 六.[自定义布局用法-戳我](READMELAYUOT.md)

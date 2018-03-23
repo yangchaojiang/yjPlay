@@ -9,17 +9,20 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.source.hls.playlist.HlsMediaPlaylist;
+
 import java.util.Arrays;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
+import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
 public class MainDetailedActivity extends Activity {
 
-    private GestureVideoPlayer exoPlayerManager;
+    private ManualPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";
     String[] test;
@@ -30,7 +33,7 @@ public class MainDetailedActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
         videoPlayerView = findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView, new DataSource(this));
+        exoPlayerManager = new ManualPlayer(this, videoPlayerView, new DataSource(this));
         //设置视频标题
         exoPlayerManager.setTitle("视频标题");
         //设置水印图
@@ -52,8 +55,10 @@ public class MainDetailedActivity extends Activity {
         //开启线路设置
          exoPlayerManager.setShowVideoSwitch(true);
         //exoPlayerManager.setPlaySwitchUri(0,test,name);
-        exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
-        exoPlayerManager.setPlaybackParameters(0.5f,0.5f);
+       // exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
+       exoPlayerManager.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+       // exoPlayerManager.setPlaybackParameters(0.5f,0.5f);
+        exoPlayerManager.startPlayer();
       //  exoPlayerManager.startPlayer();
      //  exoPlayerManager.setPlayUri("http://live.aikan.miguvideo.com/wd_r2/cctv/cctv1hd/1200/01.m3u8");
         //exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.mp4");
@@ -142,6 +147,7 @@ public class MainDetailedActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        exoPlayerManager.onDestroy();
 
     }
 

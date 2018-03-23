@@ -46,8 +46,8 @@ dependencies {
   //compile project(':VideoPlayModule')
      compile 'com.ycjiang:VideoPlayModule:2.1.41'
     //compile 'com.ycjiang:VideoPlayModule-Lite:1.9.95'
-    compile 'com.google.android.exoplayer:extension-okhttp:r2.5.2'
-    compile 'com.google.android.exoplayer:extension-rtmp:r2.5.4'
+    compile 'com.google.android.exoplayer:extension-okhttp:2.7.1'
+    compile 'com.google.android.exoplayer:extension-rtmp:2.7.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.jude:easyrecyclerview:4.4.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
