@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import chuangyuan.ycj.yjplay.barrage.MainBarrageLayoutActivity;
+import chuangyuan.ycj.yjplay.barrage2.Barrage2VideoActivity;
 import chuangyuan.ycj.yjplay.custom.MainCustomLayoutActivity;
 import chuangyuan.ycj.yjplay.defaults.GuangGaoPlayerdActivity;
 import chuangyuan.ycj.yjplay.defaults.MainDetailedActivity;
@@ -51,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, MainCustomLayoutActivity.class);
                         String uri;
                         if (Build.VERSION.SDK_INT < 23) {//低版本不支持高分辨视频
-                            uri = getString(R.string.uri_test_3);
+                            uri = getString(R.string.uri_test);
                         } else {
                             //1080 视频
-                            uri = getString(R.string.uri_test_h);
+                            uri = getString(R.string.uri_test);
                         }
                         intent.putExtra("uri", uri);
                         startActivity(intent);
@@ -132,6 +135,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button13)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, MainBarrageLayoutActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button14)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, Barrage2VideoActivity.class);
                         startActivity(intent);
                     }
                 });

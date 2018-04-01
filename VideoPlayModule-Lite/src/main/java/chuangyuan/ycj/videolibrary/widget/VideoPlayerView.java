@@ -14,10 +14,13 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.AnimUtils;
 import com.google.android.exoplayer2.ui.PlayerControlView;
+
 import java.util.List;
+
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
@@ -83,22 +86,9 @@ public final class VideoPlayerView extends BaseView {
         if (isListPlayer && !isLand) {
             exoControlsBack.setVisibility(GONE);
         }
-        if (lockCheckBox != null) {
-            lockCheckBox.setOnClickListener(onClickListener);
-            lockCheckBox.setVisibility(isOpenLock ? VISIBLE : GONE);
-        }
         playerView.setControllerVisibilityListener(visibilityListener);
-        playerView.getControllerView().setAnimatorListener(animatorListener);
-        playerView.getControllerView().setUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
-            @Override
-            public void updateProgress(long position, long bufferedPosition, long duration) {
-                if (exoPlayerLockProgress != null && isLand && lockCheckBox.isChecked()) {
-                    exoPlayerLockProgress.setPosition(position);
-                    exoPlayerLockProgress.setBufferedPosition(bufferedPosition);
-                    exoPlayerLockProgress.setDuration(duration);
-                }
-            }
-        });
+        controllerView.setAnimatorListener(animatorListener);
+
     }
 
     /***
@@ -107,16 +97,12 @@ public final class VideoPlayerView extends BaseView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (hideAction != null) {
-            removeCallbacks(hideAction);
-        }
         if (activity != null && activity.isFinishing()) {
             removeAllViews();
             animatorListener = null;
             exoPlayerViewListener = null;
             onClickListener = null;
             visibilityListener = null;
-
         }
     }
 
@@ -128,7 +114,7 @@ public final class VideoPlayerView extends BaseView {
         if (is) {
             ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
             if (manualPlayer != null && getPlay().toString().equals(manualPlayer.toString())) {
-                manualPlayer.reset(false);
+                manualPlayer.reset();
             }
         } else {
             onDestroy();
@@ -161,8 +147,7 @@ public final class VideoPlayerView extends BaseView {
                     switchText.setText(getNameSwitch().get(switchIndex));
                 }
             }
-
-            lockCheckBox.setChecked(false);
+            mLockControlView.setLockCheck(false);
             //列表显示
             showListBack(VISIBLE);
             //显示锁屏按钮
@@ -197,11 +182,11 @@ public final class VideoPlayerView extends BaseView {
         if (isListPlayer()) {
             if (visibility == VISIBLE) {
                 exoControlsBack.setVisibility(VISIBLE);
-                getPaddingLeft = playerView.getControllerView().getTitleText().getPaddingLeft();
-                playerView.getControllerView().getTitleText().
+                getPaddingLeft = controllerView.getExoControllerTop().getPaddingLeft();
+                controllerView.getExoControllerTop().
                         setPadding(VideoPlayUtils.dip2px(getContext(), 35), 0, 0, 0);
             } else {
-                playerView.getControllerView().getTitleText().setPadding(getPaddingLeft, 0, 0, 0);
+                controllerView.getExoControllerTop().setPadding(getPaddingLeft, 0, 0, 0);
             }
             showBackView(visibility, false);
         }
@@ -252,7 +237,7 @@ public final class VideoPlayerView extends BaseView {
     public void showFullscreenTempView(int visibility) {
         AppCompatCheckBox compatCheckBox = playerView.findViewById(R.id.sexo_video_fullscreen);
         compatCheckBox.setVisibility(visibility);
-        compatCheckBox.setButtonDrawable(playerView.getControllerView().getIcFullscreenSelector());
+        compatCheckBox.setButtonDrawable(controllerView.getIcFullscreenSelector());
         compatCheckBox.setOnClickListener(onClickListener);
     }
 
@@ -260,43 +245,21 @@ public final class VideoPlayerView extends BaseView {
      * 重置
      * ***/
     public void resets() {
-        removeCallbacks(hideAction);
-        if (playReplayLayout != null) {
-            playReplayLayout.setVisibility(GONE);
-        }
+        mLockControlView.removeCallback();
         if (exoLoadingLayout != null) {
             exoLoadingLayout.setVisibility(GONE);
         }
-        if (exoPlayErrorLayout != null) {
-            exoPlayErrorLayout.setVisibility(GONE);
+        if (mActionControlView != null) {
+            mActionControlView.hideAllView();
         }
-        if (playBtnHintLayout != null) {
-            playBtnHintLayout.setVisibility(GONE);
-        }
-        if (getPlaybackControlView() != null) {
             getPlaybackControlView().hideNo();
             getPlaybackControlView().showNo();
             exoPlayerViewListener.showPreview(VISIBLE, false);
-        }
         showPreViewLayout(VISIBLE);
 
     }
 
-    /***
-     * 锁屏按钮显示隐藏
-     * **/
-    private final Runnable hideAction = new Runnable() {
-        @Override
-        public void run() {
-            if (isLand) {
-                if (exoPlayLockLayout.getVisibility() == VISIBLE) {
-                    AnimUtils.setOutAnimX(lockCheckBox, false).start();
-                } else {
-                    AnimUtils.setInAnimX(lockCheckBox).start();
-                }
-            }
-        }
-    };
+
     /****
      * 控制类显示隐藏监听
      ***/
@@ -317,22 +280,16 @@ public final class VideoPlayerView extends BaseView {
     private AnimUtils.AnimatorListener animatorListener = new AnimUtils.AnimatorListener() {
         @Override
         public void show(boolean isIn) {
+            mLockControlView.updateLockCheckBox(isIn);
             if (isIn) {
                 if (isLand) {
                     showLockState(VISIBLE);
-                    AnimUtils.setInAnimX(lockCheckBox).start();
                 }
                 AnimUtils.setInAnim(exoControlsBack).start();
             } else {
-                if (isLand) {
-                    if (lockCheckBox.getTag() == null) {
-                        AnimUtils.setOutAnimX(lockCheckBox, false).start();
-                    } else {
-                        lockCheckBox.setTag(null);
-                    }
-                }
                 AnimUtils.setOutAnim(exoControlsBack, false).start();
             }
+
         }
     };
     /***
@@ -386,20 +343,6 @@ public final class VideoPlayerView extends BaseView {
             } else if (v.getId() == R.id.exo_player_btn_hint_btn_id) {
                 showBtnContinueHint(View.GONE);
                 mExoPlayerListener.playVideoUri();
-            } else if (v.getId() == R.id.exo_player_lock_btn_id) {
-                removeCallbacks(hideAction);
-                lockCheckBox.setTag(true);
-                if (lockCheckBox.isChecked()) {
-                    playerView.getControllerView().setOutAnim();
-                    boolean shouldShowIndefinitely = playerView.shouldShowControllerIndefinitely();
-                    if (!shouldShowIndefinitely) {
-                        postDelayed(hideAction, playerView.getControllerShowTimeoutMs());
-                    }
-                } else {
-                    lockCheckBox.setTag(null);
-                    playerView.getControllerView().setInAnim();
-                    playerView.showController();
-                }
             }
         }
     };
@@ -425,12 +368,6 @@ public final class VideoPlayerView extends BaseView {
                 exoPlayWatermark.setImageResource(res);
             }
         }
-
-        @Override
-        public void showSwitchName(@NonNull String name) {
-            getSwitchText().setText(name);
-        }
-
         @Override
         public void showLoadStateView(int visibility) {
             showLoadState(visibility);
@@ -474,64 +411,39 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public void showGestureView(int visibility) {
-            showGesture(visibility);
+            mGestureControlView.showGesture(visibility);
         }
 
         @Override
         public void setTimePosition(@NonNull SpannableString seekTime) {
-            if (dialogProLayout != null) {
-                dialogProLayout.setVisibility(View.VISIBLE);
-                videoDialogProText.setText(seekTime);
-            }
+            mGestureControlView.setTimePosition(seekTime);
         }
 
         @Override
         public void setVolumePosition(int mMaxVolume, int currIndex) {
-            if (exoAudioLayout != null) {
-                if (exoAudioLayout.getVisibility() != VISIBLE) {
-                    videoAudioPro.setMax(mMaxVolume);
-                }
-                exoAudioLayout.setVisibility(View.VISIBLE);
-                videoAudioPro.setProgress(currIndex);
-                videoAudioImg.setImageResource(currIndex == 0 ? R.drawable.ic_volume_off_white_48px : R.drawable.ic_volume_up_white_48px);
-            }
+            mGestureControlView.setVolumePosition(mMaxVolume, currIndex);
         }
 
         @Override
         public void setBrightnessPosition(int mMaxVolume, int currIndex) {
-            if (exoBrightnessLayout != null) {
-                if (exoBrightnessLayout.getVisibility() != VISIBLE) {
-                    videoBrightnessPro.setMax(mMaxVolume);
-                    videoBrightnessImg.setImageResource(R.drawable.ic_brightness_6_white_48px);
-                }
-                exoBrightnessLayout.setVisibility(View.VISIBLE);
-                videoBrightnessPro.setProgress(currIndex);
-            }
+            mGestureControlView.setBrightnessPosition(mMaxVolume, currIndex);
         }
 
         @Override
-        public void next() {
-            if (playerView.getControllerView() != null) {
-                playerView.getControllerView().next();
-            }
-        }
+        public void next() { controllerView.next();}
 
         @Override
         public void previous() {
-            if (playerView.getControllerView() != null) {
-                playerView.getControllerView().previous();
-            }
+            controllerView.previous();
         }
 
         @Override
         public void hideController(boolean isShowFulls) {
-            if (getPlaybackControlView() != null) {
-                getPlaybackControlView().setOutAnim();
-                if (isShowFulls) {
-                    showFullscreenTempView(VISIBLE);
-                }
-                setControllerHideOnTouch(false);
+            if (isShowFulls) {
+                showFullscreenTempView(VISIBLE);
             }
+            getPlaybackControlView().setOutAnim();
+            setControllerHideOnTouch(false);
         }
 
         @Override
@@ -539,58 +451,42 @@ public final class VideoPlayerView extends BaseView {
             if (isShowFulls) {
                 showFullscreenTempView(GONE);
             }
-            if (playerView != null) {
-                playerView.showController();
-                setControllerHideOnTouch(true);
-            }
+            playerView.showController();
+            getPlaybackControlView().setInAnim();
+            setControllerHideOnTouch(true);
         }
 
         @Override
         public void setControllerHideOnTouch(boolean onTouch) {
-            if (playerView != null) {
-                playerView.setControllerHideOnTouch(onTouch);
-
-            }
+            playerView.setControllerHideOnTouch(onTouch);
         }
 
         @Override
         public void showPreview(int visibility, boolean isPlayer) {
-            if (isHidePreview()) {
+            if (!isPlayer) {
                 showPreViewLayout(visibility);
                 showBottomView(GONE, null);
-                getPreviewImage().setVisibility(visibility);
+              //  getPreviewImage().setVisibility(visibility);
             } else {
-                if (!isPlayer) {
-                    showPreViewLayout(visibility);
-                    showBottomView(GONE, null);
-                    getPreviewImage().setVisibility(visibility);
-                } else {
-                    if (exoPreviewPlayBtn != null) {
-                        exoPreviewPlayBtn.setVisibility(GONE);
-                    }
+                if (exoPreviewPlayBtn != null) {
+                    exoPreviewPlayBtn.setVisibility(GONE);
                 }
             }
-
         }
 
         @Override
         public void setPlayerBtnOnTouch(boolean isTouch) {
             if (isTouch) {
-                if (getPlaybackControlView() != null) {
-                    getPlaybackControlView().getPlayButton().setOnTouchListener(onTouchListener);
-                    if (exoPreviewPlayBtn != null) {
-                        exoPreviewPlayBtn.setOnTouchListener(onTouchListener);
-                    }
+                getPlaybackControlView().getPlayButton().setOnTouchListener(onTouchListener);
+                if (exoPreviewPlayBtn != null) {
+                    exoPreviewPlayBtn.setOnTouchListener(onTouchListener);
                 }
             } else {
-                if (getPlaybackControlView() != null) {
-                    getPlaybackControlView().getPlayButton().setOnTouchListener(null);
-                    if (exoPreviewPlayBtn != null) {
-                        exoPreviewPlayBtn.setOnTouchListener(null);
-                    }
+                getPlaybackControlView().getPlayButton().setOnTouchListener(null);
+                if (exoPreviewPlayBtn != null) {
+                    exoPreviewPlayBtn.setOnTouchListener(null);
                 }
             }
-
 
         }
 
@@ -606,9 +502,7 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public void setPlatViewOnTouchListener(OnTouchListener listener) {
-            if (playerView != null) {
-                playerView.setOnTouchListener(listener);
-            }
+            playerView.setOnTouchListener(listener);
         }
 
         @Override
@@ -628,9 +522,7 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public void setPlayer(@NonNull SimpleExoPlayer player) {
-            if (null != playerView) {
-                playerView.setPlayer(player);
-            }
+            playerView.setPlayer(player);
         }
 
         @Override
@@ -650,8 +542,7 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public boolean isLock() {
-            return null != lockCheckBox && lockCheckBox.isChecked();
-
+            return mLockControlView.isLock();
         }
 
         @Override

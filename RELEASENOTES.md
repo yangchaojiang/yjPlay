@@ -1,4 +1,12 @@
  ## 更新日志
+  #### 2.1.50
+   * 1.升级内核版本[#2.7.2](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#272)
+   * 2.优化自定义封面布局让播放封面随心配置。
+   * 3.拆分VideoPlayerView和BaseView减少代码量，更容易管理。
+   * 4.修复[2.1.41版本]自定义全屏按钮没有效果。
+   * 5.增加弹幕布局拓展。
+   * 5.优化列表保存视频进度问题.
+   * 6.其他优化。 
   #### 2.1.41
    * 1.升级内核版本[#2.7.1](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#271)
    * 2.优化自定义封面布局让播放封面随心配置。

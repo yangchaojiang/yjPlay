@@ -81,9 +81,9 @@ public class MainCustomMediaActivity extends AppCompatActivity {
                 Toast.makeText(MainCustomMediaActivity.this, "自定义提示", Toast.LENGTH_SHORT).show();
             }
         });
-        exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
+        exoPlayerManager.addVideoInfoListener(new VideoInfoListener() {
             @Override
-            public void onPlayStart() {
+            public void onPlayStart(long currPosition) {
 
             }
 

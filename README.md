@@ -3,7 +3,7 @@
 
 [![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/_latestVersion)
 
-  ### [View English instructions→Poking me ](en/README.md)
+
 
   ### gif 显示有点卡，帧数低，实际很流畅
   #### [下载预览apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-debug.apk)
@@ -32,8 +32,7 @@
    * 20 [增加自定义离线下载辅助类DefaultProgressDownloader(支持（AES/CBC）加密文件处理)](README_EN_VIDEO.md)),HlsDownloader,DashDownloader,SsDownloader,SegmentDownloader。
    * 21 支持播放锁屏功能和控制布局显示显示动画效果.
    * 22 支持返回按钮和全屏按钮图标自定义。
-   * 23 支持加载中是否展示加载布局或者加载显示预览布局。
-   * 24 支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
+   * 23 支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
  <!--more-->
 
  ### [更新日志2.1.41→》戳我查看](RELEASENOTES.md)
@@ -47,9 +46,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.41' 
+      compile 'com.ycjiang:VideoPlayModule:2.1.50' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-     compile 'com.ycjiang:VideoPlayModule-Lite:2.1.41'
+     compile 'com.ycjiang:VideoPlayModule-Lite:2.1.50'
 
   }
   ````
@@ -82,7 +81,6 @@
          app:player_gesture_bright_layout_id="@layout/custom_gesture_brightness"
          app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
          app:player_preview_layout_id="@layout/exo_default_preview_layout"
-         app:player_is_hide_preview="true"
          app:resize_mode="fit"
          app:show_timeout="3000"
          app:surface_type="texture_view"
@@ -126,10 +124,10 @@
     7.   show_timeout  控制布局隐藏时间  默认值为3秒   
 
    >
-    8.   fastforward_increment  设置快进增量,以毫秒为单位。  
+    8.   fastforward_increment  按钮设置快进增量,以毫秒为单位。  
 
    >
-    9.  rewind_increment   设置快退增量,以毫秒为单位。  
+    9.  rewind_increment   按钮设置快退增量,以毫秒为单位。  
 
    >
     10.  user_watermark    水印图片 默认在右上角   
@@ -170,12 +168,11 @@
      
    >
     21.  player_preview_layout_id   自定义封面图布局
-        默认
+        默认，
         >>exo_default_preview_layout.xml
    >
-     22.  player_is_hide_preview    true false 默认false
-     >>点击时播放加载中是否隐藏封面布局，视频加载完毕隐藏封面图布局。      
-        
+   >>自定义封面图布局中,也包含封面图控件。所以自定义封面图布局后，就不要再的控制布局使用封面图控件
+ 
  >> #### 3.修改网络对话框提示文字内容
       app.strings.xml
       <string name="exo_play_reminder">您当前网络不是wifi，是否继续观看视频</string>

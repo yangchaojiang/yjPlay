@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@id/exo_controller_bottom"
+        style="@style/ExoMediaControllerBottom">
+
+        <TextView
+            android:id="@id/exo_position"
+            style="@style/ExoMediaCurrPosition"
+            android:layout_marginLeft="10dp"
+            tools:text="06:21" />
+
+        <TextView
+            style="@style/ExoMediaSpan"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="@string/exo_fenge"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@id/exo_duration"
+            style="@style/ExoMediaDuration"
+            tools:text="06:21" />
+
+        <chuangyuan.ycj.videolibrary.widget.ExoDefaultTimeBar
+            android:id="@id/exo_progress"
+            style="@style/ExoMediaTimeBar"
+            app:bar_height="2dp"
+            app:buffered_color="@android:color/white"
+            app:played_color="#26e75c"
+            app:unplayed_color="#a5436af9" />
+
+        <TextView style="@style/ExoMediaTextSwitch" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@id/exo_video_fullscreen"
+            style="@style/ExoMediaButton.Fullscreen" />
+    </LinearLayout>
+
+
+
+    <ImageButton
+        android:id="@id/exo_play"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:src="@drawable/ic_exo_start"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@id/exo_pause"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:src="@drawable/ic_exo_pause"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/exo_controller_top"
+        style="@style/ExoMediaTitleLayout">
+
+
+        <TextView
+            android:id="@id/exo_controls_title"
+            style="@style/ExoMediaTitle"
+            tools:text="asdaasdasdasdassssssssssssssssssssssssssssssssdasdasdasd"
+              />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:id="@id/exo_controller_right"
+        android:layout_above="@id/exo_controller_bottom"
+        android:layout_below="@id/exo_controller_top"
+        android:layout_width="50dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_height="match_parent">
+        <CheckBox
+            android:id="@+id/btn_barrage_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/btn_barrage_selector"
+            android:text="@null"
+            android:visibility="visible" />
+    </LinearLayout>
+</RelativeLayout>

@@ -99,9 +99,10 @@ public class MainDetailedActivity extends Activity {
                 .fitCenter()
                 .placeholder(R.mipmap.test)
                 .into(videoPlayerView.getPreviewImage());
-        exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
+        exoPlayerManager.addVideoInfoListener(new VideoInfoListener() {
+
             @Override
-            public void onPlayStart() {
+            public void onPlayStart(long currPosition) {
 
             }
 

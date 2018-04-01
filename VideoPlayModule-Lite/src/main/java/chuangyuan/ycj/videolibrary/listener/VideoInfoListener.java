@@ -14,7 +14,7 @@ public interface VideoInfoListener {
     /***
      * 开始播放
      */
-    void onPlayStart();
+    void onPlayStart(long currPosition);
 
     /***
      * 播放是否加载中

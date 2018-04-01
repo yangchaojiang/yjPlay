@@ -21,6 +21,17 @@
     <string name="title_activity_view_pager">ViewPagerActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="hide_danmaku">hide</string>
+    <string name="show_danmaku">show</string>
+    <string name="pause_danmaku">pause</string>
+    <string name="resume_danmaku">resume</string>
+    <string name="send_danmaku">发送一条(纯文字)</string>
+    <string name="send_danmaku_image_text">发送一条(图文)</string>
+    <string name="send_danmakus">定时发送</string>
+    <string name="send_show">控制</string>
+    <string name="cancel_sending_danmakus">取消定时</string>
 
+    <string name="release">release</string>
+    <string name="rotate">旋转屏幕</string>
 
 </resources>

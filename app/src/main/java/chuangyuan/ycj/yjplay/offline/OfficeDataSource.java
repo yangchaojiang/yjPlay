@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
+import com.google.android.exoplayer2.upstream.cache.CacheUtil;
 
 
 import chuangyuan.ycj.videolibrary.factory.DefaultCacheDataSourceFactory;

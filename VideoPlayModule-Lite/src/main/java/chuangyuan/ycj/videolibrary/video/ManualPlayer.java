@@ -135,7 +135,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
             isPause = true;
             if (player != null) {
                 handPause = !player.getPlayWhenReady();
-                reset(false);
+                reset();
             }
         }
     }
@@ -146,36 +146,35 @@ public final class ManualPlayer extends GestureVideoPlayer {
         tags.clear();
         tags2.clear();
     }
+
     /**
      * 重置
-     *
-     * @param s s
      */
-    public void reset(boolean s) {
+    public void reset() {
         if (player != null) {
             unNetworkBroadcastReceiver();
-            if (!s) {
-                setPosition(0);
+            if (position == -1) {
+                clearResumePosition();
             } else {
                 tags.put(position, player.getCurrentPosition());
                 tags2.put(position, player.getCurrentWindowIndex());
             }
             player.stop();
             player.removeListener(componentListener);
-            getPlayerViewListener().setPlayerBtnOnTouch(true);
-            getPlayerViewListener().reset();
+            resetInit();
             player.release();
             if (mediaSourceBuilder != null) {
                 mediaSourceBuilder.release();
             }
             player = null;
         }
+
     }
 
     /***
      * 重置点击事件
      * **/
-    public void resetInit() {
+    void resetInit() {
         getPlayerViewListener().setPlayerBtnOnTouch(true);
         getPlayerViewListener().reset();
     }

@@ -6,14 +6,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <com.center.toolbar.TitleToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:title="标题"
-        app:titleTextColor="@android:color/white"
-        app:title_gravity="center" />
+
     <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
         android:id="@+id/exo_play_context_id"
         android:layout_width="match_parent"
@@ -32,16 +25,12 @@
         app:player_fullscreen_image_selector="@drawable/custom_full_selector"
         app:player_back_image="@drawable/ic_arrow_back_black_24dp"
         app:player_preview_layout_id="@layout/exo_default_preview_layout"
-        app:fastforward_increment="0"
-        app:paddingEnd="0dp"
-        app:paddingStart="0dp"
         app:resize_mode="fit"
         app:rewind_increment="0"
         app:show_timeout="3000"
         app:surface_type="texture_view"
         app:use_artwork="true"
         app:user_watermark="@mipmap/watermark_big"
-        app:player_is_hide_preview="true"
           />
 
 

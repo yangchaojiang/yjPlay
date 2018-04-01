@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/VideoPlayModule-Lite/VideoPlayModule-Lite.iml" filepath="$PROJECT_DIR$/VideoPlayModule-Lite/VideoPlayModule-Lite.iml" />
       <module fileurl="file://$PROJECT_DIR$/VideoUi/VideoUi.iml" filepath="$PROJECT_DIR$/VideoUi/VideoUi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/barragedemo/barragedemo.iml" filepath="$PROJECT_DIR$/barragedemo/barragedemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/ima/ima.iml" filepath="$PROJECT_DIR$/ima/ima.iml" />
       <module fileurl="file://$PROJECT_DIR$/yjPlay.iml" filepath="$PROJECT_DIR$/yjPlay.iml" />
     </modules>

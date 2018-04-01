@@ -24,7 +24,7 @@ import chuangyuan.ycj.videolibrary.R;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:  多线路浮层
  */
-public class BelowView {
+ class BelowView {
     private View convertView;
     private PopupWindow pw;
     private ListView listView;
@@ -39,7 +39,7 @@ public class BelowView {
      */
     public BelowView(@NonNull Context c, @Nullable List<String> listName) {
         this.convertView = View.inflate(c, R.layout.simple_exo_belowview, null);
-        listView = (ListView) convertView.findViewById(R.id.list_item);
+        listView = convertView.findViewById(R.id.list_item);
         if (listName == null) {
             listName = Arrays.asList(c.getResources().getStringArray(R.array.exo_video_switch_text));
         }

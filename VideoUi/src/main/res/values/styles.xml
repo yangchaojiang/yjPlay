@@ -80,12 +80,19 @@
         <item name="android:scaleType">fitCenter</item>
         <item name="android:visibility">visible</item>
     </style>
-    <style name="ExoMediaTitle">
+    <style name="ExoMediaTitleLayout">
         <item name="android:id">@id/exo_controls_title</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">35dp</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:background">@drawable/exo_bg_video_top</item>
+        <item name="android:gravity">center_vertical|start</item>
+    </style>
+    <style name="ExoMediaTitle">
+        <item name="android:id">@id/exo_controls_title</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_alignParentTop">true</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center_vertical|start</item>
         <item name="android:lines">1</item>

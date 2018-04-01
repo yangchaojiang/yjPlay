@@ -47,124 +47,6 @@ import java.util.Arrays;
 import java.util.Formatter;
 import java.util.Locale;
 
-/**
- * A view for controlling {@link Player} instances.
- *
- * <p>A PlayerControlView can be customized by setting attributes (or calling corresponding
- * methods), overriding the view's layout file or by specifying a custom view layout file, as
- * outlined below.
- *
- * <h3>Attributes</h3>
- *
- * The following attributes can be set on a PlayerControlView when used in a layout XML file:
- *
- * <ul>
- *   <li><b>{@code show_timeout}</b> - The time between the last user interaction and the controls
- *       being automatically hidden, in milliseconds. Use zero if the controls should not
- *       automatically timeout.
- *       <ul>
- *         <li>Corresponding method: {@link #setShowTimeoutMs(int)}
- *         <li>Default: {@link #DEFAULT_SHOW_TIMEOUT_MS}
- *       </ul>
- *   <li><b>{@code rewind_increment}</b> - The duration of the rewind applied when the user taps the
- *       rewind button, in milliseconds. Use zero to disable the rewind button.
- *       <ul>
- *         <li>Corresponding method: {@link #setRewindIncrementMs(int)}
- *         <li>Default: {@link #DEFAULT_REWIND_MS}
- *       </ul>
- *   <li><b>{@code fastforward_increment}</b> - Like {@code rewind_increment}, but for fast forward.
- *       <ul>
- *         <li>Corresponding method: {@link #setFastForwardIncrementMs(int)}
- *         <li>Default: {@link #DEFAULT_FAST_FORWARD_MS}
- *       </ul>
- *   <li><b>{@code repeat_toggle_modes}</b> - A flagged enumeration value specifying which repeat
- *       mode toggle options are enabled. Valid values are: {@code none}, {@code one}, {@code all},
- *       or {@code one|all}.
- *       <ul>
- *         <li>Corresponding method: {@link #setRepeatToggleModes(int)}
- *         <li>Default: {@link PlayerControlView#DEFAULT_REPEAT_TOGGLE_MODES}
- *       </ul>
- *   <li><b>{@code show_shuffle_button}</b> - Whether the shuffle button is shown.
- *       <ul>
- *         <li>Corresponding method: {@link #setShowShuffleButton(boolean)}
- *         <li>Default: false
- *       </ul>
- *   <li><b>{@code controller_layout_id}</b> - Specifies the id of the layout to be inflated. See
- *       below for more details.
- *       <ul>
- *         <li>Corresponding method: None
- *         <li>Default: {@code R.id.exo_player_control_view}
- *       </ul>
- * </ul>
- *
- * <h3>Overriding the layout file</h3>
- *
- * To customize the layout of PlayerControlView throughout your app, or just for certain
- * configurations, you can define {@code exo_player_control_view.xml} layout files in your
- * application {@code res/layout*} directories. These layouts will override the one provided by the
- * ExoPlayer library, and will be inflated for use by PlayerControlView. The view identifies and
- * binds its children by looking for the following ids:
- *
- * <p>
- *
- * <ul>
- *   <li><b>{@code exo_play}</b> - The play button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_pause}</b> - The pause button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_ffwd}</b> - The fast forward button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_rew}</b> - The rewind button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_prev}</b> - The previous track button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_next}</b> - The next track button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_repeat_toggle}</b> - The repeat toggle button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_shuffle}</b> - The shuffle button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_position}</b> - Text view displaying the current playback position.
- *       <ul>
- *         <li>Type: {@link TextView}
- *       </ul>
- *   <li><b>{@code exo_duration}</b> - Text view displaying the current media duration.
- *       <ul>
- *         <li>Type: {@link TextView}
- *       </ul>
- *   <li><b>{@code exo_progress}</b> - Time bar that's updated during playback and allows seeking.
- *       <ul>
- *         <li>Type: {@link TimeBar}
- *       </ul>
- * </ul>
- *
- * <p>All child views are optional and so can be omitted if not required, however where defined they
- * must be of the expected type.
- *
- * <h3>Specifying a custom layout file</h3>
- *
- * Defining your own {@code exo_player_control_view.xml} is useful to customize the layout of
- * PlayerControlView throughout your application. It's also possible to customize the layout for a
- * single instance in a layout file. This is achieved by setting the {@code controller_layout_id}
- * attribute on a PlayerControlView. This will cause the specified layout to be inflated instead of
- * {@code exo_player_control_view.xml} for only the instance on which the attribute is set.
- */
 public class PlayerControlView extends FrameLayout {
 
   static {
@@ -217,9 +99,6 @@ public class PlayerControlView extends FrameLayout {
   private final Drawable repeatOffButtonDrawable;
   private final Drawable repeatOneButtonDrawable;
   private final Drawable repeatAllButtonDrawable;
-  private final String repeatOffButtonContentDescription;
-  private final String repeatOneButtonContentDescription;
-  private final String repeatAllButtonContentDescription;
 
   private Player player;
   private com.google.android.exoplayer2.ControlDispatcher controlDispatcher;
@@ -288,6 +167,7 @@ public class PlayerControlView extends FrameLayout {
         repeatToggleModes = getRepeatToggleModes(a, repeatToggleModes);
         showShuffleButton =
             a.getBoolean(R.styleable.PlayerControlView_show_shuffle_button, showShuffleButton);
+        icFullscreenSelector=a.getResourceId(R.styleable.PlayerControlView_player_fullscreen_image_selector,icFullscreenSelector);
       } finally {
         a.recycle();
       }
@@ -314,6 +194,10 @@ public class PlayerControlView extends FrameLayout {
     videoSwitchText = findViewById(R.id.exo_video_switch);
     controlsTitleText =  findViewById(R.id.exo_controls_title);
     exoControllerBottom = findViewById(R.id.exo_controller_bottom);
+    exoControllerTop = findViewById(R.id.exo_controller_top);
+    if (exoControllerTop==null){
+      exoControllerTop=controlsTitleText;
+    }
     if (exoFullscreen != null) {
       exoFullscreen.setButtonDrawable(icFullscreenSelector);
     }
@@ -357,12 +241,6 @@ public class PlayerControlView extends FrameLayout {
     repeatOffButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_off);
     repeatOneButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_one);
     repeatAllButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_all);
-    repeatOffButtonContentDescription =
-        resources.getString(R.string.exo_controls_repeat_off_description);
-    repeatOneButtonContentDescription =
-        resources.getString(R.string.exo_controls_repeat_one_description);
-    repeatAllButtonContentDescription =
-        resources.getString(R.string.exo_controls_repeat_all_description);
   }
 
   @SuppressWarnings("ResourceType")
@@ -676,15 +554,12 @@ public class PlayerControlView extends FrameLayout {
     switch (player.getRepeatMode()) {
       case Player.REPEAT_MODE_OFF:
         repeatToggleButton.setImageDrawable(repeatOffButtonDrawable);
-        repeatToggleButton.setContentDescription(repeatOffButtonContentDescription);
         break;
       case Player.REPEAT_MODE_ONE:
         repeatToggleButton.setImageDrawable(repeatOneButtonDrawable);
-        repeatToggleButton.setContentDescription(repeatOneButtonContentDescription);
         break;
       case Player.REPEAT_MODE_ALL:
         repeatToggleButton.setImageDrawable(repeatAllButtonDrawable);
-        repeatToggleButton.setContentDescription(repeatAllButtonContentDescription);
         break;
       default:
         // Never happens.
@@ -716,7 +591,7 @@ public class PlayerControlView extends FrameLayout {
   }
 
   private void updateProgress() {
-    if (!isVisible() || !isAttachedToWindow) {
+    if (!isAttachedToWindow) {
       return;
     }
 
@@ -1047,6 +922,7 @@ public class PlayerControlView extends FrameLayout {
   private final TextView   videoSwitchText;
   private final TextView controlsTitleText;
   private final View exoControllerBottom;
+  private   View exoControllerTop;
   private AnimUtils.AnimatorListener animatorListener;
   private AnimUtils.UpdateProgressListener updateProgressListener;
   private final Runnable hideAction =
@@ -1108,8 +984,9 @@ public class PlayerControlView extends FrameLayout {
   public TextView getSwitchText() {
     return videoSwitchText;
   }
-  public TextView getTitleText() {
-    return controlsTitleText;
+
+  public View getExoControllerTop() {
+    return exoControllerTop;
   }
 
   public TimeBar getTimeBar() {
@@ -1133,8 +1010,8 @@ public class PlayerControlView extends FrameLayout {
 
 
   public void releaseAnim() {
-    if (controlsTitleText != null && controlsTitleText.animate() != null) {
-      controlsTitleText.animate().cancel();
+    if (exoControllerTop != null && exoControllerTop.animate() != null) {
+      exoControllerTop.animate().cancel();
     }
     if (exoControllerBottom != null && exoControllerBottom.animate() != null) {
       exoControllerBottom.animate().cancel();
@@ -1149,7 +1026,8 @@ public class PlayerControlView extends FrameLayout {
       if (animatorListener != null) {
         animatorListener.show(false);
       }
-      AnimUtils.setOutAnim(controlsTitleText, false)
+      AnimUtils.setOutAnim(exoControllerBottom, true).start();
+      AnimUtils.setOutAnim(exoControllerTop, false)
               .setListener(new ViewPropertyAnimatorListener() {
                 @Override
                 public void onAnimationStart(View view) {
@@ -1167,7 +1045,6 @@ public class PlayerControlView extends FrameLayout {
                 }
               })
               .start();
-      AnimUtils.setOutAnim(exoControllerBottom, true).start();
     } else {
       hide();
     }
@@ -1181,7 +1058,7 @@ public class PlayerControlView extends FrameLayout {
       if (animatorListener != null) {
         animatorListener.show(true);
       }
-      AnimUtils.setInAnim(controlsTitleText).setListener(null).start();
+      AnimUtils.setInAnim(exoControllerTop).setListener(null).start();
       AnimUtils.setInAnim(exoControllerBottom).start();
     }
   }

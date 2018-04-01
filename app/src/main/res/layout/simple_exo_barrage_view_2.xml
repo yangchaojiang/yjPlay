@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+ <com.facebook.drawee.view.SimpleDraweeView
+     android:id="@+id/sdv_cover"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     app:actualImageScaleType="centerCrop"/>
+
+ <com.anbetter.danmuku.DanMuParentView
+     android:id="@+id/dpv_broadcast"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="30dp">
+
+  <com.anbetter.danmuku.DanMuView
+      android:id="@+id/danmaku_container_broadcast"
+      android:layout_width="match_parent"
+      android:layout_height="80dp"/>
+
+ </com.anbetter.danmuku.DanMuParentView>
+
+ <com.anbetter.danmuku.DanMuParentView
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="300dp">
+
+  <com.anbetter.danmuku.DanMuView
+      android:id="@+id/danmaku_container_room"
+      android:layout_width="match_parent"
+      android:layout_height="80dp"/>
+
+ </com.anbetter.danmuku.DanMuParentView>
+
+ <Button
+     android:id="@+id/button"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentBottom="true"
+     android:layout_marginBottom="20dp"
+     android:layout_marginLeft="15dp"
+     android:text="显示用户发送的弹幕"/>
+
+ <Button
+     android:id="@+id/button2"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentBottom="true"
+     android:layout_alignParentRight="true"
+     android:layout_marginBottom="20dp"
+     android:layout_marginRight="15dp"
+     android:text="显示系统消息弹幕"/>
+
+ <Button
+     android:id="@+id/button3"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginBottom="10dp"
+     android:layout_marginLeft="15dp"
+     android:layout_above="@id/button"
+     android:text="隐藏弹幕"/>
+
+</RelativeLayout>

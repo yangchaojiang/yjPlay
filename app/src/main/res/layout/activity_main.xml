@@ -83,5 +83,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ViewPagerFragment" />
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/button13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/simple_barrage"/>
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/button14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/simple_barrage"/>
 </LinearLayout>
 </ScrollView>

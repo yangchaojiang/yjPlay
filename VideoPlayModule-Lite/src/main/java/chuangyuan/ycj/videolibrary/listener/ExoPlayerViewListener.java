@@ -35,13 +35,6 @@ public interface ExoPlayerViewListener {
     void setWatermarkImage(int res);
 
     /***
-     * 设置多线路显示text
-     *
-     * @param name 内容
-     */
-    void showSwitchName(String name);
-
-    /***
      * 显示隐藏加载布局
      *
      * @param visibility 显示类型

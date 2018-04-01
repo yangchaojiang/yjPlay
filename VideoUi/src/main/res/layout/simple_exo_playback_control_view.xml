@@ -6,10 +6,15 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@id/exo_controls_title"
-        style="@style/ExoMediaTitle"
-        tools:text="测试阿斯顿" />
+    <LinearLayout
+        android:id="@id/exo_controller_top"
+        style="@style/ExoMediaTitleLayout">
+
+        <TextView
+            android:id="@id/exo_controls_title"
+            style="@style/ExoMediaTitle"
+            tools:text="测试阿斯顿" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@id/exo_controller_bottom"

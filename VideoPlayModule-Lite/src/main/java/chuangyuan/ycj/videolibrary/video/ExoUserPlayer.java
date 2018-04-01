@@ -174,7 +174,7 @@ public class ExoUserPlayer {
      * 设置视频控件view  主要用来列表进入详情播放使用
      * @param videoPlayerView videoPlayerView
      * **/
-      void setVideoPlayerView(@NonNull VideoPlayerView videoPlayerView) {
+    void setVideoPlayerView(@NonNull VideoPlayerView videoPlayerView) {
         mPlayerViewListener = null;
         this.videoPlayerView = videoPlayerView;
         videoPlayerView.setExoPlayerListener(playComponentListener);
@@ -182,7 +182,7 @@ public class ExoUserPlayer {
             player = createFullPlayer();
         }
         player.addListener(componentListener);
-         getPlayerViewListener().showPreview(View.GONE,false);
+        getPlayerViewListener().showPreview(View.GONE, false);
         getPlayerViewListener().hideController(false);
         getPlayerViewListener().setControllerHideOnTouch(true);
         isEnd = false;
@@ -221,6 +221,11 @@ public class ExoUserPlayer {
             handPause = !player.getPlayWhenReady();
             releasePlayers();
         }
+    }
+
+    @CallSuper
+    public void onStop() {
+        onPause();
     }
 
     /**
@@ -352,14 +357,14 @@ public class ExoUserPlayer {
         } else {
             player.setPlayWhenReady(true);
         }
-        player.addListener(componentListener);
         player.setPlaybackParameters(playbackParameters);
-        player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         if (mPlayerViewListener != null) {
-            mPlayerViewListener.showPreview(View.GONE,true);
+            mPlayerViewListener.showPreview(View.GONE, true);
             mPlayerViewListener.hideController(false);
             mPlayerViewListener.setControllerHideOnTouch(true);
         }
+        player.addListener(componentListener);
+        player.prepare(mediaSourceBuilder.getMediaSource(), haveResumePosition, false);
         isEnd = false;
         isLoad = true;
     }
@@ -718,8 +723,16 @@ public class ExoUserPlayer {
     /***
      * 设置视频信息回调
      * @param videoInfoListener 实例
+     * @deprecated {@link #addVideoInfoListener(VideoInfoListener)}
      */
     public void setVideoInfoListener(VideoInfoListener videoInfoListener) {
+        this.videoInfoListener = videoInfoListener;
+    }
+    /***
+     * 设置视频信息回调
+     * @param videoInfoListener 实例
+     */
+    public void addVideoInfoListener(VideoInfoListener videoInfoListener) {
         this.videoInfoListener = videoInfoListener;
     }
 
@@ -749,14 +762,14 @@ public class ExoUserPlayer {
     private void updateResumePosition() {
         if (player != null) {
             resumeWindow = player.getCurrentWindowIndex();
-            resumePosition = player.isCurrentWindowSeekable() ? Math.max(0, player.getCurrentPosition()) : C.TIME_UNSET;
+            resumePosition =  Math.max(0, player.getContentPosition());
         }
     }
 
     /**
      * 清除进度
      ***/
-    private void clearResumePosition() {
+    protected void clearResumePosition() {
         resumeWindow = C.INDEX_UNSET;
         resumePosition = C.TIME_UNSET;
     }
@@ -855,9 +868,6 @@ public class ExoUserPlayer {
      * 网络监听类
      ***/
     private final class NetworkBroadcastReceiver extends BroadcastReceiver {
-        /**
-         * The Is.
-         */
         long is = 0;
 
         @Override
@@ -931,8 +941,6 @@ public class ExoUserPlayer {
         public View.OnClickListener getClickListener() {
             return onClickListener;
         }
-
-
     }
 
     /***
@@ -1027,12 +1035,12 @@ public class ExoUserPlayer {
                     getPlayerViewListener().showErrorStateView(View.VISIBLE);
                     break;
                 case Player.STATE_READY:
-                    Log.d(TAG, "onPlayerStateChanged:准备播放");
-                    mPlayerViewListener.showPreview(View.GONE,false);
+                    mPlayerViewListener.showPreview(View.GONE, false);
                     getPlayerViewListener().showLoadStateView(View.GONE);
-                    if (videoInfoListener != null) {
+                    if (videoInfoListener != null&&playWhenReady) {
+                        Log.d(TAG, "onPlayerStateChanged:准备播放");
                         isPause = false;
-                        videoInfoListener.onPlayStart();
+                        videoInfoListener.onPlayStart(getCurrentPosition());
                     }
                     break;
                 default:

@@ -23,9 +23,10 @@
         style="@style/ExoMediaButton.Play2" />
 
     <TextView
+        android:id="@+id/exo_controls_title2"
         android:layout_margin="5dp"
         android:textColor="@android:color/white"
-        android:id="@+id/exo_controls_title2"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
@@ -37,7 +38,7 @@
         android:textColor="@android:color/white"
         android:padding="4dp"
         android:textSize="12sp"
-        android:id="@+id/exo_controls_size"
+        android:id="@+id/exo_controls_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

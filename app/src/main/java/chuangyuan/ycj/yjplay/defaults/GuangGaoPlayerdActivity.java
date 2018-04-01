@@ -14,6 +14,7 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
@@ -21,7 +22,7 @@ import chuangyuan.ycj.yjplay.data.DataSource;
 
 public class GuangGaoPlayerdActivity extends Activity {
 
-    private GestureVideoPlayer exoPlayerManager;
+    private ExoUserPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";
 
@@ -31,15 +32,14 @@ public class GuangGaoPlayerdActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom2);
         videoPlayerView =   findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView);
+        exoPlayerManager = new ExoUserPlayer(this, videoPlayerView);
         exoPlayerManager.setTitle("视频标题");
         exoPlayerManager.setExoPlayWatermarkImg(R.mipmap.watermark_big);
-        if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
+         if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
             exoPlayerManager.setPlayUri(0, getString(R.string.uri_test_10), getString(R.string.uri_test_3));
         } else {
             exoPlayerManager.setPlayUri(0,getString(R.string.uri_test_11),getString(R.string.uri_test_12));
         }
-
         ///默认实现  播放广告视频时手势操作禁用和开启操作
         //exoPlayerManager.setPlayerGestureOnTouch(true);
         //如果视频需要自己实现该回调 视频切换回调处理，进行布局处理，控制布局显示
@@ -57,9 +57,10 @@ public class GuangGaoPlayerdActivity extends Activity {
                 }
             }
         });
-        exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
+        exoPlayerManager.addVideoInfoListener(new VideoInfoListener() {
+
             @Override
-            public void onPlayStart() {
+            public void onPlayStart(long currPosition) {
 
             }
 

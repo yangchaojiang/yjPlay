@@ -47,15 +47,11 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".encrypt.EncryptedVideoActivity"
+            android:name=".barrage.MainBarrageLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".encrypt.Encrypted3VideoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".offline.OfficeDetailedActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -75,6 +71,12 @@
         </activity>
         <activity
             android:name=".fragment.ListFragmentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".barrage2.Barrage2VideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"/>

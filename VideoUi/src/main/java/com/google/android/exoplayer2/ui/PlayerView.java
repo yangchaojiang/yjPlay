@@ -27,6 +27,7 @@ import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -262,7 +263,6 @@ public class PlayerView extends FrameLayout {
     int shutterColor = 0;
     int playerLayoutId = R.layout.simple_exo_view;
     boolean useArtwork = true;
-    int defaultArtworkId = 0;
     boolean useController = true;
     int surfaceType = SURFACE_TYPE_SURFACE_VIEW;
     int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT;
@@ -277,8 +277,6 @@ public class PlayerView extends FrameLayout {
         shutterColor = a.getColor(R.styleable.PlayerView_shutter_background_color, shutterColor);
         playerLayoutId = a.getResourceId(R.styleable.PlayerView_player_layout_id, playerLayoutId);
         useArtwork = a.getBoolean(R.styleable.PlayerView_use_artwork, useArtwork);
-        defaultArtworkId =
-            a.getResourceId(R.styleable.PlayerView_default_artwork, defaultArtworkId);
         useController = a.getBoolean(R.styleable.PlayerView_use_controller, useController);
         surfaceType = a.getInt(R.styleable.PlayerView_surface_type, surfaceType);
         resizeMode = a.getInt(R.styleable.PlayerView_resize_mode, resizeMode);
@@ -361,7 +359,7 @@ public class PlayerView extends FrameLayout {
     this.useController = useController && controller != null;
     hideController();
   }
-  public PlayerControlView getControllerView() {
+  public     PlayerControlView getControllerView() {
     return controller;
   }
   public FrameLayout getContentFrameLayout() {
@@ -637,6 +635,8 @@ public class PlayerView extends FrameLayout {
    */
   public void setControllerHideOnTouch(boolean controllerHideOnTouch) {
     Assertions.checkState(controller != null);
+    Log.d("setControllerHideOnTouch",controllerHideOnTouch+"");
+
     this.controllerHideOnTouch = controllerHideOnTouch;
   }
 
@@ -805,6 +805,7 @@ public class PlayerView extends FrameLayout {
     }
     return true;
   }
+
 
   @Override
   public boolean onTrackballEvent(MotionEvent ev) {

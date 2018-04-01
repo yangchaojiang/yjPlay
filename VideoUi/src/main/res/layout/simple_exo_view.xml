@@ -31,7 +31,12 @@
             android:contentDescription="@null" />
     </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
 
-    <!--覆盖布局占位-->
+    <View
+        android:id="@id/exo_controller_barrage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
+    <!--覆盖控制布局占位-->
     <View
         android:id="@id/exo_controller_placeholder"
         android:layout_width="match_parent"

@@ -62,6 +62,7 @@ public class WholeMediaSource extends MediaSourceBuilder {
             case C.TYPE_HLS:
                 return new HlsMediaSource.Factory(new DefaultHlsDataSourceFactory( getDataSource()))
                         .setMinLoadableRetryCount(5)
+                        .setAllowChunklessPreparation(true)
                         .createMediaSource(uri, mainHandler, sourceEventListener);
 
             default:

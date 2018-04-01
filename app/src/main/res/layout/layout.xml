@@ -15,7 +15,6 @@
         app:resize_mode="fit"
         app:fastforward_increment="1000"
         app:rewind_increment="1000"
-        app:player_is_hide_preview="true"
         app:surface_type="texture_view" >
 
     </chuangyuan.ycj.videolibrary.widget.VideoPlayerView>

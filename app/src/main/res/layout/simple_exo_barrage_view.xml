@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+ <master.flame.danmaku.ui.widget.DanmakuView
+     android:background="@android:color/transparent"
+     android:clickable="false"
+     android:id="@+id/sv_danmaku"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent" />
+
+</RelativeLayout>

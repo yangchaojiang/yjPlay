@@ -80,5 +80,6 @@
     <attr name="repeat_toggle_modes"/>
     <attr name="show_shuffle_button"/>
     <attr name="controller_layout_id"/>
+    <attr name="player_fullscreen_image_selector"/>
   </declare-styleable>
 </resources>
