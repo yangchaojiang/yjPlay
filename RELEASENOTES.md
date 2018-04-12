@@ -1,4 +1,6 @@
  ## 更新日志
+   #### 2.1.51
+  * 1.修复[之前版本]单多分辨率线路设置点击没有效果。
   #### 2.1.50
    * 1.升级内核版本[#2.7.2](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#272)
    * 2.优化自定义封面布局让播放封面随心配置。

@@ -54,9 +54,9 @@ public class MainDetailedActivity extends Activity {
         String[] name = {"超清", "高清", "标清"};
         //开启线路设置
          exoPlayerManager.setShowVideoSwitch(true);
-        //exoPlayerManager.setPlaySwitchUri(0,test,name);
-       // exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
-       exoPlayerManager.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+       exoPlayerManager.setPlaySwitchUri(0,test,name);
+      //exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
+      // exoPlayerManager.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks");
        // exoPlayerManager.setPlaybackParameters(0.5f,0.5f);
         exoPlayerManager.startPlayer();
       //  exoPlayerManager.startPlayer();

@@ -13,6 +13,7 @@ public interface VideoInfoListener {
 
     /***
      * 开始播放
+     * @param   currPosition currPosition
      */
     void onPlayStart(long currPosition);
 

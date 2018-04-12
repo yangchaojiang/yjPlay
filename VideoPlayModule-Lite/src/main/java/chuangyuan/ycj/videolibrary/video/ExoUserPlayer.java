@@ -728,6 +728,7 @@ public class ExoUserPlayer {
     public void setVideoInfoListener(VideoInfoListener videoInfoListener) {
         this.videoInfoListener = videoInfoListener;
     }
+
     /***
      * 设置视频信息回调
      * @param videoInfoListener 实例
@@ -762,7 +763,7 @@ public class ExoUserPlayer {
     private void updateResumePosition() {
         if (player != null) {
             resumeWindow = player.getCurrentWindowIndex();
-            resumePosition =  Math.max(0, player.getContentPosition());
+            resumePosition = Math.max(0, player.getContentPosition());
         }
     }
 
@@ -825,6 +826,11 @@ public class ExoUserPlayer {
             source.getMediaSource(source.getSize() - 1).releaseSource();
             source.addMediaSource(mediaSourceBuilder.initMediaSource(Uri.parse(uri)));
             isSwitch = true;
+        } else {
+            mediaSourceBuilder.release();
+            mediaSourceBuilder.setMediaUri(Uri.parse(uri));
+            onPlayNoAlertVideo();
+            seekTo(resumeWindow, resumePosition);
         }
     }
 
@@ -1037,7 +1043,7 @@ public class ExoUserPlayer {
                 case Player.STATE_READY:
                     mPlayerViewListener.showPreview(View.GONE, false);
                     getPlayerViewListener().showLoadStateView(View.GONE);
-                    if (videoInfoListener != null&&playWhenReady) {
+                    if (videoInfoListener != null && playWhenReady) {
                         Log.d(TAG, "onPlayerStateChanged:准备播放");
                         isPause = false;
                         videoInfoListener.onPlayStart(getCurrentPosition());
