@@ -10,7 +10,7 @@ android {
         versionCode project.ext.versionCode
         versionName project.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
     }
     dataBinding {
         enabled = true
@@ -43,8 +43,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-  // compile project(':VideoPlayModule')
-     compile 'com.ycjiang:VideoPlayModule:2.1.51'
+   compile project(':VideoPlayModule')
+     //compile 'com.ycjiang:VideoPlayModule:2.1.51'
     //compile 'com.ycjiang:VideoPlayModule-Lite:1.9.95'
     implementation 'com.google.android.exoplayer:extension-okhttp:2.7.1'
     implementation 'com.google.android.exoplayer:extension-rtmp:2.7.1'

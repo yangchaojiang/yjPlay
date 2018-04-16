@@ -349,9 +349,6 @@ public class ExoUserPlayer {
             player = createFullPlayer();
         }
         boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
-        if (haveResumePosition) {
-            player.seekTo(resumeWindow, resumePosition);
-        }
         if (handPause) {
             player.setPlayWhenReady(false);
         } else {
@@ -364,7 +361,10 @@ public class ExoUserPlayer {
             mPlayerViewListener.setControllerHideOnTouch(true);
         }
         player.addListener(componentListener);
-        player.prepare(mediaSourceBuilder.getMediaSource(), haveResumePosition, false);
+        if (haveResumePosition) {
+            player.seekTo(resumeWindow, resumePosition);
+        }
+        player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         isEnd = false;
         isLoad = true;
     }
@@ -830,7 +830,6 @@ public class ExoUserPlayer {
             mediaSourceBuilder.release();
             mediaSourceBuilder.setMediaUri(Uri.parse(uri));
             onPlayNoAlertVideo();
-            seekTo(resumeWindow, resumePosition);
         }
     }
 
