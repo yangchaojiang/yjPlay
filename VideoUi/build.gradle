@@ -34,7 +34,6 @@ dependencies {
     })
 }
 
-
 apply plugin: 'com.novoda.bintray-release'
 publish {
     repoName="yangjiang"//仓库名

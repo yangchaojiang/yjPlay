@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.text.SpannableString;
 import android.util.AttributeSet;
@@ -24,6 +26,7 @@ import java.util.List;
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
+import chuangyuan.ycj.videolibrary.video.ExoDataBean;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 
@@ -106,6 +109,43 @@ public final class VideoPlayerView extends BaseView {
         }
     }
 
+    @Nullable
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        ExoDataBean bean = new ExoDataBean(superState);
+        bean.setLand(isLand);
+        bean.setSetSystemUiVisibility(setSystemUiVisibility);
+        bean.setSwitchIndex(switchIndex);
+        bean.setNameSwitch(getNameSwitch());
+        return superState;
+    }
+
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if (isLand) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                activity.getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            }
+        }
+    }
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        ExoDataBean bean = (ExoDataBean) state;
+        super.onRestoreInstanceState(state);
+        if (bean != null) {
+            if (bean.getNameSwitch() != null) {
+                setNameSwitch(bean.getNameSwitch());
+            }
+            isLand = bean.isLand();
+            setSystemUiVisibility = bean.getSetSystemUiVisibility();
+            switchIndex = bean.getSwitchIndex();
+        }
+
+    }
 
     @Override
     protected void onDetachedFromWindow() {
@@ -120,6 +160,7 @@ public final class VideoPlayerView extends BaseView {
             onDestroy();
         }
     }
+
 
     /***
      * 设置是横屏,竖屏
@@ -252,9 +293,9 @@ public final class VideoPlayerView extends BaseView {
         if (mActionControlView != null) {
             mActionControlView.hideAllView();
         }
-            getPlaybackControlView().hideNo();
-            getPlaybackControlView().showNo();
-            exoPlayerViewListener.showPreview(VISIBLE, false);
+        getPlaybackControlView().hideNo();
+        getPlaybackControlView().showNo();
+        exoPlayerViewListener.showPreview(VISIBLE, false);
         showPreViewLayout(VISIBLE);
 
     }
@@ -368,6 +409,7 @@ public final class VideoPlayerView extends BaseView {
                 exoPlayWatermark.setImageResource(res);
             }
         }
+
         @Override
         public void showLoadStateView(int visibility) {
             showLoadState(visibility);
@@ -430,7 +472,9 @@ public final class VideoPlayerView extends BaseView {
         }
 
         @Override
-        public void next() { controllerView.next();}
+        public void next() {
+            controllerView.next();
+        }
 
         @Override
         public void previous() {
@@ -466,7 +510,7 @@ public final class VideoPlayerView extends BaseView {
             if (!isPlayer) {
                 showPreViewLayout(visibility);
                 showBottomView(GONE, null);
-              //  getPreviewImage().setVisibility(visibility);
+                //  getPreviewImage().setVisibility(visibility);
             } else {
                 if (exoPreviewPlayBtn != null) {
                     exoPreviewPlayBtn.setVisibility(GONE);

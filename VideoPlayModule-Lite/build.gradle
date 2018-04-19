@@ -34,6 +34,7 @@ dependencies {
     compile project(':VideoUi')
 }
 
+
 apply plugin: 'com.novoda.bintray-release'
 publish {
     userOrg = 'ycjiang'      //bintray注册的用户名
@@ -44,3 +45,4 @@ publish {
     repoName = "yangjiang" //你的仓库名称，没有填写默认仓库是maven//这也是很多人上传仓库不对名问题最多情况，
     website = 'https://github.com/yangchaojiang/yjPlay' //github 托管地址
 }
+

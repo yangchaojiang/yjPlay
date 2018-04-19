@@ -8,6 +8,8 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
+import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +19,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -32,6 +35,7 @@ import java.util.List;
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
+import chuangyuan.ycj.videolibrary.video.ExoDataBean;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
@@ -77,7 +81,7 @@ abstract class BaseView extends FrameLayout {
     protected boolean isLand, isListPlayer, isShowVideoSwitch;
     /***标题左间距*/
     protected int getPaddingLeft;
-    private List<String> nameSwitch;
+    private ArrayList nameSwitch;
     /***
      * 多分辨率,默认Ui布局样式横屏后还原处理
      * ***/
@@ -140,8 +144,8 @@ abstract class BaseView extends FrameLayout {
                 preViewLayoutId = a.getResourceId(R.styleable.VideoPlayerView_player_preview_layout_id, preViewLayoutId);
                 barrageLayoutId = a.getResourceId(R.styleable.VideoPlayerView_player_barrage_layout_id, barrageLayoutId);
                 int playerViewId = a.getResourceId(R.styleable.VideoPlayerView_controller_layout_id, R.layout.simple_exo_playback_control_view);
-                if (preViewLayoutId==0&&(playerViewId == R.layout.simple_exo_playback_list_view || playerViewId == R.layout.simple_exo_playback_top_view)) {
-                    preViewLayoutId=R.layout.exo_default_preview_layout;
+                if (preViewLayoutId == 0 && (playerViewId == R.layout.simple_exo_playback_list_view || playerViewId == R.layout.simple_exo_playback_top_view)) {
+                    preViewLayoutId = R.layout.exo_default_preview_layout;
                 }
             } finally {
                 a.recycle();
@@ -157,6 +161,7 @@ abstract class BaseView extends FrameLayout {
         intiView();
         initWatermark(userWatermark, defaultArtworkId);
     }
+
 
     /**
      * Inti view.
@@ -183,10 +188,10 @@ abstract class BaseView extends FrameLayout {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(VideoPlayUtils.dip2px(getContext(), 35f), VideoPlayUtils.dip2px(getContext(), 35f));
         frameLayout.addView(exoControlsBack, frameLayout.getChildCount(), layoutParams);
         int index = frameLayout.indexOfChild(findViewById(R.id.exo_controller_barrage));
-        if (exoBarrageLayout!=null){
-           frameLayout.removeViewAt(index);
+        if (exoBarrageLayout != null) {
+            frameLayout.removeViewAt(index);
             exoBarrageLayout.setBackgroundColor(Color.TRANSPARENT);
-            frameLayout.addView(exoBarrageLayout,index);
+            frameLayout.addView(exoBarrageLayout, index);
         }
         exoPlayWatermark = playerView.findViewById(R.id.exo_player_watermark);
         videoLoadingShowText = playerView.findViewById(R.id.exo_loading_show_text);
@@ -199,6 +204,7 @@ abstract class BaseView extends FrameLayout {
             exoPreviewImage = exoPreviewBottomImage;
         }
         setSystemUiVisibility = activity.getWindow().getDecorView().getSystemUiVisibility();
+
         exoPreviewPlayBtn = playerView.findViewById(R.id.exo_preview_play);
     }
 
@@ -224,6 +230,8 @@ abstract class BaseView extends FrameLayout {
             activity = null;
         }
     }
+
+
 
     /***
      * 设置水印图和封面图
@@ -481,11 +489,15 @@ abstract class BaseView extends FrameLayout {
      *
      * @return the name switch
      */
-    protected List<String> getNameSwitch() {
+    protected ArrayList<String> getNameSwitch() {
         if (nameSwitch == null) {
             nameSwitch = new ArrayList<>();
         }
         return nameSwitch;
+    }
+
+    public void setNameSwitch(ArrayList nameSwitch) {
+        this.nameSwitch = nameSwitch;
     }
 
     /**
@@ -504,7 +516,7 @@ abstract class BaseView extends FrameLayout {
      * @param switchIndex switchIndex
      */
     protected void setSwitchName(@NonNull List<String> name, @Size(min = 0) int switchIndex) {
-        this.nameSwitch = name;
+        this.nameSwitch = new ArrayList(name);
         this.switchIndex = switchIndex;
     }
 

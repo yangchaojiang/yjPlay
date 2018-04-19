@@ -1,4 +1,7 @@
  ## 更新日志
+   #### 2.1.58
+   * 1.修复bug[103](https://github.com/yangchaojiang/yjPlay/issues/103)。 
+   * 2.修复bug[101](https://github.com/yangchaojiang/yjPlay/issues/101)。 
    #### 2.1.51
   * 1.修复[之前版本]单多分辨率线路设置点击没有效果。
   #### 2.1.50
