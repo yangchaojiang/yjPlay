@@ -141,7 +141,7 @@
      >>   3.自定义封面图布局中,也包含封面图控件。所以自定义封面图布局后，就不要再的控制布局使用封面图控件
  
   >> #### 3.快速自定义视频进度控件颜色
-   >> [如何自定义视频进度控件➡>戳我](https://github.com/yangchaojiang/yjPlay/blob/master/READMELAYUOT.md#%E4%B8%89-%E5%B0%81%E9%9D%A2%E5%9B%BE%E5%B8%83%E5%B1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%83%E5%B1%80%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E5%88%B6%E5%B8%83%E5%B1%80)
+   >> [如何自定义视频进度控件--->戳我](https://github.com/yangchaojiang/yjPlay/blob/dev/READMELAYUOT.md#%E4%BA%94%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E8%BF%9B%E5%BA%A6%E6%8E%A7%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89)
   >> 在app的module的values 文件下-> colors.xml 文件里
    ```
      <!--视频加载缓存进度的颜色-->
