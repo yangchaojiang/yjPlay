@@ -76,7 +76,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         }
 
         public void bindData(String videoBean) {
-            userPlayer.setTitle("" + getAdapterPosition());
+            playerView.setTitle("" + getAdapterPosition());
             userPlayer.setTag(getAdapterPosition());
             userPlayer.setPlayUri(videoBean);
             Glide.with(mContext)

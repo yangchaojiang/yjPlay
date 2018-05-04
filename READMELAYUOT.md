@@ -1,6 +1,6 @@
  ## 自定义布局
 
-### 一.布局使用说明
+ ### 一.布局使用说明
   1. 布局内容由使用者 任意定义布局
   2. 布局内必须有一个view的id 必须指定
   3. 布局内必须有一个view的id 必须指定
@@ -19,7 +19,7 @@
           _2.注意加载布局的显示加载速度的控件”exo_loading_show_text“，控件只能是TextView<br/>
           _3.如果你需要不显示加载网络提示，不指定控件id**
 
- ### 三.示例如下
+ ### 二.示例如下
 
   1.-重播布局
 ```
@@ -129,9 +129,9 @@
 
 </LinearLayout>
 ```
-### 二.手势布局自定义布局（布局不需要指定控件id）
-1.布局引用
-````
+ ### 三.手势布局自定义布局（布局不需要指定控件id）
+  1.布局引用
+  ````
  <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
         android:id="@+id/exo_play_context_id"
         android:layout_width="match_parent"
@@ -141,10 +141,10 @@
         app:player_gesture_progress_layout_id="@layout/custom_gesture_pro"
         ....
           />
-````
-2.代码使用
-````
-//实现你手势信息回调接口
+  ````
+ 2.代码使用
+  ````
+  //实现你手势信息回调接口
     exoPlayerManager.setOnGestureBrightnessListener();//亮度
     exoPlayerManager.setOnGestureProgressListener(); //进度 
     exoPlayerManager.setOnGestureVolumeListener(); //音频
@@ -188,9 +188,9 @@
                 videoAudioImg.setImageResource(currIndex == 0 ? R.drawable.ic_volume_off_white_48px : R.drawable.ic_volume_up_white_48px);
             }
         });
-````
+  ````
 
-### 三. 封面图布局自定义布局(配合使用使用自定义控制布局)
+ ### 四. 封面图布局自定义布局(配合使用使用自定义控制布局)
   1.布局引用
   ````
    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
@@ -207,6 +207,24 @@
   2.封面图imageView ID→ **<font color="red"> android:id="@id/exo_preview_image"<font>**
  
 
-3.注意事项：
-  * 1.你不需要关心手势操作后，布局隐藏问题。自动隐藏布局，专注你需要显示内容央视就可以了。
+  3.注意事项：
+  * 1.你不需要关心手势操作后，布局隐藏问题。自动隐藏布局，专注你需要显示内容就可以了。
   * 2.手势布局可以自定义其中一个或者两个布局。有使用者自己决定需要自定义布局。
+  
+ ### 五.视频播放进度控件自定义
+  
+ 可以添加属性来自定义视图。可用属性：
+ | name                      | type      | info                                                      |
+ |------------------------   |-----------|---------------------------------------------------------- |
+ | scrubber_drawable         | reference | 设置视频当前播放圆点的自定义资源可以图片                  |
+ | scrubber_color            | color     | 设置视频进度圆点的颜色                                    |
+ | buffered_color            | color     | 设置视频加载缓存进度的颜色                                |
+ | unplayed_color            | color     | 设置没有加载过进度的颜色                                  |
+ | played_color              | color     | 设置已经播放过视频的颜色                                  |
+ | ad_marker_color           | color     | 使用google广告sdk标记的颜色                               |
+ | played_ad_marker_color    | color     | 使用google广告sdk播放后标记的颜色                         |
+ | bar_height                | dimension | 设置视频进度显示高度                                      |
+ | touch_target_height       | dimension | 设置 触摸进度条显示的高度（不可用）                       |
+ | ad_marker_width           | dimension | 使用google广告sdk 标记段宽度                              |
+ | scrubber_enabled_size     | dimension | 设置 视频进度条显示右边距大小                             |
+ | scrubber_dragged_size     | dimension | 设置视频进度条显示左边距大小                              |

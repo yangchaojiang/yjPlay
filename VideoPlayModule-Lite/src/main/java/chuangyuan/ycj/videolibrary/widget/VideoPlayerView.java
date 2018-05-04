@@ -254,7 +254,7 @@ public final class VideoPlayerView extends BaseView {
     };
 
     /***
-     * 获取监听事件
+     * 获取监听事件  此方法不是外部调用。
      * @return ComponentListener component listener
      */
     public ExoPlayerViewListener getComponentListener() {
@@ -405,9 +405,7 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public void setWatermarkImage(int res) {
-            if (exoPlayWatermark != null) {
-                exoPlayWatermark.setImageResource(res);
-            }
+         setExoPlayWatermarkImg(res);
         }
 
         @Override

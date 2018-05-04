@@ -33,8 +33,8 @@ public class ImaPlayerActivity extends Activity {
         mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(this.getApplication()));
         videoPlayerView =   findViewById(R.id.exo_play_context_id);
         exoPlayerManager = new GestureVideoPlayer(this,mediaSourceBuilder,videoPlayerView );
-        exoPlayerManager.setTitle("视频标题");
-        exoPlayerManager.setExoPlayWatermarkImg(R.mipmap.watermark_big);
+        videoPlayerView.setTitle("视频标题");
+        videoPlayerView.setExoPlayWatermarkImg(R.mipmap.watermark_big);
         MediaSource contentMediaSource =mediaSourceBuilder.initMediaSource( Uri.parse(getString(R.string.uri_test_6)));
         // Compose the content media source into a new AdsMediaSource with both ads and content.
         MediaSource mediaSourceWithAds = new AdsMediaSource(contentMediaSource, mediaSourceBuilder.getDataSource(),

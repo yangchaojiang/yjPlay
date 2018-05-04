@@ -29,7 +29,7 @@ import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:  常规媒体流的下载器。支持断点下载
  */
-public final class DefaultProgressDownloader {
+public   class DefaultProgressDownloader {
 
     private final ProgressiveDownloader downloader;
     @Nullable
@@ -50,7 +50,7 @@ public final class DefaultProgressDownloader {
         }
     };
 
-    private DefaultProgressDownloader(Uri uri, DownloaderConstructorHelper constructorHelper) {
+    protected DefaultProgressDownloader(Uri uri, DownloaderConstructorHelper constructorHelper) {
         downloader = new ProgressiveDownloader(uri.toString(), uri.toString(), constructorHelper);
         downloader.init();
 

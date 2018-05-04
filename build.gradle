@@ -30,7 +30,7 @@ allprojects {
         compileSdkVersion=27
         targetSdkVersion=26
         buildToolsVersion='26.0.3'
-        minSdkVersion=16
+        minSdkVersion=17
         versionCode = 16
         versionName = "3.0"
         publish_version='2.1.59'

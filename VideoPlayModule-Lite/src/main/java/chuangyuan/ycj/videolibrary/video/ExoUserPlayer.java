@@ -105,6 +105,7 @@ public class ExoUserPlayer {
     /****
      * @param activity 活动对象
      * @param reId 播放控件id
+     * @deprecated
      */
     public ExoUserPlayer(@NonNull Activity activity, @IdRes int reId) {
         this(activity, reId, null);
@@ -306,16 +307,7 @@ public class ExoUserPlayer {
         }
     }
 
-    /***
-     * 设置默认加载
-     * **/
-    private void setDefaultLoadModel() {
-        if (null == timer) {
-            timer = Executors.newScheduledThreadPool(2);
-            /*1s后启动任务，每1s执行一次**/
-            timer.scheduleWithFixedDelay(task, 400, 900, TimeUnit.MILLISECONDS);
-        }
-    }
+
 
     /***
      * 创建实例播放实例，并不开始缓冲
@@ -369,6 +361,17 @@ public class ExoUserPlayer {
         isLoad = true;
     }
 
+
+    /***
+     * 设置默认加载
+     * **/
+    private void setDefaultLoadModel() {
+        if (null == timer) {
+            timer = Executors.newScheduledThreadPool(2);
+            /*1s后启动任务，每1s执行一次**/
+            timer.scheduleWithFixedDelay(task, 400, 900, TimeUnit.MILLISECONDS);
+        }
+    }
     /***
      * 设置播放路径
      * @param drmSessionManager 一个可选的 {@link DrmSessionManager}. 如果DRM得到保护，可能是null
@@ -562,6 +565,7 @@ public class ExoUserPlayer {
 
     /***
      * 隐藏进度条
+     * @deprecated   * {@link VideoPlayerView#getTimeBar()}. 会在下版本版本移除
      */
     public void hideSeekBar() {
         getPlayerViewListener().showHidePro(View.INVISIBLE);
@@ -569,6 +573,7 @@ public class ExoUserPlayer {
 
     /***
      * 显示隐藏进度条
+     * @deprecated   * {@link VideoPlayerView#getTimeBar()}.  会在下版本版本移除
      */
     public void showSeekBar() {
         getPlayerViewListener().showHidePro(View.VISIBLE);
@@ -643,6 +648,7 @@ public class ExoUserPlayer {
      * 显示水印图
      *
      * @param res 资源
+     * @deprecated   * {@link VideoPlayerView#setTitle(String)}.
      */
     public void setExoPlayWatermarkImg(int res) {
         getPlayerViewListener().setWatermarkImage(res);
@@ -652,6 +658,7 @@ public class ExoUserPlayer {
      * 设置标题
      *
      * @param title 名字
+     * @deprecated   * {@link VideoPlayerView#setTitle(String)}.
      */
     public void setTitle(@NonNull String title) {
         getPlayerViewListener().setTitles(title);
@@ -1089,5 +1096,7 @@ public class ExoUserPlayer {
 
         }
     };
+
+
 }
 

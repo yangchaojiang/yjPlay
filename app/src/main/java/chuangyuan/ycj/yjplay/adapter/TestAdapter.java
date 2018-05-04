@@ -45,7 +45,7 @@ public class TestAdapter extends RecyclerArrayAdapter<String> {
         }
         @Override
         public void setData(final String data) {
-            userPlayer.setTitle(""+getAdapterPosition());
+            playerView.setTitle(""+getAdapterPosition());
             userPlayer.setPlayUri(data);
             userPlayer.setTag(getAdapterPosition());
             Glide.with(getContext())

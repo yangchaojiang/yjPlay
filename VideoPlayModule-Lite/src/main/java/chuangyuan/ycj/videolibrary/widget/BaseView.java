@@ -8,8 +8,6 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Build;
-import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -35,7 +32,6 @@ import java.util.List;
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
-import chuangyuan.ycj.videolibrary.video.ExoDataBean;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
@@ -45,9 +41,7 @@ import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
  * Deprecated: 父类view 存放控件方法
  */
 abstract class BaseView extends FrameLayout {
-    /**
-     * The constant TAG.
-     */
+    /*** The constant TAG.***/
     public static final String TAG = VideoPlayerView.class.getName();
     /***活动窗口*/
     protected Activity activity;
@@ -63,16 +57,13 @@ abstract class BaseView extends FrameLayout {
     protected final GestureControlView mGestureControlView;
     /***意图管理布局view***/
     protected final ActionControlView mActionControlView;
-    /**
-     * 锁屏管理布局
-     **/
+    /*** 锁屏管理布局***/
     protected final LockControlView mLockControlView;
-    /**
-     * 锁屏管理布局
-     **/
+    /***锁屏管理布局***/
     protected final PlayerControlView controllerView;
     /***切换*/
     protected BelowView belowView;
+    /***流量提示框***/
     protected AlertDialog alertDialog;
     protected ExoPlayerListener mExoPlayerListener;
     /***返回按钮*/
@@ -81,14 +72,10 @@ abstract class BaseView extends FrameLayout {
     protected boolean isLand, isListPlayer, isShowVideoSwitch;
     /***标题左间距*/
     protected int getPaddingLeft;
-    private ArrayList nameSwitch;
-    /***
-     * 多分辨率,默认Ui布局样式横屏后还原处理
-     * ***/
+    private ArrayList<String> nameSwitch;
+    /***多分辨率,默认Ui布局样式横屏后还原处理***/
     protected int switchIndex, setSystemUiVisibility = 0;
-    /**
-     * The Ic back image.
-     */
+    /*** The Ic back image.***/
     @DrawableRes
     private int icBackImage = R.drawable.ic_exo_back;
 
@@ -438,7 +425,16 @@ abstract class BaseView extends FrameLayout {
     public void setTitle(@NonNull String title) {
         controllerView.setTitle(title);
     }
-
+    /***
+     * 显示水印图
+     *
+     * @param res 资源
+     */
+    public void setExoPlayWatermarkImg(int res) {
+        if (exoPlayWatermark != null) {
+            exoPlayWatermark.setImageResource(res);
+        }
+    }
     /**
      * 设置占位预览图
      *
@@ -449,7 +445,7 @@ abstract class BaseView extends FrameLayout {
     }
 
     /***
-     * 设置播放的状态回调
+     * 设置播放的状态回调 .,此方法不是外部使用，请不要调用
      *
      * @param mExoPlayerListener 回调
      */
@@ -483,7 +479,14 @@ abstract class BaseView extends FrameLayout {
     public void setOpenLock(boolean openLock) {
         mLockControlView.setOpenLock(openLock);
     }
-
+    /**
+     * 设置开启开启锁屏功能
+     *
+     * @param openLock 默认 false 不开启   true 开启
+     */
+    public void setOpenProgress2(boolean openLock) {
+        mLockControlView.setProgress(openLock);
+    }
     /**
      * Gets name switch.
      *
@@ -496,7 +499,7 @@ abstract class BaseView extends FrameLayout {
         return nameSwitch;
     }
 
-    public void setNameSwitch(ArrayList nameSwitch) {
+    protected void setNameSwitch(ArrayList<String> nameSwitch) {
         this.nameSwitch = nameSwitch;
     }
 
@@ -516,7 +519,7 @@ abstract class BaseView extends FrameLayout {
      * @param switchIndex switchIndex
      */
     protected void setSwitchName(@NonNull List<String> name, @Size(min = 0) int switchIndex) {
-        this.nameSwitch = new ArrayList(name);
+        this.nameSwitch = new ArrayList<>(name);
         this.switchIndex = switchIndex;
     }
 

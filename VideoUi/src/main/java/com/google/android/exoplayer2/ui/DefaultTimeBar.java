@@ -705,10 +705,10 @@ public class DefaultTimeBar extends View implements TimeBar {
       int scrubberDrawableWidth = scrubberDrawable.getIntrinsicWidth();
       int scrubberDrawableHeight = scrubberDrawable.getIntrinsicHeight();
       scrubberDrawable.setBounds(
-          playheadX - scrubberDrawableWidth / 2,
-          playheadY - scrubberDrawableHeight / 2,
+              playheadX - scrubberDrawableWidth / 2,
+          playheadY - scrubberDrawableHeight / 2-10,
           playheadX + scrubberDrawableWidth / 2,
-          playheadY + scrubberDrawableHeight / 2);
+          playheadY + scrubberDrawableHeight / 2-10);
       scrubberDrawable.draw(canvas);
     }
   }

@@ -21,7 +21,7 @@
     android:versionName="3.0" >
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="17"
         android:targetSdkVersion="26" />
 
 </manifest>

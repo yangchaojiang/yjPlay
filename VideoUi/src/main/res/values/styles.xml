@@ -143,10 +143,11 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="bar_height">2dp</item>
-        <item name="buffered_color">@android:color/white</item>
-        <item name="played_color">#FF7000</item>
-        <item name="unplayed_color">#a5ffffff</item>
+        <item name="bar_height">@dimen/timeBar_bar_height</item>
+        <item name="buffered_color">@color/timeBar_buffered_color</item>
+        <item name="played_color">@color/timeBar_played_color</item>
+        <item name="unplayed_color">@color/timeBar_unplayed_color</item>
+        <item name="scrubber_color">@color/timeBar_scrubber_color</item>
     </style>
 
     <style name="ExoMediaButton.Pause2">

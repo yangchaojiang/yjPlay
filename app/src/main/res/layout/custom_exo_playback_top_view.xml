@@ -34,6 +34,7 @@
             app:bar_height="2dp"
             app:buffered_color="@android:color/white"
             app:played_color="#26e75c"
+            app:scrubber_drawable="@mipmap/ding_wai"
             app:unplayed_color="#a5436af9"
             android:id="@id/exo_progress"
             style="@style/ExoMediaTimeBar" />

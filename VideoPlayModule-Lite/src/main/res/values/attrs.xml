@@ -62,23 +62,7 @@
         <!--弹幕预览布局-->
         <attr name="player_barrage_layout_id" format="reference" />
     </declare-styleable>
-
-    <declare-styleable name="DefaultTimeBar">
-        <attr name="bar_height" format="dimension" />
-        <attr name="touch_target_height" format="dimension" />
-        <attr name="ad_marker_width" format="dimension" />
-        <attr name="scrubber_enabled_size" format="dimension" />
-        <attr name="scrubber_disabled_size" format="dimension" />
-        <attr name="scrubber_dragged_size" format="dimension" />
-        <attr name="scrubber_drawable" format="reference" />
-        <attr name="played_color" format="color" />
-        <attr name="scrubber_color" format="color" />
-        <attr name="buffered_color" format="color" />
-        <attr name="unplayed_color" format="color" />
-        <attr name="ad_marker_color" format="color" />
-        <attr name="played_ad_marker_color" format="color" />
-    </declare-styleable>
-    <!--手势控制管理布局-->
+       <!--手势控制管理布局-->
     <declare-styleable name="GestureControlView">
         <!--自定义音频手势布局-->
         <attr name="player_gesture_audio_layout_id" />

@@ -408,8 +408,12 @@ public final class R {
         public static int switch_thumb_material_light = 0x7f060057;
         public static int switch_thumb_normal_material_dark = 0x7f060058;
         public static int switch_thumb_normal_material_light = 0x7f060059;
-        public static int tooltip_background_dark = 0x7f06005a;
-        public static int tooltip_background_light = 0x7f06005b;
+        public static int timeBar_buffered_color = 0x7f06005a;
+        public static int timeBar_played_color = 0x7f06005b;
+        public static int timeBar_scrubber_color = 0x7f06005c;
+        public static int timeBar_unplayed_color = 0x7f06005d;
+        public static int tooltip_background_dark = 0x7f06005e;
+        public static int tooltip_background_light = 0x7f06005f;
     }
     public static final class dimen {
         public static int abc_action_bar_content_inset_material = 0x7f080001;
@@ -521,14 +525,15 @@ public final class R {
         public static int notification_subtext_size = 0x7f08006b;
         public static int notification_top_pad = 0x7f08006c;
         public static int notification_top_pad_large_text = 0x7f08006d;
-        public static int tooltip_corner_radius = 0x7f08006e;
-        public static int tooltip_horizontal_padding = 0x7f08006f;
-        public static int tooltip_margin = 0x7f080070;
-        public static int tooltip_precise_anchor_extra_offset = 0x7f080071;
-        public static int tooltip_precise_anchor_threshold = 0x7f080072;
-        public static int tooltip_vertical_padding = 0x7f080073;
-        public static int tooltip_y_offset_non_touch = 0x7f080074;
-        public static int tooltip_y_offset_touch = 0x7f080075;
+        public static int timeBar_bar_height = 0x7f08006e;
+        public static int tooltip_corner_radius = 0x7f08006f;
+        public static int tooltip_horizontal_padding = 0x7f080070;
+        public static int tooltip_margin = 0x7f080071;
+        public static int tooltip_precise_anchor_extra_offset = 0x7f080072;
+        public static int tooltip_precise_anchor_threshold = 0x7f080073;
+        public static int tooltip_vertical_padding = 0x7f080074;
+        public static int tooltip_y_offset_non_touch = 0x7f080075;
+        public static int tooltip_y_offset_touch = 0x7f080076;
     }
     public static final class drawable {
         public static int abc_ab_share_pack_mtrl_alpha = 0x7f090001;

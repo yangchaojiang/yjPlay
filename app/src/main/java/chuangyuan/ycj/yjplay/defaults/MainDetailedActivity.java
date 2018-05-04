@@ -35,9 +35,9 @@ public class MainDetailedActivity extends Activity {
         videoPlayerView = findViewById(R.id.exo_play_context_id);
         exoPlayerManager = new ManualPlayer(this, videoPlayerView, new DataSource(this));
         //设置视频标题
-        exoPlayerManager.setTitle("视频标题");
+        videoPlayerView.setTitle("视频标题");
         //设置水印图
-        exoPlayerManager.setExoPlayWatermarkImg(R.mipmap.watermark_big);
+        videoPlayerView.setExoPlayWatermarkImg(R.mipmap.watermark_big);
         exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
             @Override
             public void onCurrentIndex(int currentIndex, int windowCount) {

@@ -19,6 +19,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.DrawableRes;
@@ -462,7 +463,7 @@ public class PlayerControlView extends FrameLayout {
       if (visibilityListener != null) {
         visibilityListener.onVisibilityChange(getVisibility());
       }
-      removeCallbacks(updateProgressAction);
+     // removeCallbacks(updateProgressAction);
       removeCallbacks(hideAction);
       hideAtMs = C.TIME_UNSET;
     }

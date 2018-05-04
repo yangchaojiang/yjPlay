@@ -565,21 +565,25 @@ public final class R {
         public static int switch_thumb_material_light = 0x7f060073;
         public static int switch_thumb_normal_material_dark = 0x7f060074;
         public static int switch_thumb_normal_material_light = 0x7f060075;
-        public static int tooltip_background_dark = 0x7f060076;
-        public static int tooltip_background_light = 0x7f060077;
-        public static int wallet_bright_foreground_disabled_holo_light = 0x7f060078;
-        public static int wallet_bright_foreground_holo_dark = 0x7f060079;
-        public static int wallet_bright_foreground_holo_light = 0x7f06007a;
-        public static int wallet_dim_foreground_disabled_holo_dark = 0x7f06007b;
-        public static int wallet_dim_foreground_holo_dark = 0x7f06007c;
-        public static int wallet_highlighted_text_holo_dark = 0x7f06007d;
-        public static int wallet_highlighted_text_holo_light = 0x7f06007e;
-        public static int wallet_hint_foreground_holo_dark = 0x7f06007f;
-        public static int wallet_hint_foreground_holo_light = 0x7f060080;
-        public static int wallet_holo_blue_light = 0x7f060081;
-        public static int wallet_link_text_light = 0x7f060082;
-        public static int wallet_primary_text_holo_light = 0x7f060083;
-        public static int wallet_secondary_text_holo_dark = 0x7f060084;
+        public static int timeBar_buffered_color = 0x7f060076;
+        public static int timeBar_played_color = 0x7f060077;
+        public static int timeBar_scrubber_color = 0x7f060078;
+        public static int timeBar_unplayed_color = 0x7f060079;
+        public static int tooltip_background_dark = 0x7f06007a;
+        public static int tooltip_background_light = 0x7f06007b;
+        public static int wallet_bright_foreground_disabled_holo_light = 0x7f06007c;
+        public static int wallet_bright_foreground_holo_dark = 0x7f06007d;
+        public static int wallet_bright_foreground_holo_light = 0x7f06007e;
+        public static int wallet_dim_foreground_disabled_holo_dark = 0x7f06007f;
+        public static int wallet_dim_foreground_holo_dark = 0x7f060080;
+        public static int wallet_highlighted_text_holo_dark = 0x7f060081;
+        public static int wallet_highlighted_text_holo_light = 0x7f060082;
+        public static int wallet_hint_foreground_holo_dark = 0x7f060083;
+        public static int wallet_hint_foreground_holo_light = 0x7f060084;
+        public static int wallet_holo_blue_light = 0x7f060085;
+        public static int wallet_link_text_light = 0x7f060086;
+        public static int wallet_primary_text_holo_light = 0x7f060087;
+        public static int wallet_secondary_text_holo_dark = 0x7f060088;
     }
     public static final class dimen {
         public static int abc_action_bar_content_inset_material = 0x7f080001;
@@ -730,14 +734,15 @@ public final class R {
         public static int place_autocomplete_progress_horizontal_margin = 0x7f080092;
         public static int place_autocomplete_progress_size = 0x7f080093;
         public static int place_autocomplete_separator_start = 0x7f080094;
-        public static int tooltip_corner_radius = 0x7f080095;
-        public static int tooltip_horizontal_padding = 0x7f080096;
-        public static int tooltip_margin = 0x7f080097;
-        public static int tooltip_precise_anchor_extra_offset = 0x7f080098;
-        public static int tooltip_precise_anchor_threshold = 0x7f080099;
-        public static int tooltip_vertical_padding = 0x7f08009a;
-        public static int tooltip_y_offset_non_touch = 0x7f08009b;
-        public static int tooltip_y_offset_touch = 0x7f08009c;
+        public static int timeBar_bar_height = 0x7f080095;
+        public static int tooltip_corner_radius = 0x7f080096;
+        public static int tooltip_horizontal_padding = 0x7f080097;
+        public static int tooltip_margin = 0x7f080098;
+        public static int tooltip_precise_anchor_extra_offset = 0x7f080099;
+        public static int tooltip_precise_anchor_threshold = 0x7f08009a;
+        public static int tooltip_vertical_padding = 0x7f08009b;
+        public static int tooltip_y_offset_non_touch = 0x7f08009c;
+        public static int tooltip_y_offset_touch = 0x7f08009d;
     }
     public static final class drawable {
         public static int abc_ab_share_pack_mtrl_alpha = 0x7f090001;

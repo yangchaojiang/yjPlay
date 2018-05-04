@@ -7,4 +7,8 @@
   <color name="simple_exo_color_33">#33000000</color>
   <color name="primary_dark">#3d3b3b</color>
   <color name="simple_exo_color_switch_item">#FF6E0B</color>
+  <color name="timeBar_buffered_color">@android:color/white</color>
+  <color name="timeBar_played_color">#FF7000</color>
+  <color name="timeBar_unplayed_color">#a5ffffff</color>
+  <color name="timeBar_scrubber_color">@color/simple_exo_color_switch_item</color>
 </resources>

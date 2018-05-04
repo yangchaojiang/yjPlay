@@ -33,8 +33,9 @@ public class GuangGaoPlayerdActivity extends Activity {
         setContentView(R.layout.layout_coutom2);
         videoPlayerView =   findViewById(R.id.exo_play_context_id);
         exoPlayerManager = new ExoUserPlayer(this, videoPlayerView);
-        exoPlayerManager.setTitle("视频标题");
-        exoPlayerManager.setExoPlayWatermarkImg(R.mipmap.watermark_big);
+        videoPlayerView.setTitle("视频标题");
+        videoPlayerView.setExoPlayWatermarkImg(R.mipmap.watermark_big);
+        videoPlayerView.setOpenProgress2(true);
          if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
             exoPlayerManager.setPlayUri(0, getString(R.string.uri_test_10), getString(R.string.uri_test_3));
         } else {

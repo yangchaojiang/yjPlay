@@ -154,19 +154,19 @@ public final class R {
         public static int place_autocomplete_search_hint = 0x7f06005a;
         public static int place_autocomplete_search_text = 0x7f06005b;
         public static int place_autocomplete_separator = 0x7f06005c;
-        public static int wallet_bright_foreground_disabled_holo_light = 0x7f060078;
-        public static int wallet_bright_foreground_holo_dark = 0x7f060079;
-        public static int wallet_bright_foreground_holo_light = 0x7f06007a;
-        public static int wallet_dim_foreground_disabled_holo_dark = 0x7f06007b;
-        public static int wallet_dim_foreground_holo_dark = 0x7f06007c;
-        public static int wallet_highlighted_text_holo_dark = 0x7f06007d;
-        public static int wallet_highlighted_text_holo_light = 0x7f06007e;
-        public static int wallet_hint_foreground_holo_dark = 0x7f06007f;
-        public static int wallet_hint_foreground_holo_light = 0x7f060080;
-        public static int wallet_holo_blue_light = 0x7f060081;
-        public static int wallet_link_text_light = 0x7f060082;
-        public static int wallet_primary_text_holo_light = 0x7f060083;
-        public static int wallet_secondary_text_holo_dark = 0x7f060084;
+        public static int wallet_bright_foreground_disabled_holo_light = 0x7f06007c;
+        public static int wallet_bright_foreground_holo_dark = 0x7f06007d;
+        public static int wallet_bright_foreground_holo_light = 0x7f06007e;
+        public static int wallet_dim_foreground_disabled_holo_dark = 0x7f06007f;
+        public static int wallet_dim_foreground_holo_dark = 0x7f060080;
+        public static int wallet_highlighted_text_holo_dark = 0x7f060081;
+        public static int wallet_highlighted_text_holo_light = 0x7f060082;
+        public static int wallet_hint_foreground_holo_dark = 0x7f060083;
+        public static int wallet_hint_foreground_holo_light = 0x7f060084;
+        public static int wallet_holo_blue_light = 0x7f060085;
+        public static int wallet_link_text_light = 0x7f060086;
+        public static int wallet_primary_text_holo_light = 0x7f060087;
+        public static int wallet_secondary_text_holo_dark = 0x7f060088;
     }
     public static final class dimen {
         public static int cast_expanded_controller_ad_background_layout_height = 0x7f08004b;

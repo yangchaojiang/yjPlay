@@ -45,9 +45,8 @@ public class MainCustomMediaActivity extends AppCompatActivity {
                 .into(videoPlayerView.getPreviewImage());
         mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
         exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
-        exoPlayerManager.setTitle("自定义视频标题");
+        videoPlayerView.setTitle("自定义视频标题");
         //设置加载显示模式
-
         exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
        //MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse(getString(R.string.uri_test)));
         //mediaSourceBuilder.setMediaSource(source);

@@ -48,7 +48,7 @@ public class OfficeDetailedActivity extends Activity {
         exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView,
                 new OfficeDataSource(this, null));
         progressBar =  findViewById(R.id.progressBar);
-        exoPlayerManager.setTitle("视频标题");
+        videoPlayerView.setTitle("视频标题");
         findViewById(R.id.button10).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

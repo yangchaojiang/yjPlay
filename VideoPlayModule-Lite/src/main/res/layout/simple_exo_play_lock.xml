@@ -20,12 +20,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="4dp"
         android:visibility="gone"
-        app:ad_marker_width="1dp"
-        app:buffered_color="@android:color/white"
-        app:played_color="#FF7000"
-        app:touch_target_height="1dp"
-        app:unplayed_color="#a5ffffff" />
+        app:bar_height="1dp"
+        app:buffered_color="@color/timeBar_buffered_color"
+        app:played_color="@color/timeBar_played_color"
+        app:unplayed_color="@color/timeBar_unplayed_color"
+        app:touch_target_height="10dp"
+        app:scrubber_dragged_size="0dp"
+        app:scrubber_enabled_size="0dp"
+        app:scrubber_disabled_size="0dp"
+        />
 
 </FrameLayout>
