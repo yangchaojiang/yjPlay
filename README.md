@@ -121,9 +121,9 @@
   | player_fullscreen_image_selector  | reference | 设置 自定义全屏按钮selector                                                 |
   | player_back_image                 | reference | 设置 自定义返回按钮图标                                                     |
   | default_artwork                   | reference | 设置 封面占位图                                                             |
-  | show_timeout                      | r   | 设置 控制布局隐藏时间  默认值为3秒                                          |
+  | show_timeout                      | integer   | 设置 控制布局隐藏时间  默认值为3秒                                          |
   | fastforward_increment             | integer   | 设置 按钮设置快进增量,以毫秒为单位（exo控制布局使用）                       |
-  | rewind_increment                  | integer | 设置 按钮设置快退增量,以毫秒为单位（exo控制布局使用）                       |
+  | rewind_increment                  | integer   | 设置 按钮设置快退增量,以毫秒为单位（exo控制布局使用）                       |
   | user_watermark                    | reference | 设置 水印图片 默认在右上角                                                  |
 
    * **注意：**
