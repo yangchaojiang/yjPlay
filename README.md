@@ -97,13 +97,13 @@
   可以添加属性来自定义视图。可用属性：
   | name                              | type      | info                                                                        |
   |-----------------------------------|-----------|---------------------------------------------------------------------------- |
-  | surface_type                      | enum      | 视频渲染类型 texture_view 和surface_view 枚举类型。默认surface_view         |  
+  | surface_type                      | enum      | 视频渲染类型 texture_view 和surface_view 枚举类型 默认surface_view         |  
   | resize_mode                       | enum      | 视频缩放渲染显示方式一共4种                                                 | 
   |                                   | reference | 1.fit          正常模式                                                     | 
-  |                                   | reference | 2.fixed_width  //保持的是视频宽度，拉伸视频高度                             | 
-  |                                   | reference | 3.fixed_height //保持的是视频高度，拉伸视频宽度                             |         
-  |                                   | reference | 4.fill          //全屏模式，拉伸视频宽高                                    |        
-  | player_layout_id                  | reference | (播放器布局):目前默认布局——>simple_exo_view.xml                           |
+  |                                   | reference | 2.fixed_width  保持的是视频宽度，拉伸视频高度                             | 
+  |                                   | reference | 3.fixed_height 保持的是视频高度，拉伸视频宽度                             |         
+  |                                   | reference | 4.fill           全屏模式，拉伸视频宽高                                    |        
+  | player_layout_id                  | reference | (播放器布局):目前默认布局  simple_exo_view.xml                           |
   | controller_layout_id              | reference | 控制器布局  默认有四种布局                                                 |
   |                                   | reference | 1.simple_exo_playback_control_view.xml  视频封面控制布局下面,比较常规使用   | 
   |                                   | reference | 2.simple_exo_playback_list_view.xml.xml 在列表播放使用控制布局              | 
@@ -116,7 +116,7 @@
   | player_gesture_audio_layout_id    | reference | 设置 自定义手势音频调节布局                                                 |
   | player_gesture_bright_layout_id   | reference | 设置 自定义手势亮度调节布局                                                 |
   | player_gesture_progress_layout_id | reference | 设置 自定义手势进度调节布局                                                 |
-  | player_preview_layout_id          | reference | 设置 自定义封面图布局(默认>>exo_default_preview_layout.xml)                 |
+  | player_preview_layout_id          | reference | 设置 自定义封面图布局(默认 exo_default_preview_layout.xml)                 |
   | player_list                       | boolean   | 设置 是否指定列表播放    默认 false  true 列表播放                          |
   | player_fullscreen_image_selector  | reference | 设置 自定义全屏按钮selector                                                 |
   | player_back_image                 | reference | 设置 自定义返回按钮图标                                                     |
