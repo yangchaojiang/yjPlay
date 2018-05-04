@@ -104,7 +104,7 @@
   |                                   | reference | 3.fixed_height //保持的是视频高度，拉伸视频宽度                             |         
   |                                   | reference | 4.fill          //全屏模式，拉伸视频宽高                                    |        
   | player_layout_id                  | reference | (播放器布局):目前默认布局——>simple_exo_view.xml                           |
-  | controller_layout_id              | reference | 控制器布局`  默认有四种布局                                                 |
+  | controller_layout_id              | reference | 控制器布局  默认有四种布局                                                 |
   |                                   | reference | 1.simple_exo_playback_control_view.xml  视频封面控制布局下面,比较常规使用   | 
   |                                   | reference | 2.simple_exo_playback_list_view.xml.xml 在列表播放使用控制布局              | 
   |                                   | reference | 3.simple_exo_playback_top_view.xml.xml  视频封面控制布局上面                |
