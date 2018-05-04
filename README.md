@@ -93,20 +93,19 @@
           />
    ````
    
- >> #### 2.属性说明
-  可以添加属性来自定义视图。可用属性：
+ >> #### 2.属性说明 自定义视图的可用属性：
   
   | name                              | type      | info                                                                        |
   |-----------------------------------|-----------|---------------------------------------------------------------------------- |
-  | surface_type                      | enum      | 视频渲染类型 texture_view 和surface_view 枚举类型 默认surface_view         |  
+  | surface_type                      | enum      | 视频渲染类型 texture_view 和surface_view 枚举类型 默认surface_view          |  
   | resize_mode                       | enum      | 视频缩放渲染显示方式一共4种                                                 | 
   |                                   | reference | 1.fit          正常模式                                                     | 
-  |                                   | reference | 2.fixed_width  保持的是视频宽度，拉伸视频高度                             | 
-  |                                   | reference | 3.fixed_height 保持的是视频高度，拉伸视频宽度                             |         
-  |                                   | reference | 4.fill           全屏模式，拉伸视频宽高                                    |        
-  | player_layout_id                  | reference | (播放器布局):目前默认布局  simple_exo_view.xml                           |
-  | controller_layout_id              | reference | 控制器布局  默认有四种布局                                                 |
-  |                                   | reference | 1.simple_exo_playback_control_view.xml  视频封面控制布局下面,比较常规使用   | 
+  |                                   | reference | 2.fixed_width  保持的是视频宽度，拉伸视频高度                               | 
+  |                                   | reference | 3.fixed_height 保持的是视频高度，拉伸视频宽度                               |         
+  |                                   | reference | 4.fill           全屏模式，拉伸视频宽高                                     |        
+  | player_layout_id                  | reference | (播放器布局):目前默认布局  simple_exo_view.xml                              |
+  | controller_layout_id              | reference | 控制器布局  默认有四种布局                                                  |
+  |                                   | reference | 1.simple_exo_playback_control_view.xml  视频封面控制布局下面,（默认）       | 
   |                                   | reference | 2.simple_exo_playback_list_view.xml.xml 在列表播放使用控制布局              | 
   |                                   | reference | 3.simple_exo_playback_top_view.xml.xml  视频封面控制布局上面                |
   |                                   | reference | 4.exo_playback_control_view.xml         exo 提供默认风格                    | 
@@ -129,11 +128,16 @@
 
    * **注意：**
      >>    1.列表播放只能选择texture_view 不能选择surface_view，详情页面播放推荐surface_view
+     >>
      >>    2.自定义全屏按钮selector
-     >>         <selector xmlns:android="http://schemas.android.com/apk/res/android">
-     >>             <item android:drawable="@drawable/ic_custom_full" android:state_checked="true" />
-     >>             <item android:drawable="@drawable/ic_custom_full_in" android:state_checked="false" />
-     >>        </selector>
+           
+           <selector xmlns:android="http://schemas.android.com/apk/res/android">
+                <item android:drawable="@drawable/ic_custom_full" android:state_checked="true" />
+                <item android:drawable="@drawable/ic_custom_full_in" android:state_checked="false" />
+           </selector>
+    
+     >>       
+     >>        
      >>   3.自定义封面图布局中,也包含封面图控件。所以自定义封面图布局后，就不要再的控制布局使用封面图控件
  
   >> #### 3.快速自定义视频进度控件颜色
@@ -185,23 +189,23 @@
   
   
  > #### 3 播放代码 
-         //实例化播放控制类
+          实例化播放控制类
           ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
-         //自定义你的数据源，后面详细介绍如何自定义数据源类
-          // ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this));
-          //加载m3u8
+         自定义你的数据源，后面详细介绍如何自定义数据源类
+           ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this));
+          加载m3u8
           exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
-          //加载ts.文件
+          加载ts.文件
           exoPlayerManager.setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts");
-          //播放本地视频
-          // exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
-          //下面开启多线路播放
-            exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
-           String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
-           String[] name={"超清","高清","标清"};
-           exoPlayerManager.setPlaySwitchUri(0,test,name);
-          //开始启动播放视频
-           exoPlayerManager.startPlayer();
+          播放本地视频
+          exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
+          下面开启多线路播放
+          exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
+          String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
+          String[] name={"超清","高清","标清"};
+          exoPlayerManager.setPlaySwitchUri(0,test,name);
+          开始启动播放视频
+          exoPlayerManager.startPlayer();
 
    1.实例化播放控制类
 
@@ -212,9 +216,9 @@
 
          ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this));
          ManualPlayer exoPlayerManager = new ManualPlayer(this,videoPlayerView,new DataSource(this));
-         //定义多媒体
+         定义多媒体
          MediaSourceBuilder   mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
-         //集成smoothstreaming,dash,hls
+        集成smoothstreaming,dash,hls
          WholeMediaSource   mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));  
          ManualPlayer   exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
 
@@ -234,25 +238,25 @@
   >> 1.exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.h264"); 本地视频
   >> 2.设置多线路播放
  ````     
-           //开启多线路设置，默认关闭
-             exoPlayerManager.setShowVideoSwitch(true);
-             //支持List列表
+            开启多线路设置，默认关闭
+            exoPlayerManager.setShowVideoSwitch(true);
+            支持List列表
             String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
-           "http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
+            "http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4",
             http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
             String[] name={"超清","高清","标清"};
             exoPlayerManager.setPlaySwitchUri(0,test,name);
-            //多分辨路和广告视频设置
+            多分辨路和广告视频设置
             exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
         
  ````
   >>  3.广告视频预览(轻松实现)
         
           /**需要添加参数就行**/
-          //第一个参数代表是广告视频位置索引
-           exoPlayerManager.setPlayUri(0, "http://mp4.vjshi.com/2013-07-25/2013072519392517096.mp4", "http://mp4.vjshi.com/2013-11-11/1384169050648_274.mp4");       
-            //如果自己在播放视频时特出处理。实现该接口回调
-           //视频切换回调处理，进行布局处理，控制布局显示
+            第一个参数代表是广告视频位置索引
+            exoPlayerManager.setPlayUri(0, "http://mp4.vjshi.com/2013-07-25/2013072519392517096.mp4", "http://mp4.vjshi.com/2013-11-11/1384169050648_274.mp4");       
+             如果自己在播放视频时特出处理。实现该接口回调
+            视频切换回调处理，进行布局处理，控制布局显示
             exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
             @Override
             public void onCurrentIndex(int currentIndex, int windowCount) {
