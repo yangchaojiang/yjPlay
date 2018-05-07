@@ -35,6 +35,7 @@ public class GuangGaoPlayerdActivity extends Activity {
         exoPlayerManager = new ExoUserPlayer(this, videoPlayerView);
         videoPlayerView.setTitle("视频标题");
         videoPlayerView.setExoPlayWatermarkImg(R.mipmap.watermark_big);
+        //开启实时进度
         videoPlayerView.setOpenProgress2(true);
          if (Build.VERSION.SDK_INT < 21) {//低版本不支持高分辨视频
             exoPlayerManager.setPlayUri(0, getString(R.string.uri_test_10), getString(R.string.uri_test_3));
