@@ -1,12 +1,12 @@
  ### 数据源工厂类
  ####  1.默认数据源
-  >>         缓存 : CacheDataSinkFactory,CacheDataSourceFactory
+  >>        缓存 : CacheDataSinkFactory,CacheDataSourceFactory
   >>         http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
   >>         Priority : PriorityDataSourceFactory
 #### 2 自定义数据源引用
 
-  >>      compile 'com.google.android.exoplayer:extension-okhttp:2.7.1'
-  >>      compile 'com.google.android.exoplayer:extension-rtmp:2.7.1'
+  >>      compile 'com.google.android.exoplayer:extension-okhttp:2.7.2'
+  >>       compile 'com.google.android.exoplayer:extension-rtmp:2.7.2'
 
 >>#### 3.自定义数据源工厂类:
    * 实现接口 DataSourceListener  然后在getDataSourceFactory方法里 自定义 数据源

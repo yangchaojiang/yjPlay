@@ -45,9 +45,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.58' 
+      compile 'com.ycjiang:VideoPlayModule:2.1.70' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.58'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.70'
 
   }
   ````
@@ -186,7 +186,7 @@
   | setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                |  
   | getPreviewImage()                              | ImageView | 设置封面图控件                                                               |  
   | setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                |  
-  
+  >>更多方法参考demo用法。
   
  > #### 3 播放代码 
           实例化播放控制类
@@ -233,7 +233,9 @@
   | setLoadModel(LoadModelType.PERCENR)  | void |  设置视频加载提示显示模式（默认LoadModelType.SPEED (网速模式)）                                                            |  
   | setPlaybackParameters(2f,2f)         | void |  设置播放视频倍数  快放和慢放播放 小于1 慢放 大于1 快放  
   | startPlayer()                        | void |  开始播放视频                                                               |  
-  
+   
+   >>更多方法参考demo用法。
+   
  >**注意**
   >> 1.exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.h264"); 本地视频
   >> 2.设置多线路播放
@@ -356,13 +358,13 @@
           http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
           Priority : PriorityDataSourceFactory
  #### 2 自定义数据源引用(根据自己需求选用)
-      compile 'com.google.android.exoplayer:extension-okhttp:2.7.1'
-      compile 'com.google.android.exoplayer:extension-rtmp:2.7.1'
-      compile 'com.google.android.exoplayer:extension-gvr:2.7.1'
-      compile 'com.google.android.exoplayer:extension-cast:2.7.1'
-      compile 'com.google.android.exoplayer:extension-mediasession:2.7.1'
-      compile 'com.google.android.exoplayer:extension-ima:2.7.1'
-      compile 'com.google.android.exoplayer:extension-leanback:2.7.1'
+      compile 'com.google.android.exoplayer:extension-okhttp:2.7.2'
+      compile 'com.google.android.exoplayer:extension-rtmp:2.7.2'
+      compile 'com.google.android.exoplayer:extension-gvr:2.7.2'
+      compile 'com.google.android.exoplayer:extension-cast:2.7.2'
+      compile 'com.google.android.exoplayer:extension-mediasession:2.7.2'
+      compile 'com.google.android.exoplayer:extension-ima:2.7.2'
+      compile 'com.google.android.exoplayer:extension-leanback:2.7.2'
 
 ### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
 ### 六.[自定义布局用法-戳我](READMELAYUOT.md)

@@ -94,7 +94,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         exoPlayerManager = new ManualPlayer(this, wholeMediaSource,videoPlayerView);
        // videoPlayerView.setOpenLock(false);
         exoPlayerManager.setPosition(currPosition);
-        exoPlayerManager.setTitle("自定义视频标题");
+        videoPlayerView.setTitle("自定义视频标题");
         //设置加载显示模式
         exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
         wholeMediaSource.setMediaSource(videoSource);
