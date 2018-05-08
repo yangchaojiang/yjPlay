@@ -34,7 +34,7 @@
    * 23 支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
  <!--more-->
 
- ### [更新日志2.1.70→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.1.73→》戳我查看](RELEASENOTES.md)
 
  ### 一.引用类库
   ````
@@ -45,9 +45,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.70' 
+      compile 'com.ycjiang:VideoPlayModule:2.1.73' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.70'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.73'
 
   }
   ````

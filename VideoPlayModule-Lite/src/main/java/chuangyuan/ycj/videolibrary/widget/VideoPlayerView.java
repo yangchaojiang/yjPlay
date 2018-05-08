@@ -134,9 +134,9 @@ public final class VideoPlayerView extends BaseView {
     }
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        ExoDataBean bean = (ExoDataBean) state;
         super.onRestoreInstanceState(state);
-        if (bean != null) {
+        if (state instanceof ExoDataBean) {
+            ExoDataBean bean = (ExoDataBean) state;
             if (bean.getNameSwitch() != null) {
                 setNameSwitch(bean.getNameSwitch());
             }
@@ -144,7 +144,6 @@ public final class VideoPlayerView extends BaseView {
             setSystemUiVisibility = bean.getSetSystemUiVisibility();
             switchIndex = bean.getSwitchIndex();
         }
-
     }
 
     @Override

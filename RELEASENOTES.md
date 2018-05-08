@@ -1,5 +1,7 @@
  ## 更新日志
    #### 2.1.70
+   * 1.修复bug[104](https://github.com/yangchaojiang/yjPlay/issues/104)。 
+   #### 2.1.70
    * 1.增加能否播放在底部加一个实时进度[103](https://github.com/yangchaojiang/yjPlay/issues/104)。 
    * 2.优化api使用说明。
    * 3.增加进度控件自定义控件说明[--》戳我](https://github.com/yangchaojiang/yjPlay/blob/dev/READMELAYUOT.md#%E4%BA%94%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E8%BF%9B%E5%BA%A6%E6%8E%A7%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89)  
