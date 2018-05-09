@@ -45,7 +45,7 @@ class LockControlView extends FrameLayout implements View.OnClickListener, AnimU
         lockCheckBox = exoPlayLockLayout.findViewById(R.id.exo_player_lock_btn_id);
         exoControllerRight = baseView.getPlaybackControlView().findViewById(R.id.exo_controller_right);
         exoControllerLeft = baseView.getPlaybackControlView().findViewById(R.id.exo_controller_left);
-        lockCheckBox.setVisibility(isOpenLock ? VISIBLE : GONE);
+        lockCheckBox.setVisibility(GONE);
         lockCheckBox.setOnClickListener(this);
         mBaseView.getPlaybackControlView().setAnimatorListener(this);
         mBaseView.getPlaybackControlView().setUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
@@ -88,13 +88,11 @@ class LockControlView extends FrameLayout implements View.OnClickListener, AnimU
     public void showLockState(int visibility) {
         if (exoPlayLockLayout != null) {
             if (mBaseView.isLand) {
-                if (lockCheckBox.isChecked()) {
-                    if (visibility == View.VISIBLE) {
-                        mBaseView.playerView.getControllerView().hideNo();
-                        mBaseView.showBackView(GONE, true);
-                    }
-                } else
-                    lockCheckBox.setVisibility(visibility);
+                if (lockCheckBox.isChecked() && visibility == View.VISIBLE) {
+                    mBaseView.playerView.getControllerView().hideNo();
+                    mBaseView.showBackView(GONE, true);
+                }
+                lockCheckBox.setVisibility(visibility);
             } else {
                 lockCheckBox.setVisibility(GONE);
             }
@@ -151,15 +149,26 @@ class LockControlView extends FrameLayout implements View.OnClickListener, AnimU
      * ***/
     public void updateLockCheckBox(boolean isIn) {
         if (!mBaseView.isLand) return;
-        if (isIn) {
-            AnimUtils.setInAnimX(lockCheckBox).start();
-        } else {
-            if (lockCheckBox.getTag() == null) {
+        if (lockCheckBox.isChecked()) {
+            if (lockCheckBox.getTranslationX() == 0) {
                 AnimUtils.setOutAnimX(lockCheckBox, false).start();
             } else {
-                lockCheckBox.setTag(null);
+                AnimUtils.setInAnimX(lockCheckBox).start();
+            }
+        } else {
+            if (isIn) {
+                AnimUtils.setInAnimX(lockCheckBox).start();
+            } else {
+                if (lockCheckBox.getTag() == null) {
+                    AnimUtils.setOutAnimX(lockCheckBox, false).start();
+                } else {
+                    lockCheckBox.setTag(null);
+                }
+
             }
         }
+
+
     }
 
     public void removeCallback() {

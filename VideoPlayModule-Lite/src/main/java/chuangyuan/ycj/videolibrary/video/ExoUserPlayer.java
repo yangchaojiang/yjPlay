@@ -308,7 +308,6 @@ public class ExoUserPlayer {
     }
 
 
-
     /***
      * 创建实例播放实例，并不开始缓冲
      **/
@@ -372,6 +371,7 @@ public class ExoUserPlayer {
             timer.scheduleWithFixedDelay(task, 400, 900, TimeUnit.MILLISECONDS);
         }
     }
+
     /***
      * 设置播放路径
      * @param drmSessionManager 一个可选的 {@link DrmSessionManager}. 如果DRM得到保护，可能是null
@@ -922,8 +922,14 @@ public class ExoUserPlayer {
         @Override
         public void replayPlayers() {
             clearResumePosition();
-            getPlayer().seekTo(0, 0);
-            getPlayer().setPlayWhenReady(true);
+            handPause = false;
+            if (getPlayer() == null) {
+                createPlayers();
+            } else {
+                getPlayer().seekTo(0, 0);
+                getPlayer().setPlayWhenReady(true);
+            }
+
         }
 
         @Override

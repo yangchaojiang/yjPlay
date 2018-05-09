@@ -22,7 +22,7 @@ import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
 public class MainDetailedActivity extends Activity {
 
-    private ManualPlayer exoPlayerManager;
+    private ExoUserPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";
     String[] test;
@@ -33,7 +33,7 @@ public class MainDetailedActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
         videoPlayerView = findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new ManualPlayer(this, videoPlayerView, new DataSource(this));
+        exoPlayerManager = new ExoUserPlayer(this, videoPlayerView, new DataSource(this));
         //设置视频标题
         videoPlayerView.setTitle("视频标题");
         //设置水印图

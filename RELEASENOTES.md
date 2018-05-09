@@ -1,4 +1,7 @@
  ## 更新日志
+   #### 2.1.74
+   * 1.修复bug[113](https://github.com/yangchaojiang/yjPlay/issues/113)。 
+   * 1.优化锁屏按钮。   
    #### 2.1.70
    * 1.修复bug[104](https://github.com/yangchaojiang/yjPlay/issues/104)。 
    #### 2.1.70
