@@ -8,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.novoda:bintray-release:0.8.1'
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
     }
 }
 
@@ -33,7 +33,7 @@ allprojects {
         minSdkVersion=17
         versionCode = 16
         versionName = "3.0"
-        publish_version='2.1.74'
+        publish_version='2.1.80'
     }
     tasks.withType(Javadoc) {
         options{

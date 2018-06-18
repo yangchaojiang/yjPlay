@@ -155,7 +155,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
-           if ( checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, android.os.Process.myPid(), Process.myUid())== PackageManager.PERMISSION_DENIED){
+            requestPermissions(new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+
+            if ( checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, android.os.Process.myPid(), Process.myUid())== PackageManager.PERMISSION_DENIED){
                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
            }
 

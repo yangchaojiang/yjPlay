@@ -2,6 +2,9 @@ package chuangyuan.ycj.yjplay;
 
 import android.app.Application;
 
+import chuangyuan.ycj.videolibrary.office.ExoWholeDownLoadManger;
+import chuangyuan.ycj.videolibrary.offline.ExoDownLoadManger;
+import chuangyuan.ycj.yjplay.offline.DemoDownloadService;
 
 
 /**
@@ -11,10 +14,11 @@ import android.app.Application;
  */
 
 public class App extends Application {
-    public static final String TAG = "App";
-
     @Override
     public void onCreate() {
         super.onCreate();
+        ExoWholeDownLoadManger.getSingle().initDownloadManager(this,DemoDownloadService.class);
+     //  ExoDownLoadManger.getSingle().initDownloadManager(this,DemoDownloadService.class);
     }
+
 }

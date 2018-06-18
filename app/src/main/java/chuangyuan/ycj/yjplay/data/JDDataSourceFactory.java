@@ -54,7 +54,7 @@ public class JDDataSourceFactory extends HttpDataSource.BaseFactory {
      *     data, in milliseconds. A timeout of zero is interpreted as an infinite timeout.
      * @param readTimeoutMillis The read timeout that should be used when requesting remote data, in
      *     milliseconds. A timeout of zero is interpreted as an infinite timeout.
-     * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
+     * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.Sample. redirects from HTTP
      *     to HTTPS and vice versa) are enabled.
      */
     public JDDataSourceFactory(String userAgent,

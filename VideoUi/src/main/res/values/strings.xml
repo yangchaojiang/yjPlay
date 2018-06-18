@@ -38,4 +38,5 @@
         <item>standard</item>
     </array>
     <string name="exo_fenge">/</string>
+    <string name="download_start_error">Failed to start download</string>
 </resources>

@@ -28,14 +28,14 @@
    * 17 支持增加 手势 亮度调节，视频进度，音量 布局自定义。
    * 18 支持精简版和完整版，选择使用更丰富。
    * 19 支持自定义AES视频加密,简单加密→戳我(2.1.31版本已弃用)
-   * 20 [增加自定义离线下载辅助类DefaultProgressDownloader(支持（AES/CBC）加密文件处理)](README_EN_VIDEO.md)),HlsDownloader,DashDownloader,SsDownloader,SegmentDownloader。
+   * 20 [增加离线下载辅助类ExoWholeDownLoadManger,ExoWholeDownloadTracker,ExoDownLoadManger,DownloadService()-->戳我](README_EN_VIDEO.md))
    * 21 支持播放锁屏功能和控制布局显示显示动画效果.
    * 22 支持返回按钮和全屏按钮图标自定义。
    * 23 支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
    * 24 支持视频实时进度（头条底部进度）。
  <!--more-->
 
- ### [更新日志2.1.74→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.1.80→》戳我查看](RELEASENOTES.md)
 
  ### 一.引用类库
   ````
@@ -46,9 +46,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.74' 
+      compile 'com.ycjiang:VideoPlayModule:2.1.80' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.74'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.80'
 
   }
   ````

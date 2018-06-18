@@ -11,4 +11,5 @@
   <color name="timeBar_played_color">#FF7000</color>
   <color name="timeBar_unplayed_color">#a5ffffff</color>
   <color name="timeBar_scrubber_color">@color/simple_exo_color_switch_item</color>
+  <color name="exo_error_message_background_color">#AA000000</color>
 </resources>

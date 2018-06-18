@@ -1,4 +1,9 @@
  ## 更新日志
+   #### 2.1.80
+   * 1.ExoPlayer升级内核版本[#2.8.1](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#281) 
+   * 2.其他优化细节。 
+   * 3.支持流媒体文件下载缓存[119,107](https://github.com/yangchaojiang/yjPlay/issues/119)。 
+   * 4.支持流媒体文件下载缓存[107](https://github.com/yangchaojiang/yjPlay/issues/107)。    
    #### 2.1.74
    * 1.修复bug[113](https://github.com/yangchaojiang/yjPlay/issues/113)。 
    * 1.优化锁屏按钮。   

@@ -1,15 +1,16 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">yjPlayVideo</string>
 
     <string name="url_hls">http://ivi.bupt.edu.cn/hls/cctv2.m3u8</string>
-    <string name="uri_test_3">http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4</string>
+    <string name="uri_test_m3u8">http://cdn.can.cibntv.net/12/201702161000/rexuechangan01/rexuechangan01.m3u8</string>
+    <string name="uri_test_3">http://mp4.vjshi.com/2017-06-27/20a9ddebfcc19eeddc9604f1a39a38d9.mp4</string>
     <string name="uri_test">http://mp4.vjshi.com/2017-09-19/e1920013741c5c66d408c7cdb3d9eddf.mp4</string>
     <string name="uri_test_1">http://mp4.vjshi.com/2016-12-22/e54d476ad49891bd1adda49280a20692.mp4</string>
     <string name="uri_test_h">http://mp4.vjshi.com/2017-08-16/af83af63d018816474067b51a835f4a2.mp4</string>
     <string name="uri_test_5">http://mp4.vjshi.com/2017-10-19/53bfeb9eb92c1748596eaf2a1e649020.mp4</string>
     <string name="uri_test_6">http://mp4.vjshi.com/2016-10-23/a0511ea830bb0620f94a5340a1879800.mp4</string>
     <string name="uri_test_7">http://mp4.vjshi.com/2016-10-21/84bafe60ef0af95a5292f66b9f692504.mp4</string>
-    <string name="uri_test_8">http://mp4.vjshi.com/2017-04-14/933db6540f53dd38974b4446388fb928.mp4</string>
+    <string name="uri_test_8">http://mp4.vjshi.com/2018-01-09/40f3f1edc1cc4aacad958f3e8acbf4ce.mp4</string>
     <string name="uri_test_9">http://mp4.vjshi.com/2015-05-11/1431320221859_786.mp4</string>
     <string name="uri_test_10">http://mp4.vjshi.com/2013-07-25/2013072519392517096.mp4</string>
     <string name="uri_test_11">http://mp4.vjshi.com/2016-12-22/3ccab5a78036fa933c8585f4a1e57a44.mp4</string>
@@ -33,5 +34,43 @@
 
     <string name="release">release</string>
     <string name="rotate">旋转屏幕</string>
+    <string name="unexpected_intent_action">Unexpected intent action: <xliff:g id="action">%1$s</xliff:g></string>
 
+    <string name="error_generic">Playback failed</string>
+
+    <string name="error_unrecognized_abr_algorithm">Unrecognized ABR algorithm</string>
+
+    <string name="error_drm_not_supported">Protected content not supported on API levels below 18</string>
+
+    <string name="error_drm_unsupported_scheme">This device does not support the required DRM scheme</string>
+
+    <string name="error_drm_unknown">An unknown DRM error occurred</string>
+
+    <string name="error_no_decoder">This device does not provide a decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+
+    <string name="error_no_secure_decoder">This device does not provide a secure decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+
+    <string name="error_querying_decoders">Unable to query device decoders</string>
+
+    <string name="error_instantiating_decoder">Unable to instantiate decoder <xliff:g id="decoder_name">%1$s</xliff:g></string>
+
+    <string name="error_unsupported_video">Media includes video tracks, but none are playable by this device</string>
+
+    <string name="error_unsupported_audio">Media includes audio tracks, but none are playable by this device</string>
+
+    <string name="storage_permission_denied">Permission to access storage was denied</string>
+
+    <string name="sample_list_load_error">One or more sample lists failed to load</string>
+
+    <string name="ima_not_loaded">Playing sample without ads, as the IMA extension was not loaded</string>
+
+    <string name="download_start_error">Failed to start download</string>
+
+    <string name="download_playlist_unsupported">This demo app does not support downloading playlists</string>
+
+    <string name="download_drm_unsupported">This demo app does not support downloading protected content</string>
+
+    <string name="download_scheme_unsupported">This demo app only supports downloading http streams</string>
+
+    <string name="download_ads_unsupported">IMA does not support offline ads</string>
 </resources>

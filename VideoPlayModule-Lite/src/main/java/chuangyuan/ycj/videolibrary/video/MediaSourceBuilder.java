@@ -6,12 +6,9 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
-import android.util.Log;
-
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
-import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -124,7 +121,7 @@ public class MediaSourceBuilder {
      */
     public void setMediaUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
         this.indexType = indexType;
-        DynamicConcatenatingMediaSource source = new DynamicConcatenatingMediaSource();
+         ConcatenatingMediaSource source = new ConcatenatingMediaSource();
         source.addMediaSource(initMediaSource(firstVideoUri));
         source.addMediaSource(initMediaSource(secondVideoUri));
         mediaSource = source;
@@ -207,9 +204,9 @@ public class MediaSourceBuilder {
      * @param index 要移除数据
      */
     void removeMediaSource(int index) {
-        if (mediaSource instanceof DynamicConcatenatingMediaSource) {
-            DynamicConcatenatingMediaSource source = (DynamicConcatenatingMediaSource) mediaSource;
-            source.getMediaSource(index).releaseSource();
+        if (mediaSource instanceof ConcatenatingMediaSource) {
+            ConcatenatingMediaSource source = (ConcatenatingMediaSource) mediaSource;
+            source.getMediaSource(index).releaseSource(null);
             source.removeMediaSource(index);
         }
     }
@@ -219,7 +216,7 @@ public class MediaSourceBuilder {
      */
     public void release() {
         if (mediaSource != null) {
-            mediaSource.releaseSource();
+            mediaSource.releaseSource(null);
         }
         if (mainHandler != null) {
             mainHandler.removeCallbacksAndMessages(context);
@@ -287,7 +284,7 @@ public class MediaSourceBuilder {
                         .setExtractorsFactory(new DefaultExtractorsFactory())
                         .setMinLoadableRetryCount(5)
                         .setCustomCacheKey(uri.toString())
-                        .createMediaSource(uri, mainHandler, null);
+                        .createMediaSource(uri);
             default:
                 throw new IllegalStateException(context.getString(R.string.media_error));
         }

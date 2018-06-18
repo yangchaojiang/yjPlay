@@ -22,4 +22,5 @@
     <string name="simple_barrage">弹幕(测试)</string>
     <string name="simple_barrage2">弹幕2(测试)</string>
     <string name="send_show">控制</string>
+    <string name="download_start_error">无法开始下载</string>
 </resources>

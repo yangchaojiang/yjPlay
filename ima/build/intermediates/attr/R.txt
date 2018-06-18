@@ -1317,6 +1317,7 @@ int attr windowFullscreen 0x0101020d
 int attr windowHideAnimation 0x010100b7
 int attr windowIsFloating 0x01010057
 int attr windowIsTranslucent 0x01010058
+int attr windowLayoutInDisplayCutoutMode 0x01010586
 int attr windowLightNavigationBar 0x0101056c
 int attr windowLightStatusBar 0x010104e0
 int attr windowMinWidthMajor 0x01010356

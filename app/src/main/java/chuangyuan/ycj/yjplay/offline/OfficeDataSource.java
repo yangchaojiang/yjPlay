@@ -26,7 +26,6 @@ public class OfficeDataSource implements DataSourceListener {
         this.context = context;
         this.eventListener = eventListener;
     }
-
     @Override
     public DataSource.Factory getDataSourceFactory() {
         //采用默认

@@ -29,6 +29,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.drm.DrmSessionManager;
 import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
@@ -828,9 +829,9 @@ public class ExoUserPlayer {
     private void setSwitchPlayer(@NonNull String uri) {
         handPause = false;
         updateResumePosition();
-        if (mediaSourceBuilder.getMediaSource() instanceof DynamicConcatenatingMediaSource) {
-            DynamicConcatenatingMediaSource source = (DynamicConcatenatingMediaSource) mediaSourceBuilder.getMediaSource();
-            source.getMediaSource(source.getSize() - 1).releaseSource();
+        if (mediaSourceBuilder.getMediaSource() instanceof ConcatenatingMediaSource) {
+            ConcatenatingMediaSource source = (ConcatenatingMediaSource) mediaSourceBuilder.getMediaSource();
+            source.getMediaSource(source.getSize() - 1).releaseSource(null);
             source.addMediaSource(mediaSourceBuilder.initMediaSource(Uri.parse(uri)));
             isSwitch = true;
         } else {

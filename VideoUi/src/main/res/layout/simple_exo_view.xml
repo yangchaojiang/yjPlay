@@ -11,10 +11,15 @@
         android:layout_gravity="center"
         android:background="@android:color/black">
 
-        <View
-            android:id="@id/exo_shutter"
+        <View android:id="@id/exo_shutter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@android:color/black"/>
+
+        <ImageView android:id="@id/exo_artwork"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
 
         <com.google.android.exoplayer2.ui.SubtitleView
             android:id="@id/exo_subtitles"
@@ -22,6 +27,19 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent" />
 
+        <ProgressBar android:id="@id/exo_buffering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_gravity="center"/>
+
+        <TextView android:id="@id/exo_error_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@color/exo_error_message_background_color"
+            android:padding="16dp"/>
         <ImageView
             android:id="@id/exo_preview_image_bottom"
             android:layout_width="match_parent"

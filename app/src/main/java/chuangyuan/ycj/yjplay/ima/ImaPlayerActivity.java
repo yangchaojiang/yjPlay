@@ -17,7 +17,7 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
 public class ImaPlayerActivity extends Activity {
-    private   ImaAdsLoader adsLoader;
+    private ImaAdsLoader adsLoader;
     private GestureVideoPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";

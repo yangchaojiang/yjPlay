@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.google.android.exoplayer2.offline.Downloader;
 import com.google.android.exoplayer2.offline.DownloaderConstructorHelper;
 import com.google.android.exoplayer2.offline.ProgressiveDownloader;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -22,6 +21,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
+import chuangyuan.ycj.videolibrary.listener.ExoProgressListener;
 
 /**
  * author  yangc
@@ -29,11 +29,13 @@ import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:  常规媒体流的下载器。支持断点下载
  */
+/** @deprecated Use {@link ExoDownloadTracker}. */
+@Deprecated
 public   class DefaultProgressDownloader {
 
     private final ProgressiveDownloader downloader;
     @Nullable
-    private Downloader.ProgressListener listener;
+    private ExoProgressListener listener;
     @Nullable
     private ScheduledExecutorService service;
     private final Handler handler = new Handler(Looper.getMainLooper()) {
@@ -51,8 +53,7 @@ public   class DefaultProgressDownloader {
     };
 
     protected DefaultProgressDownloader(Uri uri, DownloaderConstructorHelper constructorHelper) {
-        downloader = new ProgressiveDownloader(uri.toString(), uri.toString(), constructorHelper);
-        downloader.init();
+        downloader = new ProgressiveDownloader(uri, uri.toString(), constructorHelper);
 
     }
 
@@ -61,7 +62,7 @@ public   class DefaultProgressDownloader {
      * @param  listener  下载回调
      * 为-1 就是下载错误，进度
      * ***/
-    public void download(@Nullable Downloader.ProgressListener listener) {
+    public void download(@Nullable ExoProgressListener listener) {
         service = Executors.newScheduledThreadPool(2);
         this.listener = listener;
         service.scheduleAtFixedRate(new Runnable() {
@@ -106,7 +107,7 @@ public   class DefaultProgressDownloader {
         @Override
         public void run() {
             try {
-                downloader.download(listener);
+                downloader.download();
             } catch (Exception e) {
                 e.printStackTrace();
                 cancel();
@@ -136,7 +137,7 @@ public   class DefaultProgressDownloader {
          * @param context the context
          */
         public Builder(@NonNull Context context) {
-            this.context = context;
+            this.context = context.getApplicationContext();
         }
 
         /**
@@ -240,8 +241,11 @@ public   class DefaultProgressDownloader {
                 File file;
                 if (cacheDir == null) {
                     file = new File(context.getExternalCacheDir(), "media");
+                    if (!file.exists()) {
+                        file.mkdirs();
+                    }
                 } else {
-                    file = new File(cacheDir, "media");
+                    file = new File(cacheDir);
                 }
                 simpleCache = new SimpleCache(file, new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
             }
