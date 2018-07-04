@@ -1,4 +1,7 @@
  ## 更新日志
+   #### 2.1.83
+   * 1.ExoPlayer升级内核版本[#2.8.2](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#281) 
+   * 2.修复bug[132](https://github.com/yangchaojiang/yjPlay/issues/132)。 
    #### 2.1.80
    * 1.ExoPlayer升级内核版本[#2.8.1](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#281) 
    * 2.其他优化细节。 

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.cache.Cache;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
 import com.google.android.exoplayer2.upstream.cache.SimpleCache;
@@ -70,6 +71,9 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
             }
             if (!downloadDirectory.exists()) {
                 downloadDirectory.mkdirs();
+            }
+            if (SimpleCache.isCacheFolderLocked(downloadDirectory)){
+                    simpleCache.disableCacheFolderLocking();
             }
             simpleCache = new SimpleCache(downloadDirectory, new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
 

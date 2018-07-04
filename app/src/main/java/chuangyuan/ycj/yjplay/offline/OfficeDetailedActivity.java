@@ -52,7 +52,7 @@ public class OfficeDetailedActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (exoDownloadTracker.isDownloaded(Uri.parse(getString(R.string.uri_test_m3u8)))) {
+                if (exoDownloadTracker.isDownloaded(Uri.parse(getString(R.string.uri_test_3)))) {
                     exoPlayerManager.setPlayUri(getString(R.string.uri_test_8));
                     exoPlayerManager.startPlayer();
                 } else {
@@ -107,7 +107,7 @@ public class OfficeDetailedActivity extends Activity {
      * 自定义下载
      * ***/
     private void customDwon() {
-        exoDownloadTracker.toggleDownload(this, "视频标题", Uri.parse(getString(R.string.uri_test_m3u8)), null);
+        exoDownloadTracker.toggleDownload(this, "视频标题", Uri.parse(getString(R.string.uri_test_3)), null);
         exoDownloadTracker.addListener(new ExoWholeDownloadTracker.Listener() {
             @Override
             public void onDownloadsChanged(int taskState) {
