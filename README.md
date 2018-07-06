@@ -1,4 +1,3 @@
-
 # yjPlay
 
 [![Download](https://api.bintray.com/packages/ycjiang/ycjiang/VideoPlayModule/images/download.svg) ](https://bintray.com/ycjiang/ycjiang/VideoPlayModule/_latestVersion)
@@ -7,8 +6,11 @@
   ### gif 显示有点卡，帧数低，实际很流畅
   #### [下载预览apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-release-unsigned.apk)
 
- ![](test.gif)
-
+ ![](gif/tet.gif)  ![](gif/tet2.gif)
+ 
+ ![](gif/tet3.gif)  ![](gif/tet3.gif)
+ 
+  ![](gif/tet4.gif)  ![](gif/tet6.gif)
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    * 1 ExoUserPlayer  基本播放。
    * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势。
@@ -21,7 +23,7 @@
    * 10 支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
    * 11 支持网络类型 提示是否播放(可自定义屏蔽)。
    * 12 支持视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
-   * 13 支持视频加载中显示模式（网速模式和百分比模式）。
+   * 13 支持视频加载中显示模式（网速模式和百分比模式[已废弃]）。
    * 14 支持视频加速慢速播放。
    * 15 支持多种视频封面图（两种模式封面图）。
    * 16 支持支持自定义[MediaSource]()。
@@ -358,14 +360,14 @@
           缓存 : CacheDataSourceFactory
           http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
           Priority : PriorityDataSourceFactory
- #### 2 自定义数据源引用(根据自己需求选用)
-      compile 'com.google.android.exoplayer:extension-okhttp:2.7.2'
-      compile 'com.google.android.exoplayer:extension-rtmp:2.7.2'
-      compile 'com.google.android.exoplayer:extension-gvr:2.7.2'
-      compile 'com.google.android.exoplayer:extension-cast:2.7.2'
-      compile 'com.google.android.exoplayer:extension-mediasession:2.7.2'
-      compile 'com.google.android.exoplayer:extension-ima:2.7.2'
-      compile 'com.google.android.exoplayer:extension-leanback:2.7.2'
+ #### 2 ExoPlayer自定义数据源引用(根据自己需求选用)
+      compile 'com.google.android.exoplayer:extension-okhttp:2.8.2'
+      compile 'com.google.android.exoplayer:extension-rtmp:2.8.2'
+      compile 'com.google.android.exoplayer:extension-gvr:2.8.2'
+      compile 'com.google.android.exoplayer:extension-cast:2.8.2'
+      compile 'com.google.android.exoplayer:extension-mediasession:2.8.2'
+      compile 'com.google.android.exoplayer:extension-ima:2.8.2'
+      compile 'com.google.android.exoplayer:extension-leanback:2.8.2'
 
 ### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
 ### 六.[自定义布局用法-戳我](READMELAYUOT.md)
