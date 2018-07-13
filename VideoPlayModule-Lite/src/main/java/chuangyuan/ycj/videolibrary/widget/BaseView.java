@@ -28,6 +28,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
@@ -65,7 +66,7 @@ abstract class BaseView extends FrameLayout {
     protected BelowView belowView;
     /***流量提示框***/
     protected AlertDialog alertDialog;
-    protected ExoPlayerListener mExoPlayerListener;
+    protected  final CopyOnWriteArraySet<ExoPlayerListener> exoPlayerListeners;
     /***返回按钮*/
     protected AppCompatImageView exoControlsBack;
     /***是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮*/
@@ -108,6 +109,7 @@ abstract class BaseView extends FrameLayout {
     public BaseView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         activity = (Activity) context;
+        exoPlayerListeners=new CopyOnWriteArraySet<>();
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         playerView = new PlayerView(getContext(), attrs, defStyleAttr);
         controllerView = playerView.getControllerView();
@@ -212,6 +214,9 @@ abstract class BaseView extends FrameLayout {
         if (mLockControlView != null) {
             mLockControlView.onDestroy();
         }
+        if (exoPlayerListeners!=null){
+            exoPlayerListeners.clear();
+        }
         if (activity != null && activity.isFinishing()) {
             nameSwitch = null;
             activity = null;
@@ -258,7 +263,10 @@ abstract class BaseView extends FrameLayout {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 showBtnContinueHint(View.GONE);
-                mExoPlayerListener.playVideoUri();
+                for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
+                    exoPlayerListener.playVideoUri();
+                }
+
             }
         });
         alertDialog.show();
@@ -448,11 +456,29 @@ abstract class BaseView extends FrameLayout {
      * 设置播放的状态回调 .,此方法不是外部使用，请不要调用
      *
      * @param mExoPlayerListener 回调
+     *@deprecated {@link #addExoPlayerListener(ExoPlayerListener)}
      */
     public void setExoPlayerListener(ExoPlayerListener mExoPlayerListener) {
-        this.mExoPlayerListener = mExoPlayerListener;
+      if (mExoPlayerListener!=null){
+          addExoPlayerListener(mExoPlayerListener);
+      }
     }
-
+    /***
+     * 设置播放的状态回调 .,此方法不是外部使用，请不要调用
+     *
+     * @param mExoPlayerListener 回调
+     */
+    public void addExoPlayerListener(@NonNull ExoPlayerListener mExoPlayerListener) {
+        exoPlayerListeners.add(mExoPlayerListener);
+    }
+    /***
+     * 移除播放的状态回调 .,此方法不是外部使用，请不要调用
+     *
+     * @param mExoPlayerListener 回调
+     */
+    public void removeExoPlayerListener( ExoPlayerListener mExoPlayerListener) {
+        exoPlayerListeners.remove(mExoPlayerListener);
+    }
     /***
      * 设置开启线路切换按钮
      *
@@ -643,10 +669,18 @@ abstract class BaseView extends FrameLayout {
      * 获取g播放控制类
      *
      * @return ExoUserPlayer play
+     * @deprecated
      */
     @Nullable
     protected ExoUserPlayer getPlay() {
-        return mExoPlayerListener != null ? mExoPlayerListener.getPlay() : null;
+        if (exoPlayerListeners.isEmpty()){
+            return  null;
+        }else {
+            for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
+                return exoPlayerListener.getPlay() ;
+            }
+            return  null;
+        }
     }
 
     /***

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -47,15 +48,13 @@ public class MainCustomMediaActivity extends AppCompatActivity {
         exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
         videoPlayerView.setTitle("自定义视频标题");
         //设置加载显示模式
-        exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
-       //MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse(getString(R.string.uri_test)));
-        //mediaSourceBuilder.setMediaSource(source);
-        //LoopingMediaSource loopingSource = new LoopingMediaSource(source, 2);
-       mediaSourceBuilder.setMediaUri(Uri.parse(getString(R.string.uri_test)),Uri.parse(getString(R.string.uri_test)),Uri.parse(getString(R.string.uri_test)),Uri.parse(getString(R.string.uri_test)));
-       // AdsMediaSource adsMediaSource=new AdsMediaSource(source,mediaSourceBuilder.getDataSource(),  new MyAdsLoader(),videoPlayerView.getPlayerView().getOverlayFrameLayout() );
-        //mediaSourceBuilder.setMediaSource(adsMediaSource);
+      //  mediaSourceBuilder.setClippingMediaUri(Uri.parse(getString(R.string.uri_test_6)),1000,15000);
+   MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse(getString(R.string.uri_test)));
+
+        LoopingMediaSource loopingSource = new LoopingMediaSource(source, 2);
+         mediaSourceBuilder.setMediaSource(loopingSource);
          exoPlayerManager.startPlayer();
-        exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
+        exoPlayerManager.addOnWindowListener(new VideoWindowListener() {
             @Override
             public void onCurrentIndex(int currentIndex, int windowCount) {
                 Log.d(TAG,"currentIndex:"+currentIndex+"_windowCount:"+currentIndex);

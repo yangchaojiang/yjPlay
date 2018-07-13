@@ -38,7 +38,7 @@ public class MainDetailedActivity extends Activity {
         videoPlayerView.setTitle("视频标题");
         //设置水印图
         videoPlayerView.setExoPlayWatermarkImg(R.mipmap.watermark_big);
-        exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
+        exoPlayerManager.addOnWindowListener(new VideoWindowListener() {
             @Override
             public void onCurrentIndex(int currentIndex, int windowCount) {
                 Toast.makeText(getApplication(), currentIndex + "windowCount:" + windowCount, Toast.LENGTH_SHORT).show();

@@ -6,15 +6,23 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.ClippingMediaSource;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.MediaSourceEventListener;
+import com.google.android.exoplayer2.source.ads.AdsLoader;
+import com.google.android.exoplayer2.source.ads.AdsMediaSource;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.R;
@@ -33,8 +41,6 @@ public class MediaSourceBuilder {
     private static final String TAG = MediaSourceBuilder.class.getName();
     /*** The Context.*/
     protected Context context;
-    /*** The Main handler.*/
-    protected Handler mainHandler = null;
     private MediaSource mediaSource;
     /*** The Listener. */
     protected DataSourceListener listener;
@@ -62,7 +68,6 @@ public class MediaSourceBuilder {
     public MediaSourceBuilder(@NonNull Context context, @Nullable DataSourceListener listener) {
         this.listener = listener;
         this.context = context.getApplicationContext();
-        mainHandler = new Handler();
     }
 
     /****
@@ -73,7 +78,17 @@ public class MediaSourceBuilder {
     void setMediaUri(@NonNull Uri uri) {
         mediaSource = initMediaSource(uri);
     }
-
+    /****
+     * 初始化
+     *
+     * @param uri 视频的地址
+     * @param startPositionUs startPositionUs  毫秒
+     *@param   endPositionUs endPositionUs       毫秒
+     */
+  public   void setClippingMediaUri(@NonNull Uri uri,  long startPositionUs, long endPositionUs) {
+        MediaSource   mediaSources = initMediaSource(uri);
+        mediaSource=new ClippingMediaSource(mediaSources,startPositionUs,endPositionUs);
+    }
     /****
      * 初始化
      *
@@ -211,24 +226,11 @@ public class MediaSourceBuilder {
         }
     }
 
-    /****
-     * 释放资源
-     */
-    public void release() {
-        if (mediaSource != null) {
-            mediaSource.releaseSource(null);
-        }
-        if (mainHandler != null) {
-            mainHandler.removeCallbacksAndMessages(context);
-            mainHandler = null;
-        }
-    }
 
     /****
      * 销毁资源
      */
     public void destroy() {
-        release();
         indexType = -1;
         videoUri = null;
         listener = null;
@@ -289,5 +291,4 @@ public class MediaSourceBuilder {
                 throw new IllegalStateException(context.getString(R.string.media_error));
         }
     }
-
 }

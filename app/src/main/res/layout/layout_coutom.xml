@@ -32,6 +32,10 @@
         app:use_artwork="true"
         app:user_watermark="@mipmap/watermark_big"
           />
+    <FrameLayout
+        android:id="@+id/ads"
+        android:layout_width="match_parent"
+        android:layout_height="400px"></FrameLayout>
 
 
 </LinearLayout>

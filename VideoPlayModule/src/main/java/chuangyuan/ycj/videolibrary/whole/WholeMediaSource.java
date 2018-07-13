@@ -34,9 +34,7 @@ public class WholeMediaSource extends MediaSourceBuilder {
 
     public WholeMediaSource(@NonNull Context context, @Nullable DataSourceListener listener) {
         super(context, listener);
-        mainHandler = new Handler();
     }
-
 
     @Override
     public MediaSource initMediaSource(@NonNull Uri uri) {

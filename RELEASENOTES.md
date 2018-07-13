@@ -1,4 +1,7 @@
  ## 更新日志
+   #### 2.1.85
+   * 1.优化内部监听事件回调。
+   * 2.修复bug[137](https://github.com/yangchaojiang/yjPlay/issues/137)。 
    #### 2.1.83
    * 1.ExoPlayer升级内核版本[#2.8.2](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#281) 
    * 2.修复bug[132](https://github.com/yangchaojiang/yjPlay/issues/132)。 

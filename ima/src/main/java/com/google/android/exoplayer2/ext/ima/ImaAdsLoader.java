@@ -220,7 +220,7 @@ public final class ImaAdsLoader extends Player.DefaultEventListener implements A
    * the WebView directly when an ad starts. See [Internal: b/62371030].
    */
   private static final String FOCUS_SKIP_BUTTON_WORKAROUND_JS = "javascript:"
-      + "try{ document.getElementsByClassName(\"videoAdUiSkipButton\")[0].focus(); } catch (Sample) {}";
+      + "try{ document.getElementsByClassName(\"videoAdUiSkipButton\")[0].focus(); } catch (e) {}";
 
   private static final int TIMEOUT_UNSET = -1;
 
@@ -454,9 +454,13 @@ public final class ImaAdsLoader extends Player.DefaultEventListener implements A
       } else if (contentType == C.TYPE_HLS) {
         supportedMimeTypes.add(MimeTypes.APPLICATION_M3U8);
       } else if (contentType == C.TYPE_OTHER) {
-        supportedMimeTypes.addAll(Arrays.asList(
-            MimeTypes.VIDEO_MP4, MimeTypes.VIDEO_WEBM, MimeTypes.VIDEO_H263, MimeTypes.VIDEO_MPEG,
-            MimeTypes.AUDIO_MP4, MimeTypes.AUDIO_MPEG));
+        supportedMimeTypes.addAll(
+            Arrays.asList(
+                MimeTypes.VIDEO_MP4,
+                MimeTypes.VIDEO_WEBM,
+                MimeTypes.VIDEO_H263,
+                MimeTypes.AUDIO_MP4,
+                MimeTypes.AUDIO_MPEG));
       } else if (contentType == C.TYPE_SS) {
         // IMA does not support Smooth Streaming ad media.
       }

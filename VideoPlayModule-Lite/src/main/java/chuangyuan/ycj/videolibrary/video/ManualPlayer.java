@@ -163,9 +163,6 @@ public final class ManualPlayer extends GestureVideoPlayer {
             player.removeListener(componentListener);
             resetInit();
             player.release();
-            if (mediaSourceBuilder != null) {
-                mediaSourceBuilder.release();
-            }
             player = null;
         }
 

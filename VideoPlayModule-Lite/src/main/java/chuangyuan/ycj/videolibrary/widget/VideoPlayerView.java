@@ -24,6 +24,7 @@ import com.google.android.exoplayer2.ui.PlayerControlView;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.R;
+import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 import chuangyuan.ycj.videolibrary.video.ExoDataBean;
@@ -240,13 +241,12 @@ public final class VideoPlayerView extends BaseView {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (mExoPlayerListener != null && mExoPlayerListener.getClickListener() != null) {
-                    mExoPlayerListener.getClickListener().onClick(v);
-                } else {
-                    if (mExoPlayerListener != null) {
-                        mExoPlayerListener.startPlayers();
+                    for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
+                          if (exoPlayerListener.getClickListener()!=null){
+                              exoPlayerListener.getClickListener().onClick(v);
+                          }
+                        exoPlayerListener.startPlayers();
                     }
-                }
             }
             return false;
         }
@@ -353,7 +353,10 @@ public final class VideoPlayerView extends BaseView {
             } else if (v.getId() == R.id.exo_player_error_btn_id) {
                 if (VideoPlayUtils.isNetworkAvailable(activity)) {
                     showErrorState(View.GONE);
-                    mExoPlayerListener.onCreatePlayers();
+                    for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
+                        exoPlayerListener.onCreatePlayers();
+                    }
+
                 } else {
                     Toast.makeText(activity, R.string.net_network_no_hint, Toast.LENGTH_SHORT).show();
                 }
@@ -361,7 +364,9 @@ public final class VideoPlayerView extends BaseView {
                 if (VideoPlayUtils.isNetworkAvailable(activity)) {
                     showReplay(View.GONE);
                     showBottomView(GONE, null);
-                    mExoPlayerListener.replayPlayers();
+                    for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
+                        exoPlayerListener.onCreatePlayers();
+                    }
                 } else {
                     Toast.makeText(activity, R.string.net_network_no_hint, Toast.LENGTH_SHORT).show();
                 }
@@ -372,7 +377,10 @@ public final class VideoPlayerView extends BaseView {
                     belowView.setOnItemClickListener(new BelowView.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position, String name) {
-                            mExoPlayerListener.switchUri(position);
+
+                            for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
+                                exoPlayerListener.switchUri(position);
+                            }
                             getSwitchText().setText(name);
                             belowView.dismissBelowView();
                         }
@@ -382,7 +390,9 @@ public final class VideoPlayerView extends BaseView {
                 //提示播放
             } else if (v.getId() == R.id.exo_player_btn_hint_btn_id) {
                 showBtnContinueHint(View.GONE);
-                mExoPlayerListener.playVideoUri();
+                for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
+                    exoPlayerListener.playVideoUri();
+                }
             }
         }
     };
@@ -423,7 +433,7 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public void showErrorStateView(int visibility) {
-            showErrorState(visibility);
+          showErrorState(visibility);
         }
 
         @Override

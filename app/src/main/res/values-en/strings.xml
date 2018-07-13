@@ -20,7 +20,7 @@
     <string name="default_cache">Default cache playback</string>
     <string name="custom_cache">Customize the download cache</string>
     <string name="simple_fragment">FragmentList</string>
-    <string name="simple_barrage">弹幕(测试)</string>
+    <string name="simple_barrage">弹幕</string>
     <string name="simple_barrage2">弹幕2(测试)</string>
     <string name="send_show">控制</string>
     <string name="download_start_error">Failed to start download</string>

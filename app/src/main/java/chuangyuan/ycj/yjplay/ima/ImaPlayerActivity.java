@@ -29,7 +29,7 @@ public class ImaPlayerActivity extends Activity {
         setContentView(R.layout.layout_coutom3);
         ImaSdkSettings sdkSettings= ImaSdkFactory.getInstance().createImaSdkSettings();
         sdkSettings.setLanguage("zh");
-        adsLoader = new ImaAdsLoader( this, Uri.parse(getString(R.string.ad_tag_url)),sdkSettings);
+        adsLoader = new ImaAdsLoader( this, Uri.parse(getString(R.string.uri_test_5)));
         mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(this.getApplication()));
         videoPlayerView =   findViewById(R.id.exo_play_context_id);
         exoPlayerManager = new GestureVideoPlayer(this,mediaSourceBuilder,videoPlayerView );
@@ -66,10 +66,6 @@ public class ImaPlayerActivity extends Activity {
     protected void onDestroy() {
         exoPlayerManager.onDestroy();
         super.onDestroy();
-        if (adsLoader!=null){
-            adsLoader.release();
-        }
-
     }
 
     @Override

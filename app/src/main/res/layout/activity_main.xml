@@ -94,6 +94,6 @@
         android:id="@+id/button14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/simple_barrage"/>
+        android:text="@string/simple_barrage2"/>
 </LinearLayout>
 </ScrollView>

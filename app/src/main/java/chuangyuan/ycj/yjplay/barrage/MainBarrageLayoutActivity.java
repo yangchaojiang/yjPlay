@@ -395,8 +395,8 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
             mDanmakuView.show();
             // mDanmakuView.showAndResumeDrawTask(mPausedPosition); // sync to the video time in your practice
         } else if (v == mBtnPauseDanmaku) {
-            mDanmakuView.pause();
             exoPlayerManager.setStartOrPause(false);
+            mDanmakuView.pause();
         } else if (v == mBtnResumeDanmaku) {
             mDanmakuView.resume();
             exoPlayerManager.setStartOrPause(true);

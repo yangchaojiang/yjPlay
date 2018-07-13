@@ -6,11 +6,10 @@
   ### gif 显示有点卡，帧数低，实际很流畅
   #### [下载预览apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-release-unsigned.apk)
 
- ![](gif/tet.gif)  ![](gif/tet2.gif)
+ ![](gif/tet.gif)  ![](gif/tet2.gif)  ![](gif/tet3.gif)  
  
- ![](gif/tet3.gif)  ![](gif/tet3.gif)
- 
-  ![](gif/tet4.gif)  ![](gif/tet6.gif)
+![](gif/tet3.gif)  ![](gif/tet4.gif)  ![](gif/tet6.gif)
+
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    * 1 ExoUserPlayer  基本播放。
    * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势。
@@ -37,7 +36,7 @@
    * 24 支持视频实时进度（头条底部进度）。
  <!--more-->
 
- ### [更新日志2.1.80→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.1.85→》戳我查看](RELEASENOTES.md)
 
  ### 一.引用类库
   ````
@@ -48,9 +47,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.83' 
+      compile 'com.ycjiang:VideoPlayModule:2.1.85' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.83'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.85'
 
   }
   ````
