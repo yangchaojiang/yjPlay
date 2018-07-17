@@ -77,7 +77,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         videoBrightnessImg = findViewById(R.id.exo_video_brightness_img);
         videoBrightnessPro =  findViewById(R.id.exo_video_brightness_pro);
         wholeMediaSource=new WholeMediaSource(this,new Data2Source(getApplication()));
-        MediaSource videoSource = wholeMediaSource.initMediaSource(Uri.parse("http://www.sample-videos.com/video/mp4/480/big_buck_bunny_480p_5mb.mp4"));
+        MediaSource videoSource = wholeMediaSource.initMediaSource(Uri.parse(getString(R.string.uri_test_5)));
    /*     //构建子标题媒体源
         Format subtitleFormat = Format.createTextSampleFormat(
                 getPackageName(), // 跟踪的标识符。可能是null。
@@ -96,7 +96,6 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         exoPlayerManager.setPosition(currPosition);
         videoPlayerView.setTitle("自定义视频标题");
         //设置加载显示模式
-        exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
         wholeMediaSource.setMediaSource(videoSource);
         exoPlayerManager.startPlayer();
      //   exoPlayerManager.setPlayUri("http://oph6zeldx.bkt.clouddn.com/videoDemo.mp4");

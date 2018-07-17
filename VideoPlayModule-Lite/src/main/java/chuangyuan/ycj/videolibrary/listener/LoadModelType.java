@@ -10,9 +10,5 @@ public enum LoadModelType {
      * 下载速度显示
      */
     SPEED,
-    /***
-     * 百分比提示
-     */
-    PERCENR
 
 }

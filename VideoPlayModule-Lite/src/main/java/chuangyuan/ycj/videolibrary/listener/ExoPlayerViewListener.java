@@ -5,6 +5,7 @@ import android.text.SpannableString;
 import android.view.View;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.AnimUtils;
 
 import java.util.List;
 
@@ -140,7 +141,7 @@ public interface ExoPlayerViewListener {
      * @param visibility 类型
      * @param   isPlayer  是否时开售播放触发
      */
-    void showPreview(int visibility,boolean isPlayer);
+    void showPreview(int visibility, boolean isPlayer);
 
     /***
      * 设置开始播放OnTouch布局事件
@@ -219,5 +220,17 @@ public interface ExoPlayerViewListener {
      * @param switchIndex switchIndex;
      */
     void setSwitchName(@NonNull List<String> name, int switchIndex);
+
+    /***
+     * 设置进度回调
+     * @param updateProgressListener updateProgressListener
+     * ***/
+    void addUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener);
+
+    /***
+     * 移除设置进度回调
+     * @param updateProgressListener updateProgressListener
+     * ***/
+    void removeUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener);
 
 }

@@ -47,7 +47,6 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
         }
         videoPlayerView.setTitle("自定义视频标题");
         //设置加载显示模式
-        exoPlayerManager.setLoadModel(LoadModelType.SPEED);
         //自定义布局使用
         videoPlayerView.getReplayLayout().findViewById(R.id.replay_btn_imageView).setOnClickListener(new View.OnClickListener() {
             @Override

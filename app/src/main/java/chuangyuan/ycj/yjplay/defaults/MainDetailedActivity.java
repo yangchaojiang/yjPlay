@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.source.hls.playlist.HlsMediaPlaylist;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 
 import java.util.Arrays;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
@@ -38,7 +39,17 @@ public class MainDetailedActivity extends Activity {
         videoPlayerView.setTitle("视频标题");
         //设置水印图
         videoPlayerView.setExoPlayWatermarkImg(R.mipmap.watermark_big);
-        exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
+
+        videoPlayerView.getPlayerView().setAspectRatioListener(new AspectRatioFrameLayout.AspectRatioListener() {
+            @Override
+            public void onAspectRatioUpdated(float targetAspectRatio, float naturalAspectRatio, boolean aspectRatioMismatch) {
+                Log.d("MainDetailedActivity","targetAspectRatio"+targetAspectRatio);
+                Log.d("MainDetailedActivity","naturalAspectRatio"+naturalAspectRatio);
+                Log.d("MainDetailedActivity","aspectRatioMismatch"+aspectRatioMismatch);
+                videoPlayerView.setAspectRatio(5.0f);
+            }
+        });
+        exoPlayerManager.addOnWindowListener(new VideoWindowListener() {
             @Override
             public void onCurrentIndex(int currentIndex, int windowCount) {
                 Toast.makeText(getApplication(), currentIndex + "windowCount:" + windowCount, Toast.LENGTH_SHORT).show();

@@ -47,7 +47,6 @@ public class MainCustomMediaActivity extends AppCompatActivity {
         exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
         videoPlayerView.setTitle("自定义视频标题");
         //设置加载显示模式
-        exoPlayerManager.setLoadModel(LoadModelType.PERCENR);
        //MediaSource source =mediaSourceBuilder.initMediaSource(Uri.parse(getString(R.string.uri_test)));
         //mediaSourceBuilder.setMediaSource(source);
         //LoopingMediaSource loopingSource = new LoopingMediaSource(source, 2);
@@ -55,7 +54,7 @@ public class MainCustomMediaActivity extends AppCompatActivity {
        // AdsMediaSource adsMediaSource=new AdsMediaSource(source,mediaSourceBuilder.getDataSource(),  new MyAdsLoader(),videoPlayerView.getPlayerView().getOverlayFrameLayout() );
         //mediaSourceBuilder.setMediaSource(adsMediaSource);
          exoPlayerManager.startPlayer();
-        exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
+        exoPlayerManager.addOnWindowListener(new VideoWindowListener() {
             @Override
             public void onCurrentIndex(int currentIndex, int windowCount) {
                 Log.d(TAG,"currentIndex:"+currentIndex+"_windowCount:"+currentIndex);

@@ -48,7 +48,7 @@ class LockControlView extends FrameLayout implements View.OnClickListener, AnimU
         lockCheckBox.setVisibility(GONE);
         lockCheckBox.setOnClickListener(this);
         mBaseView.getPlaybackControlView().setAnimatorListener(this);
-        mBaseView.getPlaybackControlView().setUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
+        mBaseView.getPlaybackControlView().addUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
             @Override
             public void updateProgress(long position, long bufferedPosition, long duration) {
                 if (exoPlayerLockProgress != null && (mBaseView.isLand && lockCheckBox.isChecked() || isProgress)) {
@@ -89,7 +89,7 @@ class LockControlView extends FrameLayout implements View.OnClickListener, AnimU
         if (exoPlayLockLayout != null) {
             if (mBaseView.isLand) {
                 if (lockCheckBox.isChecked() && visibility == View.VISIBLE) {
-                    mBaseView.playerView.getControllerView().hideNo();
+                    mBaseView.getPlaybackControlView().hideNo();
                     mBaseView.showBackView(GONE, true);
                 }
                 lockCheckBox.setVisibility(visibility);

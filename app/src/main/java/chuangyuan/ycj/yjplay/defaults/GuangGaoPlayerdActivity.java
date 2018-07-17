@@ -45,7 +45,7 @@ public class GuangGaoPlayerdActivity extends Activity {
         ///默认实现  播放广告视频时手势操作禁用和开启操作
         //exoPlayerManager.setPlayerGestureOnTouch(true);
         //如果视频需要自己实现该回调 视频切换回调处理，进行布局处理，控制布局显示
-        exoPlayerManager.setOnWindowListener(new VideoWindowListener() {
+        exoPlayerManager.addOnWindowListener(new VideoWindowListener() {
             @Override
             public void onCurrentIndex(int currentIndex, int windowCount) {
                 if (currentIndex == 0) {

@@ -477,15 +477,15 @@ public final class R {
         public static int cast_mini_controller = 0x7f0f001f;
         public static int cast_tracks_chooser_dialog_layout = 0x7f0f0020;
         public static int cast_tracks_chooser_dialog_row_layout = 0x7f0f0021;
-        public static int libraries_social_licenses_license = 0x7f0f0026;
-        public static int libraries_social_licenses_license_activity = 0x7f0f0027;
-        public static int libraries_social_licenses_license_menu_activity = 0x7f0f0028;
-        public static int license_menu_activity_no_licenses = 0x7f0f0029;
-        public static int place_autocomplete_fragment = 0x7f0f0039;
-        public static int place_autocomplete_item_powered_by_google = 0x7f0f003a;
-        public static int place_autocomplete_item_prediction = 0x7f0f003b;
-        public static int place_autocomplete_progress = 0x7f0f003c;
-        public static int wallet_test_layout = 0x7f0f0050;
+        public static int libraries_social_licenses_license = 0x7f0f0027;
+        public static int libraries_social_licenses_license_activity = 0x7f0f0028;
+        public static int libraries_social_licenses_license_menu_activity = 0x7f0f0029;
+        public static int license_menu_activity_no_licenses = 0x7f0f002a;
+        public static int place_autocomplete_fragment = 0x7f0f003a;
+        public static int place_autocomplete_item_powered_by_google = 0x7f0f003b;
+        public static int place_autocomplete_item_prediction = 0x7f0f003c;
+        public static int place_autocomplete_progress = 0x7f0f003d;
+        public static int wallet_test_layout = 0x7f0f0051;
     }
     public static final class raw {
         public static int keep_third_party_licenses = 0x7f140001;
