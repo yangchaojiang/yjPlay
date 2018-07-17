@@ -600,6 +600,16 @@ public final class VideoPlayerView extends BaseView {
         public void setSwitchName(@NonNull List<String> name, int switchIndex) {
             VideoPlayerView.this.setSwitchName(name, switchIndex);
         }
+
+        @Override
+        public void addUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener) {
+            getPlaybackControlView().addUpdateProgressListener(updateProgressListener);
+        }
+
+        @Override
+        public void removeUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener) {
+            getPlaybackControlView().removeUpdateProgressListener(updateProgressListener);
+        }
     };
 
 }

@@ -19,14 +19,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPropertyAnimatorListener;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -201,7 +196,7 @@ public class PlayerControlView extends FrameLayout {
   private final ComponentListener componentListener;
   private final View previousButton;
   private final View nextButton;
-  private final View playButton;
+  protected final View playButton;
   private final View pauseButton;
   private final View fastForwardButton;
   private final View rewindButton;
@@ -209,7 +204,7 @@ public class PlayerControlView extends FrameLayout {
   private final View shuffleButton;
   private final TextView durationView;
   private final TextView positionView;
-  private final TimeBar timeBar;
+  protected final TimeBar timeBar;
   private final StringBuilder formatBuilder;
   private final Formatter formatter;
   private final Timeline.Period period;
@@ -222,13 +217,13 @@ public class PlayerControlView extends FrameLayout {
   private final String repeatOneButtonContentDescription;
   private final String repeatAllButtonContentDescription;
 
-  private Player player;
-  private com.google.android.exoplayer2.ControlDispatcher controlDispatcher;
-  private VisibilityListener visibilityListener;
+  protected Player player;
+  protected com.google.android.exoplayer2.ControlDispatcher controlDispatcher;
+  protected VisibilityListener visibilityListener;
   private @Nullable
   PlaybackPreparer playbackPreparer;
 
-  private boolean isAttachedToWindow;
+  protected boolean isAttachedToWindow;
   private boolean showMultiWindowTimeBar;
   private boolean multiWindowTimeBar;
   private boolean scrubbing;
@@ -237,13 +232,13 @@ public class PlayerControlView extends FrameLayout {
   private int showTimeoutMs;
   private @RepeatModeUtil.RepeatToggleModes int repeatToggleModes;
   private boolean showShuffleButton;
-  private long hideAtMs;
+  protected long hideAtMs;
   private long[] adGroupTimesMs;
   private boolean[] playedAdGroups;
   private long[] extraAdGroupTimesMs;
   private boolean[] extraPlayedAdGroups;
 
-  private final Runnable updateProgressAction =
+  protected final Runnable updateProgressAction =
       new Runnable() {
         @Override
         public void run() {
@@ -251,10 +246,26 @@ public class PlayerControlView extends FrameLayout {
         }
       };
 
+  protected final Runnable hideAction =
+          new Runnable() {
+            @Override
+            public void run() {
+              setOutAnim();
+            }
+          };
 
-  public PlayerControlView(Context context) {
-    this(context, null);
+  protected void setOutAnim() {
+    hide();
   }
+  protected  void setInAnim(){
+
+  }
+    protected void updateProgress(long position, long bufferedPosition, long duration) {
+
+    }
+    public PlayerControlView(Context context) {
+        this(context, null);
+    }
 
   public PlayerControlView(Context context, AttributeSet attrs) {
     this(context, attrs, 0);
@@ -267,7 +278,7 @@ public class PlayerControlView extends FrameLayout {
   public PlayerControlView(
       Context context, AttributeSet attrs, int defStyleAttr, AttributeSet playbackAttrs) {
     super(context, attrs, defStyleAttr);
-    int controllerLayoutId = R.layout.simple_exo_playback_control_view;
+    int controllerLayoutId = R.layout.exo_player_control_view;
     rewindMs = DEFAULT_REWIND_MS;
     fastForwardMs = DEFAULT_FAST_FORWARD_MS;
     showTimeoutMs = DEFAULT_SHOW_TIMEOUT_MS;
@@ -289,7 +300,6 @@ public class PlayerControlView extends FrameLayout {
         repeatToggleModes = getRepeatToggleModes(a, repeatToggleModes);
         showShuffleButton =
             a.getBoolean(R.styleable.PlayerControlView_show_shuffle_button, showShuffleButton);
-        icFullscreenSelector=a.getResourceId(R.styleable.PlayerControlView_player_fullscreen_image_selector,icFullscreenSelector);
       } finally {
         a.recycle();
       }
@@ -308,22 +318,9 @@ public class PlayerControlView extends FrameLayout {
     LayoutInflater.from(context).inflate(controllerLayoutId, this);
     setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
-    durationView =  findViewById(R.id.exo_duration);
-    positionView =  findViewById(R.id.exo_position);
+    durationView = findViewById(R.id.exo_duration);
+    positionView = findViewById(R.id.exo_position);
     timeBar = findViewById(R.id.exo_progress);
-         /*我控件布局*/
-    exoFullscreen = findViewById(R.id.exo_video_fullscreen);
-    videoSwitchText = findViewById(R.id.exo_video_switch);
-    controlsTitleText =  findViewById(R.id.exo_controls_title);
-    exoControllerBottom = findViewById(R.id.exo_controller_bottom);
-    exoControllerTop = findViewById(R.id.exo_controller_top);
-    if (exoControllerTop==null){
-      exoControllerTop=controlsTitleText;
-    }
-    if (exoFullscreen != null) {
-      exoFullscreen.setButtonDrawable(icFullscreenSelector);
-    }
-        /**/
     if (timeBar != null) {
       timeBar.addListener(componentListener);
     }
@@ -590,7 +587,7 @@ public class PlayerControlView extends FrameLayout {
       if (visibilityListener != null) {
         visibilityListener.onVisibilityChange(getVisibility());
       }
-     // removeCallbacks(updateProgressAction);
+      removeCallbacks(updateProgressAction);
       removeCallbacks(hideAction);
       hideAtMs = C.TIME_UNSET;
     }
@@ -613,7 +610,7 @@ public class PlayerControlView extends FrameLayout {
     }
   }
 
-  private void updateAll() {
+  protected void updateAll() {
     updatePlayPauseButton();
     updateNavigation();
     updateRepeatModeButton();
@@ -621,7 +618,7 @@ public class PlayerControlView extends FrameLayout {
     updateProgress();
   }
 
-  private void updatePlayPauseButton() {
+  protected void updatePlayPauseButton() {
     if (!isVisible() || !isAttachedToWindow) {
       return;
     }
@@ -804,9 +801,7 @@ public class PlayerControlView extends FrameLayout {
     if (positionView != null && !scrubbing) {
       positionView.setText(Util.getStringForTime(formatBuilder, formatter, position));
     }
-    if (updateProgressListener!=null){
-      updateProgressListener.updateProgress(position,bufferedPosition,duration);
-    }
+    updateProgress(position,bufferedPosition,duration);
     if (timeBar != null) {
       timeBar.setPosition(position);
       timeBar.setBufferedPosition(bufferedPosition);
@@ -840,7 +835,7 @@ public class PlayerControlView extends FrameLayout {
     }
   }
 
-  private void requestPlayPauseFocus() {
+  protected void requestPlayPauseFocus() {
     boolean playing = isPlaying();
     if (!playing && playButton != null) {
       playButton.requestFocus();
@@ -962,7 +957,13 @@ public class PlayerControlView extends FrameLayout {
     updateAll();
   }
 
-
+  @Override
+  public void onDetachedFromWindow() {
+    super.onDetachedFromWindow();
+    isAttachedToWindow = false;
+    removeCallbacks(updateProgressAction);
+    removeCallbacks(hideAction);
+  }
 
   @Override
   public boolean dispatchKeyEvent(KeyEvent event) {
@@ -1048,169 +1049,7 @@ public class PlayerControlView extends FrameLayout {
     }
     return true;
   }
-  /******自己定义方法hide*******/
-  @DrawableRes
-  int icFullscreenSelector = R.drawable.ic_fullscreen_selector;
-  private final AppCompatCheckBox exoFullscreen;
-  private final TextView   videoSwitchText;
-  private final TextView controlsTitleText;
-  private final View exoControllerBottom;
-  private   View exoControllerTop;
-  private AnimUtils.AnimatorListener animatorListener;
-  private AnimUtils.UpdateProgressListener updateProgressListener;
-  private final Runnable hideAction =
-          new Runnable() {
-            @Override
-            public void run() {
-              setOutAnim();
-            }
-          };
-  @Override
-  public void onDetachedFromWindow() {
-    super.onDetachedFromWindow();
-    isAttachedToWindow = false;
-    removeCallbacks(updateProgressAction);
-    removeCallbacks(hideAction);
-    releaseAnim();
-  }
-  /**
-   * 设置标题
-   *
-   * @param title 内容
-   **/
-  public void setTitle(@NonNull String title) {
-    controlsTitleText.setText(title);
-  }
 
-  /**
-   * Hides the controller.
-   */
-  public void hideNo() {
-    if (isVisible()) {
-      setVisibility(GONE);
-      removeCallbacks(updateProgressAction);
-      removeCallbacks(hideAction);
-      hideAtMs = C.TIME_UNSET;
-    }
-  }
-
-  public void showNo() {
-    updateAll();
-    requestPlayPauseFocus();
-    controlDispatcher.dispatchSetPlayWhenReady(player, false);
-    removeCallbacks(updateProgressAction);
-    removeCallbacks(hideAction);
-    controlsTitleText.setAlpha(1f);
-    controlsTitleText.setTranslationY(0);
-    if (!isVisible()) {
-      setVisibility(VISIBLE);
-    }
-  }
-
-  public View getPlayButton() {
-    return playButton;
-  }
-
-  public AppCompatCheckBox getExoFullscreen() {
-    return exoFullscreen;
-  }
-  public TextView getSwitchText() {
-    return videoSwitchText;
-  }
-
-  public View getExoControllerTop() {
-    return exoControllerTop;
-  }
-
-  public TimeBar getTimeBar() {
-    return timeBar;
-  }
-  /**
-   * 设置全屏按钮样式
-   *
-   * @param icFullscreenStyle 全屏按钮样式
-   **/
-  public void setFullscreenStyle(@DrawableRes int icFullscreenStyle) {
-    this.icFullscreenSelector=icFullscreenStyle;
-    if (getExoFullscreen() != null) {
-      getExoFullscreen().setButtonDrawable(icFullscreenStyle);
-    }
-  }
-
-  public int getIcFullscreenSelector() {
-    return icFullscreenSelector;
-  }
-
-
-
-  public void releaseAnim() {
-    if (exoControllerTop != null && exoControllerTop.animate() != null) {
-      exoControllerTop.animate().cancel();
-    }
-    if (exoControllerBottom != null && exoControllerBottom.animate() != null) {
-      exoControllerBottom.animate().cancel();
-    }
-  }
-
-  /**
-   * 设置移动谈出动画
-   **/
-  public void setOutAnim() {
-    if (controlsTitleText != null && exoControllerBottom != null) {
-      if (animatorListener != null) {
-        animatorListener.show(false);
-      }
-      AnimUtils.setOutAnim(exoControllerBottom, true).start();
-      AnimUtils.setOutAnim(exoControllerTop, false)
-              .setListener(new ViewPropertyAnimatorListener() {
-                @Override
-                public void onAnimationStart(View view) {
-                }
-
-                @Override
-                public void onAnimationEnd(View view) {
-                  if (view != null) {
-                    hide();
-                  }
-                }
-
-                @Override
-                public void onAnimationCancel(View view) {
-                }
-              })
-              .start();
-    } else {
-      hide();
-    }
-  }
-
-  /**
-   * 设置移动谈入动画
-   **/
-  public void setInAnim() {
-    if (controlsTitleText != null && exoControllerBottom != null) {
-      if (animatorListener != null) {
-        animatorListener.show(true);
-      }
-      AnimUtils.setInAnim(exoControllerTop).setListener(null).start();
-      AnimUtils.setInAnim(exoControllerBottom).start();
-    }
-  }
-
-  /***
-   * 设置动画回调
-   * @param animatorListener animatorListener
-   * ***/
-  public void setAnimatorListener(AnimUtils.AnimatorListener animatorListener) {
-    this.animatorListener = animatorListener;
-  }
-  /***
-   * 设置进度回调
-   * @param updateProgressListener updateProgressListener
-   * ***/
-  public void setUpdateProgressListener(AnimUtils.UpdateProgressListener updateProgressListener) {
-    this.updateProgressListener = updateProgressListener;
-  }
   private final class ComponentListener extends Player.DefaultEventListener
       implements TimeBar.OnScrubListener, OnClickListener {
 
@@ -1230,7 +1069,7 @@ public class PlayerControlView extends FrameLayout {
     @Override
     public void onScrubStop(TimeBar timeBar, long position, boolean canceled) {
       scrubbing = false;
-      if (!canceled && player != null&& timeBar.isOpenSeek()) {
+      if (!canceled && player != null&&timeBar.isOpenSeek()) {
         seekToTimeBarPosition(position);
       }
       hideAfterTimeout();

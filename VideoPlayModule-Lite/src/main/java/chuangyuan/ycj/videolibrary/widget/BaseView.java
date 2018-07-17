@@ -23,8 +23,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.android.exoplayer2.ui.AnimUtils;
+import com.google.android.exoplayer2.ui.ExoPlayerControlView;
+import com.google.android.exoplayer2.ui.ExoPlayerView;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.util.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +50,7 @@ abstract class BaseView extends FrameLayout {
     /***活动窗口*/
     protected Activity activity;
     /***播放view*/
-    protected final PlayerView playerView;
+    protected final ExoPlayerView playerView;
     /*** 加载速度显示*/
     protected TextView videoLoadingShowText;
     /***视频加载页,错误页,进度控件,锁屏按布局,自定义预览布局,提示布局,播放按钮*/
@@ -61,7 +64,7 @@ abstract class BaseView extends FrameLayout {
     /*** 锁屏管理布局***/
     protected final LockControlView mLockControlView;
     /***锁屏管理布局***/
-    protected final PlayerControlView controllerView;
+    protected final ExoPlayerControlView controllerView;
     /***切换*/
     protected BelowView belowView;
     /***流量提示框***/
@@ -111,8 +114,8 @@ abstract class BaseView extends FrameLayout {
         activity = (Activity) context;
         exoPlayerListeners=new CopyOnWriteArraySet<>();
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        playerView = new PlayerView(getContext(), attrs, defStyleAttr);
-        controllerView = playerView.getControllerView();
+        playerView = new ExoPlayerView(getContext(), attrs, defStyleAttr);
+        controllerView = (ExoPlayerControlView) playerView.getControllerView();
         mGestureControlView = new GestureControlView(getContext(), attrs, defStyleAttr);
         mActionControlView = new ActionControlView(getContext(), attrs, defStyleAttr, playerView);
         mLockControlView = new LockControlView(getContext(), attrs, defStyleAttr, this);
@@ -222,7 +225,6 @@ abstract class BaseView extends FrameLayout {
             activity = null;
         }
     }
-
 
 
     /***
@@ -433,6 +435,7 @@ abstract class BaseView extends FrameLayout {
     public void setTitle(@NonNull String title) {
         controllerView.setTitle(title);
     }
+
     /***
      * 显示水印图
      *
@@ -443,6 +446,7 @@ abstract class BaseView extends FrameLayout {
             exoPlayWatermark.setImageResource(res);
         }
     }
+
     /**
      * 设置占位预览图
      *
@@ -505,6 +509,7 @@ abstract class BaseView extends FrameLayout {
     public void setOpenLock(boolean openLock) {
         mLockControlView.setOpenLock(openLock);
     }
+
     /**
      * 设置开启开启锁屏功能
      *
@@ -513,6 +518,7 @@ abstract class BaseView extends FrameLayout {
     public void setOpenProgress2(boolean openLock) {
         mLockControlView.setProgress(openLock);
     }
+
     /**
      * Gets name switch.
      *
@@ -555,7 +561,7 @@ abstract class BaseView extends FrameLayout {
      * @return PlaybackControlView playback control view
      */
     @NonNull
-    public PlayerControlView getPlaybackControlView() {
+    public ExoPlayerControlView getPlaybackControlView() {
         return controllerView;
     }
 
@@ -699,7 +705,7 @@ abstract class BaseView extends FrameLayout {
      * @return SimpleExoPlayerView player view
      */
     @NonNull
-    public PlayerView getPlayerView() {
+    public ExoPlayerView getPlayerView() {
         return playerView;
     }
 
@@ -712,4 +718,14 @@ abstract class BaseView extends FrameLayout {
     public ExoDefaultTimeBar getTimeBar() {
         return (ExoDefaultTimeBar) controllerView.getTimeBar();
     }
+
+    /**
+     * Sets the aspect ratio that this view should satisfy.
+     *
+     * @param widthHeightRatio The width to height ratio.
+     */
+    public void setAspectRatio(float widthHeightRatio) {
+        getPlayerView().getAspectRatioFrameLayout().setAspectRatio(widthHeightRatio);
+    }
+
 }

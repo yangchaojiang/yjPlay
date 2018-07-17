@@ -27,7 +27,6 @@ import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -235,7 +234,7 @@ public class PlayerView extends FrameLayout {
   private static final int SURFACE_TYPE_SURFACE_VIEW = 1;
   private static final int SURFACE_TYPE_TEXTURE_VIEW = 2;
 
-  private final AspectRatioFrameLayout contentFrame;
+  protected final AspectRatioFrameLayout contentFrame;
   private final View shutterView;
   private final View surfaceView;
   private final ImageView artworkView;
@@ -244,12 +243,12 @@ public class PlayerView extends FrameLayout {
   View bufferingView;
   private final @Nullable
   TextView errorMessageView;
-  private final PlayerControlView controller;
+  protected final PlayerControlView controller;
   private final ComponentListener componentListener;
   private final FrameLayout overlayFrameLayout;
 
-  private Player player;
-  private boolean useController;
+  protected Player player;
+  protected boolean useController;
   private boolean useArtwork;
   private Bitmap defaultArtwork;
   private boolean showBuffering;
@@ -261,9 +260,9 @@ public class PlayerView extends FrameLayout {
   private int controllerShowTimeoutMs;
   private boolean controllerAutoShow;
   private boolean controllerHideDuringAds;
-  private boolean controllerHideOnTouch;
+  protected boolean controllerHideOnTouch;
   private int textureViewRotation;
-  private  FrameLayout contentFrameLayout;
+  protected  FrameLayout contentFrameLayout;
 
   public PlayerView(Context context) {
     this(context, null);
@@ -399,7 +398,7 @@ public class PlayerView extends FrameLayout {
     } else if (controllerPlaceholder != null) {
       // Propagate attrs as playbackAttrs so that PlayerControlView's custom attributes are
       // transferred, but standard FrameLayout attributes (e.g. background) are not.
-      this.controller = new PlayerControlView(context, null, 0, attrs);
+      this.controller = new ExoPlayerControlView(context, null, 0, attrs);
       controller.setLayoutParams(controllerPlaceholder.getLayoutParams());
       ViewGroup parent = ((ViewGroup) controllerPlaceholder.getParent());
       int controllerIndex = parent.indexOfChild(controllerPlaceholder);
@@ -415,12 +414,7 @@ public class PlayerView extends FrameLayout {
     this.useController = useController && controller != null;
     hideController();
   }
-  public     PlayerControlView getControllerView() {
-    return controller;
-  }
-  public FrameLayout getContentFrameLayout() {
-    return contentFrameLayout;
-  }
+
   /**
    * Switches the view targeted by a given {@link Player}.
    *
@@ -486,9 +480,6 @@ public class PlayerView extends FrameLayout {
     this.player = player;
     if (useController) {
       controller.setPlayer(player);
-    }
-    if (shutterView != null) {
-      shutterView.setVisibility(VISIBLE);
     }
     if (subtitleView != null) {
       subtitleView.setCues(null);
@@ -765,8 +756,6 @@ public class PlayerView extends FrameLayout {
    */
   public void setControllerHideOnTouch(boolean controllerHideOnTouch) {
     Assertions.checkState(controller != null);
-    Log.d("setControllerHideOnTouch",controllerHideOnTouch+"");
-
     this.controllerHideOnTouch = controllerHideOnTouch;
   }
 
@@ -952,17 +941,13 @@ public class PlayerView extends FrameLayout {
     if (!useController || player == null || ev.getActionMasked() != MotionEvent.ACTION_DOWN) {
       return false;
     }
-    if (!controllerHideOnTouch) {
-      return false;
-    } else if (!controller.isVisible()) {
-      controller.setInAnim();
+    if (!controller.isVisible()) {
       maybeShowController(true);
     } else if (controllerHideOnTouch) {
-      controller.setOutAnim();
+      controller.hide();
     }
     return true;
   }
-
 
   @Override
   public boolean onTrackballEvent(MotionEvent ev) {
@@ -974,7 +959,7 @@ public class PlayerView extends FrameLayout {
   }
 
   /** Shows the playback controls, but only if forced or shown indefinitely. */
-  private void maybeShowController(boolean isForced) {
+  protected void maybeShowController(boolean isForced) {
     if (isPlayingAd() && controllerHideDuringAds) {
       return;
     }
@@ -1033,6 +1018,7 @@ public class PlayerView extends FrameLayout {
         return;
       }
     }
+
     // Video disabled so the shutter must be closed.
     closeShutter();
     // Display artwork if enabled and available, else hide it.
@@ -1248,7 +1234,7 @@ public class PlayerView extends FrameLayout {
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
       updateBuffering();
-     // updateErrorMessage();
+      updateErrorMessage();
       if (isPlayingAd() && controllerHideDuringAds) {
         hideController();
       } else {
@@ -1279,5 +1265,4 @@ public class PlayerView extends FrameLayout {
       applyTextureViewRotation((TextureView) view, textureViewRotation);
     }
   }
-
 }
