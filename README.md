@@ -193,7 +193,7 @@
   
  > #### 3 播放代码 
                   //实例化
-                  exoPlayerManager = new ExoUserPlayer.Builder(ExoUserPlayer.TYPE_PLAY_MANUAL, videoPlayerView)
+         ExoUserPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
                           .setDataSource(new DataSource(this))
                           //加载rtmp 协议视频
                           .setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks")
@@ -219,7 +219,13 @@
                           .setSeekBarSeek(false)
                           //设置视循环播放
                           .setLooping(10)
-                          //开始启动播放视频
+                          //视频进度回调
+                           .addOnWindowListener(new VideoWindowListener() {
+                                             @Override
+                                             public void onCurrentIndex(int currentIndex, int windowCount) {
+                                                 Toast.makeText(getApplication(), currentIndex + "windowCount:" + windowCount,                                                    Toast.LENGTH_SHORT).show();
+                                             }
+                                         })
                           .addOnWindowListener(new VideoWindowListener() {
                               @Override
                               public void onCurrentIndex(int currentIndex, int windowCount) {
