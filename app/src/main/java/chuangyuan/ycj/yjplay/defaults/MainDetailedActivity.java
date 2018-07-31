@@ -78,7 +78,7 @@ public class MainDetailedActivity extends Activity {
               //  .setSeekBarSeek(false)
                 //设置视循环播放
                 .setLooping(10)
-                //开始启动播放视频
+                //视频进度回调
                 .addOnWindowListener(new VideoWindowListener() {
                     @Override
                     public void onCurrentIndex(int currentIndex, int windowCount) {
