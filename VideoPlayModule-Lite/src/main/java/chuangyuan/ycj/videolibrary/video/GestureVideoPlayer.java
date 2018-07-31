@@ -69,6 +69,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
      *
      * @param activity   the activity
      * @param playerView the player view
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this(activity, playerView, null);
@@ -79,6 +80,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
      *
      * @param activity the activity
      * @param reId     the re id
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public GestureVideoPlayer(@NonNull Activity activity, @IdRes int reId) {
         this(activity, reId, null);
@@ -90,6 +92,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
      * @param activity the activity
      * @param reId     the re id
      * @param listener the listener
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public GestureVideoPlayer(@NonNull Activity activity, @IdRes int reId, @Nullable DataSourceListener listener) {
         this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
@@ -101,6 +104,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
      * @param activity   the activity
      * @param playerView the player view
      * @param listener   the listener
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         super(activity, playerView, listener);
@@ -114,6 +118,7 @@ public class GestureVideoPlayer extends ExoUserPlayer {
      * @param activity           the activity
      * @param mediaSourceBuilder the media source builder
      * @param playerView         the player view
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public GestureVideoPlayer(@NonNull Activity activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
         super(activity, mediaSourceBuilder, playerView);

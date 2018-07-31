@@ -128,7 +128,7 @@ public class MainListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        VideoPlayerManager.getInstance().onResume();
+       // VideoPlayerManager.getInstance().onResume();
     }
 
     long st;

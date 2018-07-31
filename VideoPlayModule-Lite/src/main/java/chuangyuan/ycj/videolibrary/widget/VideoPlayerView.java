@@ -1,5 +1,6 @@
 package chuangyuan.ycj.videolibrary.widget;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -24,11 +25,10 @@ import com.google.android.exoplayer2.ui.PlayerControlView;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.R;
-import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 import chuangyuan.ycj.videolibrary.video.ExoDataBean;
-import chuangyuan.ycj.videolibrary.video.ManualPlayer;
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 
 /**
@@ -133,6 +133,7 @@ public final class VideoPlayerView extends BaseView {
             }
         }
     }
+
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
         super.onRestoreInstanceState(state);
@@ -152,7 +153,7 @@ public final class VideoPlayerView extends BaseView {
         super.onDetachedFromWindow();
         boolean is = isListPlayer && getPlay() != null;
         if (is) {
-            ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
+            ExoUserPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
             if (manualPlayer != null && getPlay().toString().equals(manualPlayer.toString())) {
                 manualPlayer.reset();
             }
@@ -174,7 +175,7 @@ public final class VideoPlayerView extends BaseView {
                 return;
             }
             isLand = true;
-            VideoPlayUtils.hideActionBar(activity);
+            VideoPlayUtils.hideActionBar(getContext());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 activity.getWindow().getDecorView().setSystemUiVisibility(
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
@@ -241,12 +242,12 @@ public final class VideoPlayerView extends BaseView {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                    for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
-                          if (exoPlayerListener.getClickListener()!=null){
-                              exoPlayerListener.getClickListener().onClick(v);
-                          }
-                        exoPlayerListener.startPlayers();
-                    }
+                if (mExoPlayerListener == null) return false;
+                if (mExoPlayerListener.getClickListener() != null) {
+                    mExoPlayerListener.getClickListener().onClick(v);
+                } else {
+                    mExoPlayerListener.startPlayers();
+                }
             }
             return false;
         }
@@ -306,7 +307,6 @@ public final class VideoPlayerView extends BaseView {
     private PlayerControlView.VisibilityListener visibilityListener = new PlayerControlView.VisibilityListener() {
         @Override
         public void onVisibilityChange(int visibility) {
-            if (activity == null) return;
             showBackView(visibility, false);
             showLockState(visibility);
             if (belowView != null && visibility == View.GONE) {
@@ -338,48 +338,48 @@ public final class VideoPlayerView extends BaseView {
     private View.OnClickListener onClickListener = new View.OnClickListener() {
 
         public void onClick(View v) {
+
             if (v.getId() == R.id.exo_video_fullscreen || v.getId() == R.id.sexo_video_fullscreen) {
                 //切竖屏portrait screen
-                if (VideoPlayUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE) {
+                if (VideoPlayUtils.getOrientation(getContext()) == Configuration.ORIENTATION_LANDSCAPE) {
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     doOnConfigurationChanged(Configuration.ORIENTATION_PORTRAIT);
                     //切横屏landscape
-                } else if (VideoPlayUtils.getOrientation(activity) == Configuration.ORIENTATION_PORTRAIT) {
+                } else if (VideoPlayUtils.getOrientation(getContext()) == Configuration.ORIENTATION_PORTRAIT) {
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     doOnConfigurationChanged(Configuration.ORIENTATION_LANDSCAPE);
                 }
             } else if (v.getId() == R.id.exo_controls_back) {
                 activity.onBackPressed();
             } else if (v.getId() == R.id.exo_player_error_btn_id) {
-                if (VideoPlayUtils.isNetworkAvailable(activity)) {
+                if (VideoPlayUtils.isNetworkAvailable(getContext())) {
                     showErrorState(View.GONE);
-                    for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
-                        exoPlayerListener.onCreatePlayers();
+                    if (mExoPlayerListener != null) {
+                        mExoPlayerListener.onCreatePlayers();
                     }
 
                 } else {
-                    Toast.makeText(activity, R.string.net_network_no_hint, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.net_network_no_hint, Toast.LENGTH_SHORT).show();
                 }
             } else if (v.getId() == R.id.exo_player_replay_btn_id) {
-                if (VideoPlayUtils.isNetworkAvailable(activity)) {
+                if (VideoPlayUtils.isNetworkAvailable(getContext())) {
                     showReplay(View.GONE);
                     showBottomView(GONE, null);
-                    for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
-                        exoPlayerListener.onCreatePlayers();
+                    if (mExoPlayerListener != null) {
+                        mExoPlayerListener.onCreatePlayers();
                     }
                 } else {
-                    Toast.makeText(activity, R.string.net_network_no_hint, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.net_network_no_hint, Toast.LENGTH_SHORT).show();
                 }
                 //切换
             } else if (v.getId() == R.id.exo_video_switch) {
                 if (belowView == null) {
-                    belowView = new BelowView(activity, getNameSwitch());
+                    belowView = new BelowView(getContext(), getNameSwitch());
                     belowView.setOnItemClickListener(new BelowView.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position, String name) {
-
-                            for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
-                                exoPlayerListener.switchUri(position);
+                            if (mExoPlayerListener != null) {
+                                mExoPlayerListener.switchUri(position);
                             }
                             getSwitchText().setText(name);
                             belowView.dismissBelowView();
@@ -390,8 +390,8 @@ public final class VideoPlayerView extends BaseView {
                 //提示播放
             } else if (v.getId() == R.id.exo_player_btn_hint_btn_id) {
                 showBtnContinueHint(View.GONE);
-                for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
-                    exoPlayerListener.playVideoUri();
+                if (mExoPlayerListener != null) {
+                    mExoPlayerListener.playVideoUri();
                 }
             }
         }
@@ -413,11 +413,6 @@ public final class VideoPlayerView extends BaseView {
         }
 
         @Override
-        public void setWatermarkImage(int res) {
-         setExoPlayWatermarkImg(res);
-        }
-
-        @Override
         public void showLoadStateView(int visibility) {
             showLoadState(visibility);
         }
@@ -433,12 +428,7 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public void showErrorStateView(int visibility) {
-          showErrorState(visibility);
-        }
-
-        @Override
-        public void setTitles(@NonNull String title) {
-            setTitle(title);
+            showErrorState(visibility);
         }
 
         @Override
@@ -551,6 +541,7 @@ public final class VideoPlayerView extends BaseView {
             return playerView == null ? 0 : playerView.getHeight();
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public void setPlatViewOnTouchListener(OnTouchListener listener) {
             playerView.setOnTouchListener(listener);
@@ -601,15 +592,6 @@ public final class VideoPlayerView extends BaseView {
             VideoPlayerView.this.setSwitchName(name, switchIndex);
         }
 
-        @Override
-        public void addUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener) {
-            getPlaybackControlView().addUpdateProgressListener(updateProgressListener);
-        }
-
-        @Override
-        public void removeUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener) {
-            getPlaybackControlView().removeUpdateProgressListener(updateProgressListener);
-        }
     };
 
 }

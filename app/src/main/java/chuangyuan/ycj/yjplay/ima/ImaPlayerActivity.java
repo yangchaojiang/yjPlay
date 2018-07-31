@@ -1,41 +1,49 @@
 package chuangyuan.ycj.yjplay.ima;
+
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+
 import com.bumptech.glide.Glide;
 import com.google.ads.interactivemedia.v3.api.ImaSdkFactory;
 import com.google.ads.interactivemedia.v3.api.ImaSdkSettings;
 import com.google.android.exoplayer2.ext.ima.ImaAdsLoader;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ads.AdsMediaSource;
+
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 import chuangyuan.ycj.videolibrary.video.MediaSourceBuilder;
+import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
+
 public class ImaPlayerActivity extends Activity {
     private ImaAdsLoader adsLoader;
     private GestureVideoPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";
     MediaSourceBuilder mediaSourceBuilder;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_coutom3);
-        ImaSdkSettings sdkSettings= ImaSdkFactory.getInstance().createImaSdkSettings();
+        ImaSdkSettings sdkSettings = ImaSdkFactory.getInstance().createImaSdkSettings();
         sdkSettings.setLanguage("zh");
-        adsLoader = new ImaAdsLoader( this, Uri.parse(getString(R.string.uri_test_5)));
-        mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(this.getApplication()));
-        videoPlayerView =   findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new GestureVideoPlayer(this,mediaSourceBuilder,videoPlayerView );
-        videoPlayerView.setTitle("视频标题");
-        videoPlayerView.setExoPlayWatermarkImg(R.mipmap.watermark_big);
-        MediaSource contentMediaSource =mediaSourceBuilder.initMediaSource( Uri.parse(getString(R.string.uri_test_6)));
+        adsLoader = new ImaAdsLoader(this, Uri.parse(getString(R.string.uri_test_5)));
+        mediaSourceBuilder = new MediaSourceBuilder(this, new DataSource(this.getApplication()));
+        videoPlayerView = findViewById(R.id.exo_play_context_id);
+        exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
+                .setDataSource(mediaSourceBuilder)
+                .setExoPlayWatermarkImg(R.mipmap.watermark_big)
+                .setTitle("视频标题")
+                .create();
+        MediaSource contentMediaSource = mediaSourceBuilder.initMediaSource(Uri.parse(getString(R.string.uri_test_6)));
         // Compose the content media source into a new AdsMediaSource with both ads and content.
         MediaSource mediaSourceWithAds = new AdsMediaSource(contentMediaSource, mediaSourceBuilder.getDataSource(),
                 adsLoader, videoPlayerView.getPlayerView().getOverlayFrameLayout());

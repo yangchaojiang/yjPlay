@@ -28,12 +28,6 @@ public interface ExoPlayerViewListener {
      */
     void showHidePro(int visibility);
 
-    /***
-     * 设置水印图片
-     *
-     * @param res 资源id
-     */
-    void setWatermarkImage(int res);
 
     /***
      * 显示隐藏加载布局
@@ -62,13 +56,6 @@ public interface ExoPlayerViewListener {
      * @param visibility 显示类型
      */
     void showGestureView(int visibility);
-
-    /**
-     * 显示标题
-     *
-     * @param title 标题内容
-     */
-    void setTitles(@NonNull String title);
 
     /***
      * 显示网速
@@ -221,16 +208,6 @@ public interface ExoPlayerViewListener {
      */
     void setSwitchName(@NonNull List<String> name, int switchIndex);
 
-    /***
-     * 设置进度回调
-     * @param updateProgressListener updateProgressListener
-     * ***/
-    void addUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener);
 
-    /***
-     * 移除设置进度回调
-     * @param updateProgressListener updateProgressListener
-     * ***/
-    void removeUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener);
 
 }

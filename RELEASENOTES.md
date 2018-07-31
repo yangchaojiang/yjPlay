@@ -1,4 +1,12 @@
  ## 更新日志
+   #### 2.1.91
+   * 1.增加裂流式API方式调用。  
+   * 2.优化内部监听事件回调。
+   * 4.增加控制隐藏返回按钮[148](https://github.com/yangchaojiang/yjPlay/issues/148)。   
+   * 5.增加视频进度回调[138](https://github.com/yangchaojiang/yjPlay/issues/138)。   
+   * 6.增加背景，自定义[64](https://github.com/yangchaojiang/yjPlay/issues/64)。    
+   * 7.修复NullPointerException[149](https://github.com/yangchaojiang/yjPlay/issues/149)。 
+   * 8.修复activity会导致内存泄漏,没有释放[147](https://github.com/yangchaojiang/yjPlay/issues/147)。
    #### 2.1.85
    * 1.优化内部监听事件回调。
    * 2.修复bug[137](https://github.com/yangchaojiang/yjPlay/issues/137)。 

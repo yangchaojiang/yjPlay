@@ -12,6 +12,8 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
 import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory;
+import com.google.android.exoplayer2.source.hls.DefaultHlsExtractorFactory;
+import com.google.android.exoplayer2.source.hls.HlsExtractorFactory;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource;
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
@@ -44,12 +46,14 @@ public class WholeMediaSource extends MediaSourceBuilder {
                 return new  SsMediaSource.Factory(new DefaultSsChunkSource.Factory(getDataSource()), new DefaultDataSourceFactory(context, null,
                         getDataSource()))
                         .setMinLoadableRetryCount(5)
+                        .setLivePresentationDelayMs(10000)
                         .createMediaSource(uri);
 
             case C.TYPE_DASH:
                 return new DashMediaSource.Factory(new DefaultDashChunkSource.Factory(getDataSource())
                          ,new DefaultDataSourceFactory(context, null, getDataSource()))
                          .setMinLoadableRetryCount(5)
+                        .setLivePresentationDelayMs(10000)
                         .createMediaSource(uri);
             case C.TYPE_OTHER:
                 return new  ExtractorMediaSource.Factory( getDataSource())
@@ -59,8 +63,9 @@ public class WholeMediaSource extends MediaSourceBuilder {
                         .createMediaSource(uri);
             case C.TYPE_HLS:
                 return new HlsMediaSource.Factory(new DefaultHlsDataSourceFactory( getDataSource()))
-                        .setMinLoadableRetryCount(5)
                         .setAllowChunklessPreparation(true)
+                        .setMinLoadableRetryCount(5)
+                        .setExtractorFactory(new DefaultHlsExtractorFactory())
                         .createMediaSource(uri);
 
             default:

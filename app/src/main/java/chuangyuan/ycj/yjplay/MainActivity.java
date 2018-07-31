@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 
 import chuangyuan.ycj.yjplay.barrage.MainBarrageLayoutActivity;
-import chuangyuan.ycj.yjplay.barrage2.Barrage2VideoActivity;
 import chuangyuan.ycj.yjplay.custom.MainCustomLayoutActivity;
 import chuangyuan.ycj.yjplay.defaults.GuangGaoPlayerdActivity;
 import chuangyuan.ycj.yjplay.defaults.MainDetailedActivity;
@@ -143,14 +142,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, MainBarrageLayoutActivity.class);
-                        startActivity(intent);
-                    }
-                });
-        findViewById(R.id.button14)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, Barrage2VideoActivity.class);
                         startActivity(intent);
                     }
                 });

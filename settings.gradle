@@ -1,1 +1,1 @@
-include ':app', ':VideoPlayModule-Lite', ':VideoUi', ':VideoPlayModule', ':ima'
+include ':app', ':VideoPlayModule-Lite', ':VideoUi', ':VideoPlayModule', ':ima', ':ffmpeg'

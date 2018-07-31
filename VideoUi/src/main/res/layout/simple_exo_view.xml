@@ -2,19 +2,19 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@color/exo_player_background_color">
 
     <com.google.android.exoplayer2.ui.AspectRatioFrameLayout
         android:id="@id/exo_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:background="@android:color/black">
+        >
 
         <View android:id="@id/exo_shutter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/black"/>
+             />
 
         <ImageView android:id="@id/exo_artwork"
             android:layout_width="match_parent"

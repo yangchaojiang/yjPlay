@@ -32,7 +32,7 @@ import chuangyuan.ycj.videolibrary.BuildConfig;
  * Deprecated:
  */
 public class ExoDownLoadManger {
-    public static final String TAG = "App";
+    public static final String TAG = ExoDownLoadManger.class.getName();
     protected static final String DOWNLOAD_ACTION_FILE = "actions";
     protected static final String DOWNLOAD_TRACKER_ACTION_FILE = "tracked_actions";
     protected static final String DOWNLOAD_CONTENT_DIRECTORY = "downloads";

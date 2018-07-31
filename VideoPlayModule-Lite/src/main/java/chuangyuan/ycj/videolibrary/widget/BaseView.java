@@ -23,15 +23,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.AnimUtils;
 import com.google.android.exoplayer2.ui.ExoPlayerControlView;
 import com.google.android.exoplayer2.ui.ExoPlayerView;
-import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.util.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
@@ -47,8 +43,7 @@ import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 abstract class BaseView extends FrameLayout {
     /*** The constant TAG.***/
     public static final String TAG = VideoPlayerView.class.getName();
-    /***活动窗口*/
-    protected Activity activity;
+    final Activity activity;
     /***播放view*/
     protected final ExoPlayerView playerView;
     /*** 加载速度显示*/
@@ -69,11 +64,13 @@ abstract class BaseView extends FrameLayout {
     protected BelowView belowView;
     /***流量提示框***/
     protected AlertDialog alertDialog;
-    protected  final CopyOnWriteArraySet<ExoPlayerListener> exoPlayerListeners;
+    protected ExoPlayerListener mExoPlayerListener;
     /***返回按钮*/
     protected AppCompatImageView exoControlsBack;
     /***是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮*/
     protected boolean isLand, isListPlayer, isShowVideoSwitch;
+    /**是否显示返回按钮**/
+    private  boolean isShowBack =true;
     /***标题左间距*/
     protected int getPaddingLeft;
     private ArrayList<String> nameSwitch;
@@ -111,8 +108,7 @@ abstract class BaseView extends FrameLayout {
      */
     public BaseView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        activity = (Activity) context;
-        exoPlayerListeners=new CopyOnWriteArraySet<>();
+        activity = (Activity) getContext();
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         playerView = new ExoPlayerView(getContext(), attrs, defStyleAttr);
         controllerView = (ExoPlayerControlView) playerView.getControllerView();
@@ -126,7 +122,7 @@ abstract class BaseView extends FrameLayout {
         int preViewLayoutId = 0;
         int barrageLayoutId = 0;
         if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VideoPlayerView, 0, 0);
+            TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.VideoPlayerView, 0, 0);
             try {
                 icBackImage = a.getResourceId(R.styleable.VideoPlayerView_player_back_image, icBackImage);
                 userWatermark = a.getResourceId(R.styleable.VideoPlayerView_user_watermark, 0);
@@ -166,9 +162,9 @@ abstract class BaseView extends FrameLayout {
         exoControlsBack.setImageDrawable(ContextCompat.getDrawable(getContext(), icBackImage));
         exoControlsBack.setPadding(ss, ss, ss, ss);
         FrameLayout frameLayout = playerView.getContentFrameLayout();
-        frameLayout.setBackgroundColor(ContextCompat.getColor(activity, android.R.color.black));
+        frameLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.exo_player_background_color));
         exoLoadingLayout.setVisibility(GONE);
-        exoLoadingLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.simple_exo_color_33));
+        exoLoadingLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.exo_player_background_color));
         exoLoadingLayout.setClickable(true);
         frameLayout.addView(mGestureControlView, frameLayout.getChildCount());
         frameLayout.addView(mActionControlView, frameLayout.getChildCount());
@@ -195,7 +191,7 @@ abstract class BaseView extends FrameLayout {
         } else {
             exoPreviewImage = exoPreviewBottomImage;
         }
-        setSystemUiVisibility = activity.getWindow().getDecorView().getSystemUiVisibility();
+        setSystemUiVisibility = ((Activity) getContext()).getWindow().getDecorView().getSystemUiVisibility();
 
         exoPreviewPlayBtn = playerView.findViewById(R.id.exo_preview_play);
     }
@@ -217,13 +213,10 @@ abstract class BaseView extends FrameLayout {
         if (mLockControlView != null) {
             mLockControlView.onDestroy();
         }
-        if (exoPlayerListeners!=null){
-            exoPlayerListeners.clear();
+        if (mExoPlayerListener != null) {
+            mExoPlayerListener = null;
         }
-        if (activity != null && activity.isFinishing()) {
-            nameSwitch = null;
-            activity = null;
-        }
+        nameSwitch = null;
     }
 
 
@@ -248,11 +241,12 @@ abstract class BaseView extends FrameLayout {
         if (alertDialog != null && alertDialog.isShowing()) {
             return;
         }
-        alertDialog = new AlertDialog.Builder(activity).create();
-        alertDialog.setTitle(activity.getString(R.string.exo_play_reminder));
-        alertDialog.setMessage(activity.getString(R.string.exo_play_wifi_hint_no));
+        alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle(getContext().getString(R.string.exo_play_reminder));
+        alertDialog.setMessage(getContext().getString(R.string.exo_play_wifi_hint_no));
         alertDialog.setCancelable(false);
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, activity.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getContext().
+                getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -260,13 +254,13 @@ abstract class BaseView extends FrameLayout {
 
             }
         });
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, activity.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getContext().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 showBtnContinueHint(View.GONE);
-                for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
-                    exoPlayerListener.playVideoUri();
+                if (mExoPlayerListener != null) {
+                    mExoPlayerListener.playVideoUri();
                 }
 
             }
@@ -292,7 +286,7 @@ abstract class BaseView extends FrameLayout {
             if (parent != null) {
                 parent.removeView(playerView);
             }
-            ViewGroup contentView = activity.findViewById(android.R.id.content);
+            ViewGroup contentView = ((Activity) getContext()).findViewById(android.R.id.content);
             LayoutParams params = new LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
@@ -402,6 +396,11 @@ abstract class BaseView extends FrameLayout {
      */
     protected void showBackView(int visibility, boolean is) {
         if (exoControlsBack != null) {
+            //如果是竖屏和且不显示返回按钮，就隐藏
+            if (!isShowBack && !isLand) {
+                exoControlsBack.setVisibility(GONE);
+                return;
+            }
             if (isListPlayer() && !isLand) {
                 exoControlsBack.setVisibility(GONE);
             } else {
@@ -427,6 +426,18 @@ abstract class BaseView extends FrameLayout {
         }
     }
 
+
+    public boolean isShowBack() {
+        return isShowBack;
+    }
+    /**
+     * 设置标题
+     *
+     * @param showBack  true 显示返回  false 反之
+     */
+    public void setShowBack(boolean showBack) {
+        this.isShowBack = showBack;
+    }
     /**
      * 设置标题
      *
@@ -460,29 +471,11 @@ abstract class BaseView extends FrameLayout {
      * 设置播放的状态回调 .,此方法不是外部使用，请不要调用
      *
      * @param mExoPlayerListener 回调
-     *@deprecated {@link #addExoPlayerListener(ExoPlayerListener)}
      */
     public void setExoPlayerListener(ExoPlayerListener mExoPlayerListener) {
-      if (mExoPlayerListener!=null){
-          addExoPlayerListener(mExoPlayerListener);
-      }
+        this.mExoPlayerListener = mExoPlayerListener;
     }
-    /***
-     * 设置播放的状态回调 .,此方法不是外部使用，请不要调用
-     *
-     * @param mExoPlayerListener 回调
-     */
-    public void addExoPlayerListener(@NonNull ExoPlayerListener mExoPlayerListener) {
-        exoPlayerListeners.add(mExoPlayerListener);
-    }
-    /***
-     * 移除播放的状态回调 .,此方法不是外部使用，请不要调用
-     *
-     * @param mExoPlayerListener 回调
-     */
-    public void removeExoPlayerListener( ExoPlayerListener mExoPlayerListener) {
-        exoPlayerListeners.remove(mExoPlayerListener);
-    }
+
     /***
      * 设置开启线路切换按钮
      *
@@ -550,7 +543,7 @@ abstract class BaseView extends FrameLayout {
      * @param name        name
      * @param switchIndex switchIndex
      */
-    protected void setSwitchName(@NonNull List<String> name, @Size(min = 0) int switchIndex) {
+    public void setSwitchName(@NonNull List<String> name, @Size(min = 0) int switchIndex) {
         this.nameSwitch = new ArrayList<>(name);
         this.switchIndex = switchIndex;
     }
@@ -568,7 +561,7 @@ abstract class BaseView extends FrameLayout {
     /***
      * 获取当前加载布局
      *
-     * @return View boolean
+     * @return boolean
      */
     public boolean isLoadingLayoutShow() {
         return exoLoadingLayout.getVisibility() == VISIBLE;
@@ -675,17 +668,13 @@ abstract class BaseView extends FrameLayout {
      * 获取g播放控制类
      *
      * @return ExoUserPlayer play
-     * @deprecated
      */
     @Nullable
     protected ExoUserPlayer getPlay() {
-        if (exoPlayerListeners.isEmpty()){
-            return  null;
-        }else {
-            for (ExoPlayerListener exoPlayerListener : exoPlayerListeners) {
-                return exoPlayerListener.getPlay() ;
-            }
-            return  null;
+        if (mExoPlayerListener == null) {
+            return null;
+        } else {
+            return mExoPlayerListener.getPlay();
         }
     }
 

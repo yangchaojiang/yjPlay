@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.android.exoplayer2.util.Util;
 
@@ -19,7 +20,8 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * E-Mail:1007181167@qq.com
  * Description： 手动控制播放播放器
  */
-public final class ManualPlayer extends GestureVideoPlayer {
+ public final class ManualPlayer extends GestureVideoPlayer {
+    private  static  final String TAG=ManualPlayer.class.getName();
     /**
      * 记录视频进度缓存map
      **/
@@ -35,6 +37,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
      *
      * @param activity the activity
      * @param reId     the re id
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public ManualPlayer(@NonNull Activity activity, @IdRes int reId) {
         this(activity, reId, null);
@@ -45,6 +48,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
      *
      * @param activity   the activity
      * @param playerView the player view
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
         this(activity, playerView, null);
@@ -56,6 +60,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
      * @param activity the activity
      * @param reId     the re id
      * @param listener the listener
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public ManualPlayer(@NonNull Activity activity, @IdRes int reId, @Nullable DataSourceListener listener) {
         this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
@@ -67,6 +72,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
      * @param activity   the activity
      * @param playerView the player view
      * @param listener   the listener
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public ManualPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
         super(activity, playerView, listener);
@@ -80,6 +86,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
      * @param activity           the activity
      * @param mediaSourceBuilder the media source builder
      * @param playerView         the player view
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public ManualPlayer(@NonNull Activity activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
         super(activity, mediaSourceBuilder, playerView);
@@ -87,11 +94,10 @@ public final class ManualPlayer extends GestureVideoPlayer {
         getPlayerViewListener().setPlayerBtnOnTouch(true);
     }
 
-    /***
-     * 启动播放视频
-     * */
+
     @Override
-    public void startPlayer() {
+    public <R extends ExoUserPlayer> R startPlayer() {
+        Log.d(TAG,"startPlayer");
         if (getPlayerViewListener().isList()) {
             handPause = false;
             VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
@@ -106,7 +112,14 @@ public final class ManualPlayer extends GestureVideoPlayer {
         getPlayerViewListener().setPlayerBtnOnTouch(false);
         createPlayers();
         registerReceiverNet();
+        return (R) this;
     }
+
+    /***
+     * 启动播放视频
+     * */
+
+
 
     @Override
     public void onResume() {
@@ -150,7 +163,9 @@ public final class ManualPlayer extends GestureVideoPlayer {
     /**
      * 重置
      */
+    @Override
     public void reset() {
+        Log.d(TAG,"reset");
         if (player != null) {
             unNetworkBroadcastReceiver();
             if (position == -1) {
@@ -173,7 +188,7 @@ public final class ManualPlayer extends GestureVideoPlayer {
      * **/
     void resetInit() {
         getPlayerViewListener().setPlayerBtnOnTouch(true);
-        getPlayerViewListener().reset();
+         getPlayerViewListener().reset();
     }
 
     /****

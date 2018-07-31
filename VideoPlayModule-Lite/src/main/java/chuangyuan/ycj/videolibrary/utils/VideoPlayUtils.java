@@ -59,7 +59,7 @@ public class VideoPlayUtils {
      * @param activity 活动
      * @return boolean boolean
      */
-    public static boolean isNetworkAvailable(@NonNull Activity activity) {
+    public static boolean isNetworkAvailable(@NonNull Context activity) {
         Context context = activity.getApplicationContext();
         // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -203,7 +203,7 @@ public class VideoPlayUtils {
      * @param activity 活动
      * @return int orientation
      */
-    public static int getOrientation(@NonNull Activity activity) {
+    public static int getOrientation(@NonNull Context activity) {
         Resources resources = activity.getResources();
         if (resources == null || resources.getConfiguration() == null) {
             return Configuration.ORIENTATION_PORTRAIT;

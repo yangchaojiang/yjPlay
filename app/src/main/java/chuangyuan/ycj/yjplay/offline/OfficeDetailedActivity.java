@@ -8,24 +8,21 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.offline.DownloadManager;
 
 import chuangyuan.ycj.videolibrary.office.ExoWholeDownLoadManger;
 import chuangyuan.ycj.videolibrary.office.ExoWholeDownloadTracker;
-import chuangyuan.ycj.videolibrary.offline.ExoDownLoadManger;
-import chuangyuan.ycj.videolibrary.offline.ExoDownloadTracker;
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
+import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 
 public class OfficeDetailedActivity extends Activity {
     private ExoWholeDownloadTracker exoDownloadTracker;
-   // private ExoDownloadTracker exoDownloadTracker;
+    // private ExoDownloadTracker exoDownloadTracker;
     private GestureVideoPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";
@@ -38,9 +35,11 @@ public class OfficeDetailedActivity extends Activity {
         exoDownloadTracker = ExoWholeDownLoadManger.getSingle().getExoDownloadTracker();
         //  exoDownloadTracker = ExoDownLoadManger.getSingle().getExoDownloadTracker();
         videoPlayerView = findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new GestureVideoPlayer(this, videoPlayerView,
-                new OfficeDataSource(this, null));
-        videoPlayerView.setTitle("视频标题");
+        exoPlayerManager = new VideoPlayerManager
+                .Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
+                .setDataSource(new OfficeDataSource(this, null))
+                .setTitle("视频标题")
+                .create();
         findViewById(R.id.button10).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +55,7 @@ public class OfficeDetailedActivity extends Activity {
                     exoPlayerManager.setPlayUri(getString(R.string.uri_test_8));
                     exoPlayerManager.startPlayer();
                 } else {
-                    customDwon();
+                    customDown();
                 }
             }
         });
@@ -106,12 +105,12 @@ public class OfficeDetailedActivity extends Activity {
     /***
      * 自定义下载
      * ***/
-    private void customDwon() {
+    private void customDown() {
         exoDownloadTracker.toggleDownload(this, "视频标题", Uri.parse(getString(R.string.uri_test_3)), null);
         exoDownloadTracker.addListener(new ExoWholeDownloadTracker.Listener() {
             @Override
             public void onDownloadsChanged(int taskState) {
-                Log.d(TAG,"taskState："+taskState);
+                Log.d(TAG, "taskState：" + taskState);
                 if (taskState == DownloadManager.TaskState.STATE_COMPLETED) {
                     exoPlayerManager.setPlayUri(getString(R.string.uri_test_8));
                     exoPlayerManager.startPlayer();

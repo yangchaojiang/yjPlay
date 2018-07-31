@@ -13,7 +13,9 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
+import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 
@@ -65,8 +67,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
         public VideoViewHolder(View itemView) {
             super(itemView);
-            playerView = (VideoPlayerView) itemView.findViewById(R.id.exo_play_context_id);
-            userPlayer = new ManualPlayer((Activity) mContext, playerView);
+            playerView =itemView.findViewById(R.id.exo_play_context_id);
+            userPlayer = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL,playerView).create();
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

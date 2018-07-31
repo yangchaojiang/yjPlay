@@ -12,7 +12,9 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 
 
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
+import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 
@@ -99,7 +101,7 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
             super(view);
             playerView = view.findViewById(R.id.exo_play_context_id);
             itemView = view;
-            userPlayer = new ManualPlayer((Activity) context, playerView);
+            userPlayer = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL,playerView).create();
         }
 
 

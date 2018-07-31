@@ -6,9 +6,9 @@
   ### gif 显示有点卡，帧数低，实际很流畅
   #### [下载预览apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-release-unsigned.apk)
 
- ![](gif/tet.gif)  ![](gif/tet2.gif)  ![](gif/tet3.gif)  
+ ![](gif/tet.gif)  ![](gif/tet2.gif) 
  
-![](gif/tet3.gif)  ![](gif/tet4.gif)  ![](gif/tet6.gif)
+ ![](gif/tet4.gif)  ![](gif/tet6.gif)
 
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    * 1 ExoUserPlayer  基本播放。
@@ -34,6 +34,7 @@
    * 22 支持返回按钮和全屏按钮图标自定义。
    * 23 支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
    * 24 支持视频实时进度（头条底部进度）。
+   * 25 支持流式API方式调用。
  <!--more-->
 
  ### [更新日志2.1.85→》戳我查看](RELEASENOTES.md)
@@ -47,9 +48,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.85' 
+      compile 'com.ycjiang:VideoPlayModule:2.1.91' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.85'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.91'
 
   }
   ````
@@ -191,38 +192,72 @@
   >>更多方法参考demo用法。
   
  > #### 3 播放代码 
-          实例化播放控制类
-          ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
-         自定义你的数据源，后面详细介绍如何自定义数据源类
-           ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this));
-          加载m3u8
-          exoPlayerManager.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8");
-          加载ts.文件
-          exoPlayerManager.setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts");
-          播放本地视频
-          exoPlayerManager.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4");
-          下面开启多线路播放
-          exoPlayerManager.setShowVideoSwitch(true); //开启切换按钮，默认关闭
-          String [] test={"http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4","http://120.25.246.21/vrMobile/travelVideo/zhejiang_xuanchuanpian.mp4"};
-          String[] name={"超清","高清","标清"};
-          exoPlayerManager.setPlaySwitchUri(0,test,name);
-          开始启动播放视频
-          exoPlayerManager.startPlayer();
+                  //实例化
+                  exoPlayerManager = new ExoUserPlayer.Builder(ExoUserPlayer.TYPE_PLAY_MANUAL, videoPlayerView)
+                          .setDataSource(new DataSource(this))
+                          //加载rtmp 协议视频
+                          .setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks")
+                          //加载m3u8
+                          .setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8")
+                          //加载ts.文件
+                          .setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts")
+                          //播放本地视频
+                          .setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4")
+                          //播放列表视频
+                          .setPlayUri(listss);
+                          //设置开始播放进度
+                          .setPosition(1000)
+                          //示例本地路径 或者 /storage/emulated/0/DCIM/Camera/VID_20180215_131926.mp4
+                          .setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4")
+                          //开启线路设置
+                          .setShowVideoSwitch(true)
+                          .setPlaySwitchUri(0,test,name)
+                          .setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name))
+                          //设置播放视频倍数  快进播放和慢放播放
+                          .setPlaybackParameters(0.5f, 0.5f)
+                          //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
+                          .setSeekBarSeek(false)
+                          //设置视循环播放
+                          .setLooping(10)
+                          //开始启动播放视频
+                          .addOnWindowListener(new VideoWindowListener() {
+                              @Override
+                              public void onCurrentIndex(int currentIndex, int windowCount) {
+                                  Toast.makeText(getApplication(), currentIndex + "windowCount:" + windowCount, Toast.LENGTH_SHORT)                                             .show();
+                              }
+                          })
+                          .addVideoInfoListener(new VideoInfoListener() {
+                              ·····
+                          })
+                          //创建
+                           .create()
+                             //播放视频
+                          .startPlayer();
 
    1.实例化播放控制类
-
-          ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id);
-          ManualPlayer exoPlayerManager = new ManualPlayer(this,videoPlayerView);
+           
+          //手势和自定义点击播放播放控制器创建
+          ManualPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView).create();
+          //手势播放控制器创建
+          GestureVideoPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView).create();
+          //基本播放控制器创建
+          ExoUserPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_USER, videoPlayerView).create();
 
    2.自定义你的数据源，后面详细介绍如何自定义数据源类
 
-         ManualPlayer exoPlayerManager = new ManualPlayer(this,R.id.exo_play_context_id,new DataSource(this));
-         ManualPlayer exoPlayerManager = new ManualPlayer(this,videoPlayerView,new DataSource(this));
+         ManualPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+                                                        .setDataSource(new DataSource(this))
+                                                        .create();
+         ManualPlayer exoPlayerManager =  new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+                                                          .setDataSource(mediaSourceBuilder)
+                                                          .create();
          定义多媒体
          MediaSourceBuilder   mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
         集成smoothstreaming,dash,hls
          WholeMediaSource   mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));  
-         ManualPlayer   exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
+         ManualPlayer   exoPlayerManager =new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+                                                            .setDataSource(mediaSourceBuilder)
+                                                            .create();
 
  > #### 4 ManualPlayer播放管理类可用方法 
   | name                                 | type | info                                                                        |
@@ -290,7 +325,7 @@
     
   >> 5.设置监听回调VideoInfoListener
    
-         exoPlayerManager.setVideoInfoListener(new VideoInfoListener() {
+         exoPlayerManager.addVideoInfoListener(new VideoInfoListener() {
                        @Override
                        public void onPlayStart() {
                              //开始播放

@@ -44,11 +44,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-     implementation project(':VideoPlayModule')
+    implementation project(':VideoPlayModule')
     // compile 'com.ycjiang:VideoPlayModule:2.1.83'
     //implementation 'com.ycjiang:VideoPlayModule-Lite:1.9.95'
-    implementation 'com.google.android.exoplayer:extension-okhttp:2.7.1'
-    implementation 'com.google.android.exoplayer:extension-rtmp:2.7.1'
+    implementation 'com.google.android.exoplayer:extension-okhttp:2.8.2'
+    implementation 'com.google.android.exoplayer:extension-rtmp:2.8.2'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.jude:easyrecyclerview:4.4.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
@@ -57,11 +57,10 @@ dependencies {
     implementation project(':ima')
     //弹幕
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
-   // implementation 'com.github.ctiao:ndkbitmap-armv7a:0.9.21'
+    // implementation 'com.github.ctiao:ndkbitmap-armv7a:0.9.21'
     //implementation 'com.github.ctiao:ndkbitmap-armv5:0.9.21'
     //implementation 'com.github.ctiao:ndkbitmap-x86:0.9.21'
-    implementation 'com.anbetter:danmukulight:1.0.1'
     implementation 'com.facebook.fresco.helper:fresco-helper:2.0.3'
     implementation 'com.google.code.gson:gson:2.8.0'
-
+    implementation project(':ffmpeg')
 }

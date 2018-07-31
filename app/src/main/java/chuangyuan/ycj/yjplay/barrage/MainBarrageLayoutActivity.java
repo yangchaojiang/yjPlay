@@ -9,10 +9,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -20,11 +18,9 @@ import android.text.TextPaint;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ImageSpan;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -39,7 +35,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
+import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
@@ -171,27 +169,29 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
 
     private void findViews() {
         final VideoPlayerView videoPlayerView = findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new ManualPlayer(this, videoPlayerView, new DataSource(this));
-        exoPlayerManager.setTitle("自定义视频标题");
-        //设置加载显示模式
-        exoPlayerManager.setPlayUri(getString(R.string.uri_test_6));
+        videoPlayerView.setTitle("自定义视频标题");
+        exoPlayerManager = new VideoPlayerManager
+                .Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+                .setDataSource(new DataSource(this))
+                .setPlayUri(getString(R.string.uri_test_6))
+                .create()
+                .startPlayer();
         Glide.with(this)
                 .load(getString(R.string.uri_test_image))
                 .placeholder(R.mipmap.test)
                 .fitCenter()
                 .into(videoPlayerView.getPreviewImage());
-        exoPlayerManager.startPlayer();
         mMediaController = findViewById(R.id.media_controller);
         mBtnRotate = findViewById(R.id.rotate);
         mBtnHideDanmaku = findViewById(R.id.btn_hide);
-        mBtnShowDanmaku =  findViewById(R.id.btn_show);
+        mBtnShowDanmaku = findViewById(R.id.btn_show);
         mBtnPauseDanmaku = findViewById(R.id.btn_pause);
         mBtnResumeDanmaku = findViewById(R.id.btn_resume);
-        mBtnSendDanmaku =  findViewById(R.id.btn_send);
+        mBtnSendDanmaku = findViewById(R.id.btn_send);
         mBtnSendDanmakuTextAndImage = findViewById(R.id.btn_send_image_text);
-        mBtnSendDanmakus =  findViewById(R.id.btn_send_danmakus);
-        mBtnSendCon=       findViewById(R.id.btn_send_conllorer);
-        btn_barrage_=  findViewById(R.id.btn_barrage_);
+        mBtnSendDanmakus = findViewById(R.id.btn_send_danmakus);
+        mBtnSendCon = findViewById(R.id.btn_send_conllorer);
+        btn_barrage_ = findViewById(R.id.btn_barrage_);
         mBtnRotate.setOnClickListener(this);
         mBtnSendCon.setOnClickListener(this);
         mBtnHideDanmaku.setOnClickListener(this);
@@ -211,7 +211,7 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
         HashMap<Integer, Boolean> overlappingEnablePair = new HashMap<>();
         overlappingEnablePair.put(BaseDanmaku.TYPE_SCROLL_RL, true);
         overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_TOP, true);
-        mDanmakuView =  findViewById(R.id.sv_danmaku);
+        mDanmakuView = findViewById(R.id.sv_danmaku);
         mContext = DanmakuContext.create();
         mContext.setDanmakuStyle(IDisplayer.DANMAKU_STYLE_STROKEN, 3).setDuplicateMergingEnabled(false).setScrollSpeedFactor(1.2f).setScaleTextSize(1.2f)
                 .setCacheStuffer(new SpannedCacheStuffer(), mCacheStufferAdapter) // 图文混排使用SpannedCacheStuffer
@@ -260,9 +260,9 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
 
                 @Override
                 public boolean onViewClick(IDanmakuView view) {
-                    if (videoPlayerView.getPlaybackControlView().isVisible()){
+                    if (videoPlayerView.getPlaybackControlView().isVisible()) {
                         exoPlayerManager.hideControllerView();
-                    }else {
+                    } else {
                         exoPlayerManager.showControllerView();
                     }
                     mMediaController.setVisibility(View.VISIBLE);
@@ -275,9 +275,9 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
 
                 @Override
                 public void onPlayStart(long currPosition) {
-                    if (currPosition==0){
+                    if (currPosition == 0) {
                         mDanmakuView.start();
-                    }else {
+                    } else {
                         mDanmakuView.seekTo(currPosition);
                     }
 
@@ -300,11 +300,11 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
 
                 @Override
                 public void isPlaying(boolean playWhenReady) {
-                     if (playWhenReady){
-                         mDanmakuView.start();
-                     }else {
-                         mDanmakuView.pause();
-                     }
+                    if (playWhenReady) {
+                        mDanmakuView.start();
+                    } else {
+                        mDanmakuView.pause();
+                    }
                 }
             });
         }
@@ -416,12 +416,12 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
                 mBtnSendDanmakus.setText(R.string.send_danmakus);
                 mBtnSendDanmakus.setTag(false);
             }
-        }else if (v.getId()==R.id.btn_send_conllorer){
+        } else if (v.getId() == R.id.btn_send_conllorer) {
             exoPlayerManager.showControllerView();
-        }else if (v==btn_barrage_){
-            if (btn_barrage_.isChecked()){
+        } else if (v == btn_barrage_) {
+            if (btn_barrage_.isChecked()) {
                 mDanmakuView.hide();
-            }else {
+            } else {
                 mDanmakuView.show();
             }
         }

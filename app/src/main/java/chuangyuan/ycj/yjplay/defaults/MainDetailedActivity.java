@@ -9,61 +9,29 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.source.hls.playlist.HlsMediaPlaylist;
+import com.google.android.exoplayer2.ui.AnimUtils;
 
-import java.util.Arrays;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
+import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.DataSource;
+
 public class MainDetailedActivity extends Activity {
 
     private ExoUserPlayer exoPlayerManager;
-    private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";
     String[] test;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
-        videoPlayerView = findViewById(R.id.exo_play_context_id);
-        exoPlayerManager = new ExoUserPlayer(this, videoPlayerView, new DataSource(this));
-        //设置视频标题
-        videoPlayerView.setTitle("视频标题");
-        //设置水印图
-        videoPlayerView.setExoPlayWatermarkImg(R.mipmap.watermark_big);
-        exoPlayerManager.addOnWindowListener(new VideoWindowListener() {
-            @Override
-            public void onCurrentIndex(int currentIndex, int windowCount) {
-                Toast.makeText(getApplication(), currentIndex + "windowCount:" + windowCount, Toast.LENGTH_SHORT).show();
-            }
-        });
-        //设置开始播放进度
-        // exoPlayerManager.setPosition(1000);
-        // exoPlayerManager.setPlayUri(getString(R.string.uri_test_3),getString(R.string.uri_test_h));
-         //    String tes="/storage/emulated/0/DCIM/Camera/VID_20180215_131926.mp4";
-        // exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4");
-      //  test = new String[]{"/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4","/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4","/storage/emulated/0/DCIM/Camera/VID_20180215_131816.mp4"};
         test = new String[]{getString(R.string.uri_test_9), getString(R.string.uri_test_7), getString(R.string.uri_test_8)};
         String[] name = {"超清", "高清", "标清"};
-        //开启线路设置
-         exoPlayerManager.setShowVideoSwitch(true);
-       exoPlayerManager.setPlaySwitchUri(0,test,name);
-      //exoPlayerManager.setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name));
-      // exoPlayerManager.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks");
-       // exoPlayerManager.setPlaybackParameters(0.5f,0.5f);
-        exoPlayerManager.startPlayer();
-      //  exoPlayerManager.startPlayer();
-     //  exoPlayerManager.setPlayUri("http://live.aikan.miguvideo.com/wd_r2/cctv/cctv1hd/1200/01.m3u8");
-        //exoPlayerManager.setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.mp4");
-        //开始启动播放视频
-        //exoPlayerManager.startPlayer();
         // TestDataBean bean = new TestDataBean();
         // TestDataBean bean1 = new TestDataBean();
         //  List<TestDataBean> listss = new ArrayList<>();
@@ -78,11 +46,84 @@ public class MainDetailedActivity extends Activity {
         }*/
         // listss.add(bean);
         // listss.add(bean1);
-        //exoPlayerManager.setPlayUri(listss);
-        //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
-        //exoPlayerManager.setSeekBarSeek(false);
-        //设置视循环播放
-        //exoPlayerManager.setLooping(10);
+        //实例化
+        exoPlayerManager = new VideoPlayerManager.Builder(this,VideoPlayerManager.TYPE_PLAY_MANUAL, R.id.exo_play_context_id)
+                .setDataSource(new DataSource(this))
+                //设置视频标题
+                .setTitle("视频标题")
+                //设置水印图
+                .setExoPlayWatermarkImg(R.mipmap.watermark_big)
+                //加载rtmp 协议视频
+                //.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks")
+                //加载m3u8
+                .setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8")
+                .setDrmSessionManager(null)
+                //加载ts.文件
+                //.setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts")
+                //播放本地视频
+                //.setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20170717_011150.mp4")
+                //播放列表视频
+               // .setPlayUri(listss);
+                //设置开始播放进度
+               // .setPosition(1000)
+                //示例本地路径 或者 /storage/emulated/0/DCIM/Camera/VID_20180215_131926.mp4
+               // .setPlayUri(Environment.getExternalStorageDirectory().getAbsolutePath()+"/VID_20170925_154925.mp4")
+                //开启线路设置
+               // .setShowVideoSwitch(true)
+               // .setPlaySwitchUri(0,test,name)
+               // .setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name))
+                //设置播放视频倍数  快进播放和慢放播放
+               // .setPlaybackParameters(0.5f, 0.5f)
+                //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
+              //  .setSeekBarSeek(false)
+                //设置视循环播放
+                .setLooping(10)
+                //开始启动播放视频
+                .addOnWindowListener(new VideoWindowListener() {
+                    @Override
+                    public void onCurrentIndex(int currentIndex, int windowCount) {
+                        Toast.makeText(getApplication(), currentIndex + "windowCount:" + windowCount, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
+                    @Override
+                    public void updateProgress(long position, long bufferedPosition, long duration) {
+                         Log.d(TAG,"position:"+position);
+                        Log.d(TAG,"bufferedPosition:"+position);
+                        Log.d(TAG,"duration:"+duration);
+                    }
+                })
+                .addVideoInfoListener(new VideoInfoListener() {
+
+                    @Override
+                    public void onPlayStart(long currPosition) {
+
+                    }
+
+                    @Override
+                    public void onLoadingChanged() {
+
+                    }
+
+                    @Override
+                    public void onPlayerError(ExoPlaybackException e) {
+
+                    }
+
+                    @Override
+                    public void onPlayEnd() {
+                        // Toast.makeText(getApplication(), "asd", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                    @Override
+                    public void isPlaying(boolean playWhenReady) {
+
+                    }
+                })
+                .create()
+                //播放视频
+                .startPlayer();
         //d隐藏控制布局
         // exoPlayerManager.hideControllerView();
         //隐藏进度条
@@ -91,42 +132,12 @@ public class MainDetailedActivity extends Activity {
         //exoPlayerManager.showSeekBar();
         //是否播放
         // exoPlayerManager.isPlaying();
-        //设置播放视频倍数  快进播放和慢放播放
-        //exoPlayerManager.setPlaybackParameters(2f,2f);
         // videoPlayerView.getPreviewImage().setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(this)
                 .load(getString(R.string.uri_test_image))
                 .fitCenter()
                 .placeholder(R.mipmap.test)
-                .into(videoPlayerView.getPreviewImage());
-        exoPlayerManager.addVideoInfoListener(new VideoInfoListener() {
-
-            @Override
-            public void onPlayStart(long currPosition) {
-
-            }
-
-            @Override
-            public void onLoadingChanged() {
-
-            }
-
-            @Override
-            public void onPlayerError(ExoPlaybackException e) {
-
-            }
-
-            @Override
-            public void onPlayEnd() {
-               // Toast.makeText(getApplication(), "asd", Toast.LENGTH_SHORT).show();
-            }
-
-
-            @Override
-            public void isPlaying(boolean playWhenReady) {
-
-            }
-        });
+                .into(exoPlayerManager.getPreviewImage());
 
     }
 
@@ -154,7 +165,7 @@ public class MainDetailedActivity extends Activity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-      //  exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
+        //  exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
     }
 
