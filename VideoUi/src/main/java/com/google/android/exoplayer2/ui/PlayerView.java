@@ -27,6 +27,7 @@ import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -47,6 +48,9 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Player.DiscontinuityReason;
 import com.google.android.exoplayer2.metadata.Metadata;
 import com.google.android.exoplayer2.metadata.id3.ApicFrame;
+import com.google.android.exoplayer2.render.IRender;
+import com.google.android.exoplayer2.render.RenderSurfaceView;
+import com.google.android.exoplayer2.render.RenderTextureView;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.TextOutput;
@@ -116,7 +120,6 @@ import java.util.List;
  *   <li><b>{@code resize_mode}</b> - Controls how video and album art is resized within the view.
  *       Valid values are {@code fit}, {@code fixed_width}, {@code fixed_height} and {@code fill}.
  *       <ul>
- *         <li>Corresponding method: {@link #setResizeMode(int)}
  *         <li>Default: {@code fit}
  *       </ul>
  *   <li><b>{@code surface_type}</b> - The type of surface view used for video playbacks. Valid
@@ -234,17 +237,17 @@ public class PlayerView extends FrameLayout {
   private static final int SURFACE_TYPE_SURFACE_VIEW = 1;
   private static final int SURFACE_TYPE_TEXTURE_VIEW = 2;
 
-  protected final AspectRatioFrameLayout contentFrame;
+  protected final FrameLayout contentFrame;
   private final View shutterView;
-  private final View surfaceView;
+    protected final View surfaceView;
   private final ImageView artworkView;
-  private final SubtitleView subtitleView;
+    protected final SubtitleView subtitleView;
   private final @Nullable
   View bufferingView;
   private final @Nullable
   TextView errorMessageView;
   protected final PlayerControlView controller;
-  private final ComponentListener componentListener;
+    protected final ComponentListener componentListener;
   private final FrameLayout overlayFrameLayout;
 
   protected Player player;
@@ -340,7 +343,7 @@ public class PlayerView extends FrameLayout {
     // Content frame.
     contentFrame = findViewById(R.id.exo_content_frame);
     if (contentFrame != null) {
-      setResizeModeRaw(contentFrame, resizeMode);
+     /// setResizeModeRaw(contentFrame, resizeMode);
     }
 
     // Shutter view.
@@ -351,14 +354,18 @@ public class PlayerView extends FrameLayout {
 
     // Create a surface view and insert it into the content frame, if there is one.
     if (contentFrame != null && surfaceType != SURFACE_TYPE_NONE) {
-      ViewGroup.LayoutParams params =
-          new ViewGroup.LayoutParams(
-              ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+      LayoutParams lp = new LayoutParams(
+              LayoutParams.WRAP_CONTENT,
+              LayoutParams.WRAP_CONTENT,
+              Gravity.CENTER);
       surfaceView =
           surfaceType == SURFACE_TYPE_TEXTURE_VIEW
-              ? new TextureView(context)
-              : new SurfaceView(context);
-      surfaceView.setLayoutParams(params);
+              ? new RenderTextureView(context)
+              : new RenderSurfaceView(context);
+      if (surfaceType==SURFACE_TYPE_TEXTURE_VIEW){
+          ((RenderTextureView)surfaceView).setTakeOverSurfaceTexture(true);
+      }
+      surfaceView.setLayoutParams(lp);
       contentFrame.addView(surfaceView, 0);
     } else {
       surfaceView = null;
@@ -524,17 +531,21 @@ public class PlayerView extends FrameLayout {
    *
    * @param resizeMode The resize mode.
    */
+/*
   public void setResizeMode(@ResizeMode int resizeMode) {
     Assertions.checkState(contentFrame != null);
     contentFrame.setResizeMode(resizeMode);
   }
 
-  /** Returns the resize mode. */
+  */
+/** Returns the resize mode. *//*
+
   public @ResizeMode
   int getResizeMode() {
     Assertions.checkState(contentFrame != null);
     return contentFrame.getResizeMode();
   }
+*/
 
   /** Returns whether artwork is displayed if present in the media. */
   public boolean getUseArtwork() {
@@ -896,7 +907,7 @@ public class PlayerView extends FrameLayout {
    */
   public void setAspectRatioListener(AspectRatioFrameLayout.AspectRatioListener listener) {
     Assertions.checkState(contentFrame != null);
-    contentFrame.setAspectRatioListener(listener);
+  //  contentFrame.setAspectRatioListener(listener);
   }
 
   /**
@@ -995,7 +1006,7 @@ public class PlayerView extends FrameLayout {
     return player != null && player.isPlayingAd() && player.getPlayWhenReady();
   }
 
-  private void updateForCurrentTrackSelections(boolean isNewPlayer) {
+    protected void updateForCurrentTrackSelections(boolean isNewPlayer) {
     if (player == null || player.getCurrentTrackGroups().isEmpty()) {
       if (!keepContentOnPlayerReset) {
         hideArtwork();
@@ -1060,7 +1071,7 @@ public class PlayerView extends FrameLayout {
       int bitmapHeight = bitmap.getHeight();
       if (bitmapWidth > 0 && bitmapHeight > 0) {
         if (contentFrame != null) {
-          contentFrame.setAspectRatio((float) bitmapWidth / bitmapHeight);
+        //  contentFrame.setAspectRatio((float) bitmapWidth / bitmapHeight);
         }
         artworkView.setImageBitmap(bitmap);
         artworkView.setVisibility(VISIBLE);
@@ -1070,7 +1081,7 @@ public class PlayerView extends FrameLayout {
     return false;
   }
 
-  private void hideArtwork() {
+    protected void hideArtwork() {
     if (artworkView != null) {
       artworkView.setImageResource(android.R.color.transparent); // Clears any bitmap reference.
       artworkView.setVisibility(INVISIBLE);
@@ -1083,7 +1094,7 @@ public class PlayerView extends FrameLayout {
     }
   }
 
-  private void updateBuffering() {
+    protected void updateBuffering() {
     if (bufferingView != null) {
       boolean showBufferingSpinner =
           showBuffering
@@ -1094,7 +1105,7 @@ public class PlayerView extends FrameLayout {
     }
   }
 
-  private void updateErrorMessage() {
+    protected void updateErrorMessage() {
     if (errorMessageView != null) {
       if (customErrorMessage != null) {
         errorMessageView.setText(customErrorMessage);
@@ -1211,10 +1222,11 @@ public class PlayerView extends FrameLayout {
           // So add an OnLayoutChangeListener to apply rotation after layout step.
           surfaceView.addOnLayoutChangeListener(this);
         }
-        applyTextureViewRotation((TextureView) surfaceView, textureViewRotation);
+        ((IRender)surfaceView).updateVideoSize(width, height);
+        ((IRender)surfaceView).setVideoSampleAspectRatio(0,0);
+        //update video rotation
+        ((IRender)surfaceView).setVideoRotation(textureViewRotation);
       }
-
-      contentFrame.setAspectRatio(videoAspectRatio);
     }
 
     @Override
@@ -1262,7 +1274,10 @@ public class PlayerView extends FrameLayout {
         int oldTop,
         int oldRight,
         int oldBottom) {
-      applyTextureViewRotation((TextureView) view, textureViewRotation);
+      if (surfaceView!=null){
+        ((IRender)surfaceView).setVideoRotation(textureViewRotation);
+      }
+
     }
   }
 }
