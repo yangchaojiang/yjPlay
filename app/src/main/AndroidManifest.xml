@@ -78,11 +78,6 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".barrage2.Barrage2VideoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".fragment.ViewPagerActivity"
             android:label="@string/title_activity_view_pager"
             android:configChanges="orientation|keyboardHidden|screenSize"

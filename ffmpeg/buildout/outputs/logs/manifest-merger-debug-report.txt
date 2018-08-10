@@ -1,0 +1,25 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml:17:1-63
+INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml:17:1-63
+INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml:17:1-63
+	package
+		ADDED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml:17:11-61
+		INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+		INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml:17:1-63
+uses-sdk
+INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+		ADDED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+		INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+		ADDED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml
+		INJECTED from E:\demo\ExoPlayer\extensions\ffmpeg\src\main\AndroidManifest.xml

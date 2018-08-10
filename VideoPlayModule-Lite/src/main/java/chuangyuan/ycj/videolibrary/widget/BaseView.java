@@ -708,13 +708,6 @@ abstract class BaseView extends FrameLayout {
         return (ExoDefaultTimeBar) controllerView.getTimeBar();
     }
 
-    /**
-     * Sets the aspect ratio that this view should satisfy.
-     *
-     * @param widthHeightRatio The width to height ratio.
-     */
-    public void setAspectRatio(float widthHeightRatio) {
-        getPlayerView().getAspectRatioFrameLayout().setAspectRatio(widthHeightRatio);
-    }
+
 
 }

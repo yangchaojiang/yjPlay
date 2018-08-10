@@ -27,6 +27,7 @@ import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -37,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ControlDispatcher;
@@ -47,6 +49,10 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Player.DiscontinuityReason;
 import com.google.android.exoplayer2.metadata.Metadata;
 import com.google.android.exoplayer2.metadata.id3.ApicFrame;
+import com.google.android.exoplayer2.render.AspectRatio;
+import com.google.android.exoplayer2.render.IRender;
+import com.google.android.exoplayer2.render.RenderSurfaceView;
+import com.google.android.exoplayer2.render.RenderTextureView;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.TextOutput;
@@ -61,190 +67,22 @@ import com.google.android.exoplayer2.video.VideoListener;
 
 import java.util.List;
 
-/**
- * A high level view for {@link Player} media playbacks. It displays video, subtitles and album art
- * during playback, and displays playback controls using a {@link PlayerControlView}.
- *
- * <p>A PlayerView can be customized by setting attributes (or calling corresponding methods),
- * overriding the view's layout file or by specifying a custom view layout file, as outlined below.
- *
- * <h3>Attributes</h3>
- *
- * The following attributes can be set on a PlayerView when used in a layout XML file:
- *
- * <ul>
- *   <li><b>{@code use_artwork}</b> - Whether artwork is used if available in audio streams.
- *       <ul>
- *         <li>Corresponding method: {@link #setUseArtwork(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code default_artwork}</b> - Default artwork to use if no artwork available in audio
- *       streams.
- *       <ul>
- *         <li>Corresponding method: {@link #setDefaultArtwork(Bitmap)}
- *         <li>Default: {@code null}
- *       </ul>
- *   <li><b>{@code use_controller}</b> - Whether the playback controls can be shown.
- *       <ul>
- *         <li>Corresponding method: {@link #setUseController(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code hide_on_touch}</b> - Whether the playback controls are hidden by touch events.
- *       <ul>
- *         <li>Corresponding method: {@link #setControllerHideOnTouch(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code auto_show}</b> - Whether the playback controls are automatically shown when
- *       playback starts, pauses, ends, or fails. If set to false, the playback controls can be
- *       manually operated with {@link #showController()} and {@link #hideController()}.
- *       <ul>
- *         <li>Corresponding method: {@link #setControllerAutoShow(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code hide_during_ads}</b> - Whether the playback controls are hidden during ads.
- *       Controls are always shown during ads if they are enabled and the player is paused.
- *       <ul>
- *         <li>Corresponding method: {@link #setControllerHideDuringAds(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code show_buffering}</b> - Whether the buffering spinner is displayed when the player
- *       is buffering.
- *       <ul>
- *         <li>Corresponding method: {@link #setShowBuffering(boolean)}
- *         <li>Default: {@code false}
- *       </ul>
- *   <li><b>{@code resize_mode}</b> - Controls how video and album art is resized within the view.
- *       Valid values are {@code fit}, {@code fixed_width}, {@code fixed_height} and {@code fill}.
- *       <ul>
- *         <li>Corresponding method: {@link #setResizeMode(int)}
- *         <li>Default: {@code fit}
- *       </ul>
- *   <li><b>{@code surface_type}</b> - The type of surface view used for video playbacks. Valid
- *       values are {@code surface_view}, {@code texture_view} and {@code none}. Using {@code none}
- *       is recommended for audio only applications, since creating the surface can be expensive.
- *       Using {@code surface_view} is recommended for video applications. Note, TextureView can
- *       only be used in a hardware accelerated window. When rendered in software, TextureView will
- *       draw nothing.
- *       <ul>
- *         <li>Corresponding method: None
- *         <li>Default: {@code surface_view}
- *       </ul>
- *   <li><b>{@code shutter_background_color}</b> - The background color of the {@code exo_shutter}
- *       view.
- *       <ul>
- *         <li>Corresponding method: {@link #setShutterBackgroundColor(int)}
- *         <li>Default: {@code unset}
- *       </ul>
- *   <li><b>{@code keep_content_on_player_reset}</b> - Whether the currently displayed video frame
- *       or media artwork is kept visible when the player is reset.
- *       <ul>
- *         <li>Corresponding method: {@link #setKeepContentOnPlayerReset(boolean)}
- *         <li>Default: {@code false}
- *       </ul>
- *   <li><b>{@code player_layout_id}</b> - Specifies the id of the layout to be inflated. See below
- *       for more details.
- *       <ul>
- *         <li>Corresponding method: None
- *         <li>Default: {@code R.id.exo_player_view}
- *       </ul>
- *   <li><b>{@code controller_layout_id}</b> - Specifies the id of the layout resource to be
- *       inflated by the child {@link PlayerControlView}. See below for more details.
- *       <ul>
- *         <li>Corresponding method: None
- *         <li>Default: {@code R.id.exo_player_control_view}
- *       </ul>
- *   <li>All attributes that can be set on a {@link PlayerControlView} can also be set on a
- *       PlayerView, and will be propagated to the inflated {@link PlayerControlView} unless the
- *       layout is overridden to specify a custom {@code exo_controller} (see below).
- * </ul>
- *
- * <h3>Overriding the layout file</h3>
- *
- * To customize the layout of PlayerView throughout your app, or just for certain configurations,
- * you can define {@code exo_player_view.xml} layout files in your application {@code res/layout*}
- * directories. These layouts will override the one provided by the ExoPlayer library, and will be
- * inflated for use by PlayerView. The view identifies and binds its children by looking for the
- * following ids:
- *
- * <p>
- *
- * <ul>
- *   <li><b>{@code exo_content_frame}</b> - A frame whose aspect ratio is resized based on the video
- *       or album art of the media being played, and the configured {@code resize_mode}. The video
- *       surface view is inflated into this frame as its first child.
- *       <ul>
- *         <li>Type: {@link AspectRatioFrameLayout}
- *       </ul>
- *   <li><b>{@code exo_shutter}</b> - A view that's made visible when video should be hidden. This
- *       view is typically an opaque view that covers the video surface view, thereby obscuring it
- *       when visible.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_buffering}</b> - A view that's made visible when the player is buffering.
- *       This view typically displays a buffering spinner or animation.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_subtitles}</b> - Displays subtitles.
- *       <ul>
- *         <li>Type: {@link SubtitleView}
- *       </ul>
- *   <li><b>{@code exo_artwork}</b> - Displays album art.
- *       <ul>
- *         <li>Type: {@link ImageView}
- *       </ul>
- *   <li><b>{@code exo_error_message}</b> - Displays an error message to the user if playback fails.
- *       <ul>
- *         <li>Type: {@link TextView}
- *       </ul>
- *   <li><b>{@code exo_controller_placeholder}</b> - A placeholder that's replaced with the inflated
- *       {@link PlayerControlView}. Ignored if an {@code exo_controller} view exists.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_controller}</b> - An already inflated {@link PlayerControlView}. Allows use
- *       of a custom extension of {@link PlayerControlView}. Note that attributes such as {@code
- *       rewind_increment} will not be automatically propagated through to this instance. If a view
- *       exists with this id, any {@code exo_controller_placeholder} view will be ignored.
- *       <ul>
- *         <li>Type: {@link PlayerControlView}
- *       </ul>
- *   <li><b>{@code exo_overlay}</b> - A {@link FrameLayout} positioned on top of the player which
- *       the app can access via {@link #getOverlayFrameLayout()}, provided for convenience.
- *       <ul>
- *         <li>Type: {@link FrameLayout}
- *       </ul>
- * </ul>
- *
- * <p>All child views are optional and so can be omitted if not required, however where defined they
- * must be of the expected type.
- *
- * <h3>Specifying a custom layout file</h3>
- *
- * Defining your own {@code exo_player_view.xml} is useful to customize the layout of PlayerView
- * throughout your application. It's also possible to customize the layout for a single instance in
- * a layout file. This is achieved by setting the {@code player_layout_id} attribute on a
- * PlayerView. This will cause the specified layout to be inflated instead of {@code
- * exo_player_view.xml} for only the instance on which the attribute is set.
- */
 public class PlayerView extends FrameLayout {
 
   private static final int SURFACE_TYPE_NONE = 0;
   private static final int SURFACE_TYPE_SURFACE_VIEW = 1;
   private static final int SURFACE_TYPE_TEXTURE_VIEW = 2;
-
-  protected final AspectRatioFrameLayout contentFrame;
+  private final FrameLayout contentFrame;
   private final View shutterView;
-  private final View surfaceView;
+    protected final IRender surfaceView;
   private final ImageView artworkView;
-  private final SubtitleView subtitleView;
+    protected final SubtitleView subtitleView;
   private final @Nullable
   View bufferingView;
   private final @Nullable
   TextView errorMessageView;
   protected final PlayerControlView controller;
-  private final ComponentListener componentListener;
+    protected final ComponentListener componentListener;
   private final FrameLayout overlayFrameLayout;
 
   protected Player player;
@@ -302,7 +140,7 @@ public class PlayerView extends FrameLayout {
     boolean useArtwork = true;
     boolean useController = true;
     int surfaceType = SURFACE_TYPE_SURFACE_VIEW;
-    int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT;
+    int resizeMode = AspectRatio.AspectRatio_FIT_PARENT;
     int controllerShowTimeoutMs = PlayerControlView.DEFAULT_SHOW_TIMEOUT_MS;
     boolean controllerHideOnTouch = true;
     boolean controllerAutoShow = true;
@@ -339,9 +177,6 @@ public class PlayerView extends FrameLayout {
 
     // Content frame.
     contentFrame = findViewById(R.id.exo_content_frame);
-    if (contentFrame != null) {
-      setResizeModeRaw(contentFrame, resizeMode);
-    }
 
     // Shutter view.
     shutterView = findViewById(R.id.exo_shutter);
@@ -351,15 +186,21 @@ public class PlayerView extends FrameLayout {
 
     // Create a surface view and insert it into the content frame, if there is one.
     if (contentFrame != null && surfaceType != SURFACE_TYPE_NONE) {
-      ViewGroup.LayoutParams params =
-          new ViewGroup.LayoutParams(
-              ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-      surfaceView =
+      LayoutParams lp = new LayoutParams(
+              LayoutParams.WRAP_CONTENT,
+              LayoutParams.WRAP_CONTENT,
+              Gravity.CENTER);
+       surfaceView =
           surfaceType == SURFACE_TYPE_TEXTURE_VIEW
-              ? new TextureView(context)
-              : new SurfaceView(context);
-      surfaceView.setLayoutParams(params);
-      contentFrame.addView(surfaceView, 0);
+              ? new RenderTextureView(context)
+              : new RenderSurfaceView(context);
+      if (surfaceType==SURFACE_TYPE_TEXTURE_VIEW){
+          ((RenderTextureView)surfaceView).setTakeOverSurfaceTexture(true);
+      }
+      surfaceView.getRenderView().setLayoutParams(lp);
+      contentFrame.addView(  surfaceView.getRenderView(), 0);
+      this.surfaceView.updateAspectRatio(resizeMode);
+
     } else {
       surfaceView = null;
     }
@@ -524,17 +365,21 @@ public class PlayerView extends FrameLayout {
    *
    * @param resizeMode The resize mode.
    */
-  public void setResizeMode(@ResizeMode int resizeMode) {
+
+  public void setResizeMode(@AspectRatio.ResizeMode int resizeMode) {
     Assertions.checkState(contentFrame != null);
-    contentFrame.setResizeMode(resizeMode);
+    surfaceView.setVideoRotation(resizeMode);
   }
 
-  /** Returns the resize mode. */
-  public @ResizeMode
+
+/** Returns the resize mode. */
+
+  public @AspectRatio.ResizeMode
   int getResizeMode() {
     Assertions.checkState(contentFrame != null);
-    return contentFrame.getResizeMode();
+    return surfaceView.getResizeMode();
   }
+
 
   /** Returns whether artwork is displayed if present in the media. */
   public boolean getUseArtwork() {
@@ -896,7 +741,7 @@ public class PlayerView extends FrameLayout {
    */
   public void setAspectRatioListener(AspectRatioFrameLayout.AspectRatioListener listener) {
     Assertions.checkState(contentFrame != null);
-    contentFrame.setAspectRatioListener(listener);
+  //  contentFrame.setAspectRatioListener(listener);
   }
 
   /**
@@ -911,7 +756,7 @@ public class PlayerView extends FrameLayout {
    *
    * @return The {@link SurfaceView}, {@link TextureView} or {@code null}.
    */
-  public View getVideoSurfaceView() {
+  public IRender getVideoSurfaceView() {
     return surfaceView;
   }
 
@@ -995,7 +840,7 @@ public class PlayerView extends FrameLayout {
     return player != null && player.isPlayingAd() && player.getPlayWhenReady();
   }
 
-  private void updateForCurrentTrackSelections(boolean isNewPlayer) {
+    protected void updateForCurrentTrackSelections(boolean isNewPlayer) {
     if (player == null || player.getCurrentTrackGroups().isEmpty()) {
       if (!keepContentOnPlayerReset) {
         hideArtwork();
@@ -1022,6 +867,7 @@ public class PlayerView extends FrameLayout {
     // Video disabled so the shutter must be closed.
     closeShutter();
     // Display artwork if enabled and available, else hide it.
+      useArtwork=true;
     if (useArtwork) {
       for (int i = 0; i < selections.length; i++) {
         TrackSelection selection = selections.get(i);
@@ -1060,7 +906,7 @@ public class PlayerView extends FrameLayout {
       int bitmapHeight = bitmap.getHeight();
       if (bitmapWidth > 0 && bitmapHeight > 0) {
         if (contentFrame != null) {
-          contentFrame.setAspectRatio((float) bitmapWidth / bitmapHeight);
+        //  contentFrame.setAspectRatio((float) bitmapWidth / bitmapHeight);
         }
         artworkView.setImageBitmap(bitmap);
         artworkView.setVisibility(VISIBLE);
@@ -1070,7 +916,7 @@ public class PlayerView extends FrameLayout {
     return false;
   }
 
-  private void hideArtwork() {
+    protected void hideArtwork() {
     if (artworkView != null) {
       artworkView.setImageResource(android.R.color.transparent); // Clears any bitmap reference.
       artworkView.setVisibility(INVISIBLE);
@@ -1083,7 +929,7 @@ public class PlayerView extends FrameLayout {
     }
   }
 
-  private void updateBuffering() {
+    protected void updateBuffering() {
     if (bufferingView != null) {
       boolean showBufferingSpinner =
           showBuffering
@@ -1094,7 +940,7 @@ public class PlayerView extends FrameLayout {
     }
   }
 
-  private void updateErrorMessage() {
+    protected void updateErrorMessage() {
     if (errorMessageView != null) {
       if (customErrorMessage != null) {
         errorMessageView.setText(customErrorMessage);
@@ -1203,18 +1049,19 @@ public class PlayerView extends FrameLayout {
           videoAspectRatio = 1 / videoAspectRatio;
         }
         if (textureViewRotation != 0) {
-          surfaceView.removeOnLayoutChangeListener(this);
+          surfaceView.getRenderView().removeOnLayoutChangeListener(this);
         }
         textureViewRotation = unappliedRotationDegrees;
         if (textureViewRotation != 0) {
           // The texture view's dimensions might be changed after layout step.
           // So add an OnLayoutChangeListener to apply rotation after layout step.
-          surfaceView.addOnLayoutChangeListener(this);
+          surfaceView.getRenderView().addOnLayoutChangeListener(this);
         }
-        applyTextureViewRotation((TextureView) surfaceView, textureViewRotation);
+       surfaceView.updateVideoSize(width, height);
+        surfaceView.setVideoSampleAspectRatio(0,0);
+        //update video rotation
+        surfaceView.setVideoRotation(textureViewRotation);
       }
-
-      contentFrame.setAspectRatio(videoAspectRatio);
     }
 
     @Override
@@ -1262,7 +1109,10 @@ public class PlayerView extends FrameLayout {
         int oldTop,
         int oldRight,
         int oldBottom) {
-      applyTextureViewRotation((TextureView) view, textureViewRotation);
+      if (surfaceView!=null){
+        surfaceView.setVideoRotation(textureViewRotation);
+      }
+
     }
   }
 }

@@ -28,3 +28,15 @@ ima/buildout/intermediates/lint/
 ima/buildout/intermediates/rs/
 ima/buildout/intermediates/shaders/
 ima/buildout/tmp/
+/cronet/build/
+cronet/build/generated/
+cronet/build/intermediates/check-manifest/
+cronet/build/intermediates/incremental/
+cronet/build/intermediates/manifests/aapt/release/
+cronet/build/intermediates/manifests/full/release/
+cronet/build/intermediates/packaged-aidl/
+cronet/build/intermediates/packaged_res/
+cronet/build/intermediates/public_res/
+cronet/build/intermediates/rs/
+cronet/build/outputs/logs/manifest-merger-release-report.txt
+cronet/src/test/java/

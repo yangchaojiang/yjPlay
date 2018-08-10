@@ -15,9 +15,7 @@
      limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.android.exoplayer2.ui"
-    android:versionCode="16"
-    android:versionName="3.0" >
+    package="com.google.android.exoplayer2.ui" >
 
     <uses-sdk
         android:minSdkVersion="17"

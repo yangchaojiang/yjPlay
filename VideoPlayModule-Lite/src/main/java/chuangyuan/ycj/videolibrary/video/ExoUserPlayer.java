@@ -953,7 +953,6 @@ public class ExoUserPlayer {
      */
     Player.EventListener componentListener = new Player.EventListener() {
         boolean isRemove;
-        private int currentWindowIndex;
 
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
@@ -976,9 +975,8 @@ public class ExoUserPlayer {
                 }
                 if (!videoWindowListeners.isEmpty()) {
                     for (VideoWindowListener videoWindowListener : videoWindowListeners) {
-                        videoWindowListener.onCurrentIndex(currentWindowIndex, getWindowCount());
+                        videoWindowListener.onCurrentIndex(player.getCurrentWindowIndex(), getWindowCount());
                     }
-                    currentWindowIndex += 1;
                 }
                 if (mediaSourceBuilder.getIndexType() < 0) {
                     return;
@@ -987,7 +985,7 @@ public class ExoUserPlayer {
                 if (ExoUserPlayer.this instanceof GestureVideoPlayer) {
                     gestureVideoPlayer = (GestureVideoPlayer) ExoUserPlayer.this;
                 }
-                boolean setOpenSeek = !(mediaSourceBuilder.getIndexType() == currentWindowIndex && mediaSourceBuilder.getIndexType() > 0);
+                boolean setOpenSeek = !(mediaSourceBuilder.getIndexType() == player.getCurrentWindowIndex() && mediaSourceBuilder.getIndexType() > 0);
                 if (gestureVideoPlayer != null) {
                     gestureVideoPlayer.setPlayerGestureOnTouch(setOpenSeek);
                 }
@@ -1032,7 +1030,6 @@ public class ExoUserPlayer {
                     Log.d(TAG, "onPlayerStateChanged:ended。。。");
                     isEnd = true;
                     getPlayerViewListener().showReplayView(View.VISIBLE);
-                    currentWindowIndex = 0;
                     clearResumePosition();
                     for (VideoInfoListener videoInfoListener : videoInfoListeners) {
                         videoInfoListener.onPlayEnd();

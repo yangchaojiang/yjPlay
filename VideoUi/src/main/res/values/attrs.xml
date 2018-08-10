@@ -3,11 +3,12 @@
 
   <!-- Must be kept in sync with AspectRatioFrameLayout -->
   <attr name="resize_mode" format="enum">
-    <enum name="fit" value="0"/>
-    <enum name="fixed_width" value="1"/>
-    <enum name="fixed_height" value="2"/>
+    <enum name="fixed_16_9" value="0"/>
+    <enum name="fixed_4_3" value="1"/>
+    <enum name="match" value="2"/>
     <enum name="fill" value="3"/>
-    <enum name="zoom" value="4"/>
+    <enum name="fit" value="4"/>
+    <enum name="origin" value="5"/>
   </attr>
 
   <!-- Must be kept in sync with SimpleExoPlayerView -->

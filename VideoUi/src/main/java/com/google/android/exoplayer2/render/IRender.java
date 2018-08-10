@@ -1,0 +1,104 @@
+/*
+ * Copyright 2017 jiajunhui<junhui_jia@163.com>
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+package com.google.android.exoplayer2.render;
+
+import android.view.View;
+
+import com.google.android.exoplayer2.SimpleExoPlayer;
+
+
+/**
+ * Created by Taurus on 2017/11/19.
+ * <p>
+ * frame rendering view,
+ * using the method can refer to VideoPlayerView {@link #VideoPlayerView}
+ */
+
+public interface IRender {
+    void setVisibility(int visibility);
+
+    void setRenderCallback(IRenderCallback renderCallback);
+
+    /**
+     * update video rotation, such as some video maybe rotation 90 degree.
+     *
+     * @param degree
+     */
+    void setVideoRotation(int degree);
+
+    void setVideoSampleAspectRatio(int videoSarNum, int videoSarDen);
+
+
+    /**
+     * update video show aspect ratio
+     * <p>
+     * see also
+     * {@link AspectRatio#AspectRatio_16_9}
+     * {@link AspectRatio#AspectRatio_4_3}
+     * {@link AspectRatio#AspectRatio_FIT_PARENT}
+     * {@link AspectRatio#AspectRatio_FILL_PARENT}
+     * {@link AspectRatio#AspectRatio_MATCH_PARENT}
+     * {@link AspectRatio#AspectRatio_ORIGIN}
+     *
+     * @param aspectRatio aspectRatio
+     */
+    void updateAspectRatio(@AspectRatio.ResizeMode int aspectRatio);
+    /**
+     * get video show aspect ratio
+     * */
+    @AspectRatio.ResizeMode
+    int getResizeMode();
+
+    /**
+     * update video size ,width and height.
+     *
+     * @param videoWidth  videoWidth
+     * @param videoHeight videoHeight
+     */
+    void updateVideoSize(int videoWidth, int videoHeight);
+
+    View getRenderView();
+
+    /**
+     * release render,the render will become unavailable
+     */
+    void release();
+
+
+    /**
+     * IRenderHolder is responsible for associate the decoder with rendering views.
+     * <p>
+     * see also
+     */
+    interface IRenderHolder {
+        void bindPlayer(SimpleExoPlayer player);
+    }
+
+    /**
+     * see also
+     * {@link RenderSurfaceView.IRenderCallback}
+     * {@link RenderTextureView.IRenderCallback}
+     */
+    interface IRenderCallback {
+        void onSurfaceCreated(IRenderHolder renderHolder, int width, int height);
+
+        void onSurfaceChanged(IRenderHolder renderHolder, int format, int width, int height);
+
+        void onSurfaceDestroy(IRenderHolder renderHolder);
+    }
+
+}

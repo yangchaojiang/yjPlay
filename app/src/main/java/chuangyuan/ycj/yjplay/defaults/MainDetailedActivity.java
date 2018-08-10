@@ -3,6 +3,7 @@ package chuangyuan.ycj.yjplay.defaults;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
+import chuangyuan.ycj.yjplay.data.CronetDataSource2;
 import chuangyuan.ycj.yjplay.data.DataSource;
 
 public class MainDetailedActivity extends Activity {
@@ -48,16 +50,17 @@ public class MainDetailedActivity extends Activity {
         // listss.add(bean1);
         //实例化
         exoPlayerManager = new VideoPlayerManager.Builder(this,VideoPlayerManager.TYPE_PLAY_MANUAL, R.id.exo_play_context_id)
-                .setDataSource(new DataSource(this))
+                .setDataSource(new CronetDataSource2(this))
                 //设置视频标题
                 .setTitle("视频标题")
                 //设置水印图
                 .setExoPlayWatermarkImg(R.mipmap.watermark_big)
+             //   .setPlayUri(getString(R.string.uri_test_5))
+                .setPlayUri("/storage/sdcard0/bb.ffconcat")
                 //加载rtmp 协议视频
                 //.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks")
                 //加载m3u8
-                .setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8")
-                .setDrmSessionManager(null)
+                //.setPlayUri("http://dlhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8")
                 //加载ts.文件
                 //.setPlayUri("http://185.73.239.15:25461/live/1/1/924.ts")
                 //播放本地视频

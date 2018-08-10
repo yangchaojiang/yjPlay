@@ -10,10 +10,7 @@ android {
         versionCode project.ext.versionCode
         versionName project.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled false
-    }
-    dataBinding {
-        enabled = true
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -33,7 +30,10 @@ android {
     dexOptions {
         preDexLibraries = false
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -44,8 +44,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    implementation project(':VideoPlayModule')
-     //implementation 'com.ycjiang:VideoPlayModule:2.1.91'
+    implementation project(':ima')
+    implementation project(':cronet')
+  // implementation project(':VideoPlayModule')
+   implementation 'com.ycjiang:VideoPlayModule:2.2.11'
     //implementation 'com.ycjiang:VideoPlayModule-Lite:1.9.95'
     implementation 'com.google.android.exoplayer:extension-okhttp:2.8.2'
     implementation 'com.google.android.exoplayer:extension-rtmp:2.8.2'
@@ -54,7 +56,6 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.wang.avi:library:2.1.3'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
-    implementation project(':ima')
     //弹幕
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
     // implementation 'com.github.ctiao:ndkbitmap-armv7a:0.9.21'
@@ -62,5 +63,5 @@ dependencies {
     //implementation 'com.github.ctiao:ndkbitmap-x86:0.9.21'
     implementation 'com.facebook.fresco.helper:fresco-helper:2.0.3'
     implementation 'com.google.code.gson:gson:2.8.0'
-    implementation project(':ffmpeg')
+
 }

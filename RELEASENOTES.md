@@ -1,20 +1,24 @@
  ## 更新日志
+ #### 2.2.10
+   * 1.解决6.0安卓且画切换横竖屏，卡顿延迟。  
+   * 2.ExoPlayer升级内核版本[#2.8.3](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#283) 
+   * 3.其他优化细节。 
    #### 2.1.91
    * 1.增加裂流式API方式调用。  
    * 2.优化内部监听事件回调。
-   * 4.增加控制隐藏返回按钮[148](https://github.com/yangchaojiang/yjPlay/issues/148)。   
-   * 5.增加视频进度回调[138](https://github.com/yangchaojiang/yjPlay/issues/138)。   
-   * 6.增加背景，自定义[64](https://github.com/yangchaojiang/yjPlay/issues/64)。    
-   * 7.修复NullPointerException[149](https://github.com/yangchaojiang/yjPlay/issues/149)。 
-   * 8.修复activity会导致内存泄漏,没有释放[147](https://github.com/yangchaojiang/yjPlay/issues/147)。
+   * 3.增加控制隐藏返回按钮[148](https://github.com/yangchaojiang/yjPlay/issues/148)。   
+   * 4.增加视频进度回调[138](https://github.com/yangchaojiang/yjPlay/issues/138)。   
+   * 5.增加背景，自定义[64](https://github.com/yangchaojiang/yjPlay/issues/64)。    
+   * 6.修复NullPointerException[149](https://github.com/yangchaojiang/yjPlay/issues/149)。 
+   * 7.修复activity会导致内存泄漏,没有释放[147](https://github.com/yangchaojiang/yjPlay/issues/147)。
    #### 2.1.85
    * 1.优化内部监听事件回调。
    * 2.修复bug[137](https://github.com/yangchaojiang/yjPlay/issues/137)。 
    #### 2.1.83
-   * 1.ExoPlayer升级内核版本[#2.8.2](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#281) 
+   * 1.ExoPlayer升级内核版本[#2.8.2](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#282) 
    * 2.修复bug[132](https://github.com/yangchaojiang/yjPlay/issues/132)。 
    #### 2.1.80
-   * 1.ExoPlayer升级内核版本[#2.8.1](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#281) 
+   * 1.ExoPlayer升级内核版本[#2.8.1](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#28) 
    * 2.其他优化细节。 
    * 3.支持流媒体文件下载缓存[119,107](https://github.com/yangchaojiang/yjPlay/issues/119)。 
    * 4.支持流媒体文件下载缓存[107](https://github.com/yangchaojiang/yjPlay/issues/107)。    

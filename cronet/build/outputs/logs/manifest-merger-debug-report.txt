@@ -1,0 +1,29 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml:16:1-21:12
+INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml:16:1-21:12
+INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml:16:1-21:12
+	package
+		ADDED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml:17:5-55
+		INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+		INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml:16:11-69
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml:19:5-78
+	android:name
+		ADDED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml:19:22-76
+uses-sdk
+INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+		ADDED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+		INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+		ADDED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml
+		INJECTED from E:\project\yjPlay\cronet\src\main\AndroidManifest.xml

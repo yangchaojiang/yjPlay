@@ -102,7 +102,6 @@ public final class VideoPlayerView extends BaseView {
     public void onDestroy() {
         super.onDestroy();
         if (activity != null && activity.isFinishing()) {
-            removeAllViews();
             animatorListener = null;
             exoPlayerViewListener = null;
             onClickListener = null;
@@ -158,7 +157,7 @@ public final class VideoPlayerView extends BaseView {
                 manualPlayer.reset();
             }
         } else {
-            onDestroy();
+          //  onDestroy();
         }
     }
 

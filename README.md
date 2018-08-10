@@ -37,7 +37,9 @@
    * 25 支持流式API方式调用。
  <!--more-->
 
- ### [更新日志2.1.91→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.2.11→》戳我查看](RELEASENOTES.md)
+#### 重要升级
+   * 解决6.0一下版本安卓切换横竖屏，卡顿延迟/
 
  ### 一.引用类库
   ````
@@ -48,9 +50,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.1.91' 
+      compile 'com.ycjiang:VideoPlayModule:2.2.11' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.1.91'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.2.11'
 
   }
   ````
@@ -103,9 +105,11 @@
   | surface_type                      | enum      | 视频渲染类型 texture_view 和surface_view 枚举类型 默认surface_view          |  
   | resize_mode                       | enum      | 视频缩放渲染显示方式一共4种                                                 | 
   |                                   | reference | 1.fit          正常模式                                                     | 
-  |                                   | reference | 2.fixed_width  保持的是视频宽度，拉伸视频高度                               | 
-  |                                   | reference | 3.fixed_height 保持的是视频高度，拉伸视频宽度                               |         
+  |                                   | reference | 2.fixed_16_9  保持的是视频的比例16:9                                        | 
+  |                                   | reference | 3.fixed_4_3   保持的是视频比例4:3                                           |         
   |                                   | reference | 4.fill           全屏模式，拉伸视频宽高                                     |        
+  |                                   | reference | 4.match          剧矩阵模式                                                 |      
+ 
   | player_layout_id                  | reference | (播放器布局):目前默认布局  simple_exo_view.xml                              |
   | controller_layout_id              | reference | 控制器布局  默认有四种布局                                                  |
   |                                   | reference | 1.simple_exo_playback_control_view.xml  视频封面控制布局下面,（默认）       | 
