@@ -1,5 +1,5 @@
  ## 更新日志
- #### 2.2.10
+ #### 2.2.11
    * 1.解决6.0安卓且画切换横竖屏，卡顿延迟。  
    * 2.ExoPlayer升级内核版本[#2.8.3](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#283) 
    * 3.其他优化细节。 
