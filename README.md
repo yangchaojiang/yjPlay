@@ -109,7 +109,6 @@
   |                                   | reference | 3.fixed_4_3   保持的是视频比例4:3                                           |         
   |                                   | reference | 4.fill           全屏模式，拉伸视频宽高                                     |        
   |                                   | reference | 4.match          剧矩阵模式                                                 |      
- 
   | player_layout_id                  | reference | (播放器布局):目前默认布局  simple_exo_view.xml                              |
   | controller_layout_id              | reference | 控制器布局  默认有四种布局                                                  |
   |                                   | reference | 1.simple_exo_playback_control_view.xml  视频封面控制布局下面,（默认）       | 
