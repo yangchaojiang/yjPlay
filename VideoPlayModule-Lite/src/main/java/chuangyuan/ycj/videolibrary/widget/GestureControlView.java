@@ -22,7 +22,7 @@ import chuangyuan.ycj.videolibrary.R;
  * Deprecated:  手势控制view
  */
 
-class GestureControlView extends FrameLayout {
+public class GestureControlView extends FrameLayout {
     /***调整进度布局,控制音频，亮度布局***/
     private View dialogProLayout, exoAudioLayout, exoBrightnessLayout;
     /***水印,封面图占位,显示音频和亮度布图*/

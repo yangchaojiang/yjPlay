@@ -22,7 +22,7 @@ import chuangyuan.ycj.videolibrary.R;
  */
 
 @SuppressLint("ViewConstructor")
-class LockControlView extends FrameLayout implements View.OnClickListener, AnimUtils.AnimatorListener {
+public class LockControlView extends FrameLayout implements View.OnClickListener, AnimUtils.AnimatorListener {
     /***进度条控件*/
     private ExoDefaultTimeBar exoPlayerLockProgress;
     /***锁屏按钮*/

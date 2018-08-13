@@ -25,7 +25,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
  * Created by Taurus on 2017/11/19.
  * <p>
  * frame rendering view,
- * using the method can refer to VideoPlayerView {@link #VideoPlayerView}
+ * using the method can refer to VideoPlayerView
  */
 
 public interface IRender {

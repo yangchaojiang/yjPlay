@@ -108,12 +108,12 @@ abstract class BaseView extends FrameLayout {
      */
     public BaseView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        activity = (Activity) getContext();
+        activity =VideoPlayUtils.scanForActivity(context);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         playerView = new ExoPlayerView(getContext(), attrs, defStyleAttr);
         controllerView = (ExoPlayerControlView) playerView.getControllerView();
         mGestureControlView = new GestureControlView(getContext(), attrs, defStyleAttr);
-        mActionControlView = new ActionControlView(getContext(), attrs, defStyleAttr, playerView);
+        mActionControlView = new ActionControlView(getContext(), attrs, defStyleAttr);
         mLockControlView = new LockControlView(getContext(), attrs, defStyleAttr, this);
         addView(playerView, params);
         int userWatermark = 0;

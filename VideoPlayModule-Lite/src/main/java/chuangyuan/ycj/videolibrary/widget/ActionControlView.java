@@ -19,7 +19,7 @@ import chuangyuan.ycj.videolibrary.R;
  * Deprecated:  动作管理view  错误布局，完成布局，提示布局
  */
 
-class ActionControlView extends FrameLayout {
+public class ActionControlView extends FrameLayout {
     /***视频加载页,错误页,进度控件,锁屏按布局,自定义预览布局*/
     private View exoPlayErrorLayout, playReplayLayout, playBtnHintLayout;
 
@@ -28,10 +28,10 @@ class ActionControlView extends FrameLayout {
     }
 
     public ActionControlView(@NonNull Context context, @Nullable AttributeSet attrs,PlayerView playerView) {
-        this(context, attrs, 0,playerView);
+        this(context, attrs, 0);
     }
 
-    public ActionControlView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr,@NonNull PlayerView playerView) {
+    public ActionControlView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         int replayId = R.layout.simple_exo_play_replay;
         int errorId = R.layout.simple_exo_play_error;

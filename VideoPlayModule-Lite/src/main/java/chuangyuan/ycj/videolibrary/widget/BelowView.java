@@ -24,7 +24,7 @@ import chuangyuan.ycj.videolibrary.R;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:  多线路浮层
  */
- class BelowView {
+public class BelowView {
     private View convertView;
     private PopupWindow pw;
     private ListView listView;
