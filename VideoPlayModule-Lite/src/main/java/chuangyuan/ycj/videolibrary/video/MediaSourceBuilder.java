@@ -21,6 +21,7 @@ import com.google.android.exoplayer2.source.ads.AdsLoader;
 import com.google.android.exoplayer2.source.ads.AdsMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.util.Assertions;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -49,6 +50,7 @@ public class MediaSourceBuilder {
     private int indexType = -1;
     private List<String> videoUri;
     private int loopingCount = 0;
+    protected String customCacheKey;
 
     /***
      * 初始化
@@ -271,7 +273,16 @@ public class MediaSourceBuilder {
     public void setAdaptiveMediaSourceEventListener(MediaSourceEventListener sourceEventListener) {
         this.sourceEventListener = sourceEventListener;
     }
-
+    /**
+     *设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。.
+     *
+     * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
+     *
+     * @throws IllegalStateException If one of the {@code create} methods has already been called.
+     */
+    public void setCustomCacheKey(@NonNull String customCacheKey) {
+        this.customCacheKey = customCacheKey;
+    }
     /****
      * 初始化视频源，无缝衔接
      *
@@ -285,7 +296,7 @@ public class MediaSourceBuilder {
                 return new ExtractorMediaSource.Factory(getDataSource())
                         .setExtractorsFactory(new DefaultExtractorsFactory())
                         .setMinLoadableRetryCount(5)
-                        .setCustomCacheKey(uri.toString())
+                        .setCustomCacheKey(customCacheKey==null?uri.toString():customCacheKey)
                         .createMediaSource(uri);
             default:
                 throw new IllegalStateException(context.getString(R.string.media_error));

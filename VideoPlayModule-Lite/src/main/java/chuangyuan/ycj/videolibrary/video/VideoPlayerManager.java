@@ -220,6 +220,7 @@ public class VideoPlayerManager {
         private long resumePosition;
         private int resumeWindow = -1;
         private View.OnClickListener onClickListener;
+        private String customCacheKey;
 
         public Builder(Activity activity, @PlayerType int type, @IdRes int reId) {
             this(type, (VideoPlayerView) activity.findViewById(reId));
@@ -531,10 +532,20 @@ public class VideoPlayerManager {
             view.getPlaybackControlView().removeUpdateProgressListener(updateProgressListener);
             return  this;
         }
-
-        /***
-         * 创建播放器
-         * **/
+        /**
+         *设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。 不支持流式媒体
+         *
+         * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
+         *
+         * @throws IllegalStateException If one of the {@code create} methods has already been called.
+         */
+        public Builder setCustomCacheKey(@NonNull String customCacheKey) {
+            mediaSourceBuilder.setCustomCacheKey(customCacheKey);
+            return  this;
+        }
+            /***
+             * 创建播放器
+             * **/
         public <T extends ExoUserPlayer> T create() {
             initMediaSourceBuilder();
             T exoUserPlayer;

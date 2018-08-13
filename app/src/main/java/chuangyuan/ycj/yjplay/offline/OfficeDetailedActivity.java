@@ -40,9 +40,11 @@ public class OfficeDetailedActivity extends Activity {
                 .setDataSource(new OfficeDataSource(this, null))
                 .setTitle("视频标题")
                 .create();
+
         findViewById(R.id.button10).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                exoPlayerManager.setCustomCacheKey("123456789012345667");
                 exoPlayerManager.setPlayUri(getString(R.string.uri_test_1));
                 exoPlayerManager.startPlayer();
             }
@@ -106,7 +108,9 @@ public class OfficeDetailedActivity extends Activity {
      * 自定义下载
      * ***/
     private void customDown() {
-        exoDownloadTracker.toggleDownload(this, "视频标题", Uri.parse(getString(R.string.uri_test_3)), null);
+        exoDownloadTracker.toggleDownload(this, "视频标题",
+                Uri.parse(getString(R.string.uri_test_3)),
+                null,"customCacheKey");
         exoDownloadTracker.addListener(new ExoWholeDownloadTracker.Listener() {
             @Override
             public void onDownloadsChanged(int taskState) {

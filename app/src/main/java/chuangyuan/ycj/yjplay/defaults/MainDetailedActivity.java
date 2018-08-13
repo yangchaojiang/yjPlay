@@ -55,8 +55,8 @@ public class MainDetailedActivity extends Activity {
                 .setTitle("视频标题")
                 //设置水印图
                 .setExoPlayWatermarkImg(R.mipmap.watermark_big)
-             //   .setPlayUri(getString(R.string.uri_test_5))
-                .setPlayUri("/storage/sdcard0/bb.ffconcat")
+             .setPlayUri(getString(R.string.uri_test_5))
+               // .setPlayUri("/storage/sdcard0/bb.ffconcat")
                 //加载rtmp 协议视频
                 //.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks")
                 //加载m3u8

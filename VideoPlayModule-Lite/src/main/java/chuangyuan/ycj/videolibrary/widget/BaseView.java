@@ -191,7 +191,7 @@ abstract class BaseView extends FrameLayout {
         } else {
             exoPreviewImage = exoPreviewBottomImage;
         }
-        setSystemUiVisibility = ((Activity) getContext()).getWindow().getDecorView().getSystemUiVisibility();
+        setSystemUiVisibility = activity.getWindow().getDecorView().getSystemUiVisibility();
 
         exoPreviewPlayBtn = playerView.findViewById(R.id.exo_preview_play);
     }
@@ -286,7 +286,7 @@ abstract class BaseView extends FrameLayout {
             if (parent != null) {
                 parent.removeView(playerView);
             }
-            ViewGroup contentView = ((Activity) getContext()).findViewById(android.R.id.content);
+            ViewGroup contentView =activity.findViewById(android.R.id.content);
             LayoutParams params = new LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT

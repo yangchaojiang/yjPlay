@@ -408,7 +408,16 @@ public class ExoUserPlayer {
         mediaSourceBuilder.setMediaSwitchUri(videoUri, switchIndex);
         getPlayerViewListener().setSwitchName(name, switchIndex);
     }
-
+    /**
+     *设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。 不支持流式媒体
+     *
+     * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
+     *
+     * @throws IllegalStateException If one of the {@code create} methods has already been called.
+     */
+    public void setCustomCacheKey(@NonNull String customCacheKey) {
+        mediaSourceBuilder.setCustomCacheKey(customCacheKey);
+    }
     /****
      * @param indexType 设置当前索引视频屏蔽进度
      * @param switchIndex the switch index

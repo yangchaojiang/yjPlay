@@ -17,6 +17,8 @@ package chuangyuan.ycj.videolibrary.office;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.offline.ActionFile;
@@ -49,7 +51,7 @@ public class ExoWholeDownloadTracker extends ExoDownloadTracker {
     }
 
     @Override
-    protected DownloadHelper getDownloadHelper(Uri uri, String extension) {
+    protected DownloadHelper getDownloadHelper(Uri uri, String extension,@Nullable String customCacheKey) {
         int type = Util.inferContentType(uri, extension);
         switch (type) {
             case C.TYPE_DASH:
@@ -59,7 +61,7 @@ public class ExoWholeDownloadTracker extends ExoDownloadTracker {
             case C.TYPE_HLS:
                 return new HlsDownloadHelper(uri, dataSourceFactory);
             case C.TYPE_OTHER:
-                return new ProgressiveDownloadHelper(uri);
+                return new ProgressiveDownloadHelper(uri,customCacheKey);
             default:
                 throw new IllegalStateException("Unsupported type: " + type);
         }

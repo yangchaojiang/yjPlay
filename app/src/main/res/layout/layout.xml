@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@android:color/transparent"
-        app:resize_mode="fill"
+        app:resize_mode="fit"
         app:fastforward_increment="1000"
         app:rewind_increment="1000"
         app:surface_type="surface_view" >

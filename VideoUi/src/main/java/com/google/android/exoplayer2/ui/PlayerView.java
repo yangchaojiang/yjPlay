@@ -1032,13 +1032,12 @@ public class PlayerView extends FrameLayout {
     @Override
     public void onVideoSizeChanged(
         int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
-      if (contentFrame == null) {
+      if (contentFrame == null||surfaceView==null) {
         return;
       }
       float videoAspectRatio =
           (height == 0 || width == 0) ? 1 : (width * pixelWidthHeightRatio) / height;
 
-      if (surfaceView instanceof TextureView) {
         // Try to apply rotation transformation when our surface is a TextureView.
         if (unappliedRotationDegrees == 90 || unappliedRotationDegrees == 270) {
           // We will apply a rotation 90/270 degree to the output texture of the TextureView.
@@ -1058,7 +1057,6 @@ public class PlayerView extends FrameLayout {
         surfaceView.setVideoSampleAspectRatio(0,0);
         //update video rotation
         surfaceView.setVideoRotation(textureViewRotation);
-      }
     }
 
     @Override
@@ -1109,7 +1107,6 @@ public class PlayerView extends FrameLayout {
       if (surfaceView!=null){
         surfaceView.setVideoRotation(textureViewRotation);
       }
-
     }
   }
 }

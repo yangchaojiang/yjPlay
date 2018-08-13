@@ -1,4 +1,10 @@
  ## 更新日志
+ #### 2.2.13
+   * 增加关于缓存 签名url的方法[160](https://github.com/yangchaojiang/yjPlay/issues/160)。 
+   * 增加默认缓存和下载自定义key
+   * 修复android.view.ContextThemeWrapper 转换问题[159](https://github.com/yangchaojiang/yjPlay/issues/159)。
+   * 修复视频模式为（surface_view）视频大小显示不正确。
+   * 其他优化细节。  
  #### 2.2.11
    * 1.解决6.0安卓且画切换横竖屏，卡顿延迟。  
    * 2.ExoPlayer升级内核版本[#2.8.3](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES.md#283) 
