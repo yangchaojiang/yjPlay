@@ -45,116 +45,116 @@ import java.util.Locale;
 
 /**
  * A view for controlling {@link Player} instances.
- *
+ * <p>
  * <p>A PlayerControlView can be customized by setting attributes (or calling corresponding
  * methods), overriding the view's layout file or by specifying a custom view layout file, as
  * outlined below.
- *
+ * <p>
  * <h3>Attributes</h3>
- *
+ * <p>
  * The following attributes can be set on a PlayerControlView when used in a layout XML file:
- *
+ * <p>
  * <ul>
- *   <li><b>{@code show_timeout}</b> - The time between the last user interaction and the controls
- *       being automatically hidden, in milliseconds. Use zero if the controls should not
- *       automatically timeout.
- *       <ul>
- *         <li>Corresponding method: {@link #setShowTimeoutMs(int)}
- *         <li>Default: {@link #DEFAULT_SHOW_TIMEOUT_MS}
- *       </ul>
- *   <li><b>{@code rewind_increment}</b> - The duration of the rewind applied when the user taps the
- *       rewind button, in milliseconds. Use zero to disable the rewind button.
- *       <ul>
- *         <li>Corresponding method: {@link #setRewindIncrementMs(int)}
- *         <li>Default: {@link #DEFAULT_REWIND_MS}
- *       </ul>
- *   <li><b>{@code fastforward_increment}</b> - Like {@code rewind_increment}, but for fast forward.
- *       <ul>
- *         <li>Corresponding method: {@link #setFastForwardIncrementMs(int)}
- *         <li>Default: {@link #DEFAULT_FAST_FORWARD_MS}
- *       </ul>
- *   <li><b>{@code repeat_toggle_modes}</b> - A flagged enumeration value specifying which repeat
- *       mode toggle options are enabled. Valid values are: {@code none}, {@code one}, {@code all},
- *       or {@code one|all}.
- *       <ul>
- *         <li>Corresponding method: {@link #setRepeatToggleModes(int)}
- *         <li>Default: {@link PlayerControlView#DEFAULT_REPEAT_TOGGLE_MODES}
- *       </ul>
- *   <li><b>{@code show_shuffle_button}</b> - Whether the shuffle button is shown.
- *       <ul>
- *         <li>Corresponding method: {@link #setShowShuffleButton(boolean)}
- *         <li>Default: false
- *       </ul>
- *   <li><b>{@code controller_layout_id}</b> - Specifies the id of the layout to be inflated. See
- *       below for more details.
- *       <ul>
- *         <li>Corresponding method: None
- *         <li>Default: {@code R.id.exo_player_control_view}
- *       </ul>
+ * <li><b>{@code show_timeout}</b> - The time between the last user interaction and the controls
+ * being automatically hidden, in milliseconds. Use zero if the controls should not
+ * automatically timeout.
+ * <ul>
+ * <li>Corresponding method: {@link #setShowTimeoutMs(int)}
+ * <li>Default: {@link #DEFAULT_SHOW_TIMEOUT_MS}
  * </ul>
- *
+ * <li><b>{@code rewind_increment}</b> - The duration of the rewind applied when the user taps the
+ * rewind button, in milliseconds. Use zero to disable the rewind button.
+ * <ul>
+ * <li>Corresponding method: {@link #setRewindIncrementMs(int)}
+ * <li>Default: {@link #DEFAULT_REWIND_MS}
+ * </ul>
+ * <li><b>{@code fastforward_increment}</b> - Like {@code rewind_increment}, but for fast forward.
+ * <ul>
+ * <li>Corresponding method: {@link #setFastForwardIncrementMs(int)}
+ * <li>Default: {@link #DEFAULT_FAST_FORWARD_MS}
+ * </ul>
+ * <li><b>{@code repeat_toggle_modes}</b> - A flagged enumeration value specifying which repeat
+ * mode toggle options are enabled. Valid values are: {@code none}, {@code one}, {@code all},
+ * or {@code one|all}.
+ * <ul>
+ * <li>Corresponding method: {@link #setRepeatToggleModes(int)}
+ * <li>Default: {@link PlayerControlView#DEFAULT_REPEAT_TOGGLE_MODES}
+ * </ul>
+ * <li><b>{@code show_shuffle_button}</b> - Whether the shuffle button is shown.
+ * <ul>
+ * <li>Corresponding method: {@link #setShowShuffleButton(boolean)}
+ * <li>Default: false
+ * </ul>
+ * <li><b>{@code controller_layout_id}</b> - Specifies the id of the layout to be inflated. See
+ * below for more details.
+ * <ul>
+ * <li>Corresponding method: None
+ * <li>Default: {@code R.id.exo_player_control_view}
+ * </ul>
+ * </ul>
+ * <p>
  * <h3>Overriding the layout file</h3>
- *
+ * <p>
  * To customize the layout of PlayerControlView throughout your app, or just for certain
  * configurations, you can define {@code exo_player_control_view.xml} layout files in your
  * application {@code res/layout*} directories. These layouts will override the one provided by the
  * ExoPlayer library, and will be inflated for use by PlayerControlView. The view identifies and
  * binds its children by looking for the following ids:
- *
  * <p>
- *
+ * <p>
+ * <p>
  * <ul>
- *   <li><b>{@code exo_play}</b> - The play button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_pause}</b> - The pause button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_ffwd}</b> - The fast forward button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_rew}</b> - The rewind button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_prev}</b> - The previous track button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_next}</b> - The next track button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_repeat_toggle}</b> - The repeat toggle button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_shuffle}</b> - The shuffle button.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_position}</b> - Text view displaying the current playback position.
- *       <ul>
- *         <li>Type: {@link TextView}
- *       </ul>
- *   <li><b>{@code exo_duration}</b> - Text view displaying the current media duration.
- *       <ul>
- *         <li>Type: {@link TextView}
- *       </ul>
- *   <li><b>{@code exo_progress}</b> - Time bar that's updated during playback and allows seeking.
- *       <ul>
- *         <li>Type: {@link TimeBar}
- *       </ul>
+ * <li><b>{@code exo_play}</b> - The play button.
+ * <ul>
+ * <li>Type: {@link View}
  * </ul>
- *
+ * <li><b>{@code exo_pause}</b> - The pause button.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_ffwd}</b> - The fast forward button.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_rew}</b> - The rewind button.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_prev}</b> - The previous track button.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_next}</b> - The next track button.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_repeat_toggle}</b> - The repeat toggle button.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_shuffle}</b> - The shuffle button.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_position}</b> - Text view displaying the current playback position.
+ * <ul>
+ * <li>Type: {@link TextView}
+ * </ul>
+ * <li><b>{@code exo_duration}</b> - Text view displaying the current media duration.
+ * <ul>
+ * <li>Type: {@link TextView}
+ * </ul>
+ * <li><b>{@code exo_progress}</b> - Time bar that's updated during playback and allows seeking.
+ * <ul>
+ * <li>Type: {@link TimeBar}
+ * </ul>
+ * </ul>
+ * <p>
  * <p>All child views are optional and so can be omitted if not required, however where defined they
  * must be of the expected type.
- *
+ * <p>
  * <h3>Specifying a custom layout file</h3>
- *
+ * <p>
  * Defining your own {@code exo_player_control_view.xml} is useful to customize the layout of
  * PlayerControlView throughout your application. It's also possible to customize the layout for a
  * single instance in a layout file. This is achieved by setting the {@code controller_layout_id}
@@ -167,36 +167,51 @@ public class PlayerControlView extends FrameLayout {
     ExoPlayerLibraryInfo.registerModule("goog.exo.ui");
   }
 
-  /** Listener to be notified about changes of the visibility of the UI control. */
-  public interface VisibilityListener {
-
     /**
-     * Called when the visibility changes.
-     *
-     * @param visibility The new visibility. Either {@link View#VISIBLE} or {@link View#GONE}.
+     * Listener to be notified about changes of the visibility of the UI control.
      */
-    void onVisibilityChange(int visibility);
+    public interface VisibilityListener {
+
+        /**
+         * Called when the visibility changes.
+         *
+         * @param visibility The new visibility. Either {@link View#VISIBLE} or {@link View#GONE}.
+         */
+        void onVisibilityChange(int visibility);
   }
 
-  /** The default fast forward increment, in milliseconds. */
-  public static final int DEFAULT_FAST_FORWARD_MS = 15000;
-  /** The default rewind increment, in milliseconds. */
-  public static final int DEFAULT_REWIND_MS = 5000;
-  /** The default show timeout, in milliseconds. */
-  public static final int DEFAULT_SHOW_TIMEOUT_MS = 5000;
-  /** The default repeat toggle modes. */
-  public static final @RepeatModeUtil.RepeatToggleModes int DEFAULT_REPEAT_TOGGLE_MODES =
+    /**
+     * The default fast forward increment, in milliseconds.
+     */
+    public static final int DEFAULT_FAST_FORWARD_MS = 15000;
+    /**
+     * The default rewind increment, in milliseconds.
+     */
+    public static final int DEFAULT_REWIND_MS = 5000;
+    /**
+     * The default show timeout, in milliseconds.
+     */
+    public static final int DEFAULT_SHOW_TIMEOUT_MS = 5000;
+    /**
+     * The default repeat toggle modes.
+     */
+    public static final @RepeatModeUtil.RepeatToggleModes int DEFAULT_REPEAT_TOGGLE_MODES =
       RepeatModeUtil.REPEAT_TOGGLE_MODE_NONE;
 
-  /** The maximum number of windows that can be shown in a multi-window time bar. */
-  public static final int MAX_WINDOWS_FOR_MULTI_WINDOW_TIME_BAR = 100;
+    /**
+     * The maximum number of windows that can be shown in a multi-window time bar.
+     */
+    public static final int MAX_WINDOWS_FOR_MULTI_WINDOW_TIME_BAR = 100;
 
   private static final long MAX_POSITION_FOR_SEEK_TO_PREVIOUS = 3000;
 
   private final ComponentListener componentListener;
   private final View previousButton;
   private final View nextButton;
-  protected final View playButton;
+    /**
+     * The Play button.
+     */
+    protected final View playButton;
   private final View pauseButton;
   private final View fastForwardButton;
   private final View rewindButton;
@@ -204,7 +219,10 @@ public class PlayerControlView extends FrameLayout {
   private final View shuffleButton;
   private final TextView durationView;
   private final TextView positionView;
-  protected final TimeBar timeBar;
+    /**
+     * The Time bar.
+     */
+    protected final TimeBar timeBar;
   private final StringBuilder formatBuilder;
   private final Formatter formatter;
   private final Timeline.Period period;
@@ -217,13 +235,25 @@ public class PlayerControlView extends FrameLayout {
   private final String repeatOneButtonContentDescription;
   private final String repeatAllButtonContentDescription;
 
-  protected Player player;
-  protected com.google.android.exoplayer2.ControlDispatcher controlDispatcher;
-  protected VisibilityListener visibilityListener;
+    /**
+     * The Player.
+     */
+    protected Player player;
+    /**
+     * The Control dispatcher.
+     */
+    protected com.google.android.exoplayer2.ControlDispatcher controlDispatcher;
+    /**
+     * The Visibility listener.
+     */
+    protected VisibilityListener visibilityListener;
   private @Nullable
   PlaybackPreparer playbackPreparer;
 
-  protected boolean isAttachedToWindow;
+    /**
+     * The Is attached to window.
+     */
+    protected boolean isAttachedToWindow;
   private boolean showMultiWindowTimeBar;
   private boolean multiWindowTimeBar;
   private boolean scrubbing;
@@ -232,13 +262,19 @@ public class PlayerControlView extends FrameLayout {
   private int showTimeoutMs;
   private @RepeatModeUtil.RepeatToggleModes int repeatToggleModes;
   private boolean showShuffleButton;
-  protected long hideAtMs;
+    /**
+     * The Hide at ms.
+     */
+    protected long hideAtMs;
   private long[] adGroupTimesMs;
   private boolean[] playedAdGroups;
   private long[] extraAdGroupTimesMs;
   private boolean[] extraPlayedAdGroups;
 
-  protected final Runnable updateProgressAction =
+    /**
+     * The Update progress action.
+     */
+    protected final Runnable updateProgressAction =
       new Runnable() {
         @Override
         public void run() {
@@ -246,7 +282,10 @@ public class PlayerControlView extends FrameLayout {
         }
       };
 
-  protected final Runnable hideAction =
+    /**
+     * The Hide action.
+     */
+    protected final Runnable hideAction =
           new Runnable() {
             @Override
             public void run() {
@@ -254,28 +293,70 @@ public class PlayerControlView extends FrameLayout {
             }
           };
 
-  protected void setOutAnim() {
+    /**
+     * Sets out anim.
+     */
+    protected void setOutAnim() {
     hide();
   }
-  protected  void setInAnim(){
+
+    /**
+     * Set in anim.
+     */
+    protected  void setInAnim(){
 
   }
+
+    /**
+     * Update progress.
+     *
+     * @param position         the position
+     * @param bufferedPosition the buffered position
+     * @param duration         the duration
+     */
     protected void updateProgress(long position, long bufferedPosition, long duration) {
 
     }
+
+    /**
+     * Instantiates a new Player control view.
+     *
+     * @param context the context
+     */
     public PlayerControlView(Context context) {
         this(context, null);
     }
 
-  public PlayerControlView(Context context, AttributeSet attrs) {
+    /**
+     * Instantiates a new Player control view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
+    public PlayerControlView(Context context, AttributeSet attrs) {
     this(context, attrs, 0);
   }
 
-  public PlayerControlView(Context context, AttributeSet attrs, int defStyleAttr) {
+    /**
+     * Instantiates a new Player control view.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
+    public PlayerControlView(Context context, AttributeSet attrs, int defStyleAttr) {
     this(context, attrs, defStyleAttr, attrs);
   }
 
-  public PlayerControlView(
+    /**
+     * Instantiates a new Player control view.
+     *
+     * @param context       the context
+     * @param attrs         the attrs
+     * @param defStyleAttr  the def style attr
+     * @param playbackAttrs the playback attrs
+     */
+    public PlayerControlView(
       Context context, AttributeSet attrs, int defStyleAttr, AttributeSet playbackAttrs) {
     super(context, attrs, defStyleAttr);
     int controllerLayoutId = R.layout.exo_player_control_view;
@@ -374,20 +455,22 @@ public class PlayerControlView extends FrameLayout {
     return a.getInt(R.styleable.PlayerControlView_repeat_toggle_modes, repeatToggleModes);
   }
 
-  /**
-   * Returns the {@link Player} currently being controlled by this view, or null if no player is
-   * set.
-   */
-  public Player getPlayer() {
+    /**
+     * Returns the {@link Player} currently being controlled by this view, or null if no player is
+     * set.
+     *
+     * @return the player
+     */
+    public Player getPlayer() {
     return player;
   }
 
-  /**
-   * Sets the {@link Player} to control.
-   *
-   * @param player The {@link Player} to control.
-   */
-  public void setPlayer(Player player) {
+    /**
+     * Sets the {@link Player} to control.
+     *
+     * @param player The {@link Player} to control.
+     */
+    public void setPlayer(Player player) {
     if (this.player == player) {
       return;
     }
@@ -401,30 +484,28 @@ public class PlayerControlView extends FrameLayout {
     updateAll();
   }
 
-  /**
-   * Sets whether the time bar should show all windows, as opposed to just the current one. If the
-   * timeline has a period with unknown duration or more than {@link
-   * #MAX_WINDOWS_FOR_MULTI_WINDOW_TIME_BAR} windows the time bar will fall back to showing a single
-   * window.
-   *
-   * @param showMultiWindowTimeBar Whether the time bar should show all windows.
-   */
-  public void setShowMultiWindowTimeBar(boolean showMultiWindowTimeBar) {
+    /**
+     * Sets whether the time bar should show all windows, as opposed to just the current one. If the
+     * timeline has a period with unknown duration or more than {@link
+     * #MAX_WINDOWS_FOR_MULTI_WINDOW_TIME_BAR}* windows the time bar will fall back to showing a single
+     * window.
+     *
+     * @param showMultiWindowTimeBar Whether the time bar should show all windows.
+     */
+    public void setShowMultiWindowTimeBar(boolean showMultiWindowTimeBar) {
     this.showMultiWindowTimeBar = showMultiWindowTimeBar;
     updateTimeBarMode();
   }
 
-  /**
-   * Sets the millisecond positions of extra ad markers relative to the start of the window (or
-   * timeline, if in multi-window mode) and whether each extra ad has been played or not. The
-   * markers are shown in addition to any ad markers for ads in the player's timeline.
-   *
-   * @param extraAdGroupTimesMs The millisecond timestamps of the extra ad markers to show, or
-   *     {@code null} to show no extra ad markers.
-   * @param extraPlayedAdGroups Whether each ad has been played, or {@code null} to show no extra ad
-   *     markers.
-   */
-  public void setExtraAdGroupMarkers(
+    /**
+     * Sets the millisecond positions of extra ad markers relative to the start of the window (or
+     * timeline, if in multi-window mode) and whether each extra ad has been played or not. The
+     * markers are shown in addition to any ad markers for ads in the player's timeline.
+     *
+     * @param extraAdGroupTimesMs The millisecond timestamps of the extra ad markers to show, or     {@code null} to show no extra ad markers.
+     * @param extraPlayedAdGroups Whether each ad has been played, or {@code null} to show no extra ad     markers.
+     */
+    public void setExtraAdGroupMarkers(
           @Nullable long[] extraAdGroupTimesMs, @Nullable boolean[] extraPlayedAdGroups) {
     if (extraAdGroupTimesMs == null) {
       this.extraAdGroupTimesMs = new long[0];
@@ -437,31 +518,30 @@ public class PlayerControlView extends FrameLayout {
     updateProgress();
   }
 
-  /**
-   * Sets the {@link VisibilityListener}.
-   *
-   * @param listener The listener to be notified about visibility changes.
-   */
-  public void setVisibilityListener(VisibilityListener listener) {
+    /**
+     * Sets the {@link VisibilityListener}.
+     *
+     * @param listener The listener to be notified about visibility changes.
+     */
+    public void setVisibilityListener(VisibilityListener listener) {
     this.visibilityListener = listener;
   }
 
-  /**
-   * Sets the {@link PlaybackPreparer}.
-   *
-   * @param playbackPreparer The {@link PlaybackPreparer}.
-   */
-  public void setPlaybackPreparer(@Nullable PlaybackPreparer playbackPreparer) {
+    /**
+     * Sets the {@link PlaybackPreparer}.
+     *
+     * @param playbackPreparer The {@link PlaybackPreparer}.
+     */
+    public void setPlaybackPreparer(@Nullable PlaybackPreparer playbackPreparer) {
     this.playbackPreparer = playbackPreparer;
   }
 
-  /**
-   * Sets the {@link com.google.android.exoplayer2.ControlDispatcher}.
-   *
-   * @param controlDispatcher The {@link com.google.android.exoplayer2.ControlDispatcher}, or null
-   *     to use {@link com.google.android.exoplayer2.DefaultControlDispatcher}.
-   */
-  public void setControlDispatcher(
+    /**
+     * Sets the {@link com.google.android.exoplayer2.ControlDispatcher}.
+     *
+     * @param controlDispatcher The {@link com.google.android.exoplayer2.ControlDispatcher}, or null     to use {@link com.google.android.exoplayer2.DefaultControlDispatcher}.
+     */
+    public void setControlDispatcher(
       @Nullable com.google.android.exoplayer2.ControlDispatcher controlDispatcher) {
     this.controlDispatcher =
         controlDispatcher == null
@@ -469,47 +549,43 @@ public class PlayerControlView extends FrameLayout {
             : controlDispatcher;
   }
 
-  /**
-   * Sets the rewind increment in milliseconds.
-   *
-   * @param rewindMs The rewind increment in milliseconds. A non-positive value will cause the
-   *     rewind button to be disabled.
-   */
-  public void setRewindIncrementMs(int rewindMs) {
+    /**
+     * Sets the rewind increment in milliseconds.
+     *
+     * @param rewindMs The rewind increment in milliseconds. A non-positive value will cause the     rewind button to be disabled.
+     */
+    public void setRewindIncrementMs(int rewindMs) {
     this.rewindMs = rewindMs;
     updateNavigation();
   }
 
-  /**
-   * Sets the fast forward increment in milliseconds.
-   *
-   * @param fastForwardMs The fast forward increment in milliseconds. A non-positive value will
-   *     cause the fast forward button to be disabled.
-   */
-  public void setFastForwardIncrementMs(int fastForwardMs) {
+    /**
+     * Sets the fast forward increment in milliseconds.
+     *
+     * @param fastForwardMs The fast forward increment in milliseconds. A non-positive value will     cause the fast forward button to be disabled.
+     */
+    public void setFastForwardIncrementMs(int fastForwardMs) {
     this.fastForwardMs = fastForwardMs;
     updateNavigation();
   }
 
-  /**
-   * Returns the playback controls timeout. The playback controls are automatically hidden after
-   * this duration of time has elapsed without user input.
-   *
-   * @return The duration in milliseconds. A non-positive value indicates that the controls will
-   *     remain visible indefinitely.
-   */
-  public int getShowTimeoutMs() {
+    /**
+     * Returns the playback controls timeout. The playback controls are automatically hidden after
+     * this duration of time has elapsed without user input.
+     *
+     * @return The duration in milliseconds. A non-positive value indicates that the controls will     remain visible indefinitely.
+     */
+    public int getShowTimeoutMs() {
     return showTimeoutMs;
   }
 
-  /**
-   * Sets the playback controls timeout. The playback controls are automatically hidden after this
-   * duration of time has elapsed without user input.
-   *
-   * @param showTimeoutMs The duration in milliseconds. A non-positive value will cause the controls
-   *     to remain visible indefinitely.
-   */
-  public void setShowTimeoutMs(int showTimeoutMs) {
+    /**
+     * Sets the playback controls timeout. The playback controls are automatically hidden after this
+     * duration of time has elapsed without user input.
+     *
+     * @param showTimeoutMs The duration in milliseconds. A non-positive value will cause the controls     to remain visible indefinitely.
+     */
+    public void setShowTimeoutMs(int showTimeoutMs) {
     this.showTimeoutMs = showTimeoutMs;
     if (isVisible()) {
       // Reset the timeout.
@@ -517,21 +593,21 @@ public class PlayerControlView extends FrameLayout {
     }
   }
 
-  /**
-   * Returns which repeat toggle modes are enabled.
-   *
-   * @return The currently enabled {@link RepeatModeUtil.RepeatToggleModes}.
-   */
-  public @RepeatModeUtil.RepeatToggleModes int getRepeatToggleModes() {
+    /**
+     * Returns which repeat toggle modes are enabled.
+     *
+     * @return The currently enabled {@link RepeatModeUtil.RepeatToggleModes}.
+     */
+    public @RepeatModeUtil.RepeatToggleModes int getRepeatToggleModes() {
     return repeatToggleModes;
   }
 
-  /**
-   * Sets which repeat toggle modes are enabled.
-   *
-   * @param repeatToggleModes A set of {@link RepeatModeUtil.RepeatToggleModes}.
-   */
-  public void setRepeatToggleModes(@RepeatModeUtil.RepeatToggleModes int repeatToggleModes) {
+    /**
+     * Sets which repeat toggle modes are enabled.
+     *
+     * @param repeatToggleModes A set of {@link RepeatModeUtil.RepeatToggleModes}.
+     */
+    public void setRepeatToggleModes(@RepeatModeUtil.RepeatToggleModes int repeatToggleModes) {
     this.repeatToggleModes = repeatToggleModes;
     if (player != null) {
       @Player.RepeatMode int currentMode = player.getRepeatMode();
@@ -548,26 +624,28 @@ public class PlayerControlView extends FrameLayout {
     }
   }
 
-  /** Returns whether the shuffle button is shown. */
-  public boolean getShowShuffleButton() {
+    /**
+     * Returns whether the shuffle button is shown.  @return the show shuffle button
+     */
+    public boolean getShowShuffleButton() {
     return showShuffleButton;
   }
 
-  /**
-   * Sets whether the shuffle button is shown.
-   *
-   * @param showShuffleButton Whether the shuffle button is shown.
-   */
-  public void setShowShuffleButton(boolean showShuffleButton) {
+    /**
+     * Sets whether the shuffle button is shown.
+     *
+     * @param showShuffleButton Whether the shuffle button is shown.
+     */
+    public void setShowShuffleButton(boolean showShuffleButton) {
     this.showShuffleButton = showShuffleButton;
     updateShuffleButton();
   }
 
-  /**
-   * Shows the playback controls. If {@link #getShowTimeoutMs()} is positive then the controls will
-   * be automatically hidden after this duration of time has elapsed without user input.
-   */
-  public void show() {
+    /**
+     * Shows the playback controls. If {@link #getShowTimeoutMs()} is positive then the controls will
+     * be automatically hidden after this duration of time has elapsed without user input.
+     */
+    public void show() {
     if (!isVisible()) {
       setVisibility(VISIBLE);
       if (visibilityListener != null) {
@@ -580,8 +658,10 @@ public class PlayerControlView extends FrameLayout {
     hideAfterTimeout();
   }
 
-  /** Hides the controller. */
-  public void hide() {
+    /**
+     * Hides the controller.
+     */
+    public void hide() {
     if (isVisible()) {
       setVisibility(GONE);
       if (visibilityListener != null) {
@@ -593,8 +673,10 @@ public class PlayerControlView extends FrameLayout {
     }
   }
 
-  /** Returns whether the controller is currently visible. */
-  public boolean isVisible() {
+    /**
+     * Returns whether the controller is currently visible.  @return the boolean
+     */
+    public boolean isVisible() {
     return getVisibility() == VISIBLE;
   }
 
@@ -610,7 +692,10 @@ public class PlayerControlView extends FrameLayout {
     }
   }
 
-  protected void updateAll() {
+    /**
+     * Update all.
+     */
+    protected void updateAll() {
     updatePlayPauseButton();
     updateNavigation();
     updateRepeatModeButton();
@@ -618,7 +703,10 @@ public class PlayerControlView extends FrameLayout {
     updateProgress();
   }
 
-  protected void updatePlayPauseButton() {
+    /**
+     * Update play pause button.
+     */
+    protected void updatePlayPauseButton() {
     if (!isVisible() || !isAttachedToWindow) {
       return;
     }
@@ -835,7 +923,10 @@ public class PlayerControlView extends FrameLayout {
     }
   }
 
-  protected void requestPlayPauseFocus() {
+    /**
+     * Request play pause focus.
+     */
+    protected void requestPlayPauseFocus() {
     boolean playing = isPlaying();
     if (!playing && playButton != null) {
       playButton.requestFocus();
@@ -853,7 +944,10 @@ public class PlayerControlView extends FrameLayout {
     view.setVisibility(VISIBLE);
   }
 
-  public void previous() {
+    /**
+     * Previous.
+     */
+    public void previous() {
     Timeline timeline = player.getCurrentTimeline();
     if (timeline.isEmpty()) {
       return;
@@ -870,7 +964,10 @@ public class PlayerControlView extends FrameLayout {
     }
   }
 
-  public void next() {
+    /**
+     * Next.
+     */
+    public void next() {
     Timeline timeline = player.getCurrentTimeline();
     if (timeline.isEmpty()) {
       return;
@@ -884,7 +981,10 @@ public class PlayerControlView extends FrameLayout {
     }
   }
 
-  public void rewind() {
+    /**
+     * Rewind.
+     */
+    public void rewind() {
     if (rewindMs <= 0) {
       return;
     }
@@ -970,14 +1070,14 @@ public class PlayerControlView extends FrameLayout {
     return dispatchMediaKeyEvent(event) || super.dispatchKeyEvent(event);
   }
 
-  /**
-   * Called to process media key events. Any {@link KeyEvent} can be passed but only media key
-   * events will be handled.
-   *
-   * @param event A key event.
-   * @return Whether the key event was handled.
-   */
-  public boolean dispatchMediaKeyEvent(KeyEvent event) {
+    /**
+     * Called to process media key events. Any {@link KeyEvent} can be passed but only media key
+     * events will be handled.
+     *
+     * @param event A key event.
+     * @return Whether the key event was handled.
+     */
+    public boolean dispatchMediaKeyEvent(KeyEvent event) {
     int keyCode = event.getKeyCode();
     if (player == null || !isHandledMediaKey(keyCode)) {
       return false;

@@ -2,12 +2,15 @@ package chuangyuan.ycj.yjplay.data;
 
 import android.content.Context;
 
-import com.google.android.exoplayer2.ext.rtmp.RtmpDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.gson.Gson;
 
-import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 
 

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.ycjiang:VideoPlayModule-2.2.16">
+    <CLASSES>
+      <root url="jar://D:/Android/.gradle/caches/transforms-1/files-1.1/VideoPlayModule-2.2.16.aar/0d817f9a8e546fbfcb8c29d3b9260bde/jars/classes.jar!/" />
+      <root url="file://D:/Android/.gradle/caches/transforms-1/files-1.1/VideoPlayModule-2.2.16.aar/0d817f9a8e546fbfcb8c29d3b9260bde/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/Android/.gradle/caches/modules-2/files-2.1/com.ycjiang/VideoPlayModule/2.2.16/72281a7783c814e22c8445e33dbd430221ad6301/VideoPlayModule-2.2.16-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

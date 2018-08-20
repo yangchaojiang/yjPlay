@@ -40,7 +40,9 @@ import com.google.android.exoplayer2.util.Assertions;
 
 import java.util.Arrays;
 
-/** A view for making track selections. */
+/**
+ * A view for making track selections.
+ */
 public class TrackSelectionView extends LinearLayout {
 
   private final int selectableItemBackgroundResourceId;
@@ -61,16 +63,16 @@ public class TrackSelectionView extends LinearLayout {
   private @Nullable
   SelectionOverride override;
 
-  /**
-   * Gets a pair consisting of a dialog and the {@link TrackSelectionView} that will be shown by it.
-   *
-   * @param activity The parent activity.
-   * @param title The dialog's title.
-   * @param trackSelector The track selector.
-   * @param rendererIndex The index of the renderer.
-   * @return The dialog and the {@link TrackSelectionView} that will be shown by it.
-   */
-  public static Pair<AlertDialog, TrackSelectionView> getDialog(
+    /**
+     * Gets a pair consisting of a dialog and the {@link TrackSelectionView} that will be shown by it.
+     *
+     * @param activity      The parent activity.
+     * @param title         The dialog's title.
+     * @param trackSelector The track selector.
+     * @param rendererIndex The index of the renderer.
+     * @return The dialog and the {@link TrackSelectionView} that will be shown by it.
+     */
+    public static Pair<AlertDialog, TrackSelectionView> getDialog(
       Activity activity,
       CharSequence title,
       DefaultTrackSelector trackSelector,
@@ -101,15 +103,33 @@ public class TrackSelectionView extends LinearLayout {
     return Pair.create(dialog, selectionView);
   }
 
-  public TrackSelectionView(Context context) {
+    /**
+     * Instantiates a new Track selection view.
+     *
+     * @param context the context
+     */
+    public TrackSelectionView(Context context) {
     this(context, null);
   }
 
-  public TrackSelectionView(Context context, @Nullable AttributeSet attrs) {
+    /**
+     * Instantiates a new Track selection view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
+    public TrackSelectionView(Context context, @Nullable AttributeSet attrs) {
     this(context, attrs, 0);
   }
 
-  @SuppressWarnings("nullness")
+    /**
+     * Instantiates a new Track selection view.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
+    @SuppressWarnings("nullness")
   public TrackSelectionView(
           Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
     super(context, attrs, defStyleAttr);
@@ -149,50 +169,50 @@ public class TrackSelectionView extends LinearLayout {
     addView(defaultView);
   }
 
-  /**
-   * Sets whether adaptive selections (consisting of more than one track) can be made using this
-   * selection view.
-   *
-   * <p>For the view to enable adaptive selection it is necessary both for this feature to be
-   * enabled, and for the target renderer to support adaptation between the available tracks.
-   *
-   * @param allowAdaptiveSelections Whether adaptive selection is enabled.
-   */
-  public void setAllowAdaptiveSelections(boolean allowAdaptiveSelections) {
+    /**
+     * Sets whether adaptive selections (consisting of more than one track) can be made using this
+     * selection view.
+     * <p>
+     * <p>For the view to enable adaptive selection it is necessary both for this feature to be
+     * enabled, and for the target renderer to support adaptation between the available tracks.
+     *
+     * @param allowAdaptiveSelections Whether adaptive selection is enabled.
+     */
+    public void setAllowAdaptiveSelections(boolean allowAdaptiveSelections) {
     if (this.allowAdaptiveSelections != allowAdaptiveSelections) {
       this.allowAdaptiveSelections = allowAdaptiveSelections;
       updateViews();
     }
   }
 
-  /**
-   * Sets whether an option is available for disabling the renderer.
-   *
-   * @param showDisableOption Whether the disable option is shown.
-   */
-  public void setShowDisableOption(boolean showDisableOption) {
+    /**
+     * Sets whether an option is available for disabling the renderer.
+     *
+     * @param showDisableOption Whether the disable option is shown.
+     */
+    public void setShowDisableOption(boolean showDisableOption) {
     disableView.setVisibility(showDisableOption ? View.VISIBLE : View.GONE);
   }
 
-  /**
-   * Sets the {@link TrackNameProvider} used to generate the user visible name of each track and
-   * updates the view with track names queried from the specified provider.
-   *
-   * @param trackNameProvider The {@link TrackNameProvider} to use.
-   */
-  public void setTrackNameProvider(TrackNameProvider trackNameProvider) {
+    /**
+     * Sets the {@link TrackNameProvider} used to generate the user visible name of each track and
+     * updates the view with track names queried from the specified provider.
+     *
+     * @param trackNameProvider The {@link TrackNameProvider} to use.
+     */
+    public void setTrackNameProvider(TrackNameProvider trackNameProvider) {
     this.trackNameProvider = Assertions.checkNotNull(trackNameProvider);
     updateViews();
   }
 
-  /**
-   * Initialize the view to select tracks for a specified renderer using a {@link
-   * DefaultTrackSelector}.
-   *
-   * @param trackSelector The {@link DefaultTrackSelector}.
-   * @param rendererIndex The index of the renderer.
-   */
-  public void init(DefaultTrackSelector trackSelector, int rendererIndex) {
+    /**
+     * Initialize the view to select tracks for a specified renderer using a {@link
+     * DefaultTrackSelector}*.
+     *
+     * @param trackSelector The {@link DefaultTrackSelector}.
+     * @param rendererIndex The index of the renderer.
+     */
+    public void init(DefaultTrackSelector trackSelector, int rendererIndex) {
     this.trackSelector = trackSelector;
     this.rendererIndex = rendererIndex;
     updateViews();

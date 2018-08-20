@@ -26,7 +26,9 @@ import android.support.v4.app.NotificationCompat;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.offline.DownloadManager.TaskState;
 
-/** Helper for creating download notifications. */
+/**
+ * Helper for creating download notifications.
+ */
 public final class DownloadNotificationUtil {
 
   private static final @StringRes
@@ -34,19 +36,18 @@ public final class DownloadNotificationUtil {
 
   private DownloadNotificationUtil() {}
 
-  /**
-   * Returns a progress notification for the given task states.
-   *
-   * @param context A context for accessing resources.
-   * @param smallIcon A small icon for the notification.
-   * @param channelId The id of the notification channel to use. Only required for API level 26 and
-   *     above.
-   * @param contentIntent An optional content intent to send when the notification is clicked.
-   * @param message An optional message to display on the notification.
-   * @param taskStates The task states.
-   * @return The notification.
-   */
-  public static Notification buildProgressNotification(
+    /**
+     * Returns a progress notification for the given task states.
+     *
+     * @param context       A context for accessing resources.
+     * @param smallIcon     A small icon for the notification.
+     * @param channelId     The id of the notification channel to use. Only required for API level 26 and     above.
+     * @param contentIntent An optional content intent to send when the notification is clicked.
+     * @param message       An optional message to display on the notification.
+     * @param taskStates    The task states.
+     * @return The notification.
+     */
+    public static Notification buildProgressNotification(
       Context context,
       @DrawableRes int smallIcon,
       String channelId,
@@ -87,18 +88,17 @@ public final class DownloadNotificationUtil {
     return notificationBuilder.build();
   }
 
-  /**
-   * Returns a notification for a completed download.
-   *
-   * @param context A context for accessing resources.
-   * @param smallIcon A small icon for the notifications.
-   * @param channelId The id of the notification channel to use. Only required for API level 26 and
-   *     above.
-   * @param contentIntent An optional content intent to send when the notification is clicked.
-   * @param message An optional message to display on the notification.
-   * @return The notification.
-   */
-  public static Notification buildDownloadCompletedNotification(
+    /**
+     * Returns a notification for a completed download.
+     *
+     * @param context       A context for accessing resources.
+     * @param smallIcon     A small icon for the notifications.
+     * @param channelId     The id of the notification channel to use. Only required for API level 26 and     above.
+     * @param contentIntent An optional content intent to send when the notification is clicked.
+     * @param message       An optional message to display on the notification.
+     * @return The notification.
+     */
+    public static Notification buildDownloadCompletedNotification(
       Context context,
       @DrawableRes int smallIcon,
       String channelId,
@@ -110,18 +110,17 @@ public final class DownloadNotificationUtil {
         .build();
   }
 
-  /**
-   * Returns a notification for a failed download.
-   *
-   * @param context A context for accessing resources.
-   * @param smallIcon A small icon for the notifications.
-   * @param channelId The id of the notification channel to use. Only required for API level 26 and
-   *     above.
-   * @param contentIntent An optional content intent to send when the notification is clicked.
-   * @param message An optional message to display on the notification.
-   * @return The notification.
-   */
-  public static Notification buildDownloadFailedNotification(
+    /**
+     * Returns a notification for a failed download.
+     *
+     * @param context       A context for accessing resources.
+     * @param smallIcon     A small icon for the notifications.
+     * @param channelId     The id of the notification channel to use. Only required for API level 26 and     above.
+     * @param contentIntent An optional content intent to send when the notification is clicked.
+     * @param message       An optional message to display on the notification.
+     * @return The notification.
+     */
+    public static Notification buildDownloadFailedNotification(
       Context context,
       @DrawableRes int smallIcon,
       String channelId,

@@ -18,7 +18,6 @@ import android.support.annotation.Size;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -40,6 +39,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.util.Util;
+import com.google.android.exoplayer2.video.VideoListener;
 
 import java.lang.reflect.Constructor;
 import java.text.DecimalFormat;
@@ -196,7 +196,7 @@ public class ExoUserPlayer {
             player = createFullPlayer();
         }
         player.addListener(componentListener);
-        getPlayerViewListener().hideController(false);
+        getPlayerViewListener().toggoleController(false,false);
         getPlayerViewListener().setControllerHideOnTouch(true);
         isEnd = false;
         isLoad = true;
@@ -346,7 +346,7 @@ public class ExoUserPlayer {
         player.setPlaybackParameters(playbackParameters);
         if (mPlayerViewListener != null) {
             mPlayerViewListener.showPreview(View.GONE, true);
-            mPlayerViewListener.hideController(false);
+            getPlayerViewListener().toggoleController(false,false);
             mPlayerViewListener.setControllerHideOnTouch(true);
         }
         player.addListener(componentListener);
@@ -693,6 +693,12 @@ public class ExoUserPlayer {
     public void next() {
         getPlayerViewListener().next();
     }
+    /***
+     * 下跳转上一个视频
+     */
+    public void previous() {
+        getPlayerViewListener().previous();
+    }
 
     /***
      * 隐藏控制布局
@@ -705,7 +711,7 @@ public class ExoUserPlayer {
      * 隐藏控制布局
      */
     public void showControllerView() {
-        getPlayerViewListener().showController(false);
+        getPlayerViewListener().toggoleController(false,true);
     }
 
     /***
@@ -713,7 +719,7 @@ public class ExoUserPlayer {
      * @param isShowFull 是否显示全屏按钮
      */
     public void hideControllerView(boolean isShowFull) {
-        getPlayerViewListener().hideController(isShowFull);
+        getPlayerViewListener().toggoleController(isShowFull,false);
     }
 
     /***
@@ -721,7 +727,7 @@ public class ExoUserPlayer {
      * @param isShowFull 是否显示全屏按钮
      */
     public void showControllerView(boolean isShowFull) {
-        getPlayerViewListener().showController(isShowFull);
+        getPlayerViewListener().toggoleController(isShowFull,true);
     }
 
 
@@ -732,10 +738,6 @@ public class ExoUserPlayer {
      */
     public void onConfigurationChanged(Configuration configuration) {
         getPlayerViewListener().onConfigurationChanged(configuration.orientation);
-    }
-
-    public ImageView getPreviewImage() {
-        return videoPlayerView.getPreviewImage();
     }
 
     /***
@@ -1049,7 +1051,7 @@ public class ExoUserPlayer {
                     getPlayerViewListener().showErrorStateView(View.VISIBLE);
                     break;
                 case Player.STATE_READY:
-                    mPlayerViewListener.showPreview(View.GONE, false);
+                   mPlayerViewListener.showPreview(View.GONE, false);
                     getPlayerViewListener().showLoadStateView(View.GONE);
                     if (playWhenReady) {
                         Log.d(TAG, "onPlayerStateChanged:准备播放");
@@ -1076,7 +1078,7 @@ public class ExoUserPlayer {
             } else {
                 getPlayerViewListener().showErrorStateView(View.VISIBLE);
                 for (VideoInfoListener videoInfoListener : videoInfoListeners) {
-                    videoInfoListener.onPlayerError(e);
+                    videoInfoListener.onPlayerError(player.getPlaybackError());
                 }
             }
         }
@@ -1097,7 +1099,7 @@ public class ExoUserPlayer {
 
         @Override
         public void onSeekProcessed() {
-
+            Log.e(TAG, "onSeekProcessed:");
         }
     };
 

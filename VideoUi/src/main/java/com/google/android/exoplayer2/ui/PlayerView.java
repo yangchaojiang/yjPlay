@@ -37,11 +37,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ControlDispatcher;
 import com.google.android.exoplayer2.DefaultControlDispatcher;
-import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.PlaybackPreparer;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Player.DiscontinuityReason;
@@ -57,13 +55,15 @@ import com.google.android.exoplayer2.text.TextOutput;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
-import com.google.android.exoplayer2.util.ErrorMessageProvider;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.exoplayer2.video.VideoListener;
 
 import java.util.List;
 
+/**
+ * The type Player view.
+ */
 public class PlayerView extends FrameLayout {
 
   private static final int SURFACE_TYPE_NONE = 0;
@@ -71,42 +71,74 @@ public class PlayerView extends FrameLayout {
   private static final int SURFACE_TYPE_TEXTURE_VIEW = 2;
   private final FrameLayout contentFrame;
   private final View shutterView;
-    protected final IRender surfaceView;
+  /**
+   * The Surface view.
+   */
+  protected final IRender surfaceView;
   private final ImageView artworkView;
-    protected final SubtitleView subtitleView;
-  private final @Nullable
-  View bufferingView;
-  private final @Nullable
-  TextView errorMessageView;
+  /**
+   * The Subtitle view.
+   */
+  protected final SubtitleView subtitleView;
+  /**
+   * The Controller.
+   */
   protected final PlayerControlView controller;
-    protected final ComponentListener componentListener;
+  /**
+   * The Component listener.
+   */
+  protected final ComponentListener componentListener;
   private final FrameLayout overlayFrameLayout;
-
+  /**
+   * The Player.
+   */
   protected Player player;
+  /**
+   * The Use controller.
+   */
   protected boolean useController;
   private boolean useArtwork;
   private Bitmap defaultArtwork;
-  private boolean showBuffering;
   private boolean keepContentOnPlayerReset;
-  private @Nullable
-  ErrorMessageProvider<? super ExoPlaybackException> errorMessageProvider;
-  private @Nullable
-  CharSequence customErrorMessage;
   private int controllerShowTimeoutMs;
   private boolean controllerAutoShow;
   private boolean controllerHideDuringAds;
+  /**
+   * The Controller hide on touch.
+   */
   protected boolean controllerHideOnTouch;
   private int textureViewRotation;
+  /**
+   * The Content frame layout.
+   */
   protected  FrameLayout contentFrameLayout;
 
+  /**
+   * Instantiates a new Player view.
+   *
+   * @param context the context
+   */
   public PlayerView(Context context) {
     this(context, null);
   }
 
+  /**
+   * Instantiates a new Player view.
+   *
+   * @param context the context
+   * @param attrs   the attrs
+   */
   public PlayerView(Context context, AttributeSet attrs) {
     this(context, attrs, 0);
   }
 
+  /**
+   * Instantiates a new Player view.
+   *
+   * @param context      the context
+   * @param attrs        the attrs
+   * @param defStyleAttr the def style attr
+   */
   public PlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
 
@@ -116,8 +148,6 @@ public class PlayerView extends FrameLayout {
       surfaceView = null;
       artworkView = null;
       subtitleView = null;
-      bufferingView = null;
-      errorMessageView = null;
       controller = null;
       componentListener = null;
       overlayFrameLayout = null;
@@ -142,7 +172,6 @@ public class PlayerView extends FrameLayout {
     boolean controllerHideOnTouch = true;
     boolean controllerAutoShow = true;
     boolean controllerHideDuringAds = true;
-    boolean showBuffering = false;
     if (attrs != null) {
       TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PlayerView, 0, 0);
       try {
@@ -158,7 +187,6 @@ public class PlayerView extends FrameLayout {
         controllerHideOnTouch =
             a.getBoolean(R.styleable.PlayerView_hide_on_touch, controllerHideOnTouch);
         controllerAutoShow = a.getBoolean(R.styleable.PlayerView_auto_show, controllerAutoShow);
-        showBuffering = a.getBoolean(R.styleable.PlayerView_show_buffering, showBuffering);
         keepContentOnPlayerReset =
             a.getBoolean(
                 R.styleable.PlayerView_keep_content_on_player_reset, keepContentOnPlayerReset);
@@ -214,20 +242,6 @@ public class PlayerView extends FrameLayout {
       subtitleView.setUserDefaultStyle();
       subtitleView.setUserDefaultTextSize();
     }
-
-    // Buffering view.
-    bufferingView = findViewById(R.id.exo_buffering);
-    if (bufferingView != null) {
-      bufferingView.setVisibility(View.GONE);
-    }
-    this.showBuffering = showBuffering;
-
-    // Error message view.
-    errorMessageView = findViewById(R.id.exo_error_message);
-    if (errorMessageView != null) {
-      errorMessageView.setVisibility(View.GONE);
-    }
-
     // Playback control view.
     PlayerControlView customController = findViewById(R.id.exo_controller);
     View controllerPlaceholder = findViewById(R.id.exo_controller_placeholder);
@@ -256,7 +270,7 @@ public class PlayerView extends FrameLayout {
   /**
    * Switches the view targeted by a given {@link Player}.
    *
-   * @param player The player whose target view is being switched.
+   * @param player        The player whose target view is being switched.
    * @param oldPlayerView The old view to detach from the player.
    * @param newPlayerView The new view to attach to the player.
    */
@@ -279,14 +293,16 @@ public class PlayerView extends FrameLayout {
     }
   }
 
-  /** Returns the player currently set on this view, or null if no player is set. */
+  /**
+   * Returns the player currently set on this view, or null if no player is set.  @return the player
+   */
   public Player getPlayer() {
     return player;
   }
 
   /**
    * Set the {@link Player} to use.
-   *
+   * <p>
    * <p>To transition a {@link Player} from targeting one view to another, it's recommended to use
    * {@link #switchTargetView(Player, PlayerView, PlayerView)} rather than this method. If you do
    * wish to use this method directly, be sure to attach the player to the new view <em>before</em>
@@ -322,8 +338,6 @@ public class PlayerView extends FrameLayout {
     if (subtitleView != null) {
       subtitleView.setCues(null);
     }
-    updateBuffering();
-    updateErrorMessage();
     updateForCurrentTrackSelections(/* isNewPlayer= */ true);
     if (player != null) {
       Player.VideoComponent newVideoComponent = player.getVideoComponent();
@@ -362,15 +376,15 @@ public class PlayerView extends FrameLayout {
    *
    * @param resizeMode The resize mode.
    */
-
   public void setResizeMode(@AspectRatio.ResizeMode int resizeMode) {
     Assertions.checkState(contentFrame != null);
     surfaceView.setVideoRotation(resizeMode);
   }
 
 
-/** Returns the resize mode. */
-
+  /**
+   * Returns the resize mode.  @return the resize mode
+   */
   public @AspectRatio.ResizeMode
   int getResizeMode() {
     Assertions.checkState(contentFrame != null);
@@ -378,43 +392,9 @@ public class PlayerView extends FrameLayout {
   }
 
 
-  /** Returns whether artwork is displayed if present in the media. */
-  public boolean getUseArtwork() {
-    return useArtwork;
-  }
-
   /**
-   * Sets whether artwork is displayed if present in the media.
-   *
-   * @param useArtwork Whether artwork is displayed.
+   * Returns whether the playback controls can be shown.  @return the use controller
    */
-  public void setUseArtwork(boolean useArtwork) {
-    Assertions.checkState(!useArtwork || artworkView != null);
-    if (this.useArtwork != useArtwork) {
-      this.useArtwork = useArtwork;
-      updateForCurrentTrackSelections(/* isNewPlayer= */ false);
-    }
-  }
-
-  /** Returns the default artwork to display. */
-  public Bitmap getDefaultArtwork() {
-    return defaultArtwork;
-  }
-
-  /**
-   * Sets the default artwork to display if {@code useArtwork} is {@code true} and no artwork is
-   * present in the media.
-   *
-   * @param defaultArtwork the default artwork to display.
-   */
-  public void setDefaultArtwork(Bitmap defaultArtwork) {
-    if (this.defaultArtwork != defaultArtwork) {
-      this.defaultArtwork = defaultArtwork;
-      updateForCurrentTrackSelections(/* isNewPlayer= */ false);
-    }
-  }
-
-  /** Returns whether the playback controls can be shown. */
   public boolean getUseController() {
     return useController;
   }
@@ -455,63 +435,24 @@ public class PlayerView extends FrameLayout {
    * player is reset. A player reset is defined to mean the player being re-prepared with different
    * media, {@link Player#stop(boolean)} being called with {@code reset=true}, or the player being
    * replaced or cleared by calling {@link #setPlayer(Player)}.
-   *
+   * <p>
    * <p>If enabled, the currently displayed video frame or media artwork will be kept visible until
    * the player set on the view has been successfully prepared with new media and loaded enough of
    * it to have determined the available tracks. Hence enabling this option allows transitioning
    * from playing one piece of media to another, or from using one player instance to another,
    * without clearing the view's content.
-   *
+   * <p>
    * <p>If disabled, the currently displayed video frame or media artwork will be hidden as soon as
    * the player is reset. Note that the video frame is hidden by making {@code exo_shutter} visible.
    * Hence the video frame will not be hidden if using a custom layout that omits this view.
    *
-   * @param keepContentOnPlayerReset Whether the currently displayed video frame or media artwork is
-   *     kept visible when the player is reset.
+   * @param keepContentOnPlayerReset Whether the currently displayed video frame or media artwork is     kept visible when the player is reset.
    */
   public void setKeepContentOnPlayerReset(boolean keepContentOnPlayerReset) {
     if (this.keepContentOnPlayerReset != keepContentOnPlayerReset) {
       this.keepContentOnPlayerReset = keepContentOnPlayerReset;
       updateForCurrentTrackSelections(/* isNewPlayer= */ false);
     }
-  }
-
-  /**
-   * Sets whether a buffering spinner is displayed when the player is in the buffering state. The
-   * buffering spinner is not displayed by default.
-   *
-   * @param showBuffering Whether the buffering icon is displayer
-   */
-  public void setShowBuffering(boolean showBuffering) {
-    if (this.showBuffering != showBuffering) {
-      this.showBuffering = showBuffering;
-      updateBuffering();
-    }
-  }
-
-  /**
-   * Sets the optional {@link ErrorMessageProvider}.
-   *
-   * @param errorMessageProvider The error message provider.
-   */
-  public void setErrorMessageProvider(
-      @Nullable ErrorMessageProvider<? super ExoPlaybackException> errorMessageProvider) {
-    if (this.errorMessageProvider != errorMessageProvider) {
-      this.errorMessageProvider = errorMessageProvider;
-      updateErrorMessage();
-    }
-  }
-
-  /**
-   * Sets a custom error message to be displayed by the view. The error message will be displayed
-   * permanently, unless it is cleared by passing {@code null} to this method.
-   *
-   * @param message The message to display, or {@code null} to clear a previously set message.
-   */
-  public void setCustomErrorMessage(@Nullable CharSequence message) {
-    Assertions.checkState(errorMessageView != null);
-    customErrorMessage = message;
-    updateErrorMessage();
   }
 
   @Override
@@ -542,16 +483,18 @@ public class PlayerView extends FrameLayout {
 
   /**
    * Shows the playback controls. Does nothing if playback controls are disabled.
-   *
+   * <p>
    * <p>The playback controls are automatically hidden during playback after {{@link
-   * #getControllerShowTimeoutMs()}}. They are shown indefinitely when playback has not started yet,
+   * #getControllerShowTimeoutMs()}*}. They are shown indefinitely when playback has not started yet,
    * is paused, has ended or failed.
    */
   public void showController() {
     showController(shouldShowControllerIndefinitely());
   }
 
-  /** Hides the playback controls. Does nothing if playback controls are disabled. */
+  /**
+   * Hides the playback controls. Does nothing if playback controls are disabled.
+   */
   public void hideController() {
     if (controller != null) {
       controller.hide();
@@ -563,8 +506,7 @@ public class PlayerView extends FrameLayout {
    * this duration of time has elapsed without user input and with playback or buffering in
    * progress.
    *
-   * @return The timeout in milliseconds. A non-positive value will cause the controller to remain
-   *     visible indefinitely.
+   * @return The timeout in milliseconds. A non-positive value will cause the controller to remain     visible indefinitely.
    */
   public int getControllerShowTimeoutMs() {
     return controllerShowTimeoutMs;
@@ -574,8 +516,7 @@ public class PlayerView extends FrameLayout {
    * Sets the playback controls timeout. The playback controls are automatically hidden after this
    * duration of time has elapsed without user input and with playback or buffering in progress.
    *
-   * @param controllerShowTimeoutMs The timeout in milliseconds. A non-positive value will cause the
-   *     controller to remain visible indefinitely.
+   * @param controllerShowTimeoutMs The timeout in milliseconds. A non-positive value will cause the     controller to remain visible indefinitely.
    */
   public void setControllerShowTimeoutMs(int controllerShowTimeoutMs) {
     Assertions.checkState(controller != null);
@@ -586,7 +527,9 @@ public class PlayerView extends FrameLayout {
     }
   }
 
-  /** Returns whether the playback controls are hidden by touch events. */
+  /**
+   * Returns whether the playback controls are hidden by touch events.  @return the controller hide on touch
+   */
   public boolean getControllerHideOnTouch() {
     return controllerHideOnTouch;
   }
@@ -604,7 +547,9 @@ public class PlayerView extends FrameLayout {
   /**
    * Returns whether the playback controls are automatically shown when playback starts, pauses,
    * ends, or fails. If set to false, the playback controls can be manually operated with {@link
-   * #showController()} and {@link #hideController()}.
+   * #showController()}* and {@link #hideController()}.
+   *
+   * @return the controller auto show
    */
   public boolean getControllerAutoShow() {
     return controllerAutoShow;
@@ -613,7 +558,7 @@ public class PlayerView extends FrameLayout {
   /**
    * Sets whether the playback controls are automatically shown when playback starts, pauses, ends,
    * or fails. If set to false, the playback controls can be manually operated with {@link
-   * #showController()} and {@link #hideController()}.
+   * #showController()}* and {@link #hideController()}.
    *
    * @param controllerAutoShow Whether the playback controls are allowed to show automatically.
    */
@@ -655,7 +600,7 @@ public class PlayerView extends FrameLayout {
    * Sets the {@link ControlDispatcher}.
    *
    * @param controlDispatcher The {@link ControlDispatcher}, or null to use {@link
-   *     DefaultControlDispatcher}.
+   *                          DefaultControlDispatcher}.
    */
   public void setControlDispatcher(@Nullable ControlDispatcher controlDispatcher) {
     Assertions.checkState(controller != null);
@@ -665,8 +610,7 @@ public class PlayerView extends FrameLayout {
   /**
    * Sets the rewind increment in milliseconds.
    *
-   * @param rewindMs The rewind increment in milliseconds. A non-positive value will cause the
-   *     rewind button to be disabled.
+   * @param rewindMs The rewind increment in milliseconds. A non-positive value will cause the     rewind button to be disabled.
    */
   public void setRewindIncrementMs(int rewindMs) {
     Assertions.checkState(controller != null);
@@ -676,8 +620,7 @@ public class PlayerView extends FrameLayout {
   /**
    * Sets the fast forward increment in milliseconds.
    *
-   * @param fastForwardMs The fast forward increment in milliseconds. A non-positive value will
-   *     cause the fast forward button to be disabled.
+   * @param fastForwardMs The fast forward increment in milliseconds. A non-positive value will     cause the fast forward button to be disabled.
    */
   public void setFastForwardIncrementMs(int fastForwardMs) {
     Assertions.checkState(controller != null);
@@ -719,10 +662,8 @@ public class PlayerView extends FrameLayout {
    * timeline, if in multi-window mode) and whether each extra ad has been played or not. The
    * markers are shown in addition to any ad markers for ads in the player's timeline.
    *
-   * @param extraAdGroupTimesMs The millisecond timestamps of the extra ad markers to show, or
-   *     {@code null} to show no extra ad markers.
-   * @param extraPlayedAdGroups Whether each ad has been played, or {@code null} to show no extra ad
-   *     markers.
+   * @param extraAdGroupTimesMs The millisecond timestamps of the extra ad markers to show, or     {@code null} to show no extra ad markers.
+   * @param extraPlayedAdGroups Whether each ad has been played, or {@code null} to show no extra ad     markers.
    */
   public void setExtraAdGroupMarkers(
           @Nullable long[] extraAdGroupTimesMs, @Nullable boolean[] extraPlayedAdGroups) {
@@ -731,24 +672,13 @@ public class PlayerView extends FrameLayout {
   }
 
   /**
-   * Set the {@link AspectRatioFrameLayout.AspectRatioListener}.
-   *
-   * @param listener The listener to be notified about aspect ratios changes of the video content or
-   *     the content frame.
-   */
-  public void setAspectRatioListener(AspectRatioFrameLayout.AspectRatioListener listener) {
-    Assertions.checkState(contentFrame != null);
-  //  contentFrame.setAspectRatioListener(listener);
-  }
-
-  /**
    * Gets the view onto which video is rendered. This is a:
-   *
+   * <p>
    * <ul>
-   *   <li>{@link SurfaceView} by default, or if the {@code surface_type} attribute is set to {@code
-   *       surface_view}.
-   *   <li>{@link TextureView} if {@code surface_type} is {@code texture_view}.
-   *   <li>{@code null} if {@code surface_type} is {@code none}.
+   * <li>{@link SurfaceView} by default, or if the {@code surface_type} attribute is set to {@code
+   * surface_view}*.
+   * <li>{@link TextureView} if {@code surface_type} is {@code texture_view}.
+   * <li>{@code null} if {@code surface_type} is {@code none}.
    * </ul>
    *
    * @return The {@link SurfaceView}, {@link TextureView} or {@code null}.
@@ -761,8 +691,7 @@ public class PlayerView extends FrameLayout {
    * Gets the overlay {@link FrameLayout}, which can be populated with UI elements to show on top of
    * the player.
    *
-   * @return The overlay {@link FrameLayout}, or {@code null} if the layout has been customized and
-   *     the overlay is not present.
+   * @return The overlay {@link FrameLayout}, or {@code null} if the layout has been customized and     the overlay is not present.
    */
   public FrameLayout getOverlayFrameLayout() {
     return overlayFrameLayout;
@@ -771,8 +700,7 @@ public class PlayerView extends FrameLayout {
   /**
    * Gets the {@link SubtitleView}.
    *
-   * @return The {@link SubtitleView}, or {@code null} if the layout has been customized and the
-   *     subtitle view is not present.
+   * @return The {@link SubtitleView}, or {@code null} if the layout has been customized and the     subtitle view is not present.
    */
   public SubtitleView getSubtitleView() {
     return subtitleView;
@@ -800,7 +728,9 @@ public class PlayerView extends FrameLayout {
     return true;
   }
 
-  /** Shows the playback controls, but only if forced or shown indefinitely. */
+  /**
+   * Shows the playback controls, but only if forced or shown indefinitely.  @param isForced the is forced
+   */
   protected void maybeShowController(boolean isForced) {
     if (isPlayingAd() && controllerHideDuringAds) {
       return;
@@ -814,6 +744,11 @@ public class PlayerView extends FrameLayout {
     }
   }
 
+  /**
+   * Should show controller indefinitely boolean.
+   *
+   * @return the boolean
+   */
   public boolean shouldShowControllerIndefinitely() {
     if (player == null) {
       return true;
@@ -837,7 +772,12 @@ public class PlayerView extends FrameLayout {
     return player != null && player.isPlayingAd() && player.getPlayWhenReady();
   }
 
-    protected void updateForCurrentTrackSelections(boolean isNewPlayer) {
+  /**
+   * Update for current track selections.
+   *
+   * @param isNewPlayer the is new player
+   */
+  protected void updateForCurrentTrackSelections(boolean isNewPlayer) {
     if (player == null || player.getCurrentTrackGroups().isEmpty()) {
       if (!keepContentOnPlayerReset) {
         hideArtwork();
@@ -913,7 +853,10 @@ public class PlayerView extends FrameLayout {
     return false;
   }
 
-    protected void hideArtwork() {
+  /**
+   * Hide artwork.
+   */
+  protected void hideArtwork() {
     if (artworkView != null) {
       artworkView.setImageResource(android.R.color.transparent); // Clears any bitmap reference.
       artworkView.setVisibility(INVISIBLE);
@@ -923,40 +866,6 @@ public class PlayerView extends FrameLayout {
   private void closeShutter() {
     if (shutterView != null) {
       shutterView.setVisibility(View.VISIBLE);
-    }
-  }
-
-    protected void updateBuffering() {
-    if (bufferingView != null) {
-      boolean showBufferingSpinner =
-          showBuffering
-              && player != null
-              && player.getPlaybackState() == Player.STATE_BUFFERING
-              && player.getPlayWhenReady();
-      bufferingView.setVisibility(showBufferingSpinner ? View.VISIBLE : View.GONE);
-    }
-  }
-
-    protected void updateErrorMessage() {
-    if (errorMessageView != null) {
-      if (customErrorMessage != null) {
-        errorMessageView.setText(customErrorMessage);
-        errorMessageView.setVisibility(View.VISIBLE);
-        return;
-      }
-      ExoPlaybackException error = null;
-      if (player != null
-          && player.getPlaybackState() == Player.STATE_IDLE
-          && errorMessageProvider != null) {
-        error = player.getPlaybackError();
-      }
-      if (error != null) {
-        CharSequence errorMessage = errorMessageProvider.getErrorMessage(error).second;
-        errorMessageView.setText(errorMessage);
-        errorMessageView.setVisibility(View.VISIBLE);
-      } else {
-        errorMessageView.setVisibility(View.GONE);
-      }
     }
   }
 
@@ -970,36 +879,6 @@ public class PlayerView extends FrameLayout {
   private static void configureEditModeLogo(Resources resources, ImageView logo) {
     logo.setImageDrawable(resources.getDrawable(R.drawable.exo_edit_mode_logo));
     logo.setBackgroundColor(resources.getColor(R.color.exo_edit_mode_background_color));
-  }
-
-  @SuppressWarnings("ResourceType")
-  private static void setResizeModeRaw(AspectRatioFrameLayout aspectRatioFrame, int resizeMode) {
-    aspectRatioFrame.setResizeMode(resizeMode);
-  }
-
-  /** Applies a texture rotation to a {@link TextureView}. */
-  private static void applyTextureViewRotation(TextureView textureView, int textureViewRotation) {
-    float textureViewWidth = textureView.getWidth();
-    float textureViewHeight = textureView.getHeight();
-    if (textureViewWidth == 0 || textureViewHeight == 0 || textureViewRotation == 0) {
-      textureView.setTransform(null);
-    } else {
-      Matrix transformMatrix = new Matrix();
-      float pivotX = textureViewWidth / 2;
-      float pivotY = textureViewHeight / 2;
-      transformMatrix.postRotate(textureViewRotation, pivotX, pivotY);
-
-      // After rotation, scale the rotated texture to fit the TextureView size.
-      RectF originalTextureRect = new RectF(0, 0, textureViewWidth, textureViewHeight);
-      RectF rotatedTextureRect = new RectF();
-      transformMatrix.mapRect(rotatedTextureRect, originalTextureRect);
-      transformMatrix.postScale(
-          textureViewWidth / rotatedTextureRect.width(),
-          textureViewHeight / rotatedTextureRect.height(),
-          pivotX,
-          pivotY);
-      textureView.setTransform(transformMatrix);
-    }
   }
 
   @SuppressLint("InlinedApi")
@@ -1075,8 +954,6 @@ public class PlayerView extends FrameLayout {
 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-      updateBuffering();
-      updateErrorMessage();
       if (isPlayingAd() && controllerHideDuringAds) {
         hideController();
       } else {

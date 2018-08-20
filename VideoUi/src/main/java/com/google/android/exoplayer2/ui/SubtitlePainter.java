@@ -104,7 +104,12 @@ import com.google.android.exoplayer2.util.Util;
   private int textPaddingX;
   private Rect bitmapRect;
 
-  @SuppressWarnings("ResourceType")
+    /**
+     * Instantiates a new Subtitle painter.
+     *
+     * @param context the context
+     */
+    @SuppressWarnings("ResourceType")
   public SubtitlePainter(Context context) {
     int[] viewAttr = {android.R.attr.lineSpacingExtra, android.R.attr.lineSpacingMultiplier};
     TypedArray styledAttributes = context.obtainStyledAttributes(null, viewAttr, 0, 0);
@@ -129,28 +134,26 @@ import com.google.android.exoplayer2.util.Util;
     paint.setStyle(Style.FILL);
   }
 
-  /**
-   * Draws the provided {@link Cue} into a canvas with the specified styling.
-   * <p>
-   * A call to this method is able to use cached results of calculations made during the previous
-   * call, and so an instance of this class is able to optimize repeated calls to this method in
-   * which the same parameters are passed.
-   *
-   * @param cue The cue to draw.
-   * @param applyEmbeddedStyles Whether styling embedded within the cue should be applied.
-   * @param applyEmbeddedFontSizes If {@code applyEmbeddedStyles} is true, defines whether font
-   *     sizes embedded within the cue should be applied. Otherwise, it is ignored.
-   * @param style The style to use when drawing the cue text.
-   * @param textSizePx The text size to use when drawing the cue text, in pixels.
-   * @param bottomPaddingFraction The bottom padding fraction to apply when {@link Cue#line} is
-   *     {@link Cue#DIMEN_UNSET}, as a fraction of the viewport height
-   * @param canvas The canvas into which to draw.
-   * @param cueBoxLeft The left position of the enclosing cue box.
-   * @param cueBoxTop The top position of the enclosing cue box.
-   * @param cueBoxRight The right position of the enclosing cue box.
-   * @param cueBoxBottom The bottom position of the enclosing cue box.
-   */
-  public void draw(Cue cue, boolean applyEmbeddedStyles, boolean applyEmbeddedFontSizes,
+    /**
+     * Draws the provided {@link Cue} into a canvas with the specified styling.
+     * <p>
+     * A call to this method is able to use cached results of calculations made during the previous
+     * call, and so an instance of this class is able to optimize repeated calls to this method in
+     * which the same parameters are passed.
+     *
+     * @param cue                    The cue to draw.
+     * @param applyEmbeddedStyles    Whether styling embedded within the cue should be applied.
+     * @param applyEmbeddedFontSizes If {@code applyEmbeddedStyles} is true, defines whether font     sizes embedded within the cue should be applied. Otherwise, it is ignored.
+     * @param style                  The style to use when drawing the cue text.
+     * @param textSizePx             The text size to use when drawing the cue text, in pixels.
+     * @param bottomPaddingFraction  The bottom padding fraction to apply when {@link Cue#line} is     {@link Cue#DIMEN_UNSET}, as a fraction of the viewport height
+     * @param canvas                 The canvas into which to draw.
+     * @param cueBoxLeft             The left position of the enclosing cue box.
+     * @param cueBoxTop              The top position of the enclosing cue box.
+     * @param cueBoxRight            The right position of the enclosing cue box.
+     * @param cueBoxBottom           The bottom position of the enclosing cue box.
+     */
+    public void draw(Cue cue, boolean applyEmbeddedStyles, boolean applyEmbeddedFontSizes,
                    CaptionStyleCompat style, float textSizePx, float bottomPaddingFraction, Canvas canvas,
                    int cueBoxLeft, int cueBoxTop, int cueBoxRight, int cueBoxBottom) {
     boolean isTextCue = cue.bitmap == null;

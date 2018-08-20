@@ -27,19 +27,34 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
  * frame rendering view,
  * using the method can refer to VideoPlayerView
  */
-
 public interface IRender {
+    /**
+     * Sets visibility.
+     *
+     * @param visibility the visibility
+     */
     void setVisibility(int visibility);
 
+    /**
+     * Sets render callback.
+     *
+     * @param renderCallback the render callback
+     */
     void setRenderCallback(IRenderCallback renderCallback);
 
     /**
      * update video rotation, such as some video maybe rotation 90 degree.
      *
-     * @param degree
+     * @param degree the degree
      */
     void setVideoRotation(int degree);
 
+    /**
+     * Sets video sample aspect ratio.
+     *
+     * @param videoSarNum the video sar num
+     * @param videoSarDen the video sar den
+     */
     void setVideoSampleAspectRatio(int videoSarNum, int videoSarDen);
 
 
@@ -57,9 +72,12 @@ public interface IRender {
      * @param aspectRatio aspectRatio
      */
     void updateAspectRatio(@AspectRatio.ResizeMode int aspectRatio);
+
     /**
      * get video show aspect ratio
-     * */
+     *
+     * @return the resize mode
+     */
     @AspectRatio.ResizeMode
     int getResizeMode();
 
@@ -71,6 +89,11 @@ public interface IRender {
      */
     void updateVideoSize(int videoWidth, int videoHeight);
 
+    /**
+     * Gets render view.
+     *
+     * @return the render view
+     */
     View getRenderView();
 
     /**
@@ -85,6 +108,11 @@ public interface IRender {
      * see also
      */
     interface IRenderHolder {
+        /**
+         * Bind player.
+         *
+         * @param player the player
+         */
         void bindPlayer(SimpleExoPlayer player);
     }
 
@@ -94,10 +122,30 @@ public interface IRender {
      * {@link RenderTextureView.IRenderCallback}
      */
     interface IRenderCallback {
+        /**
+         * On surface created.
+         *
+         * @param renderHolder the render holder
+         * @param width        the width
+         * @param height       the height
+         */
         void onSurfaceCreated(IRenderHolder renderHolder, int width, int height);
 
+        /**
+         * On surface changed.
+         *
+         * @param renderHolder the render holder
+         * @param format       the format
+         * @param width        the width
+         * @param height       the height
+         */
         void onSurfaceChanged(IRenderHolder renderHolder, int format, int width, int height);
 
+        /**
+         * On surface destroy.
+         *
+         * @param renderHolder the render holder
+         */
         void onSurfaceDestroy(IRenderHolder renderHolder);
     }
 

@@ -101,22 +101,15 @@ public interface ExoPlayerViewListener {
     void next();
 
     /**
-     * 上一部
+     * 上一步
      */
     void previous();
 
     /***
-     * 隐藏控制布局操作不会显示
+     * 显示隐藏控制布局操作
      * @param isShowFull 显示全屏按钮
      */
-    void hideController(boolean isShowFull);
-
-    /***
-     * 显示控制布局操作
-     * @param isShowFull 显示全屏按钮
-     */
-    void showController(boolean isShowFull);
-
+    void toggoleController(boolean isShowFull,boolean isShow);
     /***
      * 控制布局操作
      * @param onTouch 启用控制布局点击事件 true 启用 反则  false;

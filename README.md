@@ -37,7 +37,7 @@
    * 25 支持流式API方式调用。
  <!--more-->
 
- ### [更新日志2.2.13→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.2.16→》戳我查看](RELEASENOTES.md)
 #### 重要升级
    * 解决6.0一下版本安卓切换横竖屏，卡顿延迟/
 
@@ -50,9 +50,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.2.13' 
+      compile 'com.ycjiang:VideoPlayModule:2.2.16' 
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.2.13'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.2.16'
 
   }
   ````
@@ -122,7 +122,7 @@
   | player_gesture_audio_layout_id    | reference | 设置 自定义手势音频调节布局                                                 |
   | player_gesture_bright_layout_id   | reference | 设置 自定义手势亮度调节布局                                                 |
   | player_gesture_progress_layout_id | reference | 设置 自定义手势进度调节布局                                                 |
-  | player_preview_layout_id          | reference | 设置 自定义封面图布局(默认 exo_default_preview_layout.xml)                 |
+  | player_preview_layout_id          | reference | 设置 自定义封面图布局(默认 exo_default_preview_layout.xml)                  |
   | player_list                       | boolean   | 设置 是否指定列表播放    默认 false  true 列表播放                          |
   | player_fullscreen_image_selector  | reference | 设置 自定义全屏按钮selector                                                 |
   | player_back_image                 | reference | 设置 自定义返回按钮图标                                                     |
@@ -144,13 +144,13 @@
     
      >>       
      >>        
-     >>   3.自定义封面图布局中,也包含封面图控件。所以自定义封面图布局后，就不要再的控制布局使用封面图控件
- 
+     >>   3.自定义封面图布局中,也包含封
   >> #### 3.快速自定义视频进度控件颜色
    >> [如何自定义视频进度控件--->戳我](https://github.com/yangchaojiang/yjPlay/blob/dev/READMELAYUOT.md#%E4%BA%94%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E8%BF%9B%E5%BA%A6%E6%8E%A7%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89)
   >> 在app的module的values 文件下-> colors.xml 文件里
    ```
-     <!--视频加载缓存进度的颜色-->
+     <!--视频加载缓存进度的面图控件。所以自定义封面图布局后，就不要再的控制布局使用封面图控件
+                   颜色-->
      <color name="timeBar_buffered_color">@color/light_green</color>
      <!--已经播放过视频的颜色-->
      <color name="timeBar_played_color">#c63020</color>

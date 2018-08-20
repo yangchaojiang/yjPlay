@@ -53,7 +53,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".offline.OfficeDetailedActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -75,22 +74,26 @@
             android:name=".fragment.ListFragmentActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".fragment.ViewPagerActivity"
-            android:label="@string/title_activity_view_pager"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
+            android:label="@string/title_activity_view_pager"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <service android:name=".offline.DemoDownloadService"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".offline.DemoDownloadService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.exoplayer.downloadService.action.INIT"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.google.android.exoplayer.downloadService.action.INIT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".exo.ExoPlayActivity"></activity>
     </application>
 
 </manifest>

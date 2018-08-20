@@ -97,7 +97,6 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
     @Override
     public <R extends ExoUserPlayer> R startPlayer() {
-        Log.d(TAG,"startPlayer");
         if (getPlayerViewListener().isList()) {
             handPause = false;
             VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
@@ -165,7 +164,6 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
      */
     @Override
     public void reset() {
-        Log.d(TAG,"reset");
         if (player != null) {
             unNetworkBroadcastReceiver();
             if (position == -1) {

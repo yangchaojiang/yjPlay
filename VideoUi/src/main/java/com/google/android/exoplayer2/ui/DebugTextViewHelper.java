@@ -39,7 +39,9 @@ public class DebugTextViewHelper extends Player.DefaultEventListener implements 
   private boolean started;
 
   /**
-   * @param player The {@link SimpleExoPlayer} from which debug information should be obtained.
+   * Instantiates a new Debug text view helper.
+   *
+   * @param player   The {@link SimpleExoPlayer} from which debug information should be obtained.
    * @param textView The {@link TextView} that should be updated to display the information.
    */
   public DebugTextViewHelper(SimpleExoPlayer player, TextView textView) {
@@ -94,6 +96,9 @@ public class DebugTextViewHelper extends Player.DefaultEventListener implements 
 
   // Protected methods.
 
+  /**
+   * Update and post.
+   */
   @SuppressLint("SetTextI18n")
   protected final void updateAndPost() {
     textView.setText(getDebugString());
@@ -101,12 +106,16 @@ public class DebugTextViewHelper extends Player.DefaultEventListener implements 
     textView.postDelayed(this, REFRESH_INTERVAL_MS);
   }
 
-  /** Returns the debugging information string to be shown by the target {@link TextView}. */
+  /**
+   * Returns the debugging information string to be shown by the target {@link TextView}.  @return the debug string
+   */
   protected String getDebugString() {
     return getPlayerStateString() + getVideoString() + getAudioString();
   }
 
-  /** Returns a string containing player state debugging information. */
+  /**
+   * Returns a string containing player state debugging information.  @return the player state string
+   */
   protected String getPlayerStateString() {
     String playbackStateString;
     switch (player.getPlaybackState()) {
@@ -131,7 +140,9 @@ public class DebugTextViewHelper extends Player.DefaultEventListener implements 
         player.getPlayWhenReady(), playbackStateString, player.getCurrentWindowIndex());
   }
 
-  /** Returns a string containing video debugging information. */
+  /**
+   * Returns a string containing video debugging information.  @return the video string
+   */
   protected String getVideoString() {
     Format format = player.getVideoFormat();
     if (format == null) {
@@ -142,7 +153,9 @@ public class DebugTextViewHelper extends Player.DefaultEventListener implements 
         + getDecoderCountersBufferCountString(player.getVideoDecoderCounters()) + ")";
   }
 
-  /** Returns a string containing audio debugging information. */
+  /**
+   * Returns a string containing audio debugging information.  @return the audio string
+   */
   protected String getAudioString() {
     Format format = player.getAudioFormat();
     if (format == null) {

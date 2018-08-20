@@ -25,16 +25,36 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Created by Taurus on 2016/10/18.
  */
-
 public class   AspectRatio  {
+    /**
+     * The constant AspectRatio_16_9.
+     */
     public static final int  AspectRatio_16_9=0;
+    /**
+     * The constant AspectRatio_4_3.
+     */
     public static final int  AspectRatio_4_3=1;
+    /**
+     * The constant AspectRatio_MATCH_PARENT.
+     */
     public static final int  AspectRatio_MATCH_PARENT=2;
+    /**
+     * The constant AspectRatio_FILL_PARENT.
+     */
     public static final int   AspectRatio_FILL_PARENT=3;
+    /**
+     * The constant AspectRatio_FIT_PARENT.
+     */
     public static final int   AspectRatio_FIT_PARENT=4;
+    /**
+     * The constant AspectRatio_ORIGIN.
+     */
     public static final int  AspectRatio_ORIGIN=5;
 
 
+    /**
+     * The interface Resize mode.
+     */
     @IntDef({AspectRatio_16_9, AspectRatio_4_3, AspectRatio_MATCH_PARENT,AspectRatio_FILL_PARENT,AspectRatio_FIT_PARENT,AspectRatio_ORIGIN})
     @Retention(RetentionPolicy.SOURCE)
   public   @interface ResizeMode {

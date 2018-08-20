@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ui.AnimUtils;
 
+import chuangyuan.ycj.videolibrary.listener.OnCoverMapImageListener;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
@@ -56,6 +58,7 @@ public class MainDetailedActivity extends Activity {
                 //设置水印图
                 .setExoPlayWatermarkImg(R.mipmap.watermark_big)
              .setPlayUri(getString(R.string.uri_test_5))
+                .setPlayerGestureOnTouch(true)
                // .setPlayUri("/storage/sdcard0/bb.ffconcat")
                 //加载rtmp 协议视频
                 //.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks")
@@ -80,7 +83,7 @@ public class MainDetailedActivity extends Activity {
                 //是否屏蔽进度控件拖拽快进视频（例如广告视频，（不允许用户））
               //  .setSeekBarSeek(false)
                 //设置视循环播放
-                .setLooping(10)
+                // .setLooping(10)
                 //视频进度回调
                 .addOnWindowListener(new VideoWindowListener() {
                     @Override
@@ -91,9 +94,8 @@ public class MainDetailedActivity extends Activity {
                 .addUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
                     @Override
                     public void updateProgress(long position, long bufferedPosition, long duration) {
-                         Log.d(TAG,"position:"+position);
-                        Log.d(TAG,"bufferedPosition:"+position);
-                        Log.d(TAG,"duration:"+duration);
+//                     //   Log.d(TAG,"bufferedPosition:"+position);
+                    //    Log.d(TAG,"duration:"+duration);
                     }
                 })
                 .addVideoInfoListener(new VideoInfoListener() {
@@ -124,9 +126,18 @@ public class MainDetailedActivity extends Activity {
 
                     }
                 })
-                .create()
+                .setOnCoverMapImage(new OnCoverMapImageListener() {
+                    @Override
+                    public void onCoverMap(ImageView v) {
+                        Glide.with(v.getContext())
+                                .load(getString(R.string.uri_test_image))
+                                .fitCenter()
+                                .placeholder(R.mipmap.test)
+                                .into(v);
+                    }
+                })
+                .create();
                 //播放视频
-                .startPlayer();
         //d隐藏控制布局
         // exoPlayerManager.hideControllerView();
         //隐藏进度条
@@ -135,13 +146,6 @@ public class MainDetailedActivity extends Activity {
         //exoPlayerManager.showSeekBar();
         //是否播放
         // exoPlayerManager.isPlaying();
-        // videoPlayerView.getPreviewImage().setScaleType(ImageView.ScaleType.FIT_XY);
-        Glide.with(this)
-                .load(getString(R.string.uri_test_image))
-                .fitCenter()
-                .placeholder(R.mipmap.test)
-                .into(exoPlayerManager.getPreviewImage());
-
     }
 
     @Override

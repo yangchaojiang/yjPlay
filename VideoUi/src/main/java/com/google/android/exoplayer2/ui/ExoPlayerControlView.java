@@ -21,7 +21,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * Deprecated:
  */
 public class ExoPlayerControlView extends PlayerControlView {
-    /******自己定义方法hide*******/
+    /******自己定义方法hide*/
     @DrawableRes
     int icFullscreenSelector = R.drawable.ic_fullscreen_selector;
     private final AppCompatCheckBox exoFullscreen;
@@ -32,18 +32,44 @@ public class ExoPlayerControlView extends PlayerControlView {
     private AnimUtils.AnimatorListener animatorListener;
     private final CopyOnWriteArraySet<AnimUtils.UpdateProgressListener> listenerCopyOnWriteArraySet;
 
+    /**
+     * Instantiates a new Exo player control view.
+     *
+     * @param context the context
+     */
     public ExoPlayerControlView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Instantiates a new Exo player control view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public ExoPlayerControlView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    /**
+     * Instantiates a new Exo player control view.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
     public ExoPlayerControlView(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, attrs);
     }
 
+    /**
+     * Instantiates a new Exo player control view.
+     *
+     * @param context       the context
+     * @param attrs         the attrs
+     * @param defStyleAttr  the def style attr
+     * @param playbackAttrs the playback attrs
+     */
     public ExoPlayerControlView(Context context, AttributeSet attrs, int defStyleAttr, AttributeSet playbackAttrs) {
         super(context, attrs, defStyleAttr, playbackAttrs);
         listenerCopyOnWriteArraySet=new CopyOnWriteArraySet<>();
@@ -97,7 +123,7 @@ public class ExoPlayerControlView extends PlayerControlView {
      * 设置标题
      *
      * @param title 内容
-     **/
+     */
     public void setTitle(@NonNull String title) {
         controlsTitleText.setText(title);
     }
@@ -114,6 +140,9 @@ public class ExoPlayerControlView extends PlayerControlView {
         }
     }
 
+    /**
+     * Show no.
+     */
     public void showNo() {
         updateAll();
         requestPlayPauseFocus();
@@ -127,22 +156,47 @@ public class ExoPlayerControlView extends PlayerControlView {
         }
     }
 
+    /**
+     * Gets play button.
+     *
+     * @return the play button
+     */
     public View getPlayButton() {
         return playButton;
     }
 
+    /**
+     * Gets exo fullscreen.
+     *
+     * @return the exo fullscreen
+     */
     public AppCompatCheckBox getExoFullscreen() {
         return exoFullscreen;
     }
 
+    /**
+     * Gets switch text.
+     *
+     * @return the switch text
+     */
     public TextView getSwitchText() {
         return videoSwitchText;
     }
 
+    /**
+     * Gets exo controller top.
+     *
+     * @return the exo controller top
+     */
     public View getExoControllerTop() {
         return exoControllerTop;
     }
 
+    /**
+     * Gets time bar.
+     *
+     * @return the time bar
+     */
     public TimeBar getTimeBar() {
         return timeBar;
     }
@@ -151,7 +205,7 @@ public class ExoPlayerControlView extends PlayerControlView {
      * 设置全屏按钮样式
      *
      * @param icFullscreenStyle 全屏按钮样式
-     **/
+     */
     public void setFullscreenStyle(@DrawableRes int icFullscreenStyle) {
         this.icFullscreenSelector = icFullscreenStyle;
         if (getExoFullscreen() != null) {
@@ -159,11 +213,19 @@ public class ExoPlayerControlView extends PlayerControlView {
         }
     }
 
+    /**
+     * Gets ic fullscreen selector.
+     *
+     * @return the ic fullscreen selector
+     */
     public int getIcFullscreenSelector() {
         return icFullscreenSelector;
     }
 
 
+    /**
+     * Release anim.
+     */
     public void releaseAnim() {
         if (exoControllerTop != null && exoControllerTop.animate() != null) {
             exoControllerTop.animate().cancel();
@@ -231,7 +293,7 @@ public class ExoPlayerControlView extends PlayerControlView {
     /***
      * 设置动画回调
      * @param animatorListener animatorListener
-     * ***/
+     */
     public void setAnimatorListener(AnimUtils.AnimatorListener animatorListener) {
         this.animatorListener = animatorListener;
     }
@@ -239,14 +301,15 @@ public class ExoPlayerControlView extends PlayerControlView {
     /***
      * 设置进度回调
      * @param updateProgressListener updateProgressListener
-     * ***/
+     */
     public void addUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener) {
         listenerCopyOnWriteArraySet.add(updateProgressListener);
     }
+
     /***
      * 移除设置进度回调
      * @param updateProgressListener updateProgressListener
-     * ***/
+     */
     public void removeUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener) {
         listenerCopyOnWriteArraySet.remove(updateProgressListener);
     }

@@ -26,13 +26,19 @@ import com.google.android.exoplayer2.util.Util;
 
 import java.util.Locale;
 
-/** A default {@link TrackNameProvider}. */
+/**
+ * A default {@link TrackNameProvider}.
+ */
 public class DefaultTrackNameProvider implements TrackNameProvider {
 
   private final Resources resources;
 
-  /** @param resources Resources from which to obtain strings. */
-  public DefaultTrackNameProvider(Resources resources) {
+    /**
+     * Instantiates a new Default track name provider.
+     *
+     * @param resources Resources from which to obtain strings.
+     */
+    public DefaultTrackNameProvider(Resources resources) {
     this.resources = Assertions.checkNotNull(resources);
   }
 

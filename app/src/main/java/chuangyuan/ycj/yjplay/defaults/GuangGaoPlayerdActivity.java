@@ -47,6 +47,7 @@ public class GuangGaoPlayerdActivity extends Activity {
                     public void onCurrentIndex(int currentIndex, int windowCount) {
                         if (currentIndex == 0) {
                             Log.d(TAG, "setOnWindowListener:" + currentIndex);
+                            exoPlayerManager.next();
                             //屏蔽控制布局
                             exoPlayerManager.hideControllerView(true);
                             //true如果屏蔽控制布局 但是需要显示全屏按钮。手动显示。

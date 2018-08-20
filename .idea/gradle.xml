@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="D:/Android/.gradle/wrapper/dists/gradle-4.4-all/9br9xq1tocpiv8o6njlyu5op1/gradle-4.4" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/VideoPlayModule" />
+            <option value="$PROJECT_DIR$/VideoPlayModule-Lite" />
+            <option value="$PROJECT_DIR$/VideoUi" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/cronet" />
+            <option value="$PROJECT_DIR$/ffmpeg" />
+            <option value="$PROJECT_DIR$/ima" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

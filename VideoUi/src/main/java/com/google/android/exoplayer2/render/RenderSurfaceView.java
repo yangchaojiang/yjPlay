@@ -30,29 +30,43 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Taurus on 2018/3/17.
  */
-
 public class RenderSurfaceView extends SurfaceView implements IRender {
 
-    final String TAG = "RenderSurfaceView";
 
+    /**
+     * The Tag.
+     */
+    final String TAG =RenderSurfaceView.class.getName();
     private IRenderCallback mRenderCallback;
     private RenderMeasure mRenderMeasure;
 
+    /**
+     * Instantiates a new Render surface view.
+     *
+     * @param context the context
+     */
     public RenderSurfaceView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Instantiates a new Render surface view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public RenderSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mRenderMeasure = new RenderMeasure();
         getHolder().addCallback(new InternalSurfaceHolderCallback());
+        updateVideoSize(480,270);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mRenderMeasure.doMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(mRenderMeasure.getMeasureWidth(),mRenderMeasure.getMeasureHeight());
+         setMeasuredDimension(mRenderMeasure.getMeasureWidth(),mRenderMeasure.getMeasureHeight());
     }
 
     @Override
@@ -96,6 +110,12 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
         return this;
     }
 
+    /**
+     * Fixed size.
+     *
+     * @param videoWidth  the video width
+     * @param videoHeight the video height
+     */
     void fixedSize(int videoWidth, int videoHeight){
         if(videoWidth != 0 && videoHeight != 0){
             getHolder().setFixedSize(videoWidth, videoHeight);
@@ -124,6 +144,11 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
 
         private WeakReference<SurfaceHolder> mSurfaceHolder;
 
+        /**
+         * Instantiates a new Internal render holder.
+         *
+         * @param surfaceHolder the surface holder
+         */
         public InternalRenderHolder(SurfaceHolder surfaceHolder){
             this.mSurfaceHolder = new WeakReference<>(surfaceHolder);
         }

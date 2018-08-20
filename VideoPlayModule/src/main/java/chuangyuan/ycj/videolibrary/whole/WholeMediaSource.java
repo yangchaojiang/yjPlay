@@ -2,7 +2,6 @@ package chuangyuan.ycj.videolibrary.whole;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.google.android.exoplayer2.C;
@@ -13,7 +12,6 @@ import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
 import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory;
 import com.google.android.exoplayer2.source.hls.DefaultHlsExtractorFactory;
-import com.google.android.exoplayer2.source.hls.HlsExtractorFactory;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource;
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;

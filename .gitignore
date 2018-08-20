@@ -40,3 +40,4 @@ cronet/build/intermediates/public_res/
 cronet/build/intermediates/rs/
 cronet/build/outputs/logs/manifest-merger-release-report.txt
 cronet/src/test/java/
+!/.idea/

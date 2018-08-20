@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.google.android.exoplayer2.ui.ExoPlayerControlView;
 import com.google.android.exoplayer2.ui.ExoPlayerView;
+import com.google.android.exoplayer2.ui.PlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,19 +49,19 @@ abstract class BaseView extends FrameLayout {
     protected final ExoPlayerView playerView;
     /*** 加载速度显示*/
     protected TextView videoLoadingShowText;
-    /***视频加载页,错误页,进度控件,锁屏按布局,自定义预览布局,提示布局,播放按钮*/
+    /***错误页,进度控件,锁屏按布局,自定义预览布局,提示布局,播放按钮*/
     protected View exoLoadingLayout, exoPlayPreviewLayout, exoPreviewPlayBtn, exoBarrageLayout;
     /***水印,封面图占位,显示音频和亮度布图*/
-    protected ImageView exoPlayWatermark, exoPreviewImage, exoPreviewBottomImage;
+    protected ImageView exoPlayWatermark, exoPreviewImage;
     /***手势管理布局view***/
     protected final GestureControlView mGestureControlView;
-    /***意图管理布局view***/
+    /***视频加载页***/
     protected final ActionControlView mActionControlView;
     /*** 锁屏管理布局***/
     protected final LockControlView mLockControlView;
     /***锁屏管理布局***/
     protected final ExoPlayerControlView controllerView;
-    /***切换*/
+    /***切换***/
     protected BelowView belowView;
     /***流量提示框***/
     protected AlertDialog alertDialog;
@@ -69,8 +70,8 @@ abstract class BaseView extends FrameLayout {
     protected AppCompatImageView exoControlsBack;
     /***是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮*/
     protected boolean isLand, isListPlayer, isShowVideoSwitch;
-    /**是否显示返回按钮**/
-    private  boolean isShowBack =true;
+    /*** 是否显示返回按钮 ***/
+    private boolean isShowBack = true;
     /***标题左间距*/
     protected int getPaddingLeft;
     private ArrayList<String> nameSwitch;
@@ -108,7 +109,7 @@ abstract class BaseView extends FrameLayout {
      */
     public BaseView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        activity =VideoPlayUtils.scanForActivity(context);
+        activity = VideoPlayUtils.scanForActivity(context);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         playerView = new ExoPlayerView(getContext(), attrs, defStyleAttr);
         controllerView = (ExoPlayerControlView) playerView.getControllerView();
@@ -163,8 +164,8 @@ abstract class BaseView extends FrameLayout {
         exoControlsBack.setPadding(ss, ss, ss, ss);
         FrameLayout frameLayout = playerView.getContentFrameLayout();
         frameLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.exo_player_background_color));
+        exoLoadingLayout.setBackgroundColor(Color.TRANSPARENT);
         exoLoadingLayout.setVisibility(GONE);
-        exoLoadingLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.exo_player_background_color));
         exoLoadingLayout.setClickable(true);
         frameLayout.addView(mGestureControlView, frameLayout.getChildCount());
         frameLayout.addView(mActionControlView, frameLayout.getChildCount());
@@ -183,13 +184,11 @@ abstract class BaseView extends FrameLayout {
         }
         exoPlayWatermark = playerView.findViewById(R.id.exo_player_watermark);
         videoLoadingShowText = playerView.findViewById(R.id.exo_loading_show_text);
-
-        exoPreviewBottomImage = playerView.findViewById(R.id.exo_preview_image_bottom);
         if (playerView.findViewById(R.id.exo_preview_image) != null) {
             exoPreviewImage = playerView.findViewById(R.id.exo_preview_image);
             exoPreviewImage.setBackgroundResource(android.R.color.transparent);
         } else {
-            exoPreviewImage = exoPreviewBottomImage;
+            exoPreviewImage = playerView.findViewById(R.id.exo_preview_image_bottom);
         }
         setSystemUiVisibility = activity.getWindow().getDecorView().getSystemUiVisibility();
 
@@ -286,7 +285,7 @@ abstract class BaseView extends FrameLayout {
             if (parent != null) {
                 parent.removeView(playerView);
             }
-            ViewGroup contentView =activity.findViewById(android.R.id.content);
+            ViewGroup contentView = activity.findViewById(android.R.id.content);
             LayoutParams params = new LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
@@ -420,9 +419,13 @@ abstract class BaseView extends FrameLayout {
      * @param bitmap the bitmap
      */
     protected void showBottomView(int visibility, Bitmap bitmap) {
-        exoPreviewBottomImage.setVisibility(visibility);
+        if (mActionControlView.getVisibility()==GONE){
+            return;
+        }
+       ImageView imageView=  playerView.findViewById(R.id.exo_preview_image_bottom);
+        imageView.setVisibility(visibility);
         if (bitmap != null) {
-            exoPreviewBottomImage.setImageBitmap(bitmap);
+            imageView.setImageBitmap(bitmap);
         }
     }
 
@@ -430,14 +433,16 @@ abstract class BaseView extends FrameLayout {
     public boolean isShowBack() {
         return isShowBack;
     }
+
     /**
-     * 设置标题
+     * 设置返回返回按钮
      *
-     * @param showBack  true 显示返回  false 反之
+     * @param showBack true 显示返回  false 反之
      */
     public void setShowBack(boolean showBack) {
         this.isShowBack = showBack;
     }
+
     /**
      * 设置标题
      *
@@ -518,10 +523,7 @@ abstract class BaseView extends FrameLayout {
      * @return the name switch
      */
     protected ArrayList<String> getNameSwitch() {
-        if (nameSwitch == null) {
-            nameSwitch = new ArrayList<>();
-        }
-        return nameSwitch;
+        return nameSwitch==null?nameSwitch=new ArrayList<>():nameSwitch;
     }
 
     protected void setNameSwitch(ArrayList<String> nameSwitch) {
@@ -572,7 +574,7 @@ abstract class BaseView extends FrameLayout {
      *
      * @return View load layout
      */
-    @Nullable
+    @NonNull
     public View getLoadLayout() {
         return exoLoadingLayout;
     }
@@ -582,7 +584,7 @@ abstract class BaseView extends FrameLayout {
      *
      * @return View play hint layout
      */
-    @Nullable
+    @NonNull
     public View getPlayHintLayout() {
         return mActionControlView.getPlayBtnHintLayout();
     }
@@ -592,7 +594,7 @@ abstract class BaseView extends FrameLayout {
      *
      * @return View replay layout
      */
-    @Nullable
+    @NonNull
     public View getReplayLayout() {
         return mActionControlView.getPlayReplayLayout();
     }
@@ -602,7 +604,7 @@ abstract class BaseView extends FrameLayout {
      *
      * @return View error layout
      */
-    @Nullable
+    @NonNull
     public View getErrorLayout() {
         return mActionControlView.getExoPlayErrorLayout();
     }
@@ -694,7 +696,7 @@ abstract class BaseView extends FrameLayout {
      * @return SimpleExoPlayerView player view
      */
     @NonNull
-    public ExoPlayerView getPlayerView() {
+    public PlayerView getPlayerView() {
         return playerView;
     }
 
@@ -707,7 +709,6 @@ abstract class BaseView extends FrameLayout {
     public ExoDefaultTimeBar getTimeBar() {
         return (ExoDefaultTimeBar) controllerView.getTimeBar();
     }
-
 
 
 }

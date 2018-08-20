@@ -15,7 +15,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-
 import com.google.android.exoplayer2.util.Util;
 
 import java.lang.ref.WeakReference;

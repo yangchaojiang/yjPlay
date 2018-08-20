@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/exo_player_background_color">
 
-    <com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+    <FrameLayout
         android:id="@id/exo_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,19 +28,6 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent" />
 
-        <ProgressBar android:id="@id/exo_buffering"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:layout_gravity="center"/>
-
-        <TextView android:id="@id/exo_error_message"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:background="@color/exo_error_message_background_color"
-            android:padding="16dp"/>
         <ImageView
             android:id="@id/exo_preview_image_bottom"
             android:layout_width="match_parent"
@@ -48,7 +35,7 @@
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:contentDescription="@null" />
-    </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
+    </FrameLayout>
 
     <View
         android:id="@id/exo_controller_barrage"

@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.view.View;
+
 import com.google.android.exoplayer2.drm.DrmSessionManager;
 import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
 import com.google.android.exoplayer2.ui.AnimUtils;
@@ -25,11 +26,13 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ItemVideo;
+import chuangyuan.ycj.videolibrary.listener.OnCoverMapImageListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureBrightnessListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureProgressListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureVolumeListener;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
+import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 /**
@@ -212,7 +215,7 @@ public class VideoPlayerManager {
         private OnGestureBrightnessListener onGestureBrightnessListener;
         private OnGestureVolumeListener onGestureVolumeListener;
         private OnGestureProgressListener onGestureProgressListener;
-        private boolean controllerHideOnTouch;
+        private boolean controllerHideOnTouch = true;
         /*** 视频回调信息接口 ***/
         private final CopyOnWriteArraySet<VideoInfoListener> videoInfoListeners;
         /*** 多个视频接口***/
@@ -220,14 +223,14 @@ public class VideoPlayerManager {
         private long resumePosition;
         private int resumeWindow = -1;
         private View.OnClickListener onClickListener;
-        private String customCacheKey;
+        private OnCoverMapImageListener mapImage;
 
         public Builder(Activity activity, @PlayerType int type, @IdRes int reId) {
             this(type, (VideoPlayerView) activity.findViewById(reId));
         }
 
         public Builder(@PlayerType int type, @NonNull VideoPlayerView view) {
-            this.context = (Activity) view.getContext();
+            this.context = VideoPlayUtils.scanForActivity(view.getContext());
             this.view = view;
             this.playerType = type;
             videoInfoListeners = new CopyOnWriteArraySet<>();
@@ -237,16 +240,17 @@ public class VideoPlayerManager {
         /*****
          * 添加多媒体加载接示例
          * @param  listener listener
-         * @return  Builder
+         * @return Builder
          * ****/
         public Builder setDataSource(@NonNull DataSourceListener listener) {
             this.listener = listener;
             return this;
         }
+
         /***
          * 添加多媒体加载接示例
          * @param  mediaSourceBuilder mediaSourceBuilder
-         * @return  Builder
+         * @return Builder
          * ***/
         public Builder setDataSource(@NonNull MediaSourceBuilder mediaSourceBuilder) {
             this.mediaSourceBuilder = mediaSourceBuilder;
@@ -256,7 +260,7 @@ public class VideoPlayerManager {
         /***
          * 初始化多媒体
          * ***/
-        private void  initMediaSourceBuilder(){
+        private void initMediaSourceBuilder() {
             if (mediaSourceBuilder == null) {
                 try {
                     Class<?> clazz = Class.forName("chuangyuan.ycj.videolibrary.whole.WholeMediaSource");
@@ -272,7 +276,7 @@ public class VideoPlayerManager {
          * 显示水印图
          *
          * @param res 资源
-         * @return   Builder
+         * @return Builder
          */
         public Builder setExoPlayWatermarkImg(@DrawableRes int res) {
             view.setExoPlayWatermarkImg(res);
@@ -283,7 +287,7 @@ public class VideoPlayerManager {
          * 设置标题
          *
          * @param title 名字
-         * @return   Builder
+         * @return Builder
          */
         public Builder setTitle(@NonNull String title) {
             view.setTitle(title);
@@ -448,12 +452,13 @@ public class VideoPlayerManager {
         /****
          * 设置点击播放按钮回调, 交给用户处理
          * @param onClickListener 回调实例
-         * @return   Builder
+         * @return Builder
          */
         public Builder setOnPlayClickListener(@Nullable View.OnClickListener onClickListener) {
             this.onClickListener = onClickListener;
-            return  this;
+            return this;
         }
+
         /***
          * 设置视频信息回调
          * @param videoInfoListener 实例
@@ -477,7 +482,7 @@ public class VideoPlayerManager {
         /***
          * 实现自定义亮度手势监听事件
          * @param onGestureBrightnessListener 实例
-         @return  Builder
+         @return Builder
          */
         public Builder setOnGestureBrightnessListener(@NonNull OnGestureBrightnessListener onGestureBrightnessListener) {
             this.onGestureBrightnessListener = onGestureBrightnessListener;
@@ -487,7 +492,7 @@ public class VideoPlayerManager {
         /***
          * 实现自定义音频手势监听事件
          * @param onGestureVolumeListener 实例
-         @return  Builder
+         @return Builder
          */
         public Builder setOnGestureVolumeListener(@NonNull OnGestureVolumeListener onGestureVolumeListener) {
             this.onGestureVolumeListener = onGestureVolumeListener;
@@ -497,7 +502,7 @@ public class VideoPlayerManager {
         /***
          * 实现自定义进度监听事件
          * @param onGestureProgressListener 实例
-         @return  Builder
+         @return Builder
          */
         public Builder setOnGestureProgressListener(@NonNull OnGestureProgressListener onGestureProgressListener) {
             this.onGestureProgressListener = onGestureProgressListener;
@@ -507,7 +512,7 @@ public class VideoPlayerManager {
         /***
          * 设置手势touch 事件
          * @param controllerHideOnTouch true 启用  false 关闭
-         @return  Builder
+         @return Builder
          */
         public Builder setPlayerGestureOnTouch(boolean controllerHideOnTouch) {
             this.controllerHideOnTouch = controllerHideOnTouch;
@@ -517,37 +522,52 @@ public class VideoPlayerManager {
         /***
          * 增加进度监听
          * @param  updateProgressListener updateProgressListener
-         @return  Builder
-         * ****/
+         @return Builder
+          * ****/
         public Builder addUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener) {
             view.getPlaybackControlView().addUpdateProgressListener(updateProgressListener);
-            return  this;
+            return this;
         }
+
         /***
          * 移除进度监听
          * @param  updateProgressListener updateProgressListener
-         @return  Builder
-         * ****/
+         @return Builder
+          * ****/
         public Builder removeUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener) {
             view.getPlaybackControlView().removeUpdateProgressListener(updateProgressListener);
-            return  this;
+            return this;
         }
+
         /**
-         *设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。 不支持流式媒体
+         * 设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。 不支持流式媒体
          *
          * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
-         *
          * @throws IllegalStateException If one of the {@code create} methods has already been called.
          */
         public Builder setCustomCacheKey(@NonNull String customCacheKey) {
             mediaSourceBuilder.setCustomCacheKey(customCacheKey);
-            return  this;
+            return this;
         }
-            /***
-             * 创建播放器
-             * **/
+
+        /**
+         * 加载封面图回调
+         *
+         * @param mapImage 加载封面图回调
+         */
+        public Builder setOnCoverMapImage(@NonNull OnCoverMapImageListener mapImage) {
+            this.mapImage = mapImage;
+            return this;
+        }
+
+        /***
+         * 创建播放器
+         * **/
         public <T extends ExoUserPlayer> T create() {
             initMediaSourceBuilder();
+            if (mapImage!=null){
+                mapImage.onCoverMap(view.getPreviewImage());
+            }
             T exoUserPlayer;
             switch (playerType) {
                 case TYPE_PLAY_GESTURE:

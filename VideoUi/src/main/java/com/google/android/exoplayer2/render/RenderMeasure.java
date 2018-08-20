@@ -19,14 +19,11 @@ package com.google.android.exoplayer2.render;
 import android.util.Log;
 import android.view.View;
 
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
-
 
 /**
  * Created by Taurus on 2017/11/20.
  * this measure from bilibili ijkplayer
  */
-
 public final class RenderMeasure {
 
     private final String TAG = "RenderMeasure";
@@ -43,6 +40,12 @@ public final class RenderMeasure {
     private int mCurrAspectRatio = AspectRatio.AspectRatio_FIT_PARENT;
     private int mVideoRotationDegree;
 
+    /**
+     * Do measure.
+     *
+     * @param widthMeasureSpec  the width measure spec
+     * @param heightMeasureSpec the height measure spec
+     */
     public void doMeasure(int widthMeasureSpec, int heightMeasureSpec){
 
         //Log.i("@@@@", "onMeasure(" + MeasureSpec.toString(widthMeasureSpec) + ", "
@@ -179,33 +182,70 @@ public final class RenderMeasure {
         mMeasureHeight = height;
     }
 
+    /**
+     * Sets video sample aspect ratio.
+     *
+     * @param videoSarNum the video sar num
+     * @param videoSarDen the video sar den
+     */
     public void setVideoSampleAspectRatio(int videoSarNum, int videoSarDen) {
         mVideoSarNum = videoSarNum;
         mVideoSarDen = videoSarDen;
     }
 
+    /**
+     * Set video size.
+     *
+     * @param videoWidth  the video width
+     * @param videoHeight the video height
+     */
     public void setVideoSize(int videoWidth, int videoHeight){
         Log.d(TAG,"videoWidth = " + videoWidth + " videoHeight = " + videoHeight);
         this.mVideoWidth = videoWidth;
         this.mVideoHeight = videoHeight;
     }
 
+    /**
+     * Sets video rotation.
+     *
+     * @param videoRotationDegree the video rotation degree
+     */
     public void setVideoRotation(int videoRotationDegree) {
         mVideoRotationDegree = videoRotationDegree;
     }
 
+    /**
+     * Set aspect ratio.
+     *
+     * @param aspectRatio the aspect ratio
+     */
     public void setAspectRatio(@AspectRatio.ResizeMode int aspectRatio){
         this.mCurrAspectRatio = aspectRatio;
     }
 
+    /**
+     * Gets curr aspect ratio.
+     *
+     * @return the curr aspect ratio
+     */
     public int getmCurrAspectRatio() {
         return mCurrAspectRatio;
     }
 
+    /**
+     * Gets measure width.
+     *
+     * @return the measure width
+     */
     public int getMeasureWidth() {
         return mMeasureWidth;
     }
 
+    /**
+     * Gets measure height.
+     *
+     * @return the measure height
+     */
     public int getMeasureHeight() {
         return mMeasureHeight;
     }

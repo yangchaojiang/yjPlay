@@ -47,119 +47,119 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * A time bar that shows a current position, buffered position, duration and ad markers.
- *
- * <p>A DefaultTimeBar can be customized by setting attributes, as outlined below.
- *
- * <h3>Attributes</h3>
- *
- * The following attributes can be set on a DefaultTimeBar when used in a layout XML file:
- *
  * <p>
- *
+ * <p>A DefaultTimeBar can be customized by setting attributes, as outlined below.
+ * <p>
+ * <h3>Attributes</h3>
+ * <p>
+ * The following attributes can be set on a DefaultTimeBar when used in a layout XML file:
+ * <p>
+ * <p>
+ * <p>
  * <ul>
- *   <li><b>{@code bar_height}</b> - Dimension for the height of the time bar.
- *       <ul>
- *         <li>Default: {@link #DEFAULT_BAR_HEIGHT_DP}
- *       </ul>
- *   <li><b>{@code touch_target_height}</b> - Dimension for the height of the area in which touch
- *       interactions with the time bar are handled. If no height is specified, this also determines
- *       the height of the view.
- *       <ul>
- *         <li>Default: {@link #DEFAULT_TOUCH_TARGET_HEIGHT_DP}
- *       </ul>
- *   <li><b>{@code ad_marker_width}</b> - Dimension for the width of any ad markers shown on the
- *       bar. Ad markers are superimposed on the time bar to show the times at which ads will play.
- *       <ul>
- *         <li>Default: {@link #DEFAULT_AD_MARKER_WIDTH_DP}
- *       </ul>
- *   <li><b>{@code scrubber_enabled_size}</b> - Dimension for the diameter of the circular scrubber
- *       handle when scrubbing is enabled but not in progress. Set to zero if no scrubber handle
- *       should be shown.
- *       <ul>
- *         <li>Default: {@link #DEFAULT_SCRUBBER_ENABLED_SIZE_DP}
- *       </ul>
- *   <li><b>{@code scrubber_disabled_size}</b> - Dimension for the diameter of the circular scrubber
- *       handle when scrubbing isn't enabled. Set to zero if no scrubber handle should be shown.
- *       <ul>
- *         <li>Default: {@link #DEFAULT_SCRUBBER_DISABLED_SIZE_DP}
- *       </ul>
- *   <li><b>{@code scrubber_dragged_size}</b> - Dimension for the diameter of the circular scrubber
- *       handle when scrubbing is in progress. Set to zero if no scrubber handle should be shown.
- *       <ul>
- *         <li>Default: {@link #DEFAULT_SCRUBBER_DRAGGED_SIZE_DP}
- *       </ul>
- *   <li><b>{@code scrubber_drawable}</b> - Optional reference to a drawable to draw for the
- *       scrubber handle. If set, this overrides the default behavior, which is to draw a circle for
- *       the scrubber handle.
- *   <li><b>{@code played_color}</b> - Color for the portion of the time bar representing media
- *       before the current playback position.
- *       <ul>
- *         <li>Corresponding method: {@link #setPlayedColor(int)}
- *         <li>Default: {@link #DEFAULT_PLAYED_COLOR}
- *       </ul>
- *   <li><b>{@code scrubber_color}</b> - Color for the scrubber handle.
- *       <ul>
- *         <li>Corresponding method: {@link #setScrubberColor(int)}
- *         <li>Default: see {@link #getDefaultScrubberColor(int)}
- *       </ul>
- *   <li><b>{@code buffered_color}</b> - Color for the portion of the time bar after the current
- *       played position up to the current buffered position.
- *       <ul>
- *         <li>Corresponding method: {@link #setBufferedColor(int)}
- *         <li>Default: see {@link #getDefaultBufferedColor(int)}
- *       </ul>
- *   <li><b>{@code unplayed_color}</b> - Color for the portion of the time bar after the current
- *       buffered position.
- *       <ul>
- *         <li>Corresponding method: {@link #setUnplayedColor(int)}
- *         <li>Default: see {@link #getDefaultUnplayedColor(int)}
- *       </ul>
- *   <li><b>{@code ad_marker_color}</b> - Color for unplayed ad markers.
- *       <ul>
- *         <li>Corresponding method: {@link #setAdMarkerColor(int)}
- *         <li>Default: {@link #DEFAULT_AD_MARKER_COLOR}
- *       </ul>
- *   <li><b>{@code played_ad_marker_color}</b> - Color for played ad markers.
- *       <ul>
- *         <li>Corresponding method: {@link #setPlayedAdMarkerColor(int)}
- *         <li>Default: see {@link #getDefaultPlayedAdMarkerColor(int)}
- *       </ul>
+ * <li><b>{@code bar_height}</b> - Dimension for the height of the time bar.
+ * <ul>
+ * <li>Default: {@link #DEFAULT_BAR_HEIGHT_DP}
+ * </ul>
+ * <li><b>{@code touch_target_height}</b> - Dimension for the height of the area in which touch
+ * interactions with the time bar are handled. If no height is specified, this also determines
+ * the height of the view.
+ * <ul>
+ * <li>Default: {@link #DEFAULT_TOUCH_TARGET_HEIGHT_DP}
+ * </ul>
+ * <li><b>{@code ad_marker_width}</b> - Dimension for the width of any ad markers shown on the
+ * bar. Ad markers are superimposed on the time bar to show the times at which ads will play.
+ * <ul>
+ * <li>Default: {@link #DEFAULT_AD_MARKER_WIDTH_DP}
+ * </ul>
+ * <li><b>{@code scrubber_enabled_size}</b> - Dimension for the diameter of the circular scrubber
+ * handle when scrubbing is enabled but not in progress. Set to zero if no scrubber handle
+ * should be shown.
+ * <ul>
+ * <li>Default: {@link #DEFAULT_SCRUBBER_ENABLED_SIZE_DP}
+ * </ul>
+ * <li><b>{@code scrubber_disabled_size}</b> - Dimension for the diameter of the circular scrubber
+ * handle when scrubbing isn't enabled. Set to zero if no scrubber handle should be shown.
+ * <ul>
+ * <li>Default: {@link #DEFAULT_SCRUBBER_DISABLED_SIZE_DP}
+ * </ul>
+ * <li><b>{@code scrubber_dragged_size}</b> - Dimension for the diameter of the circular scrubber
+ * handle when scrubbing is in progress. Set to zero if no scrubber handle should be shown.
+ * <ul>
+ * <li>Default: {@link #DEFAULT_SCRUBBER_DRAGGED_SIZE_DP}
+ * </ul>
+ * <li><b>{@code scrubber_drawable}</b> - Optional reference to a drawable to draw for the
+ * scrubber handle. If set, this overrides the default behavior, which is to draw a circle for
+ * the scrubber handle.
+ * <li><b>{@code played_color}</b> - Color for the portion of the time bar representing media
+ * before the current playback position.
+ * <ul>
+ * <li>Corresponding method: {@link #setPlayedColor(int)}
+ * <li>Default: {@link #DEFAULT_PLAYED_COLOR}
+ * </ul>
+ * <li><b>{@code scrubber_color}</b> - Color for the scrubber handle.
+ * <ul>
+ * <li>Corresponding method: {@link #setScrubberColor(int)}
+ * <li>Default: see {@link #getDefaultScrubberColor(int)}
+ * </ul>
+ * <li><b>{@code buffered_color}</b> - Color for the portion of the time bar after the current
+ * played position up to the current buffered position.
+ * <ul>
+ * <li>Corresponding method: {@link #setBufferedColor(int)}
+ * <li>Default: see {@link #getDefaultBufferedColor(int)}
+ * </ul>
+ * <li><b>{@code unplayed_color}</b> - Color for the portion of the time bar after the current
+ * buffered position.
+ * <ul>
+ * <li>Corresponding method: {@link #setUnplayedColor(int)}
+ * <li>Default: see {@link #getDefaultUnplayedColor(int)}
+ * </ul>
+ * <li><b>{@code ad_marker_color}</b> - Color for unplayed ad markers.
+ * <ul>
+ * <li>Corresponding method: {@link #setAdMarkerColor(int)}
+ * <li>Default: {@link #DEFAULT_AD_MARKER_COLOR}
+ * </ul>
+ * <li><b>{@code played_ad_marker_color}</b> - Color for played ad markers.
+ * <ul>
+ * <li>Corresponding method: {@link #setPlayedAdMarkerColor(int)}
+ * <li>Default: see {@link #getDefaultPlayedAdMarkerColor(int)}
+ * </ul>
  * </ul>
  */
 public class DefaultTimeBar extends View implements TimeBar {
 
-  /**
-   * Default height for the time bar, in dp.
-   */
-  public static final int DEFAULT_BAR_HEIGHT_DP = 4;
-  /**
-   * Default height for the touch target, in dp.
-   */
-  public static final int DEFAULT_TOUCH_TARGET_HEIGHT_DP = 26;
-  /**
-   * Default width for ad markers, in dp.
-   */
-  public static final int DEFAULT_AD_MARKER_WIDTH_DP = 4;
-  /**
-   * Default diameter for the scrubber when enabled, in dp.
-   */
-  public static final int DEFAULT_SCRUBBER_ENABLED_SIZE_DP = 12;
-  /**
-   * Default diameter for the scrubber when disabled, in dp.
-   */
-  public static final int DEFAULT_SCRUBBER_DISABLED_SIZE_DP = 0;
-  /**
-   * Default diameter for the scrubber when dragged, in dp.
-   */
-  public static final int DEFAULT_SCRUBBER_DRAGGED_SIZE_DP = 16;
-  /**
-   * Default color for the played portion of the time bar.
-   */
-  public static final int DEFAULT_PLAYED_COLOR = 0xFFFFFFFF;
-  /**
-   * Default color for ad markers.
-   */
-  public static final int DEFAULT_AD_MARKER_COLOR = 0xB2FFFF00;
+    /**
+     * Default height for the time bar, in dp.
+     */
+    public static final int DEFAULT_BAR_HEIGHT_DP = 4;
+    /**
+     * Default height for the touch target, in dp.
+     */
+    public static final int DEFAULT_TOUCH_TARGET_HEIGHT_DP = 26;
+    /**
+     * Default width for ad markers, in dp.
+     */
+    public static final int DEFAULT_AD_MARKER_WIDTH_DP = 4;
+    /**
+     * Default diameter for the scrubber when enabled, in dp.
+     */
+    public static final int DEFAULT_SCRUBBER_ENABLED_SIZE_DP = 12;
+    /**
+     * Default diameter for the scrubber when disabled, in dp.
+     */
+    public static final int DEFAULT_SCRUBBER_DISABLED_SIZE_DP = 0;
+    /**
+     * Default diameter for the scrubber when dragged, in dp.
+     */
+    public static final int DEFAULT_SCRUBBER_DRAGGED_SIZE_DP = 16;
+    /**
+     * Default color for the played portion of the time bar.
+     */
+    public static final int DEFAULT_PLAYED_COLOR = 0xFFFFFFFF;
+    /**
+     * Default color for ad markers.
+     */
+    public static final int DEFAULT_AD_MARKER_COLOR = 0xB2FFFF00;
 
   /**
    * The threshold in dps above the bar at which touch events trigger fine scrub mode.
@@ -215,10 +215,13 @@ public class DefaultTimeBar extends View implements TimeBar {
   private long[] adGroupTimesMs;
   private boolean[] playedAdGroups;
 
-  /**
-   * Creates a new time bar.
-   */
-  public DefaultTimeBar(Context context, AttributeSet attrs) {
+    /**
+     * Creates a new time bar.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
+    public DefaultTimeBar(Context context, AttributeSet attrs) {
     super(context, attrs);
     seekBounds = new Rect();
     progressBar = new Rect();
@@ -323,66 +326,63 @@ public class DefaultTimeBar extends View implements TimeBar {
     }
   }
 
-  /**
-   * Sets the color for the portion of the time bar representing media before the playback position.
-   *
-   * @param playedColor The color for the portion of the time bar representing media before the
-   *     playback position.
-   */
-  public void setPlayedColor(@ColorInt int playedColor) {
+    /**
+     * Sets the color for the portion of the time bar representing media before the playback position.
+     *
+     * @param playedColor The color for the portion of the time bar representing media before the     playback position.
+     */
+    public void setPlayedColor(@ColorInt int playedColor) {
     playedPaint.setColor(playedColor);
     invalidate(seekBounds);
   }
 
-  /**
-   * Sets the color for the scrubber handle.
-   *
-   * @param scrubberColor The color for the scrubber handle.
-   */
-  public void setScrubberColor(@ColorInt int scrubberColor) {
+    /**
+     * Sets the color for the scrubber handle.
+     *
+     * @param scrubberColor The color for the scrubber handle.
+     */
+    public void setScrubberColor(@ColorInt int scrubberColor) {
     scrubberPaint.setColor(scrubberColor);
     invalidate(seekBounds);
   }
 
-  /**
-   * Sets the color for the portion of the time bar after the current played position up to the
-   * current buffered position.
-   *
-   * @param bufferedColor The color for the portion of the time bar after the current played
-   *     position up to the current buffered position.
-   */
-  public void setBufferedColor(@ColorInt int bufferedColor) {
+    /**
+     * Sets the color for the portion of the time bar after the current played position up to the
+     * current buffered position.
+     *
+     * @param bufferedColor The color for the portion of the time bar after the current played     position up to the current buffered position.
+     */
+    public void setBufferedColor(@ColorInt int bufferedColor) {
     bufferedPaint.setColor(bufferedColor);
     invalidate(seekBounds);
   }
 
-  /**
-   * Sets the color for the portion of the time bar after the current played position.
-   *
-   * @param unplayedColor The color for the portion of the time bar after the current played
-   *     position.
-   */
-  public void setUnplayedColor(@ColorInt int unplayedColor) {
+    /**
+     * Sets the color for the portion of the time bar after the current played position.
+     *
+     * @param unplayedColor The color for the portion of the time bar after the current played     position.
+     */
+    public void setUnplayedColor(@ColorInt int unplayedColor) {
     unplayedPaint.setColor(unplayedColor);
     invalidate(seekBounds);
   }
 
-  /**
-   * Sets the color for unplayed ad markers.
-   *
-   * @param adMarkerColor The color for unplayed ad markers.
-   */
-  public void setAdMarkerColor(@ColorInt int adMarkerColor) {
+    /**
+     * Sets the color for unplayed ad markers.
+     *
+     * @param adMarkerColor The color for unplayed ad markers.
+     */
+    public void setAdMarkerColor(@ColorInt int adMarkerColor) {
     adMarkerPaint.setColor(adMarkerColor);
     invalidate(seekBounds);
   }
 
-  /**
-   * Sets the color for played ad markers.
-   *
-   * @param playedAdMarkerColor The color for played ad markers.
-   */
-  public void setPlayedAdMarkerColor(@ColorInt int playedAdMarkerColor) {
+    /**
+     * Sets the color for played ad markers.
+     *
+     * @param playedAdMarkerColor The color for played ad markers.
+     */
+    public void setPlayedAdMarkerColor(@ColorInt int playedAdMarkerColor) {
     playedAdMarkerPaint.setColor(playedAdMarkerColor);
     invalidate(seekBounds);
   }
@@ -827,19 +827,43 @@ public class DefaultTimeBar extends View implements TimeBar {
     return Util.SDK_INT >= 23 && drawable.setLayoutDirection(layoutDirection);
   }
 
-  public static int getDefaultScrubberColor(int playedColor) {
+    /**
+     * Gets default scrubber color.
+     *
+     * @param playedColor the played color
+     * @return the default scrubber color
+     */
+    public static int getDefaultScrubberColor(int playedColor) {
     return 0xFF000000 | playedColor;
   }
 
-  public static int getDefaultUnplayedColor(int playedColor) {
+    /**
+     * Gets default unplayed color.
+     *
+     * @param playedColor the played color
+     * @return the default unplayed color
+     */
+    public static int getDefaultUnplayedColor(int playedColor) {
     return 0x33000000 | (playedColor & 0x00FFFFFF);
   }
 
-  public static int getDefaultBufferedColor(int playedColor) {
+    /**
+     * Gets default buffered color.
+     *
+     * @param playedColor the played color
+     * @return the default buffered color
+     */
+    public static int getDefaultBufferedColor(int playedColor) {
     return 0xCC000000 | (playedColor & 0x00FFFFFF);
   }
 
-  public static int getDefaultPlayedAdMarkerColor(int adMarkerColor) {
+    /**
+     * Gets default played ad marker color.
+     *
+     * @param adMarkerColor the ad marker color
+     * @return the default played ad marker color
+     */
+    public static int getDefaultPlayedAdMarkerColor(int adMarkerColor) {
     return 0x33000000 | (adMarkerColor & 0x00FFFFFF);
   }
 

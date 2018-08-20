@@ -23,22 +23,52 @@ import com.google.android.exoplayer2.util.Assertions;
 public class ExoPlayerView extends  PlayerView{
     private  static final  String TAG=ExoPlayerView.class.getName();
     private IRender.IRenderHolder mRenderHolder;
+
+    /**
+     * Instantiates a new Exo player view.
+     *
+     * @param context the context
+     */
     public ExoPlayerView(Context context) {
         this(context,null);
     }
 
+    /**
+     * Instantiates a new Exo player view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public ExoPlayerView(Context context, AttributeSet attrs) {
         this(context, attrs,0);
     }
 
+    /**
+     * Instantiates a new Exo player view.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
     public ExoPlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
 
+    /**
+     * Gets controller view.
+     *
+     * @return the controller view
+     */
     public     PlayerControlView getControllerView() {
         return controller;
     }
+
+    /**
+     * Gets content frame layout.
+     *
+     * @return the content frame layout
+     */
     public FrameLayout getContentFrameLayout() {
         return contentFrameLayout;
     }
@@ -81,8 +111,6 @@ public class ExoPlayerView extends  PlayerView{
         if (subtitleView != null) {
             subtitleView.setCues(null);
         }
-        updateBuffering();
-        updateErrorMessage();
         updateForCurrentTrackSelections(/* isNewPlayer= */ true);
         if (player != null) {
             Player.VideoComponent newVideoComponent = player.getVideoComponent();

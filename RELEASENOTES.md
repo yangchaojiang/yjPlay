@@ -1,4 +1,9 @@
  ## 更新日志
+ #### 2.2.16
+   * 修复手势的默认不开启手势。  
+   * 优化加载布局UI体验。 
+   * 其他细节优化。
+   * ExoPlayer升级内核版本[#2.8.4](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES 
  #### 2.2.13
    * 增加关于缓存 签名url的方法[160](https://github.com/yangchaojiang/yjPlay/issues/160)。 
    * 增加默认缓存和下载自定义key

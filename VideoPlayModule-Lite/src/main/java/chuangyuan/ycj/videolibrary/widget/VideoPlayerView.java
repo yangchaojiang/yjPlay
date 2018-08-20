@@ -157,7 +157,7 @@ public final class VideoPlayerView extends BaseView {
                 manualPlayer.reset();
             }
         } else {
-          //  onDestroy();
+            onDestroy();
         }
     }
 
@@ -341,11 +341,11 @@ public final class VideoPlayerView extends BaseView {
             if (v.getId() == R.id.exo_video_fullscreen || v.getId() == R.id.sexo_video_fullscreen) {
                 //切竖屏portrait screen
                 if (VideoPlayUtils.getOrientation(getContext()) == Configuration.ORIENTATION_LANDSCAPE) {
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     doOnConfigurationChanged(Configuration.ORIENTATION_PORTRAIT);
                     //切横屏landscape
                 } else if (VideoPlayUtils.getOrientation(getContext()) == Configuration.ORIENTATION_PORTRAIT) {
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                      activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     doOnConfigurationChanged(Configuration.ORIENTATION_LANDSCAPE);
                 }
             } else if (v.getId() == R.id.exo_controls_back) {
@@ -418,11 +418,11 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public void showReplayView(int visibility) {
+            showReplay(visibility);
             if (playerView != null && playerView.getVideoSurfaceView() instanceof TextureView) {
                 TextureView surfaceView = (TextureView) playerView.getVideoSurfaceView();
                 showBottomView(VISIBLE, surfaceView.getBitmap());
             }
-            showReplay(visibility);
         }
 
         @Override
@@ -478,22 +478,16 @@ public final class VideoPlayerView extends BaseView {
         }
 
         @Override
-        public void hideController(boolean isShowFulls) {
-            if (isShowFulls) {
-                showFullscreenTempView(VISIBLE);
+        public void toggoleController(boolean isShowFull, boolean isShow) {
+            showFullscreenTempView(isShowFull ? VISIBLE : GONE);
+            if (isShow) {
+                playerView.showController();
+                getPlaybackControlView().setInAnim();
+                setControllerHideOnTouch(true);
+            } else {
+                getPlaybackControlView().setOutAnim();
+                setControllerHideOnTouch(false);
             }
-            getPlaybackControlView().setOutAnim();
-            setControllerHideOnTouch(false);
-        }
-
-        @Override
-        public void showController(boolean isShowFulls) {
-            if (isShowFulls) {
-                showFullscreenTempView(GONE);
-            }
-            playerView.showController();
-            getPlaybackControlView().setInAnim();
-            setControllerHideOnTouch(true);
         }
 
         @Override
@@ -506,7 +500,7 @@ public final class VideoPlayerView extends BaseView {
             if (!isPlayer) {
                 showPreViewLayout(visibility);
                 showBottomView(GONE, null);
-                //  getPreviewImage().setVisibility(visibility);
+                getPreviewImage().setVisibility(visibility);
             } else {
                 if (exoPreviewPlayBtn != null) {
                     exoPreviewPlayBtn.setVisibility(GONE);
