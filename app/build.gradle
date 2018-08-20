@@ -47,8 +47,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     implementation project(':ima')
     implementation project(':cronet')
-    //implementation project(':VideoPlayModule')
-    implementation 'com.ycjiang:VideoPlayModule:2.2.16'
+    implementation project(':VideoPlayModule')
+   // implementation 'com.ycjiang:VideoPlayModule:2.2.16'
     //implementation 'com.ycjiang:VideoPlayModule-Lite:1.9.95'
     implementation 'com.google.android.exoplayer:extension-okhttp:2.8.2'
     implementation 'com.google.android.exoplayer:extension-rtmp:2.8.2'
