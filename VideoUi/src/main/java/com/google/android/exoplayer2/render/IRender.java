@@ -20,47 +20,34 @@ import android.view.View;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
 
-
 /**
  * Created by Taurus on 2017/11/19.
- * <p>
+ *
  * frame rendering view,
- * using the method can refer to VideoPlayerView
+ *
  */
-public interface IRender {
-    /**
-     * Sets visibility.
-     *
-     * @param visibility the visibility
-     */
-    void setVisibility(int visibility);
 
-    /**
-     * Sets render callback.
-     *
-     * @param renderCallback the render callback
-     */
+public interface IRender {
+
+    //use TextureView for render
+    int RENDER_TYPE_TEXTURE_VIEW = 0;
+
+    //use SurfaceView for render
+    int RENDER_TYPE_SURFACE_VIEW = 1;
+
     void setRenderCallback(IRenderCallback renderCallback);
 
     /**
      * update video rotation, such as some video maybe rotation 90 degree.
-     *
-     * @param degree the degree
+     * @param degree
      */
     void setVideoRotation(int degree);
 
-    /**
-     * Sets video sample aspect ratio.
-     *
-     * @param videoSarNum the video sar num
-     * @param videoSarDen the video sar den
-     */
     void setVideoSampleAspectRatio(int videoSarNum, int videoSarDen);
-
 
     /**
      * update video show aspect ratio
-     * <p>
+     *
      * see also
      * {@link AspectRatio#AspectRatio_16_9}
      * {@link AspectRatio#AspectRatio_4_3}
@@ -69,31 +56,31 @@ public interface IRender {
      * {@link AspectRatio#AspectRatio_MATCH_PARENT}
      * {@link AspectRatio#AspectRatio_ORIGIN}
      *
-     * @param aspectRatio aspectRatio
+     * @param aspectRatio
      */
-    void updateAspectRatio(@AspectRatio.ResizeMode int aspectRatio);
-
     /**
-     * get video show aspect ratio
+     * Set aspect ratio.
      *
-     * @return the resize mode
+     * @param aspectRatio the aspect ratio
      */
-    @AspectRatio.ResizeMode
-    int getResizeMode();
+      void updateAspectRatio(@AspectRatio.ResizeMode int aspectRatio);
+
 
     /**
      * update video size ,width and height.
-     *
-     * @param videoWidth  videoWidth
-     * @param videoHeight videoHeight
+     * @param videoWidth
+     * @param videoHeight
      */
     void updateVideoSize(int videoWidth, int videoHeight);
 
+    void setPixelWidthHeightRatio(float pixelWidthHeightRatio);
     /**
-     * Gets render view.
+     * Sets video sample aspect ratio.
      *
-     * @return the render view
+     * @param newConfig the video sar num
      */
+    void doOnConfigurationChanged(int newConfig);
+    
     View getRenderView();
 
     /**
@@ -101,51 +88,28 @@ public interface IRender {
      */
     void release();
 
+    int getResizeMode();
+
 
     /**
      * IRenderHolder is responsible for associate the decoder with rendering views.
-     * <p>
+     *
      * see also
+     *
      */
-    interface IRenderHolder {
-        /**
-         * Bind player.
-         *
-         * @param player the player
-         */
+    interface IRenderHolder{
         void bindPlayer(SimpleExoPlayer player);
     }
-
     /**
+     *
      * see also
      * {@link RenderSurfaceView.IRenderCallback}
      * {@link RenderTextureView.IRenderCallback}
+     *
      */
-    interface IRenderCallback {
-        /**
-         * On surface created.
-         *
-         * @param renderHolder the render holder
-         * @param width        the width
-         * @param height       the height
-         */
+    interface IRenderCallback{
         void onSurfaceCreated(IRenderHolder renderHolder, int width, int height);
-
-        /**
-         * On surface changed.
-         *
-         * @param renderHolder the render holder
-         * @param format       the format
-         * @param width        the width
-         * @param height       the height
-         */
         void onSurfaceChanged(IRenderHolder renderHolder, int format, int width, int height);
-
-        /**
-         * On surface destroy.
-         *
-         * @param renderHolder the render holder
-         */
         void onSurfaceDestroy(IRenderHolder renderHolder);
     }
 

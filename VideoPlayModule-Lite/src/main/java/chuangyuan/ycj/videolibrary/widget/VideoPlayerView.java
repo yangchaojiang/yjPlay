@@ -13,7 +13,6 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,7 +86,7 @@ public final class VideoPlayerView extends BaseView {
         getSwitchText().setOnClickListener(onClickListener);
         exoControlsBack.setOnClickListener(onClickListener);
         playerView.findViewById(R.id.exo_video_fullscreen).setOnClickListener(onClickListener);
-        if (isListPlayer && !isLand) {
+        if (isListPlayer() && !isLand()) {
             exoControlsBack.setVisibility(GONE);
         }
         playerView.setControllerVisibilityListener(visibilityListener);
@@ -114,7 +113,7 @@ public final class VideoPlayerView extends BaseView {
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         ExoDataBean bean = new ExoDataBean(superState);
-        bean.setLand(isLand);
+        bean.setLand(isLand());
         bean.setSetSystemUiVisibility(setSystemUiVisibility);
         bean.setSwitchIndex(switchIndex);
         bean.setNameSwitch(getNameSwitch());
@@ -124,7 +123,7 @@ public final class VideoPlayerView extends BaseView {
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-        if (isLand) {
+        if (isLand()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 activity.getWindow().getDecorView().setSystemUiVisibility(
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
@@ -141,7 +140,7 @@ public final class VideoPlayerView extends BaseView {
             if (bean.getNameSwitch() != null) {
                 setNameSwitch(bean.getNameSwitch());
             }
-            isLand = bean.isLand();
+            setLand(bean.isLand());
             setSystemUiVisibility = bean.getSetSystemUiVisibility();
             switchIndex = bean.getSwitchIndex();
         }
@@ -150,7 +149,7 @@ public final class VideoPlayerView extends BaseView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        boolean is = isListPlayer && getPlay() != null;
+        boolean is = isListPlayer() && getPlay() != null;
         if (is) {
             ExoUserPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
             if (manualPlayer != null && getPlay().toString().equals(manualPlayer.toString())) {
@@ -170,10 +169,13 @@ public final class VideoPlayerView extends BaseView {
     void doOnConfigurationChanged(int newConfig) {
         //横屏
         if (newConfig == Configuration.ORIENTATION_LANDSCAPE) {
-            if (isLand) {
+            if (isLand()) {
                 return;
             }
-            isLand = true;
+            setLand(true);
+            if (isWGh()){
+                getPlayerView().getVideoSurfaceView().doOnConfigurationChanged(270);
+            }
             VideoPlayUtils.hideActionBar(getContext());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 activity.getWindow().getDecorView().setSystemUiVisibility(
@@ -181,7 +183,7 @@ public final class VideoPlayerView extends BaseView {
                                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
             }
             //判断是否开启多线路支持
-            if (isShowVideoSwitch) {
+            if (isShowVideoSwitch()) {
                 TextView switchText = getSwitchText();
                 switchText.setVisibility(VISIBLE);
                 if (switchText.getText().toString().isEmpty() && !getNameSwitch().isEmpty()) {
@@ -196,10 +198,13 @@ public final class VideoPlayerView extends BaseView {
             //显更改全屏按钮选中，自动旋转屏幕
             getExoFullscreen().setChecked(true);
         } else {//竖屏
-            if (!isLand) {
+            if (!isLand()) {
                 return;
             }
-            isLand = false;
+            setLand(false);
+            if (isWGh()){
+                getPlayerView().getVideoSurfaceView().doOnConfigurationChanged(0);
+            }
             activity.getWindow().getDecorView().setSystemUiVisibility(setSystemUiVisibility);
             VideoPlayUtils.showActionBar(activity);
             //多线路支持隐藏
@@ -321,7 +326,7 @@ public final class VideoPlayerView extends BaseView {
         public void show(boolean isIn) {
             mLockControlView.updateLockCheckBox(isIn);
             if (isIn) {
-                if (isLand) {
+                if (isLand()) {
                     showLockState(VISIBLE);
                 }
                 AnimUtils.setInAnim(exoControlsBack).start();
@@ -342,7 +347,7 @@ public final class VideoPlayerView extends BaseView {
                 //切竖屏portrait screen
                 if (VideoPlayUtils.getOrientation(getContext()) == Configuration.ORIENTATION_LANDSCAPE) {
                      activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                    doOnConfigurationChanged(Configuration.ORIENTATION_PORTRAIT);
+                   doOnConfigurationChanged(Configuration.ORIENTATION_PORTRAIT);
                     //切横屏landscape
                 } else if (VideoPlayUtils.getOrientation(getContext()) == Configuration.ORIENTATION_PORTRAIT) {
                       activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -363,7 +368,6 @@ public final class VideoPlayerView extends BaseView {
             } else if (v.getId() == R.id.exo_player_replay_btn_id) {
                 if (VideoPlayUtils.isNetworkAvailable(getContext())) {
                     showReplay(View.GONE);
-                    showBottomView(GONE, null);
                     if (mExoPlayerListener != null) {
                         mExoPlayerListener.onCreatePlayers();
                     }
@@ -419,10 +423,7 @@ public final class VideoPlayerView extends BaseView {
         @Override
         public void showReplayView(int visibility) {
             showReplay(visibility);
-            if (playerView != null && playerView.getVideoSurfaceView() instanceof TextureView) {
-                TextureView surfaceView = (TextureView) playerView.getVideoSurfaceView();
-                showBottomView(VISIBLE, surfaceView.getBitmap());
-            }
+
         }
 
         @Override
@@ -499,7 +500,6 @@ public final class VideoPlayerView extends BaseView {
         public void showPreview(int visibility, boolean isPlayer) {
             if (!isPlayer) {
                 showPreViewLayout(visibility);
-                showBottomView(GONE, null);
                 getPreviewImage().setVisibility(visibility);
             } else {
                 if (exoPreviewPlayBtn != null) {

@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.exoplayer:exoplayer-hls-2.8.4">
     <CLASSES>
-      <root url="file://D:/Android/.gradle/caches/transforms-1/files-1.1/exoplayer-hls-2.8.4.aar/75c52ee2cefbe567525f61cb5c1c8883/res" />
-      <root url="jar://D:/Android/.gradle/caches/transforms-1/files-1.1/exoplayer-hls-2.8.4.aar/75c52ee2cefbe567525f61cb5c1c8883/jars/classes.jar!/" />
+      <root url="file://D:/AndroidCache/.gradle/caches/transforms-1/files-1.1/exoplayer-hls-2.8.4.aar/c9263a832913aa7287fedadb5c6fa362/res" />
+      <root url="jar://D:/AndroidCache/.gradle/caches/transforms-1/files-1.1/exoplayer-hls-2.8.4.aar/c9263a832913aa7287fedadb5c6fa362/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://D:/Android/.gradle/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer-hls/2.8.4/9ea7f288ef2302469eab752788d73d54f7a25a1a/exoplayer-hls-2.8.4-sources.jar!/" />
+      <root url="jar://D:/AndroidCache/.gradle/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer-hls/2.8.4/9ea7f288ef2302469eab752788d73d54f7a25a1a/exoplayer-hls-2.8.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

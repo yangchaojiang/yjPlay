@@ -45,6 +45,7 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
         helper.setText(R.id.exo_controls_date, helper.getAdapterPosition()+"1:00");
         //如果使用自定义预览的布局，播放器标题根据业务是否设置
         helper.playerView.setTitle("自定义预览标题" + helper.getAdapterPosition());
+        helper.playerView.setWGh(true);
         Glide.with(context)
                 .load(context.getString(R.string.uri_test_image))
                 .placeholder(R.mipmap.test)

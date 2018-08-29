@@ -23,6 +23,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+
 import com.google.android.exoplayer2.SimpleExoPlayer;
 
 import java.lang.ref.WeakReference;
@@ -30,31 +31,18 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Taurus on 2018/3/17.
  */
+
 public class RenderSurfaceView extends SurfaceView implements IRender {
 
+    final String TAG = "RenderSurfaceView";
 
-    /**
-     * The Tag.
-     */
-    final String TAG =RenderSurfaceView.class.getName();
     private IRenderCallback mRenderCallback;
     private RenderMeasure mRenderMeasure;
 
-    /**
-     * Instantiates a new Render surface view.
-     *
-     * @param context the context
-     */
     public RenderSurfaceView(Context context) {
         this(context, null);
     }
 
-    /**
-     * Instantiates a new Render surface view.
-     *
-     * @param context the context
-     * @param attrs   the attrs
-     */
     public RenderSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mRenderMeasure = new RenderMeasure();
@@ -66,8 +54,10 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mRenderMeasure.doMeasure(widthMeasureSpec, heightMeasureSpec);
-         setMeasuredDimension(mRenderMeasure.getMeasureWidth(),mRenderMeasure.getMeasureHeight());
+        setMeasuredDimension(mRenderMeasure.getMeasureWidth(),mRenderMeasure.getMeasureHeight());
     }
+
+
 
     @Override
     public void setRenderCallback(IRenderCallback renderCallback) {
@@ -88,14 +78,9 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
     }
 
     @Override
-   public void updateAspectRatio(@AspectRatio.ResizeMode int aspectRatio) {
+    public void updateAspectRatio(@AspectRatio.ResizeMode int aspectRatio) {
         mRenderMeasure.setAspectRatio(aspectRatio);
         requestLayout();
-    }
-
-    @Override
-    public int getResizeMode() {
-        return mRenderMeasure.getmCurrAspectRatio();
     }
 
     @Override
@@ -105,21 +90,23 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
         requestLayout();
     }
 
-    @Override
-    public View getRenderView() {
-        return this;
-    }
-
-    /**
-     * Fixed size.
-     *
-     * @param videoWidth  the video width
-     * @param videoHeight the video height
-     */
     void fixedSize(int videoWidth, int videoHeight){
         if(videoWidth != 0 && videoHeight != 0){
             getHolder().setFixedSize(videoWidth, videoHeight);
         }
+    }
+    @Override
+    public void setPixelWidthHeightRatio(float pixelWidthHeightRatio) {
+        mRenderMeasure.setPixelWidthHeightRatio(pixelWidthHeightRatio);
+    }
+
+    @Override
+    public void doOnConfigurationChanged(int newConfig) {
+     //   mRenderMeasure.doOnConfigurationChanged(newConfig,this);
+    }
+    @Override
+    public View getRenderView() {
+        return this;
     }
 
     @Override
@@ -139,16 +126,15 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
 
     }
 
+    @Override
+    public int getResizeMode() {
+        return mRenderMeasure.getmCurrAspectRatio();
+    }
 
     private static final class InternalRenderHolder implements IRenderHolder{
 
         private WeakReference<SurfaceHolder> mSurfaceHolder;
 
-        /**
-         * Instantiates a new Internal render holder.
-         *
-         * @param surfaceHolder the surface holder
-         */
         public InternalRenderHolder(SurfaceHolder surfaceHolder){
             this.mSurfaceHolder = new WeakReference<>(surfaceHolder);
         }

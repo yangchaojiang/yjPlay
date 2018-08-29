@@ -37,7 +37,6 @@ public class CronetDataSource2 implements DataSourceListener {
         //使用OkHttpClient 数据源工厂
         //   return  OkHttpDataSourceFactory;
         //默认数据源工厂
-
         DefaultHttpDataSourceFactory httpDataSourceFactory  =new DefaultHttpDataSourceFactory(context.getPackageName(),null ,DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
                 DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS,true);
         return new CronetDataSourceFactory( new CronetEngineWrapper(context),   Executors.newFixedThreadPool(3),null,null,httpDataSourceFactory);

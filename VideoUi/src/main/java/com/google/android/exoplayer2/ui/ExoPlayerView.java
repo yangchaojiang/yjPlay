@@ -8,11 +8,9 @@ import android.view.SurfaceView;
 import android.view.TextureView;
 import android.widget.FrameLayout;
 
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.render.IRender;
-import com.google.android.exoplayer2.util.Assertions;
 
 /**
  * author  yangc
@@ -20,8 +18,8 @@ import com.google.android.exoplayer2.util.Assertions;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:
  */
-public class ExoPlayerView extends  PlayerView{
-    private  static final  String TAG=ExoPlayerView.class.getName();
+public class ExoPlayerView extends PlayerView {
+    private static final String TAG = ExoPlayerView.class.getName();
     private IRender.IRenderHolder mRenderHolder;
 
     /**
@@ -30,7 +28,7 @@ public class ExoPlayerView extends  PlayerView{
      * @param context the context
      */
     public ExoPlayerView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     /**
@@ -40,7 +38,7 @@ public class ExoPlayerView extends  PlayerView{
      * @param attrs   the attrs
      */
     public ExoPlayerView(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     /**
@@ -60,7 +58,7 @@ public class ExoPlayerView extends  PlayerView{
      *
      * @return the controller view
      */
-    public     PlayerControlView getControllerView() {
+    public PlayerControlView getControllerView() {
         return controller;
     }
 
@@ -72,6 +70,7 @@ public class ExoPlayerView extends  PlayerView{
     public FrameLayout getContentFrameLayout() {
         return contentFrameLayout;
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (!useController || player == null || ev.getActionMasked() != MotionEvent.ACTION_DOWN) {
@@ -90,6 +89,7 @@ public class ExoPlayerView extends  PlayerView{
 
     @Override
     public void setPlayer(Player player) {
+        Log.d(TAG, "setPlayer:" + player.toString());
         if (this.player == player) {
             return;
         }
@@ -124,39 +124,42 @@ public class ExoPlayerView extends  PlayerView{
             player.addListener(componentListener);
             maybeShowController(false);
             updateForCurrentTrackSelections(false);
-            if(mRenderHolder!=null) {
-                mRenderHolder.bindPlayer((SimpleExoPlayer) player);
-            }
-            ((IRender)surfaceView).setRenderCallback(mRenderCallback);
+            mRenderHolder = null;
+            surfaceView.setRenderCallback(mRenderCallback);
         } else {
             hideController();
             hideArtwork();
         }
 
     }
-    private void bindRenderHolder(IRender.IRenderHolder renderHolder){
-        if(renderHolder!=null) {
+
+    private void bindRenderHolder(IRender.IRenderHolder renderHolder) {
+        if (renderHolder != null) {
             renderHolder.bindPlayer((SimpleExoPlayer) player);
         }
     }
+
     private final IRender.IRenderCallback mRenderCallback = new IRender.IRenderCallback() {
         @Override
         public void onSurfaceCreated(IRender.IRenderHolder renderHolder, int width, int height) {
-            Log.d(TAG,"onSurfaceCreated : width = " + width + ", height = " + height);
+            Log.d(TAG, "onSurfaceCreated : width = " + width + ", height = " + height);
             //on surface create ,try to attach player.
             mRenderHolder = renderHolder;
             bindRenderHolder(mRenderHolder);
         }
+
         @Override
         public void onSurfaceChanged(IRender.IRenderHolder renderHolder,
                                      int format, int width, int height) {
             //not handle some...
         }
+
         @Override
         public void onSurfaceDestroy(IRender.IRenderHolder renderHolder) {
-            Log.d(TAG,"onSurfaceDestroy...");
+            Log.d(TAG, "onSurfaceDestroy...");
             //on surface destroy detach player
             mRenderHolder = null;
+
         }
     };
 }

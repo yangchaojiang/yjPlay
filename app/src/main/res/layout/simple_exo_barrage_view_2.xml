@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
- <com.facebook.drawee.view.SimpleDraweeView
+ <ImageView
      android:id="@+id/sdv_cover"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     app:actualImageScaleType="centerCrop"/>
+     android:scaleType="centerCrop"/>
 
  <com.anbetter.danmuku.DanMuParentView
      android:id="@+id/dpv_broadcast"

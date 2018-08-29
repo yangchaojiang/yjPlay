@@ -25,7 +25,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".MainListActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".custom.MainCustomLayoutActivity"

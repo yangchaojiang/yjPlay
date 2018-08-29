@@ -1,6 +1,10 @@
  ## 更新日志
- #### 2.2.16
-   * 修复手势的默认不开启手势。  
+ #### 2.2.18
+   * 修复（texture_view模式）切换后台返回播放画面不更新问题。
+   * 增加当时视频宽度小于高度时，视频旋转适配高度（（texture_view模式））设置有效。
+   * 其他细节优化。
+ #### 2.2.17
+   * 修复手势默认不开启手势。
    * 优化加载布局UI体验。 
    * 其他细节优化。
    * ExoPlayer升级内核版本[#2.8.4](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES 

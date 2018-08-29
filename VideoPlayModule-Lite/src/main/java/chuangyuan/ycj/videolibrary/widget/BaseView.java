@@ -68,10 +68,8 @@ abstract class BaseView extends FrameLayout {
     protected ExoPlayerListener mExoPlayerListener;
     /***返回按钮*/
     protected AppCompatImageView exoControlsBack;
-    /***是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮*/
-    protected boolean isLand, isListPlayer, isShowVideoSwitch;
-    /*** 是否显示返回按钮 ***/
-    private boolean isShowBack = true;
+    /***是否显示返回按钮,是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮,是否自动切换视频宽高*/
+    private boolean isShowBack = true,isLand, isListPlayer, isShowVideoSwitch,isWGh;
     /***标题左间距*/
     protected int getPaddingLeft;
     private ArrayList<String> nameSwitch;
@@ -280,6 +278,7 @@ abstract class BaseView extends FrameLayout {
             }
             LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             addView(playerView, params);
+
         } else {
             ViewGroup parent = (ViewGroup) playerView.getParent();
             if (parent != null) {
@@ -291,6 +290,7 @@ abstract class BaseView extends FrameLayout {
                     ViewGroup.LayoutParams.MATCH_PARENT
             );
             contentView.addView(playerView, params);
+
         }
     }
 
@@ -412,24 +412,6 @@ abstract class BaseView extends FrameLayout {
         }
     }
 
-
-    /***
-     * 为了播放完毕后，旋转屏幕，导致播放图像消失处理
-     * @param visibility 状态
-     * @param bitmap the bitmap
-     */
-    protected void showBottomView(int visibility, Bitmap bitmap) {
-        if (mActionControlView.getVisibility()==GONE){
-            return;
-        }
-       ImageView imageView=  playerView.findViewById(R.id.exo_preview_image_bottom);
-        imageView.setVisibility(visibility);
-        if (bitmap != null) {
-            imageView.setImageBitmap(bitmap);
-        }
-    }
-
-
     public boolean isShowBack() {
         return isShowBack;
     }
@@ -549,7 +531,33 @@ abstract class BaseView extends FrameLayout {
         this.nameSwitch = new ArrayList<>(name);
         this.switchIndex = switchIndex;
     }
+    /**
+     * 设置视频宽度小于视频高度是否旋转(渲染是texture_view 有效)
+     *
+     * @param isWGh isWGh  默认 false  true 开启
+     */
+    public void setWGh(boolean isWGh) {
+        this.isWGh = isWGh;
+    }
 
+    /**
+     * 设置视频宽度小于视频高度是否旋转(渲染是texture_view 有效)
+     *
+     * @param land land  默认 false  true  横屏
+     */
+    protected void setLand(boolean land) {
+        isLand = land;
+    }
+
+    protected boolean isWGh() {
+        return isWGh;
+    }
+      boolean isLand() {
+        return isLand;
+    }
+    protected boolean isShowVideoSwitch() {
+        return isShowVideoSwitch;
+    }
     /****
      * 获取控制类
      *

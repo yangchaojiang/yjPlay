@@ -24,20 +24,21 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+
 import com.google.android.exoplayer2.SimpleExoPlayer;
+
 import java.lang.ref.WeakReference;
 
 /**
  * Created by Taurus on 2017/11/19.
- * <p>
+ *
  * 使用TextureView时，需要开启硬件加速（系统默认是开启的）。
  * 如果硬件加速是关闭的，会造成{@link SurfaceTextureListener#onSurfaceTextureAvailable(SurfaceTexture, int, int)}不执行。
+ *
  */
+
 public class RenderTextureView extends TextureView implements IRender {
 
-    /**
-     * The Tag.
-     */
     final String TAG = "RenderTextureView";
 
     private IRenderCallback mRenderCallback;
@@ -47,42 +48,26 @@ public class RenderTextureView extends TextureView implements IRender {
 
     private boolean mTakeOverSurfaceTexture;
 
-    /**
-     * Instantiates a new Render texture view.
-     *
-     * @param context the context
-     */
     public RenderTextureView(Context context) {
         this(context, null);
     }
 
-    /**
-     * Instantiates a new Render texture view.
-     *
-     * @param context the context
-     * @param attrs   the attrs
-     */
     public RenderTextureView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mRenderMeasure = new RenderMeasure();
         setSurfaceTextureListener(new InternalSurfaceTextureListener());
+        updateVideoSize(480,270);
     }
 
     /**
      * If you want to take over the life cycle of SurfaceTexture,
      * please set the tag to true.
-     *
-     * @param takeOverSurfaceTexture the take over surface texture
+     * @param takeOverSurfaceTexture
      */
     public void setTakeOverSurfaceTexture(boolean takeOverSurfaceTexture){
         this.mTakeOverSurfaceTexture = takeOverSurfaceTexture;
     }
 
-    /**
-     * Is take over surface texture boolean.
-     *
-     * @return the boolean
-     */
     public boolean isTakeOverSurfaceTexture() {
         return mTakeOverSurfaceTexture;
     }
@@ -117,15 +102,22 @@ public class RenderTextureView extends TextureView implements IRender {
         mRenderMeasure.setAspectRatio(aspectRatio);
         requestLayout();
     }
-    @Override
-    public int getResizeMode() {
-        return mRenderMeasure.getmCurrAspectRatio();
-    }
+
     @Override
     public void updateVideoSize(int videoWidth, int videoHeight) {
         Log.d(TAG,"onUpdateVideoSize : videoWidth = " + videoWidth + " videoHeight = " + videoHeight);
         mRenderMeasure.setVideoSize(videoWidth, videoHeight);
         requestLayout();
+    }
+
+    @Override
+    public void setPixelWidthHeightRatio(float pixelWidthHeightRatio) {
+        mRenderMeasure.setPixelWidthHeightRatio(pixelWidthHeightRatio);
+    }
+
+    @Override
+    public void doOnConfigurationChanged(int newConfig) {
+        mRenderMeasure.doOnConfigurationChanged(newConfig,this);
     }
 
     @Override
@@ -158,31 +150,21 @@ public class RenderTextureView extends TextureView implements IRender {
         setSurfaceTextureListener(null);
     }
 
+    @Override
+    public int getResizeMode() {
+        return mRenderMeasure.getmCurrAspectRatio();
+    }
+
     private  Surface mSurface;
 
-    /**
-     * Set surface.
-     *
-     * @param surface the surface
-     */
     void setSurface(Surface surface){
         this.mSurface = surface;
     }
 
-    /**
-     * Gets surface.
-     *
-     * @return the surface
-     */
     Surface getSurface() {
         return mSurface;
     }
 
-    /**
-     * Get own surface texture surface texture.
-     *
-     * @return the surface texture
-     */
     SurfaceTexture getOwnSurfaceTexture(){
         return mSurfaceTexture;
     }
@@ -192,22 +174,11 @@ public class RenderTextureView extends TextureView implements IRender {
         private WeakReference<Surface> mSurfaceRefer;
         private WeakReference<RenderTextureView> mTextureRefer;
 
-        /**
-         * Instantiates a new Internal render holder.
-         *
-         * @param textureView    the texture view
-         * @param surfaceTexture the surface texture
-         */
         public InternalRenderHolder(RenderTextureView textureView, SurfaceTexture surfaceTexture){
             mTextureRefer = new WeakReference<>(textureView);
             mSurfaceRefer = new WeakReference<>(new Surface(surfaceTexture));
         }
 
-        /**
-         * Get texture view render texture view.
-         *
-         * @return the render texture view
-         */
         RenderTextureView getTextureView(){
             if(mTextureRefer!=null){
                 return mTextureRefer.get();
@@ -246,7 +217,7 @@ public class RenderTextureView extends TextureView implements IRender {
                         //set it for player
                         player.setVideoSurface(newSurface);
                         //record the new Surface
-                       // textureView.setSurface(newSurface);
+                        textureView.setSurface(newSurface);
                         Log.d("RenderTextureView","****bindSurface****");
                     }
                 }else{

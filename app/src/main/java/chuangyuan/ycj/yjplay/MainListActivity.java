@@ -44,7 +44,7 @@ public class MainListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(MainListActivity.class.getName(), "onCreate");
         setContentView(R.layout.activity_list);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar =   findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -85,6 +85,7 @@ public class MainListActivity extends AppCompatActivity {
                 }
             }
         }
+        list.add("/storage/sdcard0/DCIM/Camera/VID_20180829_100348.mp4");
         adapter.addData(list);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -150,8 +151,8 @@ public class MainListActivity extends AppCompatActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
+        VideoPlayerManager.getInstance().onConfigurationChanged(newConfig);//横竖屏切换
     }
 
     @Override

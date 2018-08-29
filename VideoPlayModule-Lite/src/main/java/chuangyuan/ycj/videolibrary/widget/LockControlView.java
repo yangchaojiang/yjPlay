@@ -51,7 +51,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
         mBaseView.getPlaybackControlView().addUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
             @Override
             public void updateProgress(long position, long bufferedPosition, long duration) {
-                if (exoPlayerLockProgress != null && (mBaseView.isLand && lockCheckBox.isChecked() || isProgress)) {
+                if (exoPlayerLockProgress != null && (mBaseView.isLand() && lockCheckBox.isChecked() || isProgress)) {
                     exoPlayerLockProgress.setPosition(position);
                     exoPlayerLockProgress.setBufferedPosition(bufferedPosition);
                     exoPlayerLockProgress.setDuration(duration);
@@ -87,7 +87,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
      */
     public void showLockState(int visibility) {
         if (exoPlayLockLayout != null) {
-            if (mBaseView.isLand) {
+            if (mBaseView.isLand()) {
                 if (lockCheckBox.isChecked() && visibility == View.VISIBLE) {
                     mBaseView.getPlaybackControlView().hideNo();
                     mBaseView.showBackView(GONE, true);
@@ -119,7 +119,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
     private final Runnable hideAction = new Runnable() {
         @Override
         public void run() {
-            if (mBaseView.isLand) {
+            if (mBaseView.isLand()) {
                 if (lockCheckBox.getVisibility() == VISIBLE) {
                     AnimUtils.setOutAnimX(lockCheckBox, false).start();
                 } else {
@@ -148,7 +148,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
      * 更新锁屏按钮状态
      * ***/
     public void updateLockCheckBox(boolean isIn) {
-        if (!mBaseView.isLand) return;
+        if (!mBaseView.isLand()) return;
         if (lockCheckBox.isChecked()) {
             if (lockCheckBox.getTranslationX() == 0) {
                 AnimUtils.setOutAnimX(lockCheckBox, false).start();
@@ -203,7 +203,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
 
     @Override
     public void show(boolean isIn) {
-        if (!mBaseView.isLand) return;
+        if (!mBaseView.isLand()) return;
         if (isIn) {
             showLockState(VISIBLE);
             updateLockCheckBox(true);

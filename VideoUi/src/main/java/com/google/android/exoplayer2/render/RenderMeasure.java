@@ -24,6 +24,7 @@ import android.view.View;
  * Created by Taurus on 2017/11/20.
  * this measure from bilibili ijkplayer
  */
+
 public final class RenderMeasure {
 
     private final String TAG = "RenderMeasure";
@@ -39,13 +40,8 @@ public final class RenderMeasure {
 
     private int mCurrAspectRatio = AspectRatio.AspectRatio_FIT_PARENT;
     private int mVideoRotationDegree;
+    private float pixelWidthHeightRatio;
 
-    /**
-     * Do measure.
-     *
-     * @param widthMeasureSpec  the width measure spec
-     * @param heightMeasureSpec the height measure spec
-     */
     public void doMeasure(int widthMeasureSpec, int heightMeasureSpec){
 
         //Log.i("@@@@", "onMeasure(" + MeasureSpec.toString(widthMeasureSpec) + ", "
@@ -181,7 +177,27 @@ public final class RenderMeasure {
         mMeasureWidth = width;
         mMeasureHeight = height;
     }
+    public void doOnConfigurationChanged(int newConfig,View view) {
+        float videoAspectRatio =
+                (mVideoHeight == 0 || mVideoWidth == 0) ? 1 : (mVideoWidth * pixelWidthHeightRatio) / mVideoHeight;
 
+        // Try to apply rotation transformation when our surface is a TextureView.
+        if (newConfig != 0) {
+            if (mVideoRotationDegree == 90 || mVideoRotationDegree == 270) {
+                // We will apply a rotation 90/270 degree to the output texture of the TextureView.
+                // In this case, the output video's width and height will be swapped.
+                videoAspectRatio = 1 / videoAspectRatio;
+            }
+        }
+        if (videoAspectRatio<1){
+            setVideoRotation(newConfig);
+            view.setRotation(newConfig);
+        }
+
+    }
+    void setPixelWidthHeightRatio(float pixelWidthHeightRatio){
+        this.pixelWidthHeightRatio=pixelWidthHeightRatio;
+    }
     /**
      * Sets video sample aspect ratio.
      *
@@ -241,11 +257,6 @@ public final class RenderMeasure {
         return mMeasureWidth;
     }
 
-    /**
-     * Gets measure height.
-     *
-     * @return the measure height
-     */
     public int getMeasureHeight() {
         return mMeasureHeight;
     }

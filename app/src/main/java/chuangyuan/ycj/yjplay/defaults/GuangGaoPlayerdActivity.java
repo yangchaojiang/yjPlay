@@ -48,11 +48,11 @@ public class GuangGaoPlayerdActivity extends Activity {
                         if (currentIndex == 0) {
                             Log.d(TAG, "setOnWindowListener:" + currentIndex);
                             exoPlayerManager.next();
-                            //屏蔽控制布局
+                            //屏蔽控制布局Shielding control layout
                             exoPlayerManager.hideControllerView(true);
                             //true如果屏蔽控制布局 但是需要显示全屏按钮。手动显示。
                         } else {
-                            //恢复控制布局
+                            //恢复控制布局Recovery control layout
                             exoPlayerManager.showControllerView(true);
                         }
                     }

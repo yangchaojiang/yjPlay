@@ -22,7 +22,9 @@ import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.CronetDataSource2;
+import chuangyuan.ycj.yjplay.data.Data2Source;
 import chuangyuan.ycj.yjplay.data.DataSource;
+import chuangyuan.ycj.yjplay.data.OfficeDataSource;
 
 public class MainDetailedActivity extends Activity {
 
@@ -52,14 +54,17 @@ public class MainDetailedActivity extends Activity {
         // listss.add(bean1);
         //实例化
         exoPlayerManager = new VideoPlayerManager.Builder(this,VideoPlayerManager.TYPE_PLAY_MANUAL, R.id.exo_play_context_id)
-                .setDataSource(new CronetDataSource2(this))
+                .setDataSource(new OfficeDataSource(this,null))
                 //设置视频标题
                 .setTitle("视频标题")
                 //设置水印图
                 .setExoPlayWatermarkImg(R.mipmap.watermark_big)
-             .setPlayUri(getString(R.string.uri_test_5))
+                //.setPlayUri("/storage/emulated/0/test.ts")
+                //.setPlayUri("http://oph6zeldx.bkt.clouddn.com/20130104095750-MzE1ODU1.mp3")
+               // .setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20180820_083327.mp4")
+               // .setPlayUri(getString(R.string.uri_test_5))
                 .setPlayerGestureOnTouch(true)
-               // .setPlayUri("/storage/sdcard0/bb.ffconcat")
+                .setPlayUri("/storage/sdcard0/DCIM/Camera/VID_20180829_100348.mp4")
                 //加载rtmp 协议视频
                 //.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks")
                 //加载m3u8
