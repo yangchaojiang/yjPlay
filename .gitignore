@@ -178,3 +178,4 @@ ima/build/intermediates/symbols/
 ima/build/intermediates/transforms/
 ima/build/outputs/logs/manifest-merger-release-report.txt
 ima/build/tmp/
+!/.idea/
