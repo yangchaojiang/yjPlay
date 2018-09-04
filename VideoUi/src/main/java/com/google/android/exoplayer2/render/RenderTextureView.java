@@ -261,8 +261,6 @@ public class RenderTextureView extends TextureView implements IRender {
                 mRenderCallback.onSurfaceDestroy(
                         new InternalRenderHolder(RenderTextureView.this,surface));
             }
-            if(mTakeOverSurfaceTexture)
-                mSurfaceTexture = surface;
             return !mTakeOverSurfaceTexture;
         }
 
