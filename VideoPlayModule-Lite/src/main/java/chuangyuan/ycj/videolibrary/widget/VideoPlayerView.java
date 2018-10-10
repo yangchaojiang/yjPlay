@@ -13,7 +13,12 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ import com.google.android.exoplayer2.ui.AnimUtils;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 
 import java.util.List;
+import java.util.Map;
 
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
@@ -93,14 +99,13 @@ public final class VideoPlayerView extends BaseView {
         controllerView.setAnimatorListener(animatorListener);
 
     }
-
     /***
      * 销毁处理
      * **/
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (activity != null && activity.isFinishing()) {
+        if (activity != null && activity.isDestroyed()) {
             animatorListener = null;
             exoPlayerViewListener = null;
             onClickListener = null;
@@ -149,10 +154,11 @@ public final class VideoPlayerView extends BaseView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        boolean is = isListPlayer() && getPlay() != null;
+        ExoUserPlayer exoUserPlayer=mExoPlayerListener.getPlay();
+        boolean is = isListPlayer() && exoUserPlayer != null&&exoUserPlayer.getPlayer()!=null;
         if (is) {
             ExoUserPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
-            if (manualPlayer != null && getPlay().toString().equals(manualPlayer.toString())) {
+            if (manualPlayer != null && exoUserPlayer.toString().equals(manualPlayer.toString())) {
                 manualPlayer.reset();
             }
         } else {
@@ -174,7 +180,7 @@ public final class VideoPlayerView extends BaseView {
             }
             setLand(true);
             if (isWGh()){
-                getPlayerView().getVideoSurfaceView().doOnConfigurationChanged(270);
+               getPlayerView().getVideoSurfaceView().doOnConfigurationChanged(270);
             }
             VideoPlayUtils.hideActionBar(getContext());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -297,7 +303,6 @@ public final class VideoPlayerView extends BaseView {
         if (mActionControlView != null) {
             mActionControlView.hideAllView();
         }
-        getPlaybackControlView().hideNo();
         getPlaybackControlView().showNo();
         exoPlayerViewListener.showPreview(VISIBLE, false);
         showPreViewLayout(VISIBLE);
@@ -347,11 +352,11 @@ public final class VideoPlayerView extends BaseView {
                 //切竖屏portrait screen
                 if (VideoPlayUtils.getOrientation(getContext()) == Configuration.ORIENTATION_LANDSCAPE) {
                      activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                   doOnConfigurationChanged(Configuration.ORIENTATION_PORTRAIT);
+                  // doOnConfigurationChanged(Configuration.ORIENTATION_PORTRAIT);
                     //切横屏landscape
                 } else if (VideoPlayUtils.getOrientation(getContext()) == Configuration.ORIENTATION_PORTRAIT) {
                       activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                    doOnConfigurationChanged(Configuration.ORIENTATION_LANDSCAPE);
+                // doOnConfigurationChanged(Configuration.ORIENTATION_LANDSCAPE);
                 }
             } else if (v.getId() == R.id.exo_controls_back) {
                 activity.onBackPressed();
@@ -367,6 +372,7 @@ public final class VideoPlayerView extends BaseView {
                 }
             } else if (v.getId() == R.id.exo_player_replay_btn_id) {
                 if (VideoPlayUtils.isNetworkAvailable(getContext())) {
+                    showBottomView(GONE);
                     showReplay(View.GONE);
                     if (mExoPlayerListener != null) {
                         mExoPlayerListener.onCreatePlayers();
@@ -399,6 +405,7 @@ public final class VideoPlayerView extends BaseView {
             }
         }
     };
+
 
     /**
      * 控制类监听类
@@ -500,6 +507,7 @@ public final class VideoPlayerView extends BaseView {
         public void showPreview(int visibility, boolean isPlayer) {
             if (!isPlayer) {
                 showPreViewLayout(visibility);
+                showBottomView(GONE);
                 getPreviewImage().setVisibility(visibility);
             } else {
                 if (exoPreviewPlayBtn != null) {

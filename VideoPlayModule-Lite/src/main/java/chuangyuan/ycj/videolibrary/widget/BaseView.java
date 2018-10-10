@@ -8,6 +8,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.ui.ExoPlayerControlView;
@@ -52,7 +55,7 @@ abstract class BaseView extends FrameLayout {
     /***错误页,进度控件,锁屏按布局,自定义预览布局,提示布局,播放按钮*/
     protected View exoLoadingLayout, exoPlayPreviewLayout, exoPreviewPlayBtn, exoBarrageLayout;
     /***水印,封面图占位,显示音频和亮度布图*/
-    protected ImageView exoPlayWatermark, exoPreviewImage;
+    protected ImageView exoPlayWatermark, exoPreviewImage,exoBottomPreviewImage;
     /***手势管理布局view***/
     protected final GestureControlView mGestureControlView;
     /***视频加载页***/
@@ -78,7 +81,9 @@ abstract class BaseView extends FrameLayout {
     /*** The Ic back image.***/
     @DrawableRes
     private int icBackImage = R.drawable.ic_exo_back;
-
+    protected   final int viewHeight;
+    protected   final int viewWidth;
+    protected    int  endMargin,startMargin,topMargin,bottomMargin;
     /**
      * Instantiates a new Base view.
      *
@@ -108,6 +113,8 @@ abstract class BaseView extends FrameLayout {
     public BaseView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         activity = VideoPlayUtils.scanForActivity(context);
+        viewHeight=getHeight();
+        viewWidth=getWidth();
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         playerView = new ExoPlayerView(getContext(), attrs, defStyleAttr);
         controllerView = (ExoPlayerControlView) playerView.getControllerView();
@@ -129,7 +136,7 @@ abstract class BaseView extends FrameLayout {
                 defaultArtworkId = a.getResourceId(R.styleable.VideoPlayerView_default_artwork, defaultArtworkId);
                 loadId = a.getResourceId(R.styleable.VideoPlayerView_player_load_layout_id, loadId);
                 preViewLayoutId = a.getResourceId(R.styleable.VideoPlayerView_player_preview_layout_id, preViewLayoutId);
-                barrageLayoutId = a.getResourceId(R.styleable.VideoPlayerView_player_barrage_layout_id, barrageLayoutId);
+                barrageLayoutId = a.getResourceId(R.styleable.VideoPlayerView_player_custom_layout_id, barrageLayoutId);
                 int playerViewId = a.getResourceId(R.styleable.VideoPlayerView_controller_layout_id, R.layout.simple_exo_playback_control_view);
                 if (preViewLayoutId == 0 && (playerViewId == R.layout.simple_exo_playback_list_view || playerViewId == R.layout.simple_exo_playback_top_view)) {
                     preViewLayoutId = R.layout.exo_default_preview_layout;
@@ -147,6 +154,11 @@ abstract class BaseView extends FrameLayout {
         }
         intiView();
         initWatermark(userWatermark, defaultArtworkId);
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams();
+
+      /*  topMargin=layoutParams.topMargin;
+        endMargin=layoutParams.rightMargin;
+        bottomMargin=layoutParams.bottomMargin;*/
     }
 
 
@@ -182,11 +194,12 @@ abstract class BaseView extends FrameLayout {
         }
         exoPlayWatermark = playerView.findViewById(R.id.exo_player_watermark);
         videoLoadingShowText = playerView.findViewById(R.id.exo_loading_show_text);
+        exoBottomPreviewImage= playerView.findViewById(R.id.exo_preview_image_bottom);
         if (playerView.findViewById(R.id.exo_preview_image) != null) {
             exoPreviewImage = playerView.findViewById(R.id.exo_preview_image);
             exoPreviewImage.setBackgroundResource(android.R.color.transparent);
         } else {
-            exoPreviewImage = playerView.findViewById(R.id.exo_preview_image_bottom);
+            exoPreviewImage=exoBottomPreviewImage;
         }
         setSystemUiVisibility = activity.getWindow().getDecorView().getSystemUiVisibility();
 
@@ -209,9 +222,6 @@ abstract class BaseView extends FrameLayout {
         }
         if (mLockControlView != null) {
             mLockControlView.onDestroy();
-        }
-        if (mExoPlayerListener != null) {
-            mExoPlayerListener = null;
         }
         nameSwitch = null;
     }
@@ -290,10 +300,21 @@ abstract class BaseView extends FrameLayout {
                     ViewGroup.LayoutParams.MATCH_PARENT
             );
             contentView.addView(playerView, params);
-
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            mExoPlayerListener.land();
         }
     }
-
+    /***
+     * 为了播放完毕后，旋转屏幕，导致播放图像消失处理
+     * @param visibility 状态
+     */
+    protected void showBottomView(int visibility) {
+        exoBottomPreviewImage.setVisibility(visibility);
+        if (visibility == VISIBLE) {
+            exoBottomPreviewImage.setImageDrawable(exoPreviewImage.getDrawable());
+        }
+    }
     /***
      * 显示隐藏加载页
      *
@@ -364,8 +385,9 @@ abstract class BaseView extends FrameLayout {
             showBtnContinueHint(GONE);
             showPreViewLayout(GONE);
             showLockState(GONE);
-            showBackView(VISIBLE, true);
             showLoadState(GONE);
+            showBottomView(VISIBLE);
+            showBackView(VISIBLE, true);
         }
         mActionControlView.showReplay(visibility);
     }
@@ -674,19 +696,6 @@ abstract class BaseView extends FrameLayout {
         return controllerView.getSwitchText();
     }
 
-    /**
-     * 获取g播放控制类
-     *
-     * @return ExoUserPlayer play
-     */
-    @Nullable
-    protected ExoUserPlayer getPlay() {
-        if (mExoPlayerListener == null) {
-            return null;
-        } else {
-            return mExoPlayerListener.getPlay();
-        }
-    }
 
     /***
      * 获取预览图

@@ -11,33 +11,28 @@
  ![](gif/tet4.gif)  ![](gif/tet6.gif)
 
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
-   * 1 ExoUserPlayer  基本播放。
-   * 2 GestureVideoPlayer   增加手势  亮度，音量，快进，等手势。
-   * 3 ManualPlayer   可自定义触发播放。
-   * 5 支持广告视频预览(轻松实现，完美切换，<font color="red">可自定义</font>)。
-   * 6 支持多种分辨率视频切换。
-   * 7 [缓存下载加密视频功能（边播变缓存轻松实现](README_EN_VIDEO.md)<font color="red">不是使用AndroidVideoCache</font>。
-   * 8 支持自定义多种 kttp,Rtmp,Https,Cronet等协议。
-   * 9 支持列表集合 播放视频（<font color="red">列表到详情播放完美过度</font>）
-   * 10 支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
-   * 11 支持网络类型 提示是否播放(可自定义屏蔽)。
-   * 12 支持视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
-   * 13 支持视频加载中显示模式（网速模式和百分比模式[已废弃]）。
-   * 14 支持视频加速慢速播放。
-   * 15 支持多种视频封面图（两种模式封面图）。
-   * 16 支持支持自定义[MediaSource]()。
-   * 17 支持增加 手势 亮度调节，视频进度，音量 布局自定义。
-   * 18 支持精简版和完整版，选择使用更丰富。
-   * 19 支持自定义AES视频加密,简单加密→戳我(2.1.31版本已弃用)
-   * 20 [增加离线下载辅助类ExoWholeDownLoadManger,ExoWholeDownloadTracker,ExoDownLoadManger,DownloadService()-->戳我](README_EN_VIDEO.md))
-   * 21 支持播放锁屏功能和控制布局显示显示动画效果.
-   * 22 支持返回按钮和全屏按钮图标自定义。
-   * 23 支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
-   * 24 支持视频实时进度（头条底部进度）。
-   * 25 支持流式API方式调用。
+   *  ExoUserPlayer 基本播放（默认关闭手势  亮度，音量，快进，等手势，支持自定义布局）
+   *  支持广告视频预览(轻松实现，完美切换，<font color="red">可自定义</font>)。
+   *  支持多种分辨率视频切换。
+   *  [缓存下载加密视频功能（边播变缓存轻松实现](README_EN_VIDEO.md)<font color="red">不是使用AndroidVideoCache</font>。
+   *  支持自定义多种 kttp,Rtmp,Https,Cronet等协议。
+   *  支持列表集合 播放视频（<font color="red">列表到详情播放完美过度</font>）
+   *  支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
+   *  支持网络类型 提示是否播放(可自定义屏蔽)。
+   *  支持视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
+   *  支持视频加速慢速播放。
+   *  支持多种视频封面图（两种模式封面图）。
+   *  支持支持自定义[MediaSource]()。
+   *  支持精简版和完整版，选择使用更丰富。
+   *  [增加离线下载辅助类ExoWholeDownLoadManger,ExoWholeDownloadTracker,ExoDownLoadManger,DownloadService()-->戳我](README_EN_VIDEO.md))
+   *  支持播放锁屏功能和控制布局显示显示动画效果.
+   *  支持返回按钮和全屏按钮图标自定义。
+   *  支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
+   *  支持视频实时进度（头条底部进度）。
+   *  支持流式API方式调用。
  <!--more-->
 
- ### [更新日志2.2.19→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.3.0→》戳我查看](RELEASENOTES.md)
 #### 重要升级
    * 解决6.0一下版本安卓切换横竖屏，卡顿延迟/
 
@@ -50,9 +45,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.2.19'
+      compile 'com.ycjiang:VideoPlayModule:2.3.0'
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.2.19'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.3.0'
 
   }
   ````
@@ -178,11 +173,9 @@
  ### 3.JAVA 代码
 
  > #### 1 播放控制类
-    1.ExoUserPlayer 基本播放父类，实现基本播放,设置setPlayUri();
-    2.GestureVideoPlayer  具有手势操作播放（调节亮度和视频进度，和音量）
-    2.ManualPlayer  点击开始按钮播放,具有手势功能，和列表播放
-   
- > #### 2 VideoPlayerView 控件 可用方法 
+    1.ExoUserPlayer
+
+ > #### 2 VideoPlayerView 控件 可用方法
   | name                                           | type      | info                                                                        |
   |------------------------------------------------|-----------|---------------------------------------------------------------------------- |
   | setTitle("标题")                               | void      | 设置视频标题                                                               |  
@@ -244,20 +237,15 @@
                           .startPlayer();
 
    1.实例化播放控制类
-           
-          //手势和自定义点击播放播放控制器创建
-          ManualPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView).create();
-          //手势播放控制器创建
-          GestureVideoPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView).create();
-          //基本播放控制器创建
-          ExoUserPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_USER, videoPlayerView).create();
+          //播放控制器创建
+           ExoUserPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_USER, videoPlayerView).create();
 
    2.自定义你的数据源，后面详细介绍如何自定义数据源类
 
-         ManualPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+         ExoUserPlayer exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
                                                         .setDataSource(new DataSource(this))
                                                         .create();
-         ManualPlayer exoPlayerManager =  new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+         ExoUserPlayer exoPlayerManager =  new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
                                                           .setDataSource(mediaSourceBuilder)
                                                           .create();
          定义多媒体
@@ -268,7 +256,7 @@
                                                             .setDataSource(mediaSourceBuilder)
                                                             .create();
 
- > #### 4 ManualPlayer播放管理类可用方法 
+ > #### 4 ExoUserPlayer播放管理类可用方法
   | name                                 | type | info                                                                        |
   |--------------------------------------|------|---------------------------------------------------------------------------- |
   | setPosition(1000)                    | void |  设置开始播放进度                                                               |  

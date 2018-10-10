@@ -46,7 +46,7 @@ public class ExoWholeDownLoadManger extends ExoDownLoadManger {
      * Returns a {@link HttpDataSource.Factory}.
      */
     public HttpDataSource.Factory buildHttpDataSourceFactory(
-            TransferListener<? super DataSource> listener) {
+            TransferListener listener) {
         return new DefaultHttpDataSourceFactory(userAgent, listener);
     }
 

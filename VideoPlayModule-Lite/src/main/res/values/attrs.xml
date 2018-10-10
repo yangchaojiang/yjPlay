@@ -16,11 +16,8 @@
     <declare-styleable name="VideoPlayerView">
         <!--默认展位图-->
         <attr name="default_artwork" format="reference" />
-
         <!--水印占位图-->
         <attr name="user_watermark" format="reference" />
-        <!--用户控制布局-->
-        <attr name="use_controller" format="boolean" />
         <!--预览是否有touch事件-->
         <attr name="hide_on_touch" format="boolean" />
         <!--视频渲染方式-->
@@ -60,7 +57,7 @@
         <!--设置按钮按钮样式-->
         <attr name="player_back_image" format="reference" />
         <!--弹幕预览布局-->
-        <attr name="player_barrage_layout_id" format="reference" />
+        <attr name="player_custom_layout_id" format="reference" />
     </declare-styleable>
        <!--手势控制管理布局-->
     <declare-styleable name="GestureControlView">

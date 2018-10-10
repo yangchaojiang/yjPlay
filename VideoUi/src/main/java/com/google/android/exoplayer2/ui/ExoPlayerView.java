@@ -4,13 +4,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
-import android.view.TextureView;
 import android.widget.FrameLayout;
 
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.render.IRender;
+import com.google.android.exoplayer2.render.RenderTextureView;
 
 /**
  * author  yangc
@@ -89,7 +88,6 @@ public class ExoPlayerView extends PlayerView {
 
     @Override
     public void setPlayer(Player player) {
-        Log.d(TAG, "setPlayer:" + player.toString());
         if (this.player == player) {
             return;
         }
@@ -124,7 +122,12 @@ public class ExoPlayerView extends PlayerView {
             player.addListener(componentListener);
             maybeShowController(false);
             updateForCurrentTrackSelections(false);
-            mRenderHolder = null;
+            if (surfaceView.getRenderView() instanceof RenderTextureView) {
+                ((RenderTextureView) surfaceView).setTakeOverSurfaceTexture(true);
+            }
+            if (mRenderHolder!=null){
+                bindRenderHolder(mRenderHolder);
+            }
             surfaceView.setRenderCallback(mRenderCallback);
         } else {
             hideController();
@@ -144,8 +147,10 @@ public class ExoPlayerView extends PlayerView {
         public void onSurfaceCreated(IRender.IRenderHolder renderHolder, int width, int height) {
             Log.d(TAG, "onSurfaceCreated : width = " + width + ", height = " + height);
             //on surface create ,try to attach player.
-            mRenderHolder = renderHolder;
-            bindRenderHolder(mRenderHolder);
+            if(mRenderHolder==null){
+                mRenderHolder = renderHolder;
+                bindRenderHolder(mRenderHolder);
+            }
         }
 
         @Override
@@ -156,10 +161,9 @@ public class ExoPlayerView extends PlayerView {
 
         @Override
         public void onSurfaceDestroy(IRender.IRenderHolder renderHolder) {
-            Log.d(TAG, "onSurfaceDestroy...");
+            Log.d(TAG, "onSurfaceDestroy..."+surfaceView.toString());
             //on surface destroy detach player
             mRenderHolder = null;
-
         }
     };
 }

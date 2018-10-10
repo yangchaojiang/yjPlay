@@ -2,12 +2,9 @@ package chuangyuan.ycj.videolibrary.video;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -16,14 +13,10 @@ import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.MediaSourceEventListener;
-import com.google.android.exoplayer2.source.ads.AdsLoader;
-import com.google.android.exoplayer2.source.ads.AdsMediaSource;
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
 
-import java.lang.reflect.Constructor;
+import java.io.IOException;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.R;
@@ -45,11 +38,8 @@ public class MediaSourceBuilder {
     private MediaSource mediaSource;
     /*** The Listener. */
     protected DataSourceListener listener;
-    /** * The Source event listener. */
-    protected MediaSourceEventListener sourceEventListener=null;
     private int indexType = -1;
     private List<String> videoUri;
-    private int loopingCount = 0;
     protected String customCacheKey;
 
     /***
@@ -80,6 +70,7 @@ public class MediaSourceBuilder {
     void setMediaUri(@NonNull Uri uri) {
         mediaSource = initMediaSource(uri);
     }
+
     /****
      * 初始化
      *
@@ -87,25 +78,9 @@ public class MediaSourceBuilder {
      * @param startPositionUs startPositionUs  毫秒
      *@param   endPositionUs endPositionUs       毫秒
      */
-  public   void setClippingMediaUri(@NonNull Uri uri,  long startPositionUs, long endPositionUs) {
-        MediaSource   mediaSources = initMediaSource(uri);
-        mediaSource=new ClippingMediaSource(mediaSources,startPositionUs,endPositionUs);
+    public void setClippingMediaUri(@NonNull Uri uri, long startPositionUs, long endPositionUs) {
+        mediaSource = new ClippingMediaSource(initMediaSource(uri), startPositionUs, endPositionUs);
     }
-    /****
-     * 初始化
-     *
-     * @param uris 视频的地址列表
-     */
-    public void setMediaUri(@NonNull Uri... uris) {
-        MediaSource[] firstSources = new MediaSource[uris.length];
-        int i = 0;
-        for (Uri item : uris) {
-            firstSources[i] = initMediaSource(item);
-            i++;
-        }
-        mediaSource = new ConcatenatingMediaSource(firstSources);
-    }
-
 
     /****
      * 初始化多个视频源，无缝衔接
@@ -115,6 +90,22 @@ public class MediaSourceBuilder {
      */
     public void setMediaUri(@NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
         setMediaUri(0, firstVideoUri, secondVideoUri);
+    }
+
+
+    /****
+     *  支持视频源动态添加
+     *
+     * @param videoUri videoUri
+     */
+    public void addMediaUri(@NonNull Uri videoUri) {
+        if (mediaSource == null) {
+            mediaSource = new ConcatenatingMediaSource();
+        }
+        if (mediaSource instanceof ConcatenatingMediaSource) {
+            ConcatenatingMediaSource mediaSource2 = (ConcatenatingMediaSource) mediaSource;
+            mediaSource2.addMediaSource(initMediaSource(videoUri));
+        }
     }
 
     /****
@@ -138,7 +129,7 @@ public class MediaSourceBuilder {
      */
     public void setMediaUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
         this.indexType = indexType;
-         ConcatenatingMediaSource source = new ConcatenatingMediaSource();
+        ConcatenatingMediaSource source = new ConcatenatingMediaSource();
         source.addMediaSource(initMediaSource(firstVideoUri));
         source.addMediaSource(initMediaSource(secondVideoUri));
         mediaSource = source;
@@ -180,8 +171,8 @@ public class MediaSourceBuilder {
      *
      * @param loopingCount 必须大于0
      */
-    public void setLooping(@Size(min = 1) int loopingCount) {
-        this.loopingCount = loopingCount;
+    public void setLoopingMediaSource(@Size(min = 1) int loopingCount, Uri videoUri) {
+        mediaSource = new LoopingMediaSource(initMediaSource(videoUri), loopingCount);
     }
 
     /***
@@ -197,9 +188,6 @@ public class MediaSourceBuilder {
      * @return the media source
      */
     MediaSource getMediaSource() {
-        if (loopingCount > 0) {
-            return new LoopingMediaSource(mediaSource, loopingCount);
-        }
         return mediaSource;
     }
 
@@ -220,7 +208,7 @@ public class MediaSourceBuilder {
      * 移除多媒体
      * @param index 要移除数据
      */
-    void removeMediaSource(int index) {
+    public void removeMedia(int index) {
         if (mediaSource instanceof ConcatenatingMediaSource) {
             ConcatenatingMediaSource source = (ConcatenatingMediaSource) mediaSource;
             source.getMediaSource(index).releaseSource(null);
@@ -233,9 +221,21 @@ public class MediaSourceBuilder {
      * 销毁资源
      */
     public void destroy() {
+
+        if (listener != null) {
+            DataSource source = listener.getDataSourceFactory().createDataSource();
+            if (source instanceof CacheDataSource) {
+                CacheDataSource cacheDataSource = (CacheDataSource) source;
+                try {
+                    cacheDataSource.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            listener = null;
+        }
         indexType = -1;
         videoUri = null;
-        listener = null;
     }
 
     /**
@@ -265,24 +265,17 @@ public class MediaSourceBuilder {
         return videoUri;
     }
 
+
     /**
-     * 用于通知自适应的回调接口获取视频线路名称
-     *
-     * @param sourceEventListener 实例
-     */
-    public void setAdaptiveMediaSourceEventListener(MediaSourceEventListener sourceEventListener) {
-        this.sourceEventListener = sourceEventListener;
-    }
-    /**
-     *设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。.
+     * 设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。.
      *
      * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
-     *
      * @throws IllegalStateException If one of the {@code create} methods has already been called.
      */
     public void setCustomCacheKey(@NonNull String customCacheKey) {
         this.customCacheKey = customCacheKey;
     }
+
     /****
      * 初始化视频源，无缝衔接
      *
@@ -296,7 +289,7 @@ public class MediaSourceBuilder {
                 return new ExtractorMediaSource.Factory(getDataSource())
                         .setExtractorsFactory(new DefaultExtractorsFactory())
                         .setMinLoadableRetryCount(5)
-                        .setCustomCacheKey(customCacheKey==null?uri.toString():customCacheKey)
+                        .setCustomCacheKey(customCacheKey == null ? uri.toString() : customCacheKey)
                         .createMediaSource(uri);
             default:
                 throw new IllegalStateException(context.getString(R.string.media_error));

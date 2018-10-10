@@ -1,7 +1,9 @@
 package chuangyuan.ycj.yjplay.custom;
 
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,15 +16,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.source.MediaSource;
 
+import chuangyuan.ycj.videolibrary.listener.OnCoverMapImageListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureBrightnessListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureProgressListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureVolumeListener;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.whole.WholeMediaSource;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -32,7 +36,7 @@ import chuangyuan.ycj.yjplay.data.Data2Source;
 
 public class MainCustomLayoutActivity extends AppCompatActivity {
 
-    private ManualPlayer exoPlayerManager;
+    private ExoUserPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     public static final String VIEW_NAME_HEADER_IMAGE = "123";
     private static final String TAG = "OfficeDetailedActivity";
@@ -71,7 +75,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         videoBrightnessPro = findViewById(R.id.exo_video_brightness_pro);
         wholeMediaSource = new WholeMediaSource(this, new Data2Source(getApplication()));
         MediaSource videoSource = wholeMediaSource.initMediaSource(
-                Uri.parse(getString(R.string.uri_test_11)));
+                Uri.parse(getString(R.string.uri_test_1)));
    /*     //构建子标题媒体源
         Format subtitleFormat = Format.createTextSampleFormat(
                 getPackageName(), // 跟踪的标识符。可能是null。
@@ -106,7 +110,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         });
         videoPlayerView.setShowBack(false);
         wholeMediaSource.setMediaSource(videoSource);
-        exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+        exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
                 .setDataSource(wholeMediaSource)
                 .setPosition(currPosition)
                 .setTitle("自定义视频标题")
@@ -184,7 +188,18 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
                     public void isPlaying(boolean playWhenReady) {
 
                     }
+                })
+                .setOnCoverMapImage(new OnCoverMapImageListener() {
+                    @Override
+                    public void onCoverMap(ImageView v) {
+                        Glide.with(MainCustomLayoutActivity.this)
+                                .load(getString(R.string.uri_test_image))
+                                .asBitmap()
+                                .fitCenter()
+                                .into(v);
+                    }
                 }).create();
+
 
     }
 
@@ -193,11 +208,6 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         super.onResume();
         Log.d(TAG, "onResume");
         exoPlayerManager.onResume();
-        Glide.with(this)
-                .load(getString(R.string.uri_test_image))
-                .placeholder(R.mipmap.test)
-                .fitCenter()
-                .into(videoPlayerView.getPreviewImage());
     }
 
     @Override

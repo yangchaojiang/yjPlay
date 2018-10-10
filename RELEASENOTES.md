@@ -1,4 +1,9 @@
  ## 更新日志
+ #### 2.3.0
+   * 修改（6.0以下）横屏切换延迟
+   * 弃用GestureVideoPlayer和ManualPlayer,改用ExoUserPlayer.统一管理
+   * 其他细节优化。
+   * ExoPlayer升级内核版本[#2.9.0](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES
  #### 2.2.19
    * 修复（texture_view模式）切换后台返回播放画面不更新问题。
    * 增加当时视频宽度小于高度时，视频旋转适配高度（（texture_view模式））设置有效。

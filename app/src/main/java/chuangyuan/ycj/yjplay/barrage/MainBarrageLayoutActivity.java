@@ -36,7 +36,6 @@ import java.util.TimerTask;
 
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
@@ -83,7 +82,7 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
     private Button mBtnSendCon;
     private Button mBtnSendDanmakus;
     private DanmakuContext mContext;
-    private ManualPlayer exoPlayerManager;
+    private ExoUserPlayer exoPlayerManager;
     private CheckBox btn_barrage_;
     private BaseCacheStuffer.Proxy mCacheStufferAdapter = new BaseCacheStuffer.Proxy() {
 
@@ -171,7 +170,7 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
         final VideoPlayerView videoPlayerView = findViewById(R.id.exo_play_context_id);
         videoPlayerView.setTitle("自定义视频标题");
         exoPlayerManager = new VideoPlayerManager
-                .Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+                .Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
                 .setDataSource(new DataSource(this))
                 .setPlayUri(getString(R.string.uri_test_6))
                 .create()

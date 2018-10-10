@@ -23,14 +23,6 @@ public class ActionControlView extends FrameLayout {
     /***视频加载页,错误页,进度控件,锁屏按布局,自定义预览布局*/
     private View exoPlayErrorLayout, playReplayLayout, playBtnHintLayout;
 
-     private ActionControlView(@NonNull Context context) {
-        this(context, null,null);
-    }
-
-    public ActionControlView(@NonNull Context context, @Nullable AttributeSet attrs,PlayerView playerView) {
-        this(context, attrs, 0);
-    }
-
     public ActionControlView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         int replayId = R.layout.simple_exo_play_replay;

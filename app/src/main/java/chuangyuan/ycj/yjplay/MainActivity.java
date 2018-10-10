@@ -5,20 +5,20 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import chuangyuan.ycj.yjplay.add.AddVideoActivity;
 import chuangyuan.ycj.yjplay.barrage.MainBarrageLayoutActivity;
 import chuangyuan.ycj.yjplay.custom.MainCustomLayoutActivity;
-import chuangyuan.ycj.yjplay.defaults.GuangGaoPlayerdActivity;
 import chuangyuan.ycj.yjplay.defaults.MainDetailedActivity;
 import chuangyuan.ycj.yjplay.fragment.ListFragmentActivity;
 import chuangyuan.ycj.yjplay.fragment.ViewPagerActivity;
-import chuangyuan.ycj.yjplay.ima.ImaPlayerActivity;
+import chuangyuan.ycj.yjplay.ima.GuangGaoPlayerdActivity;
 import chuangyuan.ycj.yjplay.media.MainCustomMediaActivity;
 import chuangyuan.ycj.yjplay.offline.OfficeDetailedActivity;
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("sds", Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.mp4");
+        Log.d("sds", Environment.getExternalStorageDirectory().getAbsolutePath() + "/test.mp4");
         findViewById(R.id.button)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -113,14 +113,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-        findViewById(R.id.button10)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, ImaPlayerActivity.class);
-                        startActivity(intent);
-                    }
-                });
+
         findViewById(R.id.button11)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -145,12 +138,20 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        findViewById(R.id.button14)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, AddVideoActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
-            if ( checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, android.os.Process.myPid(), Process.myUid())== PackageManager.PERMISSION_DENIED){
-               requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-           }
+            if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, android.os.Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_DENIED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            }
 
 
         }

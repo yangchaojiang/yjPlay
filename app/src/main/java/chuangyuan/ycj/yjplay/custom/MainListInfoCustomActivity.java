@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -20,7 +21,7 @@ import chuangyuan.ycj.yjplay.data.DataSource;
 
 
 public class MainListInfoCustomActivity extends AppCompatActivity {
-    private ManualPlayer exoPlayerManager;
+    private ExoUserPlayer exoPlayerManager;
     public static final String VIEW_NAME_HEADER_IMAGE = "123";
     private static final String TAG = "OfficeDetailedActivity";
     private boolean isEnd;
@@ -36,7 +37,7 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
         exoPlayerManager = VideoPlayerManager.getInstance().getVideoPlayer();
         //如果为空，自己new一个
         if (exoPlayerManager == null) {
-            exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+            exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
                     .setDataSource(new DataSource(this))
                     .setPlayUri(getIntent().getStringExtra("uri"))
                     .setPosition(currPosition)

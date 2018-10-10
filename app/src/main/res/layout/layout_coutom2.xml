@@ -13,9 +13,6 @@
         android:background="@android:color/transparent"
         app:auto_show="true"
         app:controller_layout_id="@layout/custom_exo_playback_top_view"
-        app:fastforward_increment="0"
-        app:paddingEnd="0dp"
-        app:paddingStart="0dp"
         app:player_error_layout_id="@layout/custom_play_error"
         app:player_hint_layout_id="@layout/custom_play_btn_hint"
         app:player_layout_id="@layout/simple_exo_view"
@@ -25,11 +22,10 @@
         app:player_back_image="@drawable/ic_arrow_back_black_24dp"
         app:player_preview_layout_id="@layout/exo_default_preview_layout"
         app:resize_mode="fit"
-        app:rewind_increment="0"
         app:show_timeout="3000"
         app:surface_type="texture_view"
         app:use_artwork="true"
-        app:use_controller="true"
+        app:hide_on_touch="false"
         app:user_watermark="@mipmap/watermark_big" />
 
     <Button
@@ -37,5 +33,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Skip_the_advertising" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Add_video" />
 
 </LinearLayout>

@@ -1,21 +1,20 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">yjPlayVideo</string>
-
     <string name="url_hls">http://ivi.bupt.edu.cn/hls/cctv2.m3u8</string>
     <string name="uri_test_m3u8">http://cdn.can.cibntv.net/12/201702161000/rexuechangan01/rexuechangan01.m3u8</string>
-    <string name="uri_test_3">http://mp4.vjshi.com/2017-06-27/20a9ddebfcc19eeddc9604f1a39a38d9.mp4</string>
-    <string name="uri_test">http://mp4.vjshi.com/2017-09-19/e1920013741c5c66d408c7cdb3d9eddf.mp4</string>
-    <string name="uri_test_1">http://mp4.vjshi.com/2016-12-22/e54d476ad49891bd1adda49280a20692.mp4</string>
-    <string name="uri_test_h">http://mp4.vjshi.com/2017-08-16/af83af63d018816474067b51a835f4a2.mp4</string>
-    <string name="uri_test_5">http://mp4.vjshi.com/2017-10-19/53bfeb9eb92c1748596eaf2a1e649020.mp4</string>
-    <string name="uri_test_6">http://mp4.vjshi.com/2016-10-23/a0511ea830bb0620f94a5340a1879800.mp4</string>
-    <string name="uri_test_7">http://mp4.vjshi.com/2016-10-21/84bafe60ef0af95a5292f66b9f692504.mp4</string>
-    <string name="uri_test_8">http://mp4.vjshi.com/2018-01-09/40f3f1edc1cc4aacad958f3e8acbf4ce.mp4</string>
-    <string name="uri_test_9">http://mp4.vjshi.com/2015-05-11/1431320221859_786.mp4</string>
-    <string name="uri_test_10">http://mp4.vjshi.com/2013-07-25/2013072519392517096.mp4</string>
-    <string name="uri_test_11">http://mp4.vjshi.com/2016-12-22/3ccab5a78036fa933c8585f4a1e57a44.mp4</string>
-    <string name="uri_test_12">http://mp4.vjshi.com/2016-04-05/add12db77c7c5cd6dfef4c1955b36a80.mp4</string>
-    <string name="uri_test_13">http://rmcdn.2mdn.net/MotifFiles/html/1248596/android_1330378998288.mp4</string>
+    <string name="uri_test_3">http://pic.qiantucdn.com/58pic/video/27/95/42/27954270_57.mp4</string>
+    <string name="uri_test">http://pic.qiantucdn.com/58pic/32/27/73/2258PIC58PICg2HyKaXcHyH4s.mp4_10s.mp4</string>
+    <string name="uri_test_1">http://pic.qiantucdn.com/58pic/28/58/15/83S58PICWbX8VXGSe3dyP.mp4_10s.mp4</string>
+    <string name="uri_test_h">http://pic.qiantucdn.com/58pic/video/27/80/97/27809708_33.mp4</string>
+    <string name="uri_test_5">http://mp4.vjshi.com/2016-04-14/8d38b2fa34abf98e5677788900f7ed51.mp4</string>
+    <string name="uri_test_6">http://mv.eastday.com/vyuanchuang/20160728/20160728001129441550899_1_06400360.mp4</string>
+    <string name="uri_test_7">http://mp4.vjshi.com/2017-06-04/f24264569608f18059ad47993c098dcc.mp4</string>
+    <string name="uri_test_8">http://lmp4.vjshi.com/2018-06-16/cdf95d83b3185af4dd2a6a3ecd76ff70.mp4</string>
+    <string name="uri_test_9">http://pic.qiantucdn.com/58pic/video/28/40/92/28409299_58.mp4</string>
+    <string name="uri_test_10">http://pic.qiantucdn.com/58pic/video/27/51/48/27514871_94.mp4</string>
+    <string name="uri_test_11">http://lmp4.vjshi.com/2018-04-11/7607f11445cecc088cb3cfd49e975d2f.mp4</string>
+    <string name="uri_test_12">http://lmp4.vjshi.com/2018-09-10/7445b3b38b054e61f27a52d4526163ed.mp4</string>
+    <string name="uri_test_13">http://lmp4.vjshi.com/2018-09-12/eb25518f72e1dca09b7bb12d97992d91.mp4</string>
     <string name="uri_test_image">http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg</string>
     <string name="new_message_notification_title_template">New message: %1$s</string>
     <string name="ad_tag_url"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=]]></string>
@@ -88,6 +87,7 @@
     <string name="play_video">play video</string>
     <string name="down_hint">Download and encrypt video</string>
     <string name="Skip_the_advertising">Skip the advertising</string>
+    <string name="Add_video">Add video</string>
     <string name="default_cache">Default cache playback</string>
     <string name="custom_cache">Customize the download cache</string>
     <string name="simple_fragment">FragmentList</string>

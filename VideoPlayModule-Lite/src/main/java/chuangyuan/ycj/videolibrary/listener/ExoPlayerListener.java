@@ -47,4 +47,6 @@ public interface ExoPlayerListener {
      * 点击回调事件回调
      * **/
     View.OnClickListener    getClickListener();
+
+    void  land();
 }

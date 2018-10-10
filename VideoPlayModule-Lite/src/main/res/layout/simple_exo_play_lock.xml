@@ -25,7 +25,7 @@
         app:buffered_color="@color/timeBar_buffered_color"
         app:played_color="@color/timeBar_played_color"
         app:unplayed_color="@color/timeBar_unplayed_color"
-        app:touch_target_height="10dp"
+        app:touch_target_height="4dp"
         app:scrubber_dragged_size="0dp"
         app:scrubber_enabled_size="0dp"
         app:scrubber_disabled_size="0dp"

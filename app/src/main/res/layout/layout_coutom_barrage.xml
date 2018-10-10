@@ -15,7 +15,7 @@
         app:player_load_layout_id="@layout/custom_exo_play_load"
         app:player_back_image="@drawable/ic_arrow_back_black_24dp"
         app:player_preview_layout_id="@layout/exo_default_preview_layout"
-        app:player_barrage_layout_id="@layout/simple_exo_barrage_view"
+        app:player_custom_layout_id="@layout/simple_exo_barrage_view"
         app:controller_layout_id="@layout/custom_exo_playback_barrage_view"
         app:fastforward_increment="0"
         app:paddingEnd="0dp"

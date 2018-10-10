@@ -13,7 +13,6 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
@@ -47,7 +46,7 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
         helper.playerView.setTitle("自定义预览标题" + helper.getAdapterPosition());
         helper.playerView.setWGh(true);
         Glide.with(context)
-                .load(context.getString(R.string.uri_test_image))
+                .load(item)
                 .placeholder(R.mipmap.test)
                 .into(helper.playerView.getPreviewImage());
         helper.userPlayer.addVideoInfoListener(new VideoInfoListener() {
@@ -94,7 +93,7 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
     }
 
     class TestVideoHolder extends BaseViewHolder {
-        ManualPlayer userPlayer;
+        ExoUserPlayer userPlayer;
         VideoPlayerView playerView;
         View itemView;
 
@@ -102,7 +101,7 @@ public class BRVAHTestAdapter extends BaseQuickAdapter<String, BRVAHTestAdapter.
             super(view);
             playerView = view.findViewById(R.id.exo_play_context_id);
             itemView = view;
-            userPlayer = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL,playerView).create();
+            userPlayer = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_USER,playerView).create();
         }
 
 

@@ -9,14 +9,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.MergingMediaSource;
+import com.google.android.exoplayer2.source.SingleSampleMediaSource;
+import com.google.android.exoplayer2.util.MimeTypes;
 
-import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.MediaSourceBuilder;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -26,7 +28,7 @@ import chuangyuan.ycj.yjplay.data.DataSource;
 
 public class MainCustomMediaActivity extends AppCompatActivity {
 
-    private ManualPlayer exoPlayerManager;
+    private ExoUserPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "MainCustomMediaActivity";
     private String url = "";
@@ -50,11 +52,17 @@ public class MainCustomMediaActivity extends AppCompatActivity {
         //  mediaSourceBuilder.setClippingMediaUri(Uri.parse(getString(R.string.uri_test_6)),1000,15000);
         MediaSource source = mediaSourceBuilder.initMediaSource(Uri.parse(getString(R.string.uri_test)));
         LoopingMediaSource loopingSource = new LoopingMediaSource(source, 2);
-        mediaSourceBuilder.setMediaSource(loopingSource);
-
-
+// Build the subtitle MediaSource.
+        Format subtitleFormat = Format.createTextSampleFormat( null,MimeTypes.APPLICATION_SUBRIP,C.SELECTION_FLAG_DEFAULT, null);
+        MediaSource subtitleSource = new SingleSampleMediaSource.Factory(mediaSourceBuilder.getDataSource())
+                        .createMediaSource(Uri.parse("http://oph6zeldx.bkt.clouddn.com/test.ass"),
+                                subtitleFormat, C.TIME_UNSET);
+// Plays the video with the sideloaded subtitle.
+        MergingMediaSource mergedSource =
+                new MergingMediaSource(source, subtitleSource);
+        mediaSourceBuilder.setMediaSource(mergedSource);
         exoPlayerManager = new VideoPlayerManager
-                .Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+                .Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
                 .setDataSource(mediaSourceBuilder)
                 .addOnWindowListener(new VideoWindowListener() {
                     @Override

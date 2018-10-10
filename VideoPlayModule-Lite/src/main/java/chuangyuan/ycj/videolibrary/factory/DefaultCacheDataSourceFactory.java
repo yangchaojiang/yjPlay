@@ -70,10 +70,7 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
                 downloadDirectory = context.getApplicationContext().getFilesDir();
             }
             if (!downloadDirectory.exists()) {
-                downloadDirectory.mkdirs();
-            }
-            if (SimpleCache.isCacheFolderLocked(downloadDirectory)){
-                    simpleCache.disableCacheFolderLocking();
+                boolean s = downloadDirectory.mkdirs();
             }
             simpleCache = new SimpleCache(downloadDirectory, new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
 

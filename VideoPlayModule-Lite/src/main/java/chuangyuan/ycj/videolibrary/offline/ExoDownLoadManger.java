@@ -58,7 +58,7 @@ public class ExoDownLoadManger {
      * build 数据源 工厂
      * Returns a {@link DataSource.Factory}.
      */
-    public DataSource.Factory buildDataSourceFactory(Context context, TransferListener<? super DataSource> listener) {
+    public DataSource.Factory buildDataSourceFactory(Context context, TransferListener listener) {
         DefaultDataSourceFactory upstreamFactory =
                 new DefaultDataSourceFactory(context, listener, buildHttpDataSourceFactory(listener));
         return buildReadOnlyCacheDataSource(upstreamFactory, getDownloadCache());
@@ -69,7 +69,7 @@ public class ExoDownLoadManger {
      * Returns a {@link HttpDataSource.Factory}.
      */
     protected HttpDataSource.Factory buildHttpDataSourceFactory(
-            TransferListener<? super DataSource> listener) {
+            TransferListener listener) {
         return new DefaultHttpDataSourceFactory(userAgent, listener);
     }
 

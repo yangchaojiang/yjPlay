@@ -23,7 +23,7 @@ import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-import chuangyuan.ycj.videolibrary.video.ManualPlayer;
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.yjplay.MainListActivity;
 import chuangyuan.ycj.yjplay.R;
@@ -108,7 +108,7 @@ public class ClassFragment extends Fragment {
     private void start(View view, String uri) {
         //进入详细暂停视频
         long currPosition = 0;
-        ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
+        ExoUserPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
         if (manualPlayer != null) {
             currPosition = manualPlayer.getCurrentPosition();
         }

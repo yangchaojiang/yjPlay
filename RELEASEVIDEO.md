@@ -3,7 +3,7 @@
  ```
  //实例化
   MediaSourceBuilder  mediaSourceBuilder=new MediaSourceBuilder(this,new DataSource(getApplication()));
-  exoPlayerManager = new ManualPlayer(this,mediaSourceBuilder, videoPlayerView);
+  exoPlayerManager = new ExoUserPlayer(this,mediaSourceBuilder, videoPlayerView);
  ```
  ### 2.使用自定义MediaSource 代码如下
  * 1加载字幕文件 

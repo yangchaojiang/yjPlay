@@ -19,8 +19,8 @@
     <string name="default_cache">默认缓存播放</string>
     <string name="custom_cache">自定义下载缓存</string>
     <string name="simple_fragment">Fragment列表</string>
-    <string name="simple_barrage">弹幕(测试)</string>
-    <string name="simple_barrage2">弹幕2(测试)</string>
+    <string name="simple_barrage">弹幕</string>
     <string name="send_show">控制</string>
     <string name="download_start_error">无法开始下载</string>
+    <string name="Add_video">动态添加视频</string>
 </resources>

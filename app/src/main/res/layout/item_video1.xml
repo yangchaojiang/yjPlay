@@ -10,7 +10,6 @@
         android:id="@+id/exo_play_context_id"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-
         app:controller_layout_id="@layout/simple_exo_playback_list_view"
         app:player_layout_id="@layout/simple_exo_view"
         app:player_preview_layout_id="@layout/simple_preview_view"

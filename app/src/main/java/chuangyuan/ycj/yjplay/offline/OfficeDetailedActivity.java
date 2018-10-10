@@ -14,7 +14,7 @@ import com.google.android.exoplayer2.offline.DownloadManager;
 
 import chuangyuan.ycj.videolibrary.office.ExoWholeDownLoadManger;
 import chuangyuan.ycj.videolibrary.office.ExoWholeDownloadTracker;
-import chuangyuan.ycj.videolibrary.video.GestureVideoPlayer;
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
@@ -23,7 +23,7 @@ import chuangyuan.ycj.yjplay.data.OfficeDataSource;
 public class OfficeDetailedActivity extends Activity {
     private ExoWholeDownloadTracker exoDownloadTracker;
     // private ExoDownloadTracker exoDownloadTracker;
-    private GestureVideoPlayer exoPlayerManager;
+    private ExoUserPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
     private static final String TAG = "OfficeDetailedActivity";
     private Button button;

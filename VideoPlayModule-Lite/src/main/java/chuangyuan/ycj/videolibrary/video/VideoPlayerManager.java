@@ -42,12 +42,11 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * Description： video播放列表控制类
  */
 public class VideoPlayerManager {
-    private ManualPlayer mVideoPlayer;
+    private ExoUserPlayer mVideoPlayer;
     private boolean isClick = false;
 
     private VideoPlayerManager() {
     }
-
     /**
      * Gets instance.
      *
@@ -67,13 +66,12 @@ public class VideoPlayerManager {
      *
      * @param videoPlayer 播放页
      */
-    public void setCurrentVideoPlayer(@NonNull ManualPlayer videoPlayer) {
+    public void setCurrentVideoPlayer(@NonNull ExoUserPlayer videoPlayer) {
         if (mVideoPlayer == null || !videoPlayer.toString().equals(mVideoPlayer.toString())) {
             releaseVideoPlayer();
         }
         this.mVideoPlayer = videoPlayer;
     }
-
     /***
      * 释放当前播放
      */
@@ -83,7 +81,6 @@ public class VideoPlayerManager {
             mVideoPlayer = null;
         }
     }
-
     /***
      * d手机屏幕旋转配置
      * @param newConfig newConfig
@@ -102,7 +99,6 @@ public class VideoPlayerManager {
     public boolean onBackPressed() {
         return mVideoPlayer == null || mVideoPlayer.onBackPressed();
     }
-
     /**
      * 页面暂停播放暂停
      *
@@ -113,7 +109,6 @@ public class VideoPlayerManager {
             mVideoPlayer.onListPause(isReset);
         }
     }
-
     /**
      * 页面恢复
      */
@@ -122,7 +117,14 @@ public class VideoPlayerManager {
             mVideoPlayer.onResume();
         }
     }
-
+    /**
+     * 页面销毁
+     */
+    public void onStop() {
+        if (mVideoPlayer != null) {
+            mVideoPlayer.onStop();
+        }
+    }
     /**
      * 页面销毁
      */
@@ -139,7 +141,7 @@ public class VideoPlayerManager {
      * @return ManualPlayer video player
      */
     @Nullable
-    public ManualPlayer getVideoPlayer() {
+    public ExoUserPlayer getVideoPlayer() {
         if (mVideoPlayer != null && mVideoPlayer.getPlayer() != null) {
             return mVideoPlayer;
         }
@@ -169,17 +171,16 @@ public class VideoPlayerManager {
      *@param  newPlayerView 新的view
      *@param    isPlay  isPlay 是否播放
      * ****/
-    public void switchTargetView(@NonNull ManualPlayer player, @Nullable VideoPlayerView newPlayerView, boolean isPlay) {
+    public void switchTargetView(@NonNull ExoUserPlayer player, @Nullable VideoPlayerView newPlayerView, boolean isPlay) {
         VideoPlayerView oldPlayerView = player.getVideoPlayerView();
         if (oldPlayerView == newPlayerView) {
             return;
         }
         if (newPlayerView != null) {
-            newPlayerView.getPlayerView().setPlayer(player.getPlayer());
             player.setVideoPlayerView(newPlayerView);
         }
         if (oldPlayerView != null) {
-            oldPlayerView.resets();
+           // oldPlayerView.resets();
             oldPlayerView.getPlayerView().setPlayer(null);
         }
         if (isPlay) {
@@ -187,7 +188,8 @@ public class VideoPlayerManager {
         } else {
             if (newPlayerView != null) {
                 player.reset();
-                player.resetInit();
+                player.getPlayerViewListener().setPlayerBtnOnTouch(true);
+                player.getPlayerViewListener().reset();
             }
         }
     }
@@ -195,9 +197,8 @@ public class VideoPlayerManager {
 
     public static final int TYPE_PLAY_USER = 0;
     public static final int TYPE_PLAY_GESTURE = 1;
-    public static final int TYPE_PLAY_MANUAL = 2;
 
-    @IntDef({TYPE_PLAY_USER, TYPE_PLAY_GESTURE, TYPE_PLAY_MANUAL})
+    @IntDef({TYPE_PLAY_USER, TYPE_PLAY_GESTURE})
     @Retention(RetentionPolicy.SOURCE)
     @interface PlayerType {
     }
@@ -220,6 +221,8 @@ public class VideoPlayerManager {
         private final CopyOnWriteArraySet<VideoInfoListener> videoInfoListeners;
         /*** 多个视频接口***/
         private final CopyOnWriteArraySet<VideoWindowListener> videoWindowListeners;
+        /*** 视频加载准备接口***/
+        private final CopyOnWriteArraySet<ExoUserPlayer.OnPreparedListener> mOnPreparedListeners;
         private long resumePosition;
         private int resumeWindow = -1;
         private View.OnClickListener onClickListener;
@@ -235,6 +238,7 @@ public class VideoPlayerManager {
             this.playerType = type;
             videoInfoListeners = new CopyOnWriteArraySet<>();
             videoWindowListeners = new CopyOnWriteArraySet<>();
+            mOnPreparedListeners=new CopyOnWriteArraySet<>();
         }
 
         /*****
@@ -325,7 +329,16 @@ public class VideoPlayerManager {
             this.drmSessionManager = drmSessionManager;
             return this;
         }
-
+        /****
+         *  支持视频源动态添加
+         *
+         * @param videoUri videoUri
+         */
+        public Builder addMediaUri(@NonNull Uri videoUri) {
+            initMediaSourceBuilder();
+            mediaSourceBuilder.addMediaUri(videoUri);
+            return this;
+        }
         /***
          * 设置播放路径
          * @param uri 路径
@@ -431,9 +444,9 @@ public class VideoPlayerManager {
          * @param loopingCount 必须大于0
          *@return Builder
          */
-        public Builder setLooping(@Size(min = 1) int loopingCount) {
+        public Builder setLoopingMediaSource(@Size(min = 1) int loopingCount, Uri videoUri){
             initMediaSourceBuilder();
-            mediaSourceBuilder.setLooping(loopingCount);
+            mediaSourceBuilder.setLoopingMediaSource(loopingCount,videoUri);
             return this;
         }
 
@@ -510,7 +523,7 @@ public class VideoPlayerManager {
         }
 
         /***
-         * 设置手势touch 事件
+         * 设置手势touch动作
          * @param controllerHideOnTouch true 启用  false 关闭
          @return Builder
          */
@@ -530,15 +543,13 @@ public class VideoPlayerManager {
         }
 
         /***
-         * 移除进度监听
-         * @param  updateProgressListener updateProgressListener
-         @return Builder
-          * ****/
-        public Builder removeUpdateProgressListener(@NonNull AnimUtils.UpdateProgressListener updateProgressListener) {
-            view.getPlaybackControlView().removeUpdateProgressListener(updateProgressListener);
+         * 添加视频播放准备状态
+         * @param preparedListener 实例
+         */
+        public Builder addOnPreparedListeners(@NonNull ExoUserPlayer.OnPreparedListener preparedListener) {
+            mOnPreparedListeners.add(preparedListener);
             return this;
         }
-
         /**
          * 设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。 不支持流式媒体
          *
@@ -559,36 +570,24 @@ public class VideoPlayerManager {
             this.mapImage = mapImage;
             return this;
         }
-
         /***
          * 创建播放器
+         *
          * **/
+        //@deprecated   Corresponding method: {@link #build()}}
         public <T extends ExoUserPlayer> T create() {
             initMediaSourceBuilder();
             if (mapImage!=null){
                 mapImage.onCoverMap(view.getPreviewImage());
             }
-            T exoUserPlayer;
-            switch (playerType) {
-                case TYPE_PLAY_GESTURE:
-                    GestureVideoPlayer videoPlayer = new GestureVideoPlayer(context, mediaSourceBuilder, view);
-                    videoPlayer.setOnGestureBrightnessListener(onGestureBrightnessListener);
-                    videoPlayer.setOnGestureProgressListener(onGestureProgressListener);
-                    videoPlayer.setOnGestureVolumeListener(onGestureVolumeListener);
-                    videoPlayer.setPlayerGestureOnTouch(controllerHideOnTouch);
-                    exoUserPlayer = (T) videoPlayer;
-                    break;
-                case TYPE_PLAY_MANUAL:
-                    ManualPlayer manualPlayer = new ManualPlayer(context, mediaSourceBuilder, view);
-                    manualPlayer.setOnGestureBrightnessListener(onGestureBrightnessListener);
-                    manualPlayer.setOnGestureProgressListener(onGestureProgressListener);
-                    manualPlayer.setOnGestureVolumeListener(onGestureVolumeListener);
-                    manualPlayer.setPlayerGestureOnTouch(controllerHideOnTouch);
-                    exoUserPlayer = (T) manualPlayer;
-                    break;
-                default:
-                    exoUserPlayer = (T) new ExoUserPlayer(context, mediaSourceBuilder, view);
-                    break;
+            ExoUserPlayer  exoUserPlayer =  new ExoUserPlayer(context, mediaSourceBuilder, view);
+            if (playerType==TYPE_PLAY_GESTURE) {
+                    GestureModule gestureModule = new GestureModule(context, exoUserPlayer);
+                    gestureModule.setOnGestureBrightnessListener(onGestureBrightnessListener);
+                    gestureModule.setOnGestureProgressListener(onGestureProgressListener);
+                    gestureModule.setOnGestureVolumeListener(onGestureVolumeListener);
+                    gestureModule.setPlayerGestureOnTouch(controllerHideOnTouch);
+                    exoUserPlayer.addBasePlayerListener(gestureModule);
             }
             exoUserPlayer.setDrmSessionManager(drmSessionManager);
             for (VideoInfoListener videoInfoListener : videoInfoListeners) {
@@ -603,8 +602,41 @@ public class VideoPlayerManager {
                 exoUserPlayer.setPosition(resumePosition);
             }
             exoUserPlayer.setOnPlayClickListener(onClickListener);
-            return exoUserPlayer;
+            return (T) exoUserPlayer;
         }
+    /*    *//***
+         * 创建播放器
+         *
+         * **//*
+        public ExoUserPlayer  build() {
+            initMediaSourceBuilder();
+            if (mapImage!=null){
+                mapImage.onCoverMap(view.getPreviewImage());
+            }
+            ExoUserPlayer  exoUserPlayer =  new ExoUserPlayer(context, mediaSourceBuilder, view);
+            if (playerType==TYPE_PLAY_GESTURE) {
+                GestureModule gestureModule = new GestureModule(context, exoUserPlayer);
+                gestureModule.setOnGestureBrightnessListener(onGestureBrightnessListener);
+                gestureModule.setOnGestureProgressListener(onGestureProgressListener);
+                gestureModule.setOnGestureVolumeListener(onGestureVolumeListener);
+                gestureModule.setPlayerGestureOnTouch(controllerHideOnTouch);
+                exoUserPlayer.addBasePlayerListener(gestureModule);
+            }
+            exoUserPlayer.setDrmSessionManager(drmSessionManager);
+            for (VideoInfoListener videoInfoListener : videoInfoListeners) {
+                exoUserPlayer.addVideoInfoListener(videoInfoListener);
+            }
+            for (VideoWindowListener videoWindowListener : videoWindowListeners) {
+                exoUserPlayer.addOnWindowListener(videoWindowListener);
+            }
+            if (resumeWindow != -1) {
+                exoUserPlayer.setPosition(resumeWindow, resumePosition);
+            } else {
+                exoUserPlayer.setPosition(resumePosition);
+            }
+            exoUserPlayer.setOnPlayClickListener(onClickListener);
+            return  exoUserPlayer;
+        }*/
     }
 
 

@@ -136,7 +136,7 @@ public class ExoDownloadTracker implements DownloadManager.Listener, Runnable {
         }
         DownloadAction action = trackedDownloadStates.get(uri);
         if (action instanceof SegmentDownloadAction) {
-            return ((SegmentDownloadAction) action).keys;
+            return (List<K>) ((SegmentDownloadAction) action).keys;
         }
         return Collections.emptyList();
     }

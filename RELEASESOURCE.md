@@ -5,15 +5,16 @@
   >>         Priority : PriorityDataSourceFactory
 #### 2 自定义数据源引用
 
-  >>      compile 'com.google.android.exoplayer:extension-okhttp:2.7.2'
-  >>       compile 'com.google.android.exoplayer:extension-rtmp:2.7.2'
+  >>      compile 'com.google.android.exoplayer:extension-okhttp:2.8.4'
+  >>       compile 'com.google.android.exoplayer:extension-rtmp:2.8.4'
 
 >>#### 3.自定义数据源工厂类:
    * 实现接口 DataSourceListener  然后在getDataSourceFactory方法里 自定义 数据源
    * 在你使用播放控件时中实例化类
 
-   >>       exoPlayerManager = new GestureVideoPlayer(this,videoPlayerView,new DataSource(this));
-   >>        exoPlayerManager = new GestureVideoPlayer(this,(R.id.exo_play_context_id,new DataSource(this));
+   >>       exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL, videoPlayerView)
+   >>                                                                                     .setDataSource(mediaSourceBuilder)
+   >>                                                                                     .create();
 
    * demo代码:
    ``````

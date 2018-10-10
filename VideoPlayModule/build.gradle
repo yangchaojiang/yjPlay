@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -22,7 +23,6 @@ android {
         abortOnError false
     }
 
-    buildToolsVersion '27.0.3'
 }
 
 dependencies {
@@ -32,15 +32,15 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile project(':VideoPlayModule-Lite')
-    compile('com.google.android.exoplayer:exoplayer-smoothstreaming:2.8.4', {
+    compile('com.google.android.exoplayer:exoplayer-smoothstreaming:2.9.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile('com.google.android.exoplayer:exoplayer-dash:2.8.4', {
+    compile('com.google.android.exoplayer:exoplayer-dash:2.9.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
-    compile('com.google.android.exoplayer:exoplayer-hls:2.8.4', {
+    compile('com.google.android.exoplayer:exoplayer-hls:2.9.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'

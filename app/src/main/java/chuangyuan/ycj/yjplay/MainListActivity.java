@@ -21,6 +21,7 @@ import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -102,7 +103,7 @@ public class MainListActivity extends AppCompatActivity {
     private void start(View view, String uri) {
         //进入详细暂停视频
         long currPosition = 0;
-        ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
+        ExoUserPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
         if (manualPlayer != null) {
             isReset = false;
             currPosition = manualPlayer.getCurrentPosition();
@@ -122,14 +123,14 @@ public class MainListActivity extends AppCompatActivity {
         super.onPause();
         Log.d(MainListActivity.class.getName(), "onPause");
         //如果进入详情播放则不暂停视频释放资源//为空内部已经处理
-        VideoPlayerManager.getInstance().onPause(isReset);
+       VideoPlayerManager.getInstance().onPause(isReset);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-       // VideoPlayerManager.getInstance().onResume();
+        VideoPlayerManager.getInstance().onResume();
     }
 
     long st;
@@ -162,7 +163,7 @@ public class MainListActivity extends AppCompatActivity {
             long currPosition = data.getLongExtra("currPosition", 0);
             if (!isEnd) {
                 Log.d("onActivityResult", "onActivityResult:" + currPosition);
-                ManualPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
+                ExoUserPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
                 if (manualPlayer != null) {
                     //从详情页面需要的重新的原来view复原//否测原来无法播放
                     VideoPlayerView videoPlayerView = (VideoPlayerView) adapter.getViewByPosition(clickPosition, R.id.exo_play_context_id);

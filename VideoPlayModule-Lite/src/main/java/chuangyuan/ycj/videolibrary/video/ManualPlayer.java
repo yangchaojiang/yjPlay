@@ -20,15 +20,12 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * E-Mail:1007181167@qq.com
  * Description： 手动控制播放播放器
  */
- public final class ManualPlayer extends GestureVideoPlayer {
+/** @deprecated  已废弃 */
+public final class ManualPlayer extends ExoUserPlayer {
     private  static  final String TAG=ManualPlayer.class.getName();
-    /**
-     * 记录视频进度缓存map
-     **/
+    /*** 记录视频进度缓存map  **/
     private static WeakHashMap<Integer, Long> tags = new WeakHashMap<>();
-    /**
-     * 记录视频当前窗口缓存map
-     **/
+    /** * 记录视频当前窗口缓存map **/
     private static WeakHashMap<Integer, Integer> tags2 = new WeakHashMap<>();
     private int position;
 
@@ -97,20 +94,7 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
     @Override
     public <R extends ExoUserPlayer> R startPlayer() {
-        if (getPlayerViewListener().isList()) {
-            handPause = false;
-            VideoPlayerManager.getInstance().setCurrentVideoPlayer(ManualPlayer.this);
-            if (tags.get(position) != null && tags2.get(position) != null) {
-                int positions = tags.get(position).intValue();
-                int index = tags2.get(position);
-                setPosition(index, positions);
-                tags.remove(position);
-                tags2.remove(position);
-            }
-        }
-        getPlayerViewListener().setPlayerBtnOnTouch(false);
-        createPlayers();
-        registerReceiverNet();
+
         return (R) this;
     }
 
@@ -174,20 +158,15 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
             }
             player.stop();
             player.removeListener(componentListener);
-            resetInit();
+            getPlayerViewListener().setPlayerBtnOnTouch(true);
+            getPlayerViewListener().reset();
             player.release();
             player = null;
         }
 
     }
 
-    /***
-     * 重置点击事件
-     * **/
-    void resetInit() {
-        getPlayerViewListener().setPlayerBtnOnTouch(true);
-         getPlayerViewListener().reset();
-    }
+
 
     /****
      * 设置tag 标记 防止列表复用进度导致,

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.AnimUtils;
 
 import chuangyuan.ycj.videolibrary.listener.OnCoverMapImageListener;
@@ -19,9 +20,7 @@ import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
-import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
-import chuangyuan.ycj.yjplay.data.CronetDataSource2;
 import chuangyuan.ycj.yjplay.data.Data2Source;
 import chuangyuan.ycj.yjplay.data.DataSource;
 import chuangyuan.ycj.yjplay.data.OfficeDataSource;
@@ -53,18 +52,18 @@ public class MainDetailedActivity extends Activity {
         // listss.add(bean);
         // listss.add(bean1);
         //实例化
-        exoPlayerManager = new VideoPlayerManager.Builder(this,VideoPlayerManager.TYPE_PLAY_MANUAL, R.id.exo_play_context_id)
-                .setDataSource(new OfficeDataSource(this,null))
+        exoPlayerManager = new VideoPlayerManager.Builder(this,VideoPlayerManager.TYPE_PLAY_GESTURE, R.id.exo_play_context_id)
+                .setDataSource(new Data2Source(this))
                 //设置视频标题
                 .setTitle("视频标题")
                 //设置水印图
                 .setExoPlayWatermarkImg(R.mipmap.watermark_big)
                 //.setPlayUri("/storage/emulated/0/test.ts")
-                //.setPlayUri("http://oph6zeldx.bkt.clouddn.com/20130104095750-MzE1ODU1.mp3")
-               // .setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20180820_083327.mp4")
-               // .setPlayUri(getString(R.string.uri_test_5))
+               //.setPlayUri("http://oph6zeldx.bkt.clouddn.com/20130104095750-MzE1ODU1.mp3")
+              // .setPlayUri("/storage/emulated/0/DCIM/Camera/VID_20180820_083327.mp4")
+               .setPlayUri(getString(R.string.uri_test_5))
                 .setPlayerGestureOnTouch(true)
-                .setPlayUri("/storage/sdcard0/DCIM/Camera/VID_20180829_100348.mp4")
+               // .setPlayUri("/storage/sdcard0/DCIM/Camera/VID_20180829_100348.mp4")
                 //加载rtmp 协议视频
                 //.setPlayUri("rtmp://live.hkstv.hk.lxdns.com/live/hks")
                 //加载m3u8
@@ -101,6 +100,12 @@ public class MainDetailedActivity extends Activity {
                     public void updateProgress(long position, long bufferedPosition, long duration) {
 //                     //   Log.d(TAG,"bufferedPosition:"+position);
                     //    Log.d(TAG,"duration:"+duration);
+                    }
+                })
+                .addOnPreparedListeners(new ExoUserPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(SimpleExoPlayer player) {
+                        player.setPlayWhenReady(false);
                     }
                 })
                 .addVideoInfoListener(new VideoInfoListener() {
@@ -142,6 +147,8 @@ public class MainDetailedActivity extends Activity {
                     }
                 })
                 .create();
+        exoPlayerManager.setStartOrPause(false);
+        exoPlayerManager.startPlayer();
                 //播放视频
         //d隐藏控制布局
         // exoPlayerManager.hideControllerView();
@@ -177,8 +184,8 @@ public class MainDetailedActivity extends Activity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        //  exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
+        exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
     }
 
     @Override

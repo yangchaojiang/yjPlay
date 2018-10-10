@@ -1,6 +1,6 @@
  ### 三.列表
  
-   1.列表播放，只能使用ManualPlayer,在你的VideoHolder
+   1.列表播放
    *  1.在列表控件使用属性 ”app:controller_layout_id="@layout/simple_exo_playback＿list_view"“  //提供默列表控制布局
   
    *  2.player_list="true" 设置为true 开启列表模式
@@ -28,7 +28,7 @@
               }
 
               public class VideoViewHolder extends RecyclerView.ViewHolder {
-                  ManualPlayer userPlayer;
+                  ExoUserPlayer userPlayer;
                   VideoPlayerView playerView;
                   public VideoViewHolder(View itemView) {
                       super(itemView);

@@ -44,7 +44,7 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".defaults.GuangGaoPlayerdActivity"
+            android:name=".ima.GuangGaoPlayerdActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
@@ -55,11 +55,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".offline.OfficeDetailedActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ima.ImaPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
@@ -93,7 +88,14 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".exo.ExoPlayActivity"></activity>
+        <activity android:name=".add.AddVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            >
+
+
+        </activity>
     </application>
 
 </manifest>

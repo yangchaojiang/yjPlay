@@ -33,8 +33,8 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * author yangc
  * date 2017/2/28
  * E-Mail:1007181167@qq.com
- * Description：增加手势播放器
- */
+ * Description：增加手势播放器，改用组件形成存在，控制类选用ExoUserPlayer
+* @deprecated Use {@link GestureModule}. 下个版本移除 **/
 public class GestureVideoPlayer extends ExoUserPlayer {
     private static final String TAG = GestureVideoPlayer.class.getName();
     /***音量的最大值***/

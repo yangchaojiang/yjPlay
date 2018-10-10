@@ -9,7 +9,6 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
@@ -36,14 +35,14 @@ public class TestAdapter extends RecyclerArrayAdapter<String> {
 
     }
     class  TestVideoHolder extends BaseViewHolder<String>{
-        ManualPlayer userPlayer;
+        ExoUserPlayer userPlayer;
         VideoPlayerView playerView;
         View itemView;
         public TestVideoHolder(ViewGroup parent) {
             super(parent, R.layout.item_video1);
             playerView=$(R.id.exo_play_context_id);
             itemView=$(R.id.itemView);
-            userPlayer = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_MANUAL,playerView).create();
+            userPlayer = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE,playerView).create();
         }
         @Override
         public void setData(final String data) {

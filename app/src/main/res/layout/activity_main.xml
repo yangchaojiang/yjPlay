@@ -54,12 +54,6 @@
         android:text="@string/im_btn_hint" />
     <Button
         android:textAllCaps="false"
-        android:id="@+id/button10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/googlesdk" />
-    <Button
-        android:textAllCaps="false"
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,6 +83,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/simple_barrage"/>
-
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/button14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Add_video"/>
 </LinearLayout>
 </ScrollView>
