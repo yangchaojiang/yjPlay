@@ -1,1 +1,1 @@
-include ':app', ':VideoPlayModule-Lite', ':VideoUi', ':VideoPlayModule', ':ima', ':ffmpeg',"Glidemodule"
+include ':app', ':VideoPlayModule-Lite', ':VideoUi', ':VideoPlayModule', ':ima', ':ffmpeg'
