@@ -4,7 +4,7 @@
 
 
   ### gif 显示有点卡，帧数低，实际很流畅
-  #### [下载预览apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-release-unsigned.apk)
+  #### [下载预览apk](https://raw.githubusercontent.com/yangchaojiang/yjPlay/master/app-release.apk)
 
  ![](gif/tet.gif)  ![](gif/tet2.gif) 
  
