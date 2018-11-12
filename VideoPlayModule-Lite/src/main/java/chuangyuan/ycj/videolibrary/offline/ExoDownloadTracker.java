@@ -22,7 +22,6 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -149,7 +148,7 @@ public class ExoDownloadTracker implements DownloadManager.Listener, Runnable {
      *@param    extension extension
      * **/
     public void toggleDownload(Activity activity, String name, Uri uri, String extension) {
-        toggleDownload(activity, name, uri,extension,null);
+        toggleDownload(activity, name, uri, extension, null);
     }
 
     /***
@@ -304,6 +303,16 @@ public class ExoDownloadTracker implements DownloadManager.Listener, Runnable {
                         trackTitles.add(trackNameProvider.getTrackName(trackGroup.getFormat(k)));
                     }
                 }
+            }
+            if (trackTitles.getCount() == 0) {
+                ArrayList<TrackKey> selectedTrackKeys = new ArrayList<>();
+                if (trackKeys.isEmpty()) {
+                    // We have selected keys, or we're dealing with single stream content.
+                    DownloadAction downloadAction =
+                            downloadHelper.getDownloadAction(Util.getUtf8Bytes(name), selectedTrackKeys);
+                    startDownload(downloadAction);
+                }
+            } else {
                 if (!trackKeys.isEmpty()) {
                     builder.setView(dialogView);
                 }

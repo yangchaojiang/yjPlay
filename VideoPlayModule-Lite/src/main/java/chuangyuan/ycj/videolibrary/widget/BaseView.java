@@ -1,13 +1,14 @@
 package chuangyuan.ycj.videolibrary.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -16,27 +17,28 @@ import android.support.annotation.Size;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.AppCompatImageView;
+import android.transition.ChangeBounds;
+import android.transition.TransitionManager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.ExoPlayerControlView;
 import com.google.android.exoplayer2.ui.ExoPlayerView;
+import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
+import chuangyuan.ycj.videolibrary.listener.OnEndGestureListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
-import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
  * author  yangc
@@ -45,8 +47,13 @@ import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
  * Deprecated: 父类view 存放控件方法
  */
 abstract class BaseView extends FrameLayout {
+    private static final int ANIM_DURATION = 600;
     /*** The constant TAG.***/
     public static final String TAG = VideoPlayerView.class.getName();
+    /*** 记录视频进度缓存map  **/
+    protected static WeakHashMap<String, Long> tags = new WeakHashMap<>();
+    /*** 记录视频当前窗口缓存map **/
+    protected static WeakHashMap<String, Integer> tags2 = new WeakHashMap<>();
     final Activity activity;
     /***播放view*/
     protected final ExoPlayerView playerView;
@@ -54,8 +61,8 @@ abstract class BaseView extends FrameLayout {
     protected TextView videoLoadingShowText;
     /***错误页,进度控件,锁屏按布局,自定义预览布局,提示布局,播放按钮*/
     protected View exoLoadingLayout, exoPlayPreviewLayout, exoPreviewPlayBtn, exoBarrageLayout;
-    /***水印,封面图占位,显示音频和亮度布图*/
-    protected ImageView exoPlayWatermark, exoPreviewImage,exoBottomPreviewImage;
+    /***水印,封面图占位,显示音频和亮度布图,返回按钮*/
+    protected ImageView exoPlayWatermark, exoPreviewImage, exoBottomPreviewImage, exoControlsBack;
     /***手势管理布局view***/
     protected final GestureControlView mGestureControlView;
     /***视频加载页***/
@@ -63,29 +70,25 @@ abstract class BaseView extends FrameLayout {
     /*** 锁屏管理布局***/
     protected final LockControlView mLockControlView;
     /***锁屏管理布局***/
-    protected final ExoPlayerControlView controllerView;
+    protected final PlayerControlView controllerView;
     /***切换***/
     protected BelowView belowView;
     /***流量提示框***/
     protected AlertDialog alertDialog;
     protected ExoPlayerListener mExoPlayerListener;
-    /***返回按钮*/
-    protected AppCompatImageView exoControlsBack;
-    /***是否显示返回按钮,是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮,是否自动切换视频宽高*/
-    private boolean isShowBack = true,isLand, isListPlayer, isShowVideoSwitch,isWGh;
-    /***标题左间距*/
-    protected int getPaddingLeft;
-    private ArrayList<String> nameSwitch;
-    /***多分辨率,默认Ui布局样式横屏后还原处理***/
-    protected int switchIndex, setSystemUiVisibility = 0;
+    /***标题左间距,多分辨率,默认Ui布局样式横屏后还原处理***/
+    protected int getPaddingLeft, switchIndex, setSystemUiVisibility = 0;
     /*** The Ic back image.***/
     @DrawableRes
     private int icBackImage = R.drawable.ic_exo_back;
-    protected   final int viewHeight;
-    protected   final int viewWidth;
-    protected    int  endMargin,startMargin,topMargin,bottomMargin;
+    private OnEndGestureListener mOnEndGestureListener;
+    private View.OnClickListener onClickListener;
+    /***是否显示返回按钮,是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮,是否自动切换视频宽高*/
+    private boolean isShowBack = true, isLand, isListPlayer, isShowVideoSwitch, isWGh, controllerHideOnTouch = true, isVerticalFullScreen;
+    private ArrayList<String> nameSwitch;
+
     /**
-     * Instantiates a new Base view.
+     * Instantiates a new Base vie
      *
      * @param context the context
      */
@@ -113,11 +116,9 @@ abstract class BaseView extends FrameLayout {
     public BaseView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         activity = VideoPlayUtils.scanForActivity(context);
-        viewHeight=getHeight();
-        viewWidth=getWidth();
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         playerView = new ExoPlayerView(getContext(), attrs, defStyleAttr);
-        controllerView = (ExoPlayerControlView) playerView.getControllerView();
+        controllerView = playerView.getControllerView();
         mGestureControlView = new GestureControlView(getContext(), attrs, defStyleAttr);
         mActionControlView = new ActionControlView(getContext(), attrs, defStyleAttr);
         mLockControlView = new LockControlView(getContext(), attrs, defStyleAttr, this);
@@ -154,11 +155,6 @@ abstract class BaseView extends FrameLayout {
         }
         intiView();
         initWatermark(userWatermark, defaultArtworkId);
-        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams();
-
-      /*  topMargin=layoutParams.topMargin;
-        endMargin=layoutParams.rightMargin;
-        bottomMargin=layoutParams.bottomMargin;*/
     }
 
 
@@ -166,7 +162,7 @@ abstract class BaseView extends FrameLayout {
      * Inti view.
      */
     private void intiView() {
-        exoControlsBack = new AppCompatImageView(getContext());
+        exoControlsBack = new ImageView(getContext());
         exoControlsBack.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         int ss = VideoPlayUtils.dip2px(getContext(), 7f);
         exoControlsBack.setId(R.id.exo_controls_back);
@@ -194,16 +190,35 @@ abstract class BaseView extends FrameLayout {
         }
         exoPlayWatermark = playerView.findViewById(R.id.exo_player_watermark);
         videoLoadingShowText = playerView.findViewById(R.id.exo_loading_show_text);
-        exoBottomPreviewImage= playerView.findViewById(R.id.exo_preview_image_bottom);
+        exoBottomPreviewImage = playerView.findViewById(R.id.exo_preview_image_bottom);
         if (playerView.findViewById(R.id.exo_preview_image) != null) {
             exoPreviewImage = playerView.findViewById(R.id.exo_preview_image);
             exoPreviewImage.setBackgroundResource(android.R.color.transparent);
         } else {
-            exoPreviewImage=exoBottomPreviewImage;
+            exoPreviewImage = exoBottomPreviewImage;
         }
         setSystemUiVisibility = activity.getWindow().getDecorView().getSystemUiVisibility();
-
         exoPreviewPlayBtn = playerView.findViewById(R.id.exo_preview_play);
+
+    }
+
+    /****
+     * 重置
+     * ***/
+    public void resets() {
+        if (getTag() != null) {
+            tags.put(getTag().toString(), getPlayerView().getPlayer().getCurrentPosition());
+            tags2.put(getTag().toString(), getPlayerView().getPlayer().getCurrentWindowIndex());
+        }
+        mLockControlView.removeCallback();
+        if (exoLoadingLayout != null) {
+            exoLoadingLayout.setVisibility(GONE);
+        }
+        if (mActionControlView != null) {
+            mActionControlView.hideAllView();
+        }
+        getPlaybackControlView().showNo();
+        showPreViewLayout(VISIBLE);
     }
 
     /**
@@ -212,16 +227,18 @@ abstract class BaseView extends FrameLayout {
     public void onDestroy() {
         if (alertDialog != null) {
             alertDialog.dismiss();
-            alertDialog = null;
-        }
-        if (belowView != null) {
-            belowView = null;
         }
         if (exoControlsBack != null && exoControlsBack.animate() != null) {
             exoControlsBack.animate().cancel();
         }
         if (mLockControlView != null) {
             mLockControlView.onDestroy();
+        }
+        if (activity != null && activity.isDestroyed()) {
+            tags.clear();
+            tags2.clear();
+            belowView = null;
+            alertDialog = null;
         }
         nameSwitch = null;
     }
@@ -278,33 +295,107 @@ abstract class BaseView extends FrameLayout {
     /***
      * 设置内容横竖屏内容
      *
-     * @param newConfig 旋转对象
      */
-    protected void scaleLayout(int newConfig) {
-        if (newConfig == Configuration.ORIENTATION_PORTRAIT) {
-            ViewGroup parent = (ViewGroup) playerView.getParent();
-            if (parent != null) {
-                parent.removeView(playerView);
-            }
-            LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            addView(playerView, params);
-
-        } else {
-            ViewGroup parent = (ViewGroup) playerView.getParent();
-            if (parent != null) {
-                parent.removeView(playerView);
-            }
-            ViewGroup contentView = activity.findViewById(android.R.id.content);
-            LayoutParams params = new LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-            );
+    protected void scaleLayout() {
+        if (isVerticalFullScreen()) {
+            scaleVerticalLayout();
+            return;
+        }
+        ViewGroup contentView = activity.findViewById(android.R.id.content);
+        ViewGroup parent = (ViewGroup) playerView.getParent();
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        if (parent != null) {
+            parent.removeView(playerView);
+        }
+        if (isLand) {
             contentView.addView(playerView, params);
+        } else {
+            addView(playerView, params);
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             mExoPlayerListener.land();
         }
     }
+
+    /***
+     * 设置内容竖屏全屏
+     *
+     */
+    ViewGroup oldViewGroup;
+    private void scaleVerticalLayout() {
+        ViewGroup contentView = activity.findViewById(android.R.id.content);
+        final ViewGroup parent = (ViewGroup) playerView.getParent();
+        if (isLand) {
+            if (parent != null) {
+                parent.removeView(playerView);
+            }
+            LayoutParams params;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                contentView.addView(playerView, params);
+            } else {
+                params = new LayoutParams(getWidth(), getHeight());
+                contentView.addView(playerView, params);
+                ChangeBounds changeBounds = new ChangeBounds();
+                //开启延迟动画，在这里会记录当前视图树的状态
+                changeBounds.setDuration(ANIM_DURATION);
+                TransitionManager.beginDelayedTransition(contentView, changeBounds);
+                ViewGroup.LayoutParams layoutParams = playerView.getLayoutParams();
+                layoutParams.height = LayoutParams.MATCH_PARENT;
+                layoutParams.width = LayoutParams.MATCH_PARENT;
+                playerView.setLayoutParams(layoutParams);
+            }
+
+        } else {
+            LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                ChangeBounds changeBounds = new ChangeBounds();
+                //开启延迟动画，在这里会记录当前视图树的状态
+                changeBounds.setDuration(ANIM_DURATION);
+                TransitionManager.beginDelayedTransition(contentView, changeBounds);
+                ViewGroup.LayoutParams layoutParams2 = playerView.getLayoutParams();
+                layoutParams2.width = getWidth();
+                layoutParams2.height = getHeight();
+                playerView.setLayoutParams(layoutParams2);
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (parent != null) {
+                            parent.removeView(playerView);
+                        }
+                        BaseView.this.addView(playerView);
+                    }
+                }, ANIM_DURATION);
+            } else {
+                if (parent != null) {
+                    parent.removeView(playerView);
+                }
+                addView(playerView, params);
+            }
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            mExoPlayerListener.land();
+        }
+    }
+
+    /***
+     * 列表显示返回按钮
+     * @param visibility visibility
+     * **/
+    protected void showListBack(int visibility) {
+        if (isListPlayer()) {
+            if (visibility == VISIBLE) {
+                exoControlsBack.setVisibility(VISIBLE);
+                getPaddingLeft = controllerView.getExoControllerTop().getPaddingLeft();
+                controllerView.getExoControllerTop().
+                        setPadding(VideoPlayUtils.dip2px(getContext(), 35), 0, 0, 0);
+            } else {
+                controllerView.getExoControllerTop().setPadding(getPaddingLeft, 0, 0, 0);
+            }
+            showBackView(visibility, false);
+        }
+    }
+
     /***
      * 为了播放完毕后，旋转屏幕，导致播放图像消失处理
      * @param visibility 状态
@@ -315,6 +406,7 @@ abstract class BaseView extends FrameLayout {
             exoBottomPreviewImage.setImageDrawable(exoPreviewImage.getDrawable());
         }
     }
+
     /***
      * 显示隐藏加载页
      *
@@ -418,7 +510,7 @@ abstract class BaseView extends FrameLayout {
     protected void showBackView(int visibility, boolean is) {
         if (exoControlsBack != null) {
             //如果是竖屏和且不显示返回按钮，就隐藏
-            if (!isShowBack && !isLand) {
+            if ((!isShowBack && !isLand)) {
                 exoControlsBack.setVisibility(GONE);
                 return;
             }
@@ -434,8 +526,50 @@ abstract class BaseView extends FrameLayout {
         }
     }
 
-    public boolean isShowBack() {
-        return isShowBack;
+    /**
+     * 播放监听事件
+     ***/
+    final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (mExoPlayerListener == null) {
+                    return false;
+                }
+                if (onClickListener != null) {
+                    onClickListener.onClick(v);
+                } else {
+                    mExoPlayerListener.startPlayers();
+                }
+            }
+            return false;
+        }
+    };
+
+    /****
+     * 设置点击播放按钮回调, 交给用户处理
+     * @param onClickListener 回调实例
+     */
+    public void setOnPlayClickListener(@Nullable View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    /***
+     * 设置设置手势回调
+     * @param mOnEndGestureListener updateProgressListener
+     */
+    public void setOnEndGestureListener(OnEndGestureListener mOnEndGestureListener) {
+        this.mOnEndGestureListener = mOnEndGestureListener;
+    }
+
+    /***
+     * 设置手势touch 事件
+     * @param controllerHideOnTouch true 启用  false 关闭
+     */
+    public void setPlayerGestureOnTouch(boolean controllerHideOnTouch) {
+        this.controllerHideOnTouch = controllerHideOnTouch;
     }
 
     /**
@@ -527,7 +661,7 @@ abstract class BaseView extends FrameLayout {
      * @return the name switch
      */
     protected ArrayList<String> getNameSwitch() {
-        return nameSwitch==null?nameSwitch=new ArrayList<>():nameSwitch;
+        return nameSwitch == null ? nameSwitch = new ArrayList<>() : nameSwitch;
     }
 
     protected void setNameSwitch(ArrayList<String> nameSwitch) {
@@ -553,6 +687,17 @@ abstract class BaseView extends FrameLayout {
         this.nameSwitch = new ArrayList<>(name);
         this.switchIndex = switchIndex;
     }
+
+    /**
+     * 设置是否横屏
+     *
+     * @param land land  默认 false  true  横屏
+     */
+    protected void setLand(boolean land) {
+        isLand = land;
+    }
+
+
     /**
      * 设置视频宽度小于视频高度是否旋转(渲染是texture_view 有效)
      *
@@ -563,30 +708,52 @@ abstract class BaseView extends FrameLayout {
     }
 
     /**
-     * 设置视频宽度小于视频高度是否旋转(渲染是texture_view 有效)
+     * 是否开启竖屏全屏
      *
-     * @param land land  默认 false  true  横屏
+     * @param verticalFullScreen isWGh  默认 false  true 开启
      */
-    protected void setLand(boolean land) {
-        isLand = land;
+    public void setVerticalFullScreen(boolean verticalFullScreen) {
+        isVerticalFullScreen = verticalFullScreen;
+    }
+
+    public boolean isVerticalFullScreen() {
+        return isVerticalFullScreen;
+    }
+
+    public boolean isShowBack() {
+        return isShowBack;
     }
 
     protected boolean isWGh() {
         return isWGh;
     }
-      boolean isLand() {
+
+    public boolean isLand() {
         return isLand;
     }
+
+
     protected boolean isShowVideoSwitch() {
         return isShowVideoSwitch;
     }
+
     /****
-     * 获取控制类
+     * 获取锁频view
      *
      * @return PlaybackControlView playback control view
      */
     @NonNull
-    public ExoPlayerControlView getPlaybackControlView() {
+    public LockControlView getLockControlView() {
+        return mLockControlView;
+    }
+
+    /****
+     * 获取控制view
+     *
+     * @return PlaybackControlView playback control view
+     */
+    @NonNull
+    public PlayerControlView getPlaybackControlView() {
         return controllerView;
     }
 
@@ -727,5 +894,32 @@ abstract class BaseView extends FrameLayout {
         return (ExoDefaultTimeBar) controllerView.getTimeBar();
     }
 
+
+    protected final View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (!controllerHideOnTouch) {
+                return false;
+            } else if (mLockControlView.isLock()) {
+                return false;
+            } else if (!isLand) {
+                //竖屏不执行手势
+                return false;
+            }
+            if (mOnEndGestureListener != null) {
+                mOnEndGestureListener.onTouchEvent(event);
+            }
+            // 处理手势结束
+            switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_UP:
+                    if (mOnEndGestureListener != null) {
+                        mOnEndGestureListener.onEndGesture();
+                    }
+                    break;
+                default:
+            }
+            return false;
+        }
+    };
 
 }

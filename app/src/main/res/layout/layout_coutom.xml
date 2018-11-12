@@ -4,8 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
+     <android.support.v7.widget.Toolbar
+         android:id="@+id/mToolbar"
+         android:layout_width="match_parent"
+         android:layout_height="?actionBarSize"
+         android:background="@color/colorPrimary"
+         app:title="测试"
+         />
 
     <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
         android:id="@+id/exo_play_context_id"
@@ -32,10 +40,12 @@
         app:use_artwork="true"
         app:user_watermark="@mipmap/watermark_big"
           />
-    <FrameLayout
-        android:id="@+id/ads"
-        android:layout_width="match_parent"
-        android:layout_height="400px"></FrameLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="哈哈哈"
+        />
 
 
 </LinearLayout>

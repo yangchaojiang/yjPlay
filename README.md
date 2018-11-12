@@ -12,6 +12,9 @@
 
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    *  ExoUserPlayer 基本播放（默认关闭手势  亮度，音量，快进，等手势，支持自定义布局）
+   *  自动适配适配TV。
+   *  支持横屏和竖屏两种模式全屏。
+   *  适配音频控制布局。
    *  支持广告视频预览(轻松实现，完美切换，<font color="red">可自定义</font>)。
    *  支持多种分辨率视频切换。
    *  [缓存下载加密视频功能（边播变缓存轻松实现](README_EN_VIDEO.md)<font color="red">不是使用AndroidVideoCache</font>。
@@ -30,11 +33,11 @@
    *  支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
    *  支持视频实时进度（头条底部进度）。
    *  支持流式API方式调用。
+
  <!--more-->
 
  ### [更新日志2.3.0→》戳我查看](RELEASENOTES.md)
-#### 重要升级
-   * 解决6.0一下版本安卓切换横竖屏，卡顿延迟/
+
 
  ### 一.引用类库
   ````
@@ -159,8 +162,20 @@
       app.strings.xml
       <string name="exo_play_reminder">您当前网络不是wifi，是否继续观看视频</string>
       <string name="exo_play_wifi_hint_no">提示</string>
+ >> #### 5.开启竖屏全屏模式。
+     ```
+     VideoPlayerView.setVerticalFullScreen(true)
+     ```
+     或者
+     ````
+       exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
+                     .setDataSource(wholeMediaSource)
+                     .setPosition(currPosition)
+                     .setTitle("自定义视频标题")
+                     .setVerticalFullScreen(true)
+     ````
 
- >> #### 5.在功能清单声明 AndroidManifest.xml
+ >> #### 6.在功能清单声明 AndroidManifest.xml
     在activity节点 加上“android:configChanges="orientation|keyboardHidden|screenSize"”
      如下实例：
             <activity android:name="chuangyuan.ycj.yjplay.MainListActivity"
@@ -185,6 +200,8 @@
   | setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                |  
   | getPreviewImage()                              | ImageView | 设置封面图控件                                                               |  
   | setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                |  
+  | setVerticalFullScreen(true)                    | void      | 开启竖屏全屏                                                           |
+
   >>更多方法参考demo用法。
   
  > #### 3 播放代码 
@@ -256,7 +273,7 @@
                                                             .setDataSource(mediaSourceBuilder)
                                                             .create();
 
- > #### 4 ExoUserPlayer播放管理类可用方法
+ > #### 4 VideoPlayerManager.Builder 播放管理类可用方法
   | name                                 | type | info                                                                        |
   |--------------------------------------|------|---------------------------------------------------------------------------- |
   | setPosition(1000)                    | void |  设置开始播放进度                                                               |  
@@ -392,13 +409,13 @@
           http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
           Priority : PriorityDataSourceFactory
  #### 2 ExoPlayer自定义数据源引用(根据自己需求选用)
-      compile 'com.google.android.exoplayer:extension-okhttp:2.8.2'
-      compile 'com.google.android.exoplayer:extension-rtmp:2.8.2'
-      compile 'com.google.android.exoplayer:extension-gvr:2.8.2'
-      compile 'com.google.android.exoplayer:extension-cast:2.8.2'
-      compile 'com.google.android.exoplayer:extension-mediasession:2.8.2'
-      compile 'com.google.android.exoplayer:extension-ima:2.8.2'
-      compile 'com.google.android.exoplayer:extension-leanback:2.8.2'
+      compile 'com.google.android.exoplayer:extension-okhttp:2.9.0'
+      compile 'com.google.android.exoplayer:extension-rtmp:2.9.0'
+      compile 'com.google.android.exoplayer:extension-gvr:2.9.0'
+      compile 'com.google.android.exoplayer:extension-cast:2.9.0'
+      compile 'com.google.android.exoplayer:extension-mediasession:2.9.0'
+      compile 'com.google.android.exoplayer:extension-ima:2.9.0'
+      compile 'com.google.android.exoplayer:extension-leanback:2.9.0'
 
 ### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
 ### 六.[自定义布局用法-戳我](READMELAYUOT.md)

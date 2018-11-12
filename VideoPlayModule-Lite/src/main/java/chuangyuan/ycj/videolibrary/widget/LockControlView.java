@@ -1,6 +1,5 @@
 package chuangyuan.ycj.videolibrary.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -10,9 +9,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.google.android.exoplayer2.ui.AnimUtils;
-
 import chuangyuan.ycj.videolibrary.R;
+import chuangyuan.ycj.videolibrary.utils.AnimUtils;
 
 /**
  * author  yangc
@@ -21,8 +19,7 @@ import chuangyuan.ycj.videolibrary.R;
  * Deprecated:  锁屏view 控制
  */
 
-@SuppressLint("ViewConstructor")
-public class LockControlView extends FrameLayout implements View.OnClickListener, AnimUtils.AnimatorListener {
+public class LockControlView extends FrameLayout implements View.OnClickListener, AnimUtils.AnimatorListener,AnimUtils.UpdateProgressListener {
     /***进度条控件*/
     private ExoDefaultTimeBar exoPlayerLockProgress;
     /***锁屏按钮*/
@@ -31,7 +28,6 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
     /***视频加载页,错误页,进度控件,锁屏按布局,自定义预览布局,提示布局,播放按钮*/
     private View exoPlayLockLayout;
     private final BaseView mBaseView;
-    private boolean isOpenLock = true;
     private boolean isProgress = false;
     private View exoControllerRight, exoControllerLeft;
 
@@ -48,16 +44,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
         lockCheckBox.setVisibility(GONE);
         lockCheckBox.setOnClickListener(this);
         mBaseView.getPlaybackControlView().setAnimatorListener(this);
-        mBaseView.getPlaybackControlView().addUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
-            @Override
-            public void updateProgress(long position, long bufferedPosition, long duration) {
-                if (exoPlayerLockProgress != null && (mBaseView.isLand() && lockCheckBox.isChecked() || isProgress)) {
-                    exoPlayerLockProgress.setPosition(position);
-                    exoPlayerLockProgress.setBufferedPosition(bufferedPosition);
-                    exoPlayerLockProgress.setDuration(duration);
-                }
-            }
-        });
+        mBaseView.getPlaybackControlView().addUpdateProgressListener(this);
         addView(exoPlayLockLayout, getChildCount());
     }
 
@@ -71,13 +58,13 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
      * 销毁处理
      * **/
     public void onDestroy() {
+        removeCallback();
         if (lockCheckBox != null) {
             lockCheckBox.setOnCheckedChangeListener(null);
         }
         if (lockCheckBox != null && lockCheckBox.animate() != null) {
             lockCheckBox.animate().cancel();
         }
-        removeCallback();
     }
 
     /***
@@ -139,8 +126,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
      * @param openLock 默认 true 开启   false 不开启
      */
     public void setOpenLock(boolean openLock) {
-        isOpenLock = openLock;
-        lockCheckBox.setVisibility(isOpenLock ? VISIBLE : GONE);
+        lockCheckBox.setVisibility(openLock ? VISIBLE : GONE);
     }
 
 
@@ -173,6 +159,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
 
     public void removeCallback() {
         removeCallbacks(hideAction);
+        mBaseView.getPlaybackControlView().removeUpdateProgressListener(this);
     }
 
     @Override
@@ -224,4 +211,12 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
         }
     }
 
+    @Override
+    public void updateProgress(long position, long bufferedPosition, long duration) {
+        if (exoPlayerLockProgress != null && (mBaseView.isLand() && lockCheckBox.isChecked() || isProgress)) {
+            exoPlayerLockProgress.setPosition(position);
+            exoPlayerLockProgress.setBufferedPosition(bufferedPosition);
+            exoPlayerLockProgress.setDuration(duration);
+        }
+    }
 }

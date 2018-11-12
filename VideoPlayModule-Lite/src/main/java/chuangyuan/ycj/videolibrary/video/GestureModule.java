@@ -1,6 +1,5 @@
 package chuangyuan.ycj.videolibrary.video;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
@@ -14,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.util.Util;
 
 import java.lang.ref.WeakReference;
@@ -22,6 +22,8 @@ import java.util.Locale;
 
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.BasePlayerListener;
+import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
+import chuangyuan.ycj.videolibrary.listener.OnEndGestureListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureBrightnessListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureProgressListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureVolumeListener;
@@ -33,7 +35,7 @@ import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
  * E-Mail:1007181167@qq.com
  * Description：手势操作组件
  */
-public class GestureModule implements BasePlayerListener {
+public class GestureModule implements BasePlayerListener, OnEndGestureListener {
     private static final String TAG = GestureModule.class.getName();
     private final Activity activity;
     /***音量的最大值***/
@@ -54,17 +56,17 @@ public class GestureModule implements BasePlayerListener {
     private StringBuilder formatBuilder;
     /***格式化类 ***/
     private Formatter formatter;
-    private boolean controllerHideOnTouch = true;
     /***手势进度接口实例 ***/
     private OnGestureProgressListener onGestureProgressListener;
     /***手势亮度接口实例 ***/
     private OnGestureBrightnessListener onGestureBrightnessListener;
     /***手势音频接口实例***/
     private OnGestureVolumeListener onGestureVolumeListener;
-     private  final ExoUserPlayer exoUserPlayer;
+    private final ExoUserPlayer exoUserPlayer;
+
     public GestureModule(@NonNull Activity activity, @NonNull ExoUserPlayer exoUserPlayer) {
-        this.exoUserPlayer=exoUserPlayer;
-        this.activity=activity;
+        this.exoUserPlayer = exoUserPlayer;
+        this.activity = activity;
         formatBuilder = new StringBuilder();
         formatter = new Formatter(formatBuilder, Locale.getDefault());
         audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
@@ -74,10 +76,6 @@ public class GestureModule implements BasePlayerListener {
         gestureDetector = new GestureDetector(activity, new PlayerGestureListener(this));
     }
 
-    @Override
-    public void onPlayNoAlertVideo() {
-        exoUserPlayer.getPlayerViewListener().setPlatViewOnTouchListener(listener);
-    }
     @Override
     public void onDestroy() {
         audioManager = null;
@@ -89,18 +87,25 @@ public class GestureModule implements BasePlayerListener {
         onGestureBrightnessListener = null;
         onGestureProgressListener = null;
         onGestureVolumeListener = null;
-        listener = null;
     }
 
     @Override
-    public void onResume() {
+    public void setPlayer(SimpleExoPlayer simpleExoPlayer) {
 
     }
 
     @Override
-    public void onPause() {
-
+    public void onEndGesture() {
+        endGesture();
     }
+
+    @Override
+    public void onTouchEvent(MotionEvent event) {
+        if (gestureDetector != null ) {
+            gestureDetector.onTouchEvent(event);
+        }
+    }
+
     /**
      * 手势结束
      */
@@ -116,7 +121,9 @@ public class GestureModule implements BasePlayerListener {
                 newPosition = -1;
             }
         }
-        exoUserPlayer.getPlayerViewListener().showGestureView(View.GONE);
+        for (ExoPlayerViewListener item : exoUserPlayer.getPlayerViewListeners()) {
+            item.showGestureView(View.GONE);
+        }
     }
 
     /****
@@ -136,7 +143,9 @@ public class GestureModule implements BasePlayerListener {
             ForegroundColorSpan blueSpan = new ForegroundColorSpan(ContextCompat.getColor(activity, R.color.simple_exo_style_color));
             SpannableString spannableString = new SpannableString(stringBuilder);
             spannableString.setSpan(blueSpan, 0, seekTime.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            exoUserPlayer.getPlayerViewListener().setTimePosition(spannableString);
+            for (ExoPlayerViewListener item : exoUserPlayer.getPlayerViewListeners()) {
+                item.setTimePosition(spannableString);
+            }
         }
     }
 
@@ -164,7 +173,9 @@ public class GestureModule implements BasePlayerListener {
         if (onGestureVolumeListener != null) {
             onGestureVolumeListener.setVolumePosition(mMaxVolume, index);
         } else {
-            exoUserPlayer.getPlayerViewListener().setVolumePosition(mMaxVolume, index);
+            for (ExoPlayerViewListener item : exoUserPlayer.getPlayerViewListeners()) {
+                item.setVolumePosition(mMaxVolume, index);
+            }
         }
     }
 
@@ -193,17 +204,10 @@ public class GestureModule implements BasePlayerListener {
         if (onGestureBrightnessListener != null) {
             onGestureBrightnessListener.setBrightnessPosition(100, (int) (lpa.screenBrightness * 100));
         } else {
-            exoUserPlayer.getPlayerViewListener().setBrightnessPosition(100, (int) (lpa.screenBrightness * 100));
+            for (ExoPlayerViewListener item : exoUserPlayer.getPlayerViewListeners()) {
+                item.setBrightnessPosition(100, (int) (lpa.screenBrightness * 100));
+            }
         }
-    }
-
-    /***
-     * 设置手势touch 事件
-     * @param controllerHideOnTouch true 启用  false 关闭
-     */
-    @Override
-    public void setPlayerGestureOnTouch(boolean controllerHideOnTouch) {
-        this.controllerHideOnTouch = controllerHideOnTouch;
     }
 
     /***
@@ -230,31 +234,6 @@ public class GestureModule implements BasePlayerListener {
         this.onGestureVolumeListener = onGestureVolumeListener;
     }
 
-    private View.OnTouchListener listener = new View.OnTouchListener() {
-        @SuppressLint("ClickableViewAccessibility")
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (!controllerHideOnTouch) {
-                return false;
-            } else if (exoUserPlayer.getPlayerViewListener().isLock()) {
-                return false;
-            } else if (!VideoPlayUtils.isLand(activity)) {
-                //竖屏不执行手势
-                return false;
-            }
-            if (gestureDetector != null && gestureDetector.onTouchEvent(event)) {
-                return true;
-            }
-            // 处理手势结束
-            switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_UP:
-                    endGesture();
-                    break;
-                default:
-            }
-            return false;
-        }
-    };
 
     /****
      * 手势监听类
@@ -308,7 +287,7 @@ public class GestureModule implements BasePlayerListener {
                 }
                 showProgressDialog(newPosition, duration, Util.getStringForTime(formatBuilder, formatter, newPosition), Util.getStringForTime(formatBuilder, formatter, duration));
             } else {
-                float percent = deltaY / exoUserPlayer.getPlayerViewListener().getHeight();
+                float percent = deltaY / VideoPlayUtils.getScreenHeight(activity);
                 if (volumeControl) {
                     showVolumeDialog(percent);
                 } else {

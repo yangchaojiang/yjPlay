@@ -17,7 +17,29 @@
     <string name="uri_test_13">http://lmp4.vjshi.com/2018-09-12/eb25518f72e1dca09b7bb12d97992d91.mp4</string>
     <string name="uri_test_image">http://i3.letvimg.com/lc08_yunzhuanma/201707/29/20/49/3280a525bef381311b374579f360e80a_v2_MTMxODYyNjMw/thumb/2_960_540.jpg</string>
     <string name="new_message_notification_title_template">New message: %1$s</string>
-    <string name="ad_tag_url"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=]]></string>
+    <string name="play_video">播放视频</string>
+    <string name="down_hint">下载并加密视频</string>
+    <string name="exo_play_wifi_hint_no">您当前网络不是wifi，是否继续观看视频</string>
+    <string name="exo_play_reminder">提示</string>
+    <string name="Detailed_play">默认详细播放</string>
+    <string name="The_list_of_play">列表播放</string>
+    <string name="Custom_layout">自定义布局 </string>
+    <string name="Customize_the_start_button_event">自定义事件</string>
+    <string name="_15m">继续播放 (15 m)</string>
+    <string name="error_hint">出错了</string>
+    <string name="im_btn_hint">广告视频</string>
+    <string name="googlesdk">googleSDK广告视频</string>
+    <string name="custom_media">自定义媒体数据</string>
+    <string name="cache_bideo_btn">离线缓存播放</string>
+    <string name="simple_video_btn">简单加密视频</string>
+    <string name="Skip_the_advertising">跳过广告</string>
+    <string name="default_cache">默认缓存播放</string>
+    <string name="custom_cache">自定义下载缓存</string>
+    <string name="simple_fragment">Fragment列表</string>
+    <string name="simple_barrage">弹幕</string>
+    <string name="Add_video">动态添加视频</string>
+    <string name="player_mp3">播放音频</string>
+    <string name="rotate">旋转屏幕</string>
     <string name="title_activity_view_pager">ViewPagerActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -30,9 +52,6 @@
     <string name="send_danmakus">定时发送</string>
     <string name="send_show">控制</string>
     <string name="cancel_sending_danmakus">取消定时</string>
-
-    <string name="release">release</string>
-    <string name="rotate">旋转屏幕</string>
     <string name="unexpected_intent_action">Unexpected intent action: <xliff:g id="action">%1$s</xliff:g></string>
 
     <string name="error_generic">Playback failed</string>
@@ -63,7 +82,6 @@
 
     <string name="ima_not_loaded">Playing sample without ads, as the IMA extension was not loaded</string>
 
-    <string name="download_start_error">Failed to start download</string>
 
     <string name="download_playlist_unsupported">This demo app does not support downloading playlists</string>
 
@@ -72,25 +90,4 @@
     <string name="download_scheme_unsupported">This demo app only supports downloading http streams</string>
 
     <string name="download_ads_unsupported">IMA does not support offline ads</string>
-    <string name="exo_play_reminder">hint</string>
-    <string name="Detailed_play">Detailed play</string>
-    <string name="The_list_of_play">The list of play</string>
-    <string name="Custom_layout">Custom layout</string>
-    <string name="Customize_the_start_button_event">Customize the start button event</string>
-    <string name="_15m">Continue playing (15 m)</string>
-    <string name="error_hint">there was an error</string>
-    <string name="im_btn_hint">advertisement video</string>
-    <string name="googlesdk">googleSDK advertisement video</string>
-    <string name="custom_media">Customize media data</string>
-    <string name="cache_bideo_btn">Offline cache playback</string>
-    <string name="simple_video_btn">Simple encryption video</string>
-    <string name="play_video">play video</string>
-    <string name="down_hint">Download and encrypt video</string>
-    <string name="Skip_the_advertising">Skip the advertising</string>
-    <string name="Add_video">Add video</string>
-    <string name="default_cache">Default cache playback</string>
-    <string name="custom_cache">Customize the download cache</string>
-    <string name="simple_fragment">FragmentList</string>
-    <string name="simple_barrage">Curtain</string>
-    <string name="simple_barrage2">Curtain(test)</string>
 </resources>

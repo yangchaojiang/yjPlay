@@ -1,0 +1,88 @@
+战旗-02869,http://dlhls.cdn.zhanqi.tv/zqlive/2869_tUPFz.m3u8
+战旗-07032,http://dlhls.cdn.zhanqi.tv/zqlive/7032_0s2qn.m3u8
+战旗-19969-MV南韩女团,http://dlhls.cdn.zhanqi.tv/zqlive/19969_TnDT2.m3u8
+战旗-20910,http://dlhls.cdn.zhanqi.tv/zqlive/20910_uUMgC.m3u8
+战旗-33765–武林外传,http://dlhls.cdn.zhanqi.tv/zqlive/33765_6qakZ.m3u8
+战旗-35349,http://dlhls.cdn.zhanqi.tv/zqlive/35349_iXsXw.m3u8
+战旗-37119-动漫-海贼王,http://dlhls.cdn.zhanqi.tv/zqlive/37119_4ibXM.m3u8
+战旗-41832-动漫-火影,http://dlhls.cdn.zhanqi.tv/zqlive/41832_NfsIa.m3u8
+战旗-49427-电视剧-三国,http://dlhls.cdn.zhanqi.tv/zqlive/49427_jmACJ.m3u8
+
+战旗影视 6,http://alhls.cdn.zhanqi.tv/zqlive/88945_Kligp.m3u8
+战旗影视 7,http://alhls.cdn.zhanqi.tv/zqlive/45338_MRc2N.m3u8
+战旗影视 8,http://alhls.cdn.zhanqi.tv/zqlive/113044_4l4ji.m3u8
+战旗影视 10,http://alhls.cdn.zhanqi.tv/zqlive/49427_jmACJ.m3u8
+战旗影视 11,http://alhls.cdn.zhanqi.tv/zqlive/33765_6qakZ.m3u8
+战旗影视 12,http://alhls.cdn.zhanqi.tv/zqlive/41832_NfsIa.m3u8
+战旗影视 13,http://alhls.cdn.zhanqi.tv/zqlive/69410_SgVxl.m3u8
+战旗影视 14,http://alhls.cdn.zhanqi.tv/zqlive/210915_Mg4QM.m3u8
+战旗影视 16,http://alhls.cdn.zhanqi.tv/zqlive/160122_5swCD.m3u8
+战旗影视 18,http://alhls.cdn.zhanqi.tv/zqlive/93774_g0UdM.m3u8
+战旗影视 22,http://alhls.cdn.zhanqi.tv/zqlive/49858_wgGj1.m3u8
+战旗影视 24,http://alhls.cdn.zhanqi.tv/zqlive/34338_PVMT5.m3u8
+战旗影视 25,http://alhls.cdn.zhanqi.tv/zqlive/81077_ZRWAB.m3u8
+战旗影视 27,http://alhls.cdn.zhanqi.tv/zqlive/19969_TnDT2.m3u8
+战旗影视 29,http://alhls.cdn.zhanqi.tv/zqlive/5993_qvXCc.m3u8
+战旗影视 30,http://alhls.cdn.zhanqi.tv/zqlive/213167_Dw1GU.m3u8
+战旗影视 韩舞蹈,http://alhls.cdn.zhanqi.tv/zqlive/246422_GSpB2.m3u8
+战旗影视 33,http://alhls.cdn.zhanqi.tv/zqlive/118948_F0Rim.m3u8
+战旗影视 35,http://alhls.cdn.zhanqi.tv/zqlive/126370_0hvOC.m3u8
+战旗影视 36,http://alhls.cdn.zhanqi.tv/zqlive/123407_XhQs9.m3u8
+战旗影视 5,http://alhls.cdn.zhanqi.tv/zqlive/35349_iXsXw.m3u8
+战旗影视 6,http://alhls.cdn.zhanqi.tv/zqlive/88945_Kligp.m3u8
+战旗影视 7,http://alhls.cdn.zhanqi.tv/zqlive/45338_MRc2N.m3u8
+战旗影视 8,http://alhls.cdn.zhanqi.tv/zqlive/113044_4l4ji.m3u8
+战旗影视 10,http://alhls.cdn.zhanqi.tv/zqlive/49427_jmACJ.m3u8
+战旗影视 11,http://alhls.cdn.zhanqi.tv/zqlive/33765_6qakZ.m3u8
+战旗影视 12,http://alhls.cdn.zhanqi.tv/zqlive/41832_NfsIa.m3u8
+战旗影视 13,http://alhls.cdn.zhanqi.tv/zqlive/69410_SgVxl.m3u8
+战旗影视 14,http://alhls.cdn.zhanqi.tv/zqlive/210915_Mg4QM.m3u8
+战旗影视 16,http://alhls.cdn.zhanqi.tv/zqlive/160122_5swCD.m3u8
+战旗影视 18,http://alhls.cdn.zhanqi.tv/zqlive/93774_g0UdM.m3u8
+战旗影视 22,http://alhls.cdn.zhanqi.tv/zqlive/49858_wgGj1.m3u8
+战旗影视 24,http://alhls.cdn.zhanqi.tv/zqlive/34338_PVMT5.m3u8
+战旗影视 25,http://alhls.cdn.zhanqi.tv/zqlive/81077_ZRWAB.m3u8
+战旗影视 27,http://alhls.cdn.zhanqi.tv/zqlive/19969_TnDT2.m3u8
+战旗影视 29,http://alhls.cdn.zhanqi.tv/zqlive/5993_qvXCc.m3u8
+战旗影视 30,http://alhls.cdn.zhanqi.tv/zqlive/213167_Dw1GU.m3u8
+战旗影视 韩舞蹈,http://alhls.cdn.zhanqi.tv/zqlive/246422_GSpB2.m3u8
+战旗影视 33,http://alhls.cdn.zhanqi.tv/zqlive/118948_F0Rim.m3u8
+战旗影视 36,http://alhls.cdn.zhanqi.tv/zqlive/123407_XhQs9.m3u8
+战旗影视 37,http://alhls.cdn.zhanqi.tv/zqlive/174685_XWnGj.m3u8
+战旗影视 38,http://alhls.cdn.zhanqi.tv/zqlive/37119_4ibXM.m3u8
+战旗影视 39,http://alhls.cdn.zhanqi.tv/zqlive/154733_xcVyM.m3u8
+战旗影视 42,http://alhls.cdn.zhanqi.tv/zqlive/197952_NHycj.m3u8
+战旗影视 43,http://alhls.cdn.zhanqi.tv/zqlive/43626_vQOn9.m3u8
+战旗影视 44,http://alhls.cdn.zhanqi.tv/zqlive/96851_ZeePd.m3u8
+战旗影视 45,http://alhls.cdn.zhanqi.tv/zqlive/182988_cn66n.m3u8
+战旗影视 46,http://alhls.cdn.zhanqi.tv/zqlive/130564_7PZZr.m3u8
+战旗影视 47,http://alhls.cdn.zhanqi.tv/zqlive/219628_O3y9l.m3u8
+战旗影视 48,http://alhls.cdn.zhanqi.tv/zqlive/245602_ApoFG.m3u8
+战旗影视 49,http://alhls.cdn.zhanqi.tv/zqlive/24163_v7WWQ.m3u8
+战旗影视 56,http://alhls.cdn.zhanqi.tv/zqlive/260346_AvFC9.m3u8
+战旗影视 61,http://alhls.cdn.zhanqi.tv/zqlive/261719_d6es2.m3u8
+战旗影视 26,http://alhls.cdn.zhanqi.tv/zqlive/191499_M4ASe.m3u8
+战旗影视 27,http://alhls.cdn.zhanqi.tv/zqlive/197952_NHycj.m3u8
+战旗影视 30,http://alhls.cdn.zhanqi.tv/zqlive/24163_v7WWQ.m3u8
+战旗影视 31,http://alhls.cdn.zhanqi.tv/zqlive/96851_ZeePd.m3u8
+战旗影视 32,http://alhls.cdn.zhanqi.tv/zqlive/130564_7PZZr.m3u8
+战旗影视 33,http://alhls.cdn.zhanqi.tv/zqlive/182988_cn66n.m3u8
+战旗影视 35,http://alhls.cdn.zhanqi.tv/zqlive/219628_O3y9l.m3u8
+战旗影视 36,http://alhls.cdn.zhanqi.tv/zqlive/245602_ApoFG.m3u8
+战旗影视 37,http://alhls.cdn.zhanqi.tv/zqlive/113044_4l4ji.m3u8
+战旗影视 38,http://alhls.cdn.zhanqi.tv/zqlive/7032_0s2qn.m3u8
+战旗影视 40,http://alhls.cdn.zhanqi.tv/zqlive/35180_KUDhx.m3u8
+战旗影视 41,http://alhls.cdn.zhanqi.tv/zqlive/123407_XhQs9.m3u8
+战旗影视 43,http://alhls.cdn.zhanqi.tv/zqlive/253302_k2NdS.m3u8
+战旗影视 45,http://alhls.cdn.zhanqi.tv/zqlive/140734_jcqhS.m3u8
+战旗影视 46,http://alhls.cdn.zhanqi.tv/zqlive/49427_jmACJ.m3u8
+战旗影视 49,http://alhls.cdn.zhanqi.tv/zqlive/69410_SgVxl.m3u8
+战旗影视 51,http://alhls.cdn.zhanqi.tv/zqlive/49858_wgGj1.m3u8
+战旗影视 53,http://alhls.cdn.zhanqi.tv/zqlive/35349_iXsXw.m3u8
+战旗影视 54,http://alhls.cdn.zhanqi.tv/zqlive/45338_MRc2N.m3u8
+战旗影视 55,http://alhls.cdn.zhanqi.tv/zqlive/33765_6qakZ.m3u8
+战旗影视 57,http://alhls.cdn.zhanqi.tv/zqlive/210915_Mg4QM.m3u8
+战旗影视 59,http://alhls.cdn.zhanqi.tv/zqlive/260346_AvFC9.m3u8
+战旗影视 61,http://alhls.cdn.zhanqi.tv/zqlive/41832_NfsIa.m3u8
+战旗影视 62,http://alhls.cdn.zhanqi.tv/zqlive/199301_y2bWG.m3u8
+战旗影视 64,http://alhls.cdn.zhanqi.tv/zqlive/261719_d6es2.m3u8

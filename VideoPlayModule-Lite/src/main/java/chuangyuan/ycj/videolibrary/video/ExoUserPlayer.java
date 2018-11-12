@@ -1,6 +1,5 @@
 package chuangyuan.ycj.videolibrary.video;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +10,12 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.CallSuper;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -37,14 +35,11 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.util.Util;
 
-import java.lang.reflect.Constructor;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
-import java.util.WeakHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -52,8 +47,6 @@ import java.util.concurrent.TimeUnit;
 
 import chuangyuan.ycj.videolibrary.listener.BasePlayerListener;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
-import chuangyuan.ycj.videolibrary.listener.DefaultMediaSourceEvent;
-import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
 import chuangyuan.ycj.videolibrary.listener.ItemVideo;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
@@ -68,25 +61,16 @@ import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
  * Description：积累
  */
 public class ExoUserPlayer {
-    /*** 记录视频进度缓存map  **/
-    private static WeakHashMap<Integer, Long> tags = new WeakHashMap<>();
-    /*** 记录视频当前窗口缓存map **/
-    private static WeakHashMap<Integer, Integer> tags2 = new WeakHashMap<>();
     private static final String TAG = ExoUserPlayer.class.getName();
-    /***当前活动*/
-    protected Activity activity;
-    /*** 播放view实例***/
-    private VideoPlayerView videoPlayerView;
+    private Context activity;
     /*** 获取网速大小,获取最后的时间戳,获取当前进度 ***/
-    private Long lastTotalRxBytes = 0L, lastTimeStamp = 0L, resumePosition = 0L;
+    private Long resumePosition = 0L, lastTotalRxBytes = 0L, lastTimeStamp = 0L;
     /*** 是否循环播放  0 不开启,获取当前视频窗口位置***/
     private int resumeWindow = 0;
-    /*** 是否手动暂停,是否已经在停止恢复,,已经加载,*/
-    boolean handPause, isPause, isLoad;
-    /**
-     * 播放结束,是否选择多分辨率
-     **/
-    private boolean isEnd, isSwitch;
+    /*** 是否手动暂停*/
+    boolean handPause;
+    /*** 播放结束,是否选择多分辨率,是否已经在停止恢复,,已经加载,* **/
+    private boolean isEnd, isSwitch, isPause, isLoad;
     /*** 定时任务类 ***/
     private ScheduledExecutorService timer;
     /*** 网络状态监听***/
@@ -99,50 +83,18 @@ public class ExoUserPlayer {
     private final CopyOnWriteArraySet<VideoWindowListener> videoWindowListeners;
     /*** base接口***/
     private final CopyOnWriteArraySet<BasePlayerListener> basePlayerListeners;
-    /*** 视频加载准备接口***/
-    private final CopyOnWriteArraySet<OnPreparedListener> mOnPreparedListeners;
-    /*** 播放view交互接口 ***/
-    private ExoPlayerViewListener mPlayerViewListener;
+    /*** base接口***/
+    private final CopyOnWriteArraySet<ExoPlayerViewListener> mPlayerViewListeners;
     /*** 内核播放控制*/
-    SimpleExoPlayer player;
+    private SimpleExoPlayer player;
     /***数据源管理类*/
     private MediaSourceBuilder mediaSourceBuilder;
     /*** 设置播放参数***/
     private PlaybackParameters playbackParameters;
     /*** 如果DRM得到保护，可能是null ***/
     private DrmSessionManager<FrameworkMediaCrypto> drmSessionManager;
-    private int position;
-    private final DefaultMediaSourceEvent mediaSourceEvent;
+    private VideoPlayerView videoPlayerView;
 
-    /****
-     * @param activity 活动对象
-     * @param reId 播放控件id
-     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
-     */
-    public ExoUserPlayer(@NonNull Activity activity, @IdRes int reId) {
-        this(activity, reId, null);
-    }
-
-    /****
-     * 初始化
-     * @param activity 活动对象
-     * @param playerView 播放控件
-     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
-     */
-    public ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView) {
-        this(activity, playerView, null);
-    }
-
-    /****
-     * 初始化
-     * @param activity 活动对象
-     * @param reId 播放控件id
-     * @param listener 自定义数据源类
-     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
-     */
-    public ExoUserPlayer(@NonNull Activity activity, @IdRes int reId, @Nullable DataSourceListener listener) {
-        this(activity, (VideoPlayerView) activity.findViewById(reId), listener);
-    }
 
     /***
      * 初始化
@@ -151,90 +103,61 @@ public class ExoUserPlayer {
      * @param listener 自定义数据源类
      * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
-    public ExoUserPlayer(@NonNull Activity activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
-        this.activity = activity;
-        this.videoPlayerView = playerView;
-        videoInfoListeners = new CopyOnWriteArraySet<>();
-        videoWindowListeners = new CopyOnWriteArraySet<>();
-        basePlayerListeners = new CopyOnWriteArraySet<>();
-        mOnPreparedListeners = new CopyOnWriteArraySet<>();
-        mediaSourceEvent = new DefaultMediaSourceEvent(mOnPreparedListeners);
-        playComponentListener = new PlayComponent(this);
-        try {
-            Class<?> clazz = Class.forName("chuangyuan.ycj.videolibrary.whole.WholeMediaSource");
-            Constructor<?> constructor = clazz.getConstructor(Context.class, DataSourceListener.class);
-            this.mediaSourceBuilder = (MediaSourceBuilder) constructor.newInstance(activity, listener);
-        } catch (Exception e) {
-            this.mediaSourceBuilder = new MediaSourceBuilder(activity, listener);
-        } finally {
-            initView();
-        }
+    public ExoUserPlayer(@NonNull Context activity, @NonNull VideoPlayerView playerView, @Nullable DataSourceListener listener) {
+        this(activity, VideoPlayUtils.buildMediaSourceBuilder(activity, listener), playerView);
     }
 
     /****
      * 初始化
      * @param activity 活动对象
      * @param mediaSourceBuilder 自定义数据源类
-     * @param playerView 播放控件
      * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
-    public ExoUserPlayer(@NonNull Activity activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
-        this.activity = activity;
+    public ExoUserPlayer(@NonNull Context activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
+        this.activity = activity.getApplicationContext();
         this.videoPlayerView = playerView;
         this.mediaSourceBuilder = mediaSourceBuilder;
         videoInfoListeners = new CopyOnWriteArraySet<>();
         videoWindowListeners = new CopyOnWriteArraySet<>();
         basePlayerListeners = new CopyOnWriteArraySet<>();
-        mOnPreparedListeners = new CopyOnWriteArraySet<>();
-        mediaSourceEvent = new DefaultMediaSourceEvent(mOnPreparedListeners);
+        mPlayerViewListeners = new CopyOnWriteArraySet<>();
         playComponentListener = new PlayComponent(this);
-        initView();
-    }
-
-
-    private void initView() {
-        videoPlayerView.setExoPlayerListener(playComponentListener);
-        getPlayerViewListener().setPlayerBtnOnTouch(true);
-        player = createFullPlayer();
-    }
-
-    /*****
-     * 设置视频控件view  主要用来列表进入详情播放使用
-     * @param videoPlayerView videoPlayerView
-     * **/
-    void setVideoPlayerView(@NonNull VideoPlayerView videoPlayerView) {
-        if (this.videoPlayerView == videoPlayerView) {
-            return;
+        playerView.setExoPlayerListener(playComponentListener);
+        addExoPlayerViewListener(playerView.getComponentListener());
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setPlayerBtnOnTouch(true);
         }
-        mPlayerViewListener = null;
-        if (player != null) {
-            player.removeListener(componentListener);
-        }
-        this.videoPlayerView = videoPlayerView;
-        videoPlayerView.setExoPlayerListener(playComponentListener);
-        if (player == null) {
-            player = createFullPlayer();
-        } else {
-            getPlayerViewListener().setPlayer(player);
-        }
-        player.addListener(componentListener);
-        getPlayerViewListener().toggoleController(false, false);
-        getPlayerViewListener().setControllerHideOnTouch(true);
-        isEnd = false;
-        isLoad = true;
     }
 
     /***
-     * 获取交互view接口实例
-     * @return ExoPlayerViewListener player view listener
+     * 初始化
+     * @param activity 活动对象
+     * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
-    @NonNull
-    ExoPlayerViewListener getPlayerViewListener() {
-        if (mPlayerViewListener == null) {
-            mPlayerViewListener = videoPlayerView.getComponentListener();
+    public ExoUserPlayer(@NonNull Context activity, @NonNull MediaSourceBuilder mediaSourceBuilder) {
+        this.activity = activity.getApplicationContext();
+        videoInfoListeners = new CopyOnWriteArraySet<>();
+        videoWindowListeners = new CopyOnWriteArraySet<>();
+        basePlayerListeners = new CopyOnWriteArraySet<>();
+        mPlayerViewListeners = new CopyOnWriteArraySet<>();
+        playComponentListener = new PlayComponent(this);
+        this.mediaSourceBuilder = mediaSourceBuilder;
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setPlayerBtnOnTouch(true);
         }
-        return mPlayerViewListener;
     }
+
+    /***
+     * 网络变化任务
+     **/
+    private final Runnable task = new Runnable() {
+        @Override
+        public void run() {
+            for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                item.showNetSpeed(getNetSpeed());
+            }
+        }
+    };
 
     /***
      * 页面恢复处理
@@ -242,10 +165,8 @@ public class ExoUserPlayer {
     public void onResume() {
         boolean is = (Util.SDK_INT <= Build.VERSION_CODES.M || null == player) && isLoad && !isEnd;
         if (is) {
-            if (getPlayerViewListener().isList()) {
-                getPlayerViewListener().setPlayerBtnOnTouch(true);
-            } else {
-                createPlayers();
+            for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                item.onResumeStart();
             }
         }
     }
@@ -272,12 +193,24 @@ public class ExoUserPlayer {
      */
     @CallSuper
     public void onDestroy() {
+        releasePlayers();
         for (BasePlayerListener basePlayerListener : basePlayerListeners) {
             basePlayerListener.onDestroy();
         }
-        releasePlayers();
-        tags.clear();
-        tags2.clear();
+        if (mediaSourceBuilder != null) {
+            mediaSourceBuilder.destroy();
+        }
+        videoInfoListeners.clear();
+        videoWindowListeners.clear();
+        basePlayerListeners.clear();
+        mPlayerViewListeners.clear();
+        isEnd = false;
+        isPause = false;
+        handPause = false;
+        timer = null;
+        mediaSourceBuilder = null;
+        componentListener = null;
+        playComponentListener = null;
     }
 
     /**
@@ -290,8 +223,43 @@ public class ExoUserPlayer {
             isPause = true;
             if (player != null) {
                 handPause = !player.getPlayWhenReady();
-                reset();
+                reset(true);
             }
+        }
+    }
+
+    /*****
+     * 设置视频控件view  主要用来列表进入详情播放使用
+     * @param newVideoPlayerView videoPlayerView
+     * **/
+    void switchTargetView(@NonNull VideoPlayerView newVideoPlayerView) {
+        if (this.videoPlayerView == newVideoPlayerView) {
+            return;
+        }
+        if (player != null) {
+            player.removeListener(componentListener);
+        }
+        playComponentListener = new PlayComponent(this);
+        removeExoPlayerViewListener(videoPlayerView.getComponentListener());
+        this.videoPlayerView = newVideoPlayerView;
+        addExoPlayerViewListener(newVideoPlayerView.getComponentListener());
+        newVideoPlayerView.setExoPlayerListener(playComponentListener);
+        if (player == null) {
+            createFullPlayer();
+        } else {
+            for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                item.setPlayer(player);
+            }
+        }
+        player.addListener(componentListener);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.toggoleController(false, false);
+            item.setControllerHideOnTouch(true);
+        }
+        isEnd = false;
+        isLoad = true;
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.onPrepared();
         }
     }
 
@@ -310,87 +278,62 @@ public class ExoUserPlayer {
         if (timer != null && !timer.isShutdown()) {
             timer.shutdown();
         }
-        if (activity == null || activity.isDestroyed()) {
-            if (mediaSourceBuilder != null) {
-                mediaSourceBuilder.destroy();
-            }
-            videoInfoListeners.clear();
-            videoWindowListeners.clear();
-            basePlayerListeners.clear();
-            mOnPreparedListeners.clear();
-            isEnd = false;
-            isPause = false;
-            handPause = false;
-            timer = null;
-            activity = null;
-            mPlayerViewListener = null;
-            mediaSourceBuilder = null;
-            componentListener = null;
-            playComponentListener = null;
-        }
+
     }
 
     /****
      * 初始化播放实例
      */
-    public <R extends ExoUserPlayer> R startPlayer() {
-        if (getPlayerViewListener().isList()) {
-            handPause = false;
-            VideoPlayerManager.getInstance().setCurrentVideoPlayer(ExoUserPlayer.this);
-            if (tags.get(position) != null && tags2.get(position) != null) {
-                int positions = tags.get(position).intValue();
-                int index = tags2.get(position);
-                setPosition(index, positions);
-                tags.remove(position);
-                tags2.remove(position);
-            }
+    public ExoUserPlayer startPlayer() {
+        VideoPlayerManager.getInstance().setCurrentVideoPlayer(ExoUserPlayer.this);
+        handPause = false;
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.startPlayer(this);
+            item.setPlayerBtnOnTouch(false);
         }
-        getPlayerViewListener().setPlayerBtnOnTouch(false);
-        createPlayers();
-        registerReceiverNet();
-        return (R) this;
-    }
-
-    /****
-     * 创建播放
-     */
-    protected void createPlayers() {
         startVideo();
+        registerReceiverNet();
+        return this;
     }
 
     /***
      * 播放视频
      **/
-    private void startVideo() {
-        boolean iss = VideoPlayUtils.isWifi(activity) || VideoPlayerManager.getInstance().isClick() || isPause||isPlaying();
+    void startVideo() {
+        boolean iss = VideoPlayUtils.isWifi(activity) || VideoPlayerManager.getInstance().isClick() || isPause || isPlaying();
         if (iss) {
-            onPlayNoAlertVideo();
+            playerNoAlertDialog();
         } else {
-            getPlayerViewListener().showAlertDialog();
+            for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                item.showAlertDialog();
+            }
         }
     }
-
 
     /***
      * 创建实例播放实例，并不开始缓冲
      **/
-    private SimpleExoPlayer createFullPlayer() {
+    void createFullPlayer() {
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory();
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
         setDefaultLoadModel();
         DefaultRenderersFactory rf = new DefaultRenderersFactory(activity, DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON);
-        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(activity,rf, trackSelector, new DefaultLoadControl(), drmSessionManager);
-        getPlayerViewListener().setPlayer(player);
-        return player;
+        player = ExoPlayerFactory.newSimpleInstance(activity, rf, trackSelector, new DefaultLoadControl(), drmSessionManager);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setPlayer(player);
+        }
+        for (BasePlayerListener item : basePlayerListeners) {
+            item.setPlayer(player);
+        }
     }
 
 
     /***
      * 创建实例播放实例，开始缓冲
      */
-    void onPlayNoAlertVideo() {
+    void playerNoAlertDialog() {
         if (player == null) {
-            player = createFullPlayer();
+            createFullPlayer();
         }
         boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
         if (handPause) {
@@ -399,33 +342,38 @@ public class ExoUserPlayer {
             player.setPlayWhenReady(true);
         }
         player.setPlaybackParameters(playbackParameters);
-        if (mPlayerViewListener != null) {
-            mPlayerViewListener.showPreview(View.GONE, true);
-            getPlayerViewListener().toggoleController(false, false);
-            mPlayerViewListener.setControllerHideOnTouch(true);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.showPreview(View.GONE, true);
+            item.toggoleController(false, false);
+            item.setControllerHideOnTouch(true);
         }
-        player.removeListener(componentListener);
-        player.addListener(componentListener);
         if (haveResumePosition) {
             player.seekTo(resumeWindow, resumePosition);
         }
+        player.removeListener(componentListener);
+        player.addListener(componentListener);
         player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         isEnd = false;
         isLoad = true;
-        for (BasePlayerListener basePlayerListener : basePlayerListeners) {
-            basePlayerListener.onPlayNoAlertVideo();
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.onPrepared();
         }
     }
 
-     void land(){
-         boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
-         if (handPause) {
-             player.setPlayWhenReady(false);
-         } else {
-             player.setPlayWhenReady(true);
-         }
-         player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
-     }
+    /**
+     * 兼容6.0一以下版本
+     * 横屏延迟问题
+     **/
+    void land() {
+        boolean haveResumePosition = resumeWindow != C.INDEX_UNSET;
+        if (handPause) {
+            player.setPlayWhenReady(false);
+        } else {
+            player.setPlayWhenReady(true);
+        }
+        player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
+    }
+
     /****
      * 重置进度
      */
@@ -439,22 +387,10 @@ public class ExoUserPlayer {
     /**
      * 清除进度
      ***/
-    protected void clearResumePosition() {
+    void clearResumePosition() {
         resumeWindow = C.INDEX_UNSET;
         resumePosition = C.TIME_UNSET;
     }
-
-    /***
-     * 网络变化任务
-     **/
-    private final Runnable task = new Runnable() {
-        @Override
-        public void run() {
-            if (getPlayerViewListener().isLoadingShow()) {
-                getPlayerViewListener().showNetSpeed(getNetSpeed());
-            }
-        }
-    };
 
     /****
      * 获取当前网速
@@ -462,6 +398,9 @@ public class ExoUserPlayer {
      * @return String 返回当前网速字符
      **/
     private String getNetSpeed() {
+        if (activity == null) {
+            return "";
+        }
         String netSpeed;
         long nowTotalRxBytes = VideoPlayUtils.getTotalRxBytes(activity);
         long nowTimeStamp = System.currentTimeMillis();
@@ -483,17 +422,19 @@ public class ExoUserPlayer {
         return netSpeed;
     }
 
-
     /****
      * 监听返回键 true 可以正常返回处理，false 切换到竖屏
      *
      * @return boolean boolean
      */
     public boolean onBackPressed() {
-        if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getPlayerViewListener().exitFull();
+        if (!VideoPlayUtils.isTv(activity) && activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                item.exitFull();
+            }
             return false;
         } else {
+            onDestroy();
             return true;
         }
     }
@@ -509,34 +450,23 @@ public class ExoUserPlayer {
         }
     }
 
-    public void reset() {
-        if (getPlayerViewListener().isList()) {
+    public void reset(boolean isList) {
+        if (isList) {
             if (player != null) {
                 unNetworkBroadcastReceiver();
-                if (position == -1) {
-                    clearResumePosition();
-                } else {
-                    tags.put(position, player.getCurrentPosition());
-                    tags2.put(position, player.getCurrentWindowIndex());
-                }
                 player.stop();
                 player.removeListener(componentListener);
+                for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                    item.setPlayerBtnOnTouch(true);
+                    item.reset();
+                }
                 player.release();
                 player = null;
-                resetInit();
             }
         } else {
             releasePlayers();
         }
 
-    }
-
-    /***
-     * 重置点击事件
-     * **/
-    void resetInit() {
-        getPlayerViewListener().setPlayerBtnOnTouch(true);
-        getPlayerViewListener().reset();
     }
 
     /***
@@ -553,7 +483,7 @@ public class ExoUserPlayer {
             isSwitch = true;
         } else {
             mediaSourceBuilder.setMediaUri(Uri.parse(uri));
-            onPlayNoAlertVideo();
+            playerNoAlertDialog();
         }
     }
 
@@ -567,14 +497,18 @@ public class ExoUserPlayer {
         return playbackState != Player.STATE_IDLE && playbackState != Player.STATE_ENDED
                 && player.getPlayWhenReady();
     }
+
     /*****************设置参数方法*************************/
+
 
     /****
      * 设置tag 标记 防止列表复用进度导致,
      * @param position  position
      * **/
     public void setTag(int position) {
-        this.position = position;
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setTag(position);
+        }
     }
 
     /***
@@ -631,19 +565,21 @@ public class ExoUserPlayer {
      */
     public void setPlaySwitchUri(int switchIndex, @NonNull List<String> videoUri, @NonNull List<String> name) {
         mediaSourceBuilder.setMediaSwitchUri(videoUri, switchIndex);
-        getPlayerViewListener().setSwitchName(name, switchIndex);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setSwitchName(name, switchIndex);
+        }
     }
 
     /**
      * 设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。 不支持流式媒体
      *
      * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
-     *
      * @throws IllegalStateException If one of the {@code create} methods has already been called.
      */
     public void setCustomCacheKey(@NonNull String customCacheKey) {
         mediaSourceBuilder.setCustomCacheKey(customCacheKey);
     }
+
     /****
      * @param indexType 设置当前索引视频屏蔽进度
      * @param switchIndex the switch index
@@ -665,7 +601,9 @@ public class ExoUserPlayer {
      */
     public void setPlaySwitchUri(@Size(min = 0) int indexType, @Size(min = 0) int switchIndex, @NonNull String firstVideoUri, List<String> secondVideoUri, @NonNull List<String> name) {
         mediaSourceBuilder.setMediaUri(indexType, switchIndex, Uri.parse(firstVideoUri), secondVideoUri);
-        getPlayerViewListener().setSwitchName(name, switchIndex);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setSwitchName(name, switchIndex);
+        }
     }
 
     /**
@@ -745,7 +683,11 @@ public class ExoUserPlayer {
      * @param pitch 音高被放大  1f 是正常播放 小于1 慢放
      */
     public void setPlaybackParameters(@Size(min = 0) float speed, @Size(min = 0) float pitch) {
+        playbackParameters = null;
         playbackParameters = new PlaybackParameters(speed, pitch);
+        if (player != null) {
+            player.setPlaybackParameters(playbackParameters);
+        }
     }
 
     /***
@@ -763,7 +705,9 @@ public class ExoUserPlayer {
      * @param showVideoSwitch true 显示 false 不显示
      */
     public void setShowVideoSwitch(boolean showVideoSwitch) {
-        getPlayerViewListener().setShowWitch(showVideoSwitch);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setShowWitch(showVideoSwitch);
+        }
     }
 
     /***
@@ -771,7 +715,9 @@ public class ExoUserPlayer {
      * @param isOpenSeek true 启用 false 不启用
      */
     public void setSeekBarSeek(boolean isOpenSeek) {
-        getPlayerViewListener().setSeekBarOpenSeek(isOpenSeek);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setSeekBarOpenSeek(isOpenSeek);
+        }
     }
 
     /***
@@ -801,9 +747,10 @@ public class ExoUserPlayer {
     /****
      * 设置点击播放按钮回调, 交给用户处理
      * @param onClickListener 回调实例
+     * @deprecated Use {@link VideoPlayerManager.Builder#setOnPlayClickListener(View.OnClickListener)} instead.
      */
     public void setOnPlayClickListener(@Nullable View.OnClickListener onClickListener) {
-        playComponentListener.setOnPlayClickListener(onClickListener);
+        videoPlayerView.setOnPlayClickListener(onClickListener);
     }
 
     /***
@@ -823,22 +770,26 @@ public class ExoUserPlayer {
     }
 
     /***
-     * 添加视频播放准备状态
-     * @param preparedListener 实例
+     *  绑定view回调
+     * @param exoPlayerViewListener 实例
      */
-    public void addOnPreparedListeners(@NonNull OnPreparedListener preparedListener) {
-        mOnPreparedListeners.add(preparedListener);
+    public void addExoPlayerViewListener(@NonNull ExoPlayerViewListener exoPlayerViewListener) {
+        mPlayerViewListeners.add(exoPlayerViewListener);
     }
 
     /***
-     * 移除多个视频窗口准备状态
-     * @param preparedListener 实例
+     *  绑定view回调
+     * @param exoPlayerViewListener 实例
      */
-    public void removeOnPreparedListeners(@NonNull OnPreparedListener preparedListener) {
-        mOnPreparedListeners.remove(preparedListener);
+    public void removeExoPlayerViewListener(@NonNull ExoPlayerViewListener exoPlayerViewListener) {
+        mPlayerViewListeners.remove(exoPlayerViewListener);
     }
-/********************下面主要获取和操作方法*****************************************************************/
 
+    /********************下面主要获取和操作方法*****************************************************************/
+
+    public CopyOnWriteArraySet<ExoPlayerViewListener> getPlayerViewListeners() {
+        return mPlayerViewListeners;
+    }
 
     /***
      * 返回视频总数
@@ -855,14 +806,15 @@ public class ExoUserPlayer {
      * 下跳转下一个视频
      */
     public void next() {
-        getPlayerViewListener().next();
+        player.next();
     }
 
     /***
      * 下跳转上一个视频
      */
     public void previous() {
-        getPlayerViewListener().previous();
+        player.previous();
+
     }
 
     /***
@@ -876,7 +828,9 @@ public class ExoUserPlayer {
      * 隐藏控制布局
      */
     public void showControllerView() {
-        getPlayerViewListener().toggoleController(false, true);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.toggoleController(false, true);
+        }
     }
 
     /***
@@ -884,7 +838,9 @@ public class ExoUserPlayer {
      * @param isShowFull 是否显示全屏按钮
      */
     public void hideControllerView(boolean isShowFull) {
-        getPlayerViewListener().toggoleController(isShowFull, false);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.toggoleController(isShowFull, false);
+        }
     }
 
     /***
@@ -892,7 +848,9 @@ public class ExoUserPlayer {
      * @param isShowFull 是否显示全屏按钮
      */
     public void showControllerView(boolean isShowFull) {
-        getPlayerViewListener().toggoleController(isShowFull, true);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.toggoleController(isShowFull, true);
+        }
     }
 
 
@@ -902,7 +860,9 @@ public class ExoUserPlayer {
      * @param configuration 旋转
      */
     public void onConfigurationChanged(Configuration configuration) {
-        getPlayerViewListener().onConfigurationChanged(configuration.orientation);
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.onConfigurationChanged(configuration.orientation==Configuration.ORIENTATION_LANDSCAPE);
+        }
     }
 
     /***
@@ -941,10 +901,6 @@ public class ExoUserPlayer {
     }
 
 
-    public VideoPlayerView getVideoPlayerView() {
-        return videoPlayerView;
-    }
-
     public MediaSourceBuilder getMediaSourceBuilder() {
         return mediaSourceBuilder;
     }
@@ -963,11 +919,15 @@ public class ExoUserPlayer {
     /***
      * 取消广播监听
      */
-    protected void unNetworkBroadcastReceiver() {
+    private void unNetworkBroadcastReceiver() {
         if (mNetworkBroadcastReceiver != null) {
             activity.unregisterReceiver(mNetworkBroadcastReceiver);
         }
         mNetworkBroadcastReceiver = null;
+    }
+
+    public VideoPlayerView getVideoPlayerView() {
+        return videoPlayerView;
     }
 
     /***
@@ -992,9 +952,13 @@ public class ExoUserPlayer {
                                 return;
                             }
                             if (!isPause) {
-                                getPlayerViewListener().showAlertDialog();
+                                for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                                    item.showAlertDialog();
+                                }
                             }
                         }
+                    } else if (netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                        startVideo();
                     }
                 }
             }
@@ -1005,7 +969,7 @@ public class ExoUserPlayer {
     /***
      * view 给控制类 回调类
      */
-    Player.EventListener componentListener = new Player.EventListener() {
+    private Player.EventListener componentListener = new Player.DefaultEventListener() {
         boolean isRemove;
 
         @Override
@@ -1019,8 +983,6 @@ public class ExoUserPlayer {
 
         @Override
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-            // Log.d(TAG, "onTracksChanged:" + currentWindowIndex + "_:" + player.getCurrentTimeline().getWindowCount());
-            //   Log.d(TAG, "onTracksChanged:" + player.getNextWindowIndex() + "_:" + player.getCurrentTimeline().getWindowCount());
             if (getWindowCount() > 1) {
                 if (isRemove) {
                     isRemove = false;
@@ -1036,15 +998,10 @@ public class ExoUserPlayer {
                     return;
                 }
                 boolean setOpenSeek = !(mediaSourceBuilder.getIndexType() == player.getCurrentWindowIndex() && mediaSourceBuilder.getIndexType() > 0);
-                for (BasePlayerListener basePlayerListener : basePlayerListeners) {
-                    basePlayerListener.setPlayerGestureOnTouch(setOpenSeek);
+                for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                    item.setOpenSeek(setOpenSeek);
                 }
-                getPlayerViewListener().setOpenSeek(setOpenSeek);
             }
-        }
-
-        @Override
-        public void onPositionDiscontinuity(int reason) {
         }
 
         /**
@@ -1056,13 +1013,7 @@ public class ExoUserPlayer {
          */
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-            if (playWhenReady) {
-                //防锁屏
-                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            } else {
-                //解锁屏
-                activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            }
+
             for (VideoInfoListener videoInfoListener : videoInfoListeners) {
                 videoInfoListener.isPlaying(player.getPlayWhenReady());
             }
@@ -1070,7 +1021,9 @@ public class ExoUserPlayer {
             switch (playbackState) {
                 case Player.STATE_BUFFERING:
                     if (playWhenReady) {
-                        getPlayerViewListener().showLoadStateView(View.VISIBLE);
+                        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                            item.showLoadStateView(View.VISIBLE);
+                        }
                     }
                     for (VideoInfoListener videoInfoListener : videoInfoListeners) {
                         videoInfoListener.onLoadingChanged();
@@ -1080,18 +1033,24 @@ public class ExoUserPlayer {
                     Log.d(TAG, "onPlayerStateChanged:ended。。。");
                     isEnd = true;
                     clearResumePosition();
-                    getPlayerViewListener().showReplayView(View.VISIBLE);
+                    for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                        item.showReplayView(View.VISIBLE);
+                    }
                     for (VideoInfoListener videoInfoListener : videoInfoListeners) {
                         videoInfoListener.onPlayEnd();
                     }
                     break;
                 case Player.STATE_IDLE:
                     Log.d(TAG, "onPlayerStateChanged::网络状态差，请检查网络。。。");
-                    getPlayerViewListener().showErrorStateView(View.VISIBLE);
+                    for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                        item.showErrorStateView(View.VISIBLE);
+                    }
                     break;
                 case Player.STATE_READY:
-                    mPlayerViewListener.showPreview(View.GONE, false);
-                    getPlayerViewListener().showLoadStateView(View.GONE);
+                    for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                        item.showPreview(View.GONE, false);
+                        item.showLoadStateView(View.GONE);
+                    }
                     if (playWhenReady) {
                         Log.d(TAG, "onPlayerStateChanged:准备播放");
                         isPause = false;
@@ -1104,9 +1063,6 @@ public class ExoUserPlayer {
             }
         }
 
-        @Override
-        public void onRepeatModeChanged(int repeatMode) {
-        }
 
         public void onPlayerError(ExoPlaybackException e) {
             Log.e(TAG, "onPlayerError:" + e.getMessage());
@@ -1115,42 +1071,16 @@ public class ExoUserPlayer {
                 clearResumePosition();
                 startVideo();
             } else {
-                getPlayerViewListener().showErrorStateView(View.VISIBLE);
+                for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                    item.showErrorStateView(View.VISIBLE);
+                }
                 for (VideoInfoListener videoInfoListener : videoInfoListeners) {
                     videoInfoListener.onPlayerError(player.getPlaybackError());
                 }
             }
         }
 
-        @Override
-        public void onLoadingChanged(boolean isLoading) {
-
-        }
-
-        @Override
-        public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
-
-        }
-
-        @Override
-        public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-        }
-
-        @Override
-        public void onSeekProcessed() {
-            Log.e(TAG, "onSeekProcessed:");
-        }
     };
-
-
-    public interface OnPreparedListener {
-        /**
-         * Called when the media file is ready for playback.
-         *
-         * @param player the MediaPlayer that is ready for playback
-         */
-        void onPrepared(SimpleExoPlayer player);
-    }
 
 }
 

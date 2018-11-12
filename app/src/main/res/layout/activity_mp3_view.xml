@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+<chuangyuan.ycj.videolibrary.widget.ExoPlayerControlView
+    android:id="@+id/mExoPlayerControlView"
+    android:layout_width="match_parent"
+    app:show_timeout="1000000"
+    app:controller_layout_id="@layout/simple_exo_mp3_control_view"
+    android:layout_height="100dp"/>
+</LinearLayout>

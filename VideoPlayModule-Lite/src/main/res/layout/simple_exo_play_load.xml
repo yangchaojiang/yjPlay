@@ -17,7 +17,7 @@
         my:cycle="600" />
 
     <!--下载速度-->
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@id/exo_loading_show_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

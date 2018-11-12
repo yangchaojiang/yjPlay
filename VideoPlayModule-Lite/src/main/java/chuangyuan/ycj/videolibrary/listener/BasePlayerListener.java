@@ -1,14 +1,14 @@
 package chuangyuan.ycj.videolibrary.listener;
 
+import com.google.android.exoplayer2.SimpleExoPlayer;
+
 public interface BasePlayerListener {
-    void onPlayNoAlertVideo();
 
     void onDestroy();
-
-    void onResume();
-
-    void onPause();
-
-     void setPlayerGestureOnTouch(boolean setOpenSeek);
+    /***
+     *绑定播放播放控制类
+     * @param player 实例
+     */
+    void setPlayer(SimpleExoPlayer player);
 
 }

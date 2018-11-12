@@ -62,7 +62,6 @@ public class ClassFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         easyRecyclerView = (RecyclerView) view.findViewById(R.id.list);
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         easyRecyclerView.setLayoutManager(linearLayoutManager);
@@ -82,7 +81,7 @@ public class ClassFragment extends Fragment {
                 } else if (i % 7 == 2) {
                     list.add(getString(R.string.uri_test_5));
                 } else if (i % 7 == 3) {
-                    list.add(getString(R.string.uri_test_6));
+                    list.add(getString(R.string.uri_test_11));
                 } else if (i % 7 == 4) {
                     list.add(getString(R.string.uri_test_7));
                 } else if (i % 7 == 5) {
@@ -104,7 +103,6 @@ public class ClassFragment extends Fragment {
 
         });
     }
-
     private void start(View view, String uri) {
         //进入详细暂停视频
         long currPosition = 0;
@@ -129,6 +127,17 @@ public class ClassFragment extends Fragment {
         //如果进入详情播放则不暂停视频释放资源//为空内部已经处理
         VideoPlayerManager.getInstance().onPause(true);
 
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     @Override

@@ -9,7 +9,7 @@
     <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
         android:id="@+id/exo_play_context_id"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="match_parent"
         android:background="@android:color/transparent"
         app:controller_layout_id="@layout/exo_playback_control_view"
         app:player_layout_id="@layout/simple_exo_view"
@@ -24,7 +24,7 @@
         app:player_back_image="@drawable/ic_arrow_back_black_24dp"
         app:player_preview_layout_id="@layout/exo_default_preview_layout"
         app:fastforward_increment="0"
-        app:resize_mode="fit"
+        app:resize_mode="fill"
         app:show_timeout="3000"
         app:surface_type="texture_view"
         app:use_artwork="true"

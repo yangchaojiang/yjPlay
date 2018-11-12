@@ -5,30 +5,34 @@ import android.text.SpannableString;
 import android.view.View;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.ui.AnimUtils;
 
 import java.util.List;
+
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 
 /**
  * The interface Exo player view listener.
  *
  * @author yangc          date 2017/7/21         E-Mail:yangchaojiang@outlook.com         Deprecated: 控制类回调view 接口
  */
-public interface ExoPlayerViewListener {
+public interface ExoPlayerViewListener extends  BasePlayerListener{
+
+
+    void startPlayer(ExoUserPlayer exoUserPlayer);
 
     /***
      * 显示wifi提示框
      */
     void showAlertDialog();
+    /***
+     * 恢复显示是否播放
+     */
+    void onResumeStart();
 
     /***
-     * 显示隐藏记得进度条
-     *
-     * @param visibility 显示类型
+     * 准备开始加载视频
      */
-    void showHidePro(int visibility);
-
-
+    void onPrepared();
     /***
      * 显示隐藏加载布局
      *
@@ -60,16 +64,15 @@ public interface ExoPlayerViewListener {
     /***
      * 显示网速
      *
-     * @param netSpeed 网速的值
      */
-    void showNetSpeed(@NonNull String netSpeed);
+    void showNetSpeed(String netSpeed);
 
     /***
      * 手机很横竖屏切换
      *
-     * @param newConfig 切换类型
+     * @param isLand 是否横屏
      */
-    void onConfigurationChanged(int newConfig);
+    void onConfigurationChanged(boolean isLand);
 
 
     /***
@@ -94,16 +97,6 @@ public interface ExoPlayerViewListener {
      * @param currIndex 当前亮度
      */
     void setBrightnessPosition(int mMax, int currIndex);
-
-    /**
-     * 下一步
-     */
-    void next();
-
-    /**
-     * 上一步
-     */
-    void previous();
 
     /***
      * 显示隐藏控制布局操作
@@ -133,18 +126,11 @@ public interface ExoPlayerViewListener {
      * 重置布局
      */
     void reset();
-
     /***
      * 获取view 高度
      * @return int height
      */
     int getHeight();
-
-    /***
-     * 手势操作OnTouch 事件
-     * @param listener 实例
-     */
-    void setPlatViewOnTouchListener(View.OnTouchListener listener);
 
     /***
      * 设置显示多线路图标
@@ -158,23 +144,6 @@ public interface ExoPlayerViewListener {
      */
     void setSeekBarOpenSeek(boolean isOpenSeek);
 
-    /***
-     * 是否列表
-     * @return boolean boolean
-     */
-    boolean isList();
-
-    /***
-     * 设置播放播放控制类
-     * @param player 实例
-     */
-    void setPlayer(@NonNull SimpleExoPlayer player);
-
-    /***
-     * 加载布局是否显示
-     * @return boolean boolean
-     */
-    boolean isLoadingShow();
 
     /***
      * 获取 进度条
@@ -187,12 +156,6 @@ public interface ExoPlayerViewListener {
      */
     void exitFull();
 
-    /***
-     * 是否在锁屏中
-     * @return boolean boolean
-     */
-    boolean isLock();
-
     /**
      * 设置选择分辨率
      *
@@ -202,5 +165,5 @@ public interface ExoPlayerViewListener {
     void setSwitchName(@NonNull List<String> name, int switchIndex);
 
 
-
+    void setTag(Integer position);
 }

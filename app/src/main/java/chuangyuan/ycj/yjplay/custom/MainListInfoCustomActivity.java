@@ -8,12 +8,12 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.video.ManualPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
@@ -30,11 +30,32 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_coutom);
+        int type = getIntent().getIntExtra("type", 0);
+        switch (type) {
+            case 3:
+                setContentView(R.layout.layout_coutom4);
+                break;
+                default:{
+                setContentView(R.layout.layout_coutom2);
+                }
+        }
         long currPosition = getIntent().getLongExtra("currPosition", 0);
         VideoPlayerView videoPlayerView = findViewById(R.id.exo_play_context_id);
         ViewCompat.setTransitionName(videoPlayerView, VIEW_NAME_HEADER_IMAGE);
         exoPlayerManager = VideoPlayerManager.getInstance().getVideoPlayer();
+        if (type==3){
+            videoPlayerView.setVerticalFullScreen(true);
+            Glide.with(this)
+                    .load(getIntent().getStringExtra("imageUri"))
+                    .fitCenter()
+                    .into(videoPlayerView.getPreviewImage());
+        }else {
+            Glide.with(this)
+                    .load(getString(R.string.uri_test_image))
+                    .placeholder(R.mipmap.test)
+                    .fitCenter()
+                    .into(videoPlayerView.getPreviewImage());
+        }
         //如果为空，自己new一个
         if (exoPlayerManager == null) {
             exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
@@ -43,9 +64,11 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
                     .setPosition(currPosition)
                     .create()
                     .startPlayer();
+            VideoPlayerManager.getInstance().setCurrentVideoPlayer(exoPlayerManager);
         } else {
-            VideoPlayerManager.getInstance().switchTargetView(exoPlayerManager, videoPlayerView, true);
+            VideoPlayerManager.getInstance().switchTargetViewNew(videoPlayerView);
             exoPlayerManager.setPosition(currPosition);
+            exoPlayerManager.setStartOrPause(true);
         }
         videoPlayerView.setTitle("自定义视频标题");
         //自定义布局使用
@@ -67,11 +90,7 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
                 Toast.makeText(MainListInfoCustomActivity.this, "自定义提示", Toast.LENGTH_SHORT).show();
             }
         });
-        Glide.with(this)
-                .load(getString(R.string.uri_test_image))
-                .placeholder(R.mipmap.test)
-                .fitCenter()
-                .into(videoPlayerView.getPreviewImage());
+
     }
 
     @Override
@@ -97,7 +116,7 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
     protected void onDestroy() {
         //是返回不是列表控制类就释放，是列表的不能释放，还要做还原处理
         if (!isBack || VideoPlayerManager.getInstance().getVideoPlayer() == null) {
-            exoPlayerManager.onDestroy();
+          //  exoPlayerManager.onDestroy();
         }
         super.onDestroy();
     }

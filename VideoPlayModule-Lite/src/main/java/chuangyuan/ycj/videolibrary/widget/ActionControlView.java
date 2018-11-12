@@ -8,8 +8,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.google.android.exoplayer2.ui.PlayerView;
-
 import chuangyuan.ycj.videolibrary.R;
 
 /**

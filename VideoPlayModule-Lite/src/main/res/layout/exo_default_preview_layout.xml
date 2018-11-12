@@ -5,11 +5,11 @@
     android:background="@android:color/black"
     android:orientation="vertical">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@id/exo_preview_image"
         style="@style/MediaPreViewImage" />
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@id/exo_preview_play"
         style="@style/ExoMediaButton.Play2"
         android:src="@drawable/ic_exo_start" />

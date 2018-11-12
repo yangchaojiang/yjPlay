@@ -18,3 +18,4 @@
 
 
 # These are part of the Java <-> native interfaces for GVR.
+-dontskipnonpubliclibraryclassmembers

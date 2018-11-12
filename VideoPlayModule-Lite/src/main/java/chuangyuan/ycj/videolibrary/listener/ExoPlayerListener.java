@@ -35,18 +35,14 @@ public interface ExoPlayerListener {
 
     /***
      *得到内核控制类
-     * @return ExoUserPlayer play
      */
-    ExoUserPlayer getPlay();
+    void onDetachedFromWindow(boolean isListPlayer);
 
     /***
      *播放视频
      */
     void startPlayers();
-    /***
-     * 点击回调事件回调
-     * **/
-    View.OnClickListener    getClickListener();
 
     void  land();
+
 }

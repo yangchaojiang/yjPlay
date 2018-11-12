@@ -1,6 +1,7 @@
 package chuangyuan.ycj.videolibrary.utils;
 
 import android.app.Activity;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
@@ -14,6 +15,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.google.android.exoplayer2.C;
@@ -21,6 +27,11 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Util;
+
+import java.lang.reflect.Constructor;
+
+import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
+import chuangyuan.ycj.videolibrary.video.MediaSourceBuilder;
 
 
 /**
@@ -35,7 +46,7 @@ public class VideoPlayUtils {
      * @param activity 活动对象
      * @return long total rx bytes
      */
-    public static long getTotalRxBytes(@NonNull Activity activity) {
+    public static long getTotalRxBytes(@NonNull Context activity) {
         return TrafficStats.getUidRxBytes(activity.getApplicationInfo().uid) == TrafficStats.UNSUPPORTED ? 0 : (TrafficStats.getTotalRxBytes() / 1024);//转为KB
     }
 
@@ -46,7 +57,6 @@ public class VideoPlayUtils {
      * @return double m
      */
     public static double getM(long k) {
-
         double m;
         m = k / 1024.0;
         //返回kb转换之后的M值
@@ -63,7 +73,6 @@ public class VideoPlayUtils {
         Context context = activity.getApplicationContext();
         // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
         if (connectivityManager == null) {
             return false;
         } else {
@@ -79,6 +88,24 @@ public class VideoPlayUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * 检查当前是否TV
+     *
+     * @param mContext 活动
+     * @return boolean boolean
+     */
+    public static boolean isTv(@NonNull Context mContext) {
+        return getUiMode(mContext) == Configuration.UI_MODE_TYPE_TELEVISION;
+    }
+
+    private static int getUiMode(@NonNull Context mContext) {
+        UiModeManager uiModeManager = (UiModeManager) mContext.getSystemService(Context.UI_MODE_SERVICE);
+        assert uiModeManager != null;
+        Log.d("getUiMode",uiModeManager.getCurrentModeType()+"");
+        return uiModeManager.getCurrentModeType();
+
     }
 
     /**
@@ -115,6 +142,37 @@ public class VideoPlayUtils {
         return false;
     }
 
+    @Nullable
+    public static ViewGroup getViewGroup(@NonNull Context context) {
+        return (ViewGroup) (scanForActivity(context)).findViewById(Window.ID_ANDROID_CONTENT);
+    }
+
+    /**
+     * 获取屏幕的宽度px
+     *
+     * @param context 上下文
+     * @return 屏幕宽px
+     */
+    public static int getScreenWidth(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();// 创建了一张白纸
+        windowManager.getDefaultDisplay().getMetrics(outMetrics);// 给白纸设置宽高
+        return outMetrics.widthPixels;
+    }
+
+    /**
+     * 获取屏幕的高度px
+     *
+     * @param context 上下文
+     * @return 屏幕高px
+     */
+    public static int getScreenHeight(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();// 创建了一张白纸
+        assert windowManager != null;
+        windowManager.getDefaultDisplay().getMetrics(outMetrics);// 给白纸设置宽高
+        return outMetrics.heightPixels;
+    }
 
     /***
      * 得到活动对象
@@ -138,7 +196,7 @@ public class VideoPlayUtils {
      * @return AppCompatActivity app comp activity
      */
     @Nullable
-    public static AppCompatActivity getAppCompActivity(@NonNull Context context) {
+    private static AppCompatActivity getAppCompActivity(@NonNull Context context) {
         if (context instanceof AppCompatActivity) {
             return (AppCompatActivity) context;
         } else if (context instanceof ContextThemeWrapper) {
@@ -183,6 +241,36 @@ public class VideoPlayUtils {
                         WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
+    /**
+     * 获取ActionBar高度
+     *
+     * @param activity activity
+     * @return ActionBar高度
+     */
+    public static int getActionBarHeight(Activity activity) {
+        TypedValue tv = new TypedValue();
+        if (activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            return TypedValue.complexToDimensionPixelSize(tv.data, activity.getResources().getDisplayMetrics());
+        }
+        return 0;
+    }
+
+    /**
+     * 获取状态栏高度
+     *
+     * @param context 上下文
+     * @return 状态栏高度
+     */
+    public static int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resourceId = context.getResources()
+                .getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     /***
      * 获取当前手机横屏状态
      *
@@ -197,19 +285,6 @@ public class VideoPlayUtils {
         return resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-    /***
-     * 获取当前手机状态
-     *
-     * @param activity 活动
-     * @return int orientation
-     */
-    public static int getOrientation(@NonNull Context activity) {
-        Resources resources = activity.getResources();
-        if (resources == null || resources.getConfiguration() == null) {
-            return Configuration.ORIENTATION_PORTRAIT;
-        }
-        return activity.getResources().getConfiguration().orientation;
-    }
 
     /**
      * dp转px
@@ -248,7 +323,7 @@ public class VideoPlayUtils {
      * @return the int
      */
     @C.ContentType
-    public static int inferContentType(String fileName) {
+    private static int inferContentType(String fileName) {
         fileName = Util.toLowerInvariant(fileName);
         if (fileName.matches(".*m3u8.*")) {
             return C.TYPE_HLS;
@@ -258,6 +333,24 @@ public class VideoPlayUtils {
             return C.TYPE_SS;
         } else {
             return C.TYPE_OTHER;
+        }
+    }
+
+    /**
+     * Infer content type MediaSourceBuilder.
+     *
+     * @param mContext mContext
+     * @param listener listener
+     * @return the MediaSourceBuilder
+     */
+    @NonNull
+    public static MediaSourceBuilder buildMediaSourceBuilder(@NonNull Context mContext, @Nullable DataSourceListener listener) {
+        try {
+            Class<?> clazz = Class.forName("chuangyuan.ycj.videolibrary.whole.WholeMediaSource");
+            Constructor<?> constructor = clazz.getConstructor(Context.class, DataSourceListener.class);
+            return (MediaSourceBuilder) constructor.newInstance(mContext, listener);
+        } catch (Exception e) {
+            return new MediaSourceBuilder(mContext, listener);
         }
     }
 }

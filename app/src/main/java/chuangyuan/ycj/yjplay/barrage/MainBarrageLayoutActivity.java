@@ -172,7 +172,7 @@ public class MainBarrageLayoutActivity extends Activity implements View.OnClickL
         exoPlayerManager = new VideoPlayerManager
                 .Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
                 .setDataSource(new DataSource(this))
-                .setPlayUri(getString(R.string.uri_test_6))
+                .setPlayUri(getString(R.string.uri_test_12))
                 .create()
                 .startPlayer();
         Glide.with(this)

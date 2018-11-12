@@ -5,13 +5,13 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import chuangyuan.ycj.videolibrary.R;
 
@@ -26,11 +26,11 @@ public class GestureControlView extends FrameLayout {
     /***调整进度布局,控制音频，亮度布局***/
     private View dialogProLayout, exoAudioLayout, exoBrightnessLayout;
     /***水印,封面图占位,显示音频和亮度布图*/
-    private ImageView videoAudioImg, videoBrightnessImg;
+    private AppCompatImageView videoAudioImg, videoBrightnessImg;
     /***显示音频和亮度*/
     private ProgressBar videoAudioPro, videoBrightnessPro;
     /***视视频标题,清晰度切换,实时视频,加载速度显示,控制进度*/
-    private TextView videoDialogProText;
+    private AppCompatTextView videoDialogProText;
 
     public GestureControlView(@NonNull Context context) {
         this(context, null);

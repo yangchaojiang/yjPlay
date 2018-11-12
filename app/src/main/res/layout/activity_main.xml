@@ -41,13 +41,6 @@
 
     <Button
         android:textAllCaps="false"
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Customize_the_start_button_event" />
-
-    <Button
-        android:textAllCaps="false"
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,5 +82,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Add_video"/>
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/button15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/player_mp3"/>
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/button16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="斗音"/>
 </LinearLayout>
 </ScrollView>

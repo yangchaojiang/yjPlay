@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@id/exo_controller_top"
         style="@style/ExoMediaTitleLayout">
-       <TextView
+       <android.support.v7.widget.AppCompatTextView
         android:id="@id/exo_controls_title"
         style="@style/ExoMediaTitle"
         tools:text="测试阿斯顿" />
@@ -19,20 +19,20 @@
         android:id="@id/exo_controller_bottom"
         style="@style/ExoMediaControllerBottom">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@id/exo_position"
             style="@style/ExoMediaCurrPosition"
             android:layout_marginLeft="10dp"
             tools:text="06:21" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             style="@style/ExoMediaSpan"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:text="@string/exo_fenge"
             android:textSize="12sp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@id/exo_duration"
             style="@style/ExoMediaDuration"
             tools:text="06:21" />
@@ -49,14 +49,16 @@
     </LinearLayout>
 
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
+        tools:ignore="ContentDescription"
         android:id="@id/exo_play"
         style="@style/ExoMediaButton.Play2"
         android:src="@drawable/ic_exo_start" />
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@id/exo_pause"
         style="@style/ExoMediaButton.Pause2"
-        android:src="@drawable/ic_exo_pause" />
+        android:src="@drawable/ic_exo_pause"
+        tools:ignore="ContentDescription" />
 
 </RelativeLayout>

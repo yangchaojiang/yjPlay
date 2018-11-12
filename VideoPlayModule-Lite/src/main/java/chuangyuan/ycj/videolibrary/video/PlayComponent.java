@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
+import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
+
 /**
  * author yangc
  * date 2017/2/28
@@ -12,23 +14,16 @@ import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
  */
 class PlayComponent implements ExoPlayerListener {
     private final ExoUserPlayer exoUserPlayer;
-    private View.OnClickListener onClickListener;
+
 
     public PlayComponent(ExoUserPlayer exoUserPlayer) {
         this.exoUserPlayer = exoUserPlayer;
     }
 
-    /****
-     * 设置点击播放按钮回调, 交给用户处理
-     * @param onClickListener 回调实例
-     */
-    public void setOnPlayClickListener(@Nullable View.OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
 
     @Override
     public void onCreatePlayers() {
-        exoUserPlayer.createPlayers();
+        exoUserPlayer.startVideo();
     }
 
     @Override
@@ -36,7 +31,7 @@ class PlayComponent implements ExoPlayerListener {
         exoUserPlayer.clearResumePosition();
         exoUserPlayer.handPause = false;
         if (exoUserPlayer.getPlayer() == null) {
-            exoUserPlayer.createPlayers();
+            exoUserPlayer.startVideo();
         } else {
             exoUserPlayer.getPlayer().seekTo(0, 0);
             exoUserPlayer.getPlayer().setPlayWhenReady(true);
@@ -47,7 +42,7 @@ class PlayComponent implements ExoPlayerListener {
 
     @Override
     public void switchUri(int position) {
-       MediaSourceBuilder mediaSourceBuilder = exoUserPlayer.getMediaSourceBuilder();
+        MediaSourceBuilder mediaSourceBuilder = exoUserPlayer.getMediaSourceBuilder();
         if (mediaSourceBuilder != null && mediaSourceBuilder.getVideoUri() != null) {
             exoUserPlayer.setSwitchPlayer(mediaSourceBuilder.getVideoUri().get(position));
         }
@@ -56,26 +51,34 @@ class PlayComponent implements ExoPlayerListener {
     @Override
     public void playVideoUri() {
         VideoPlayerManager.getInstance().setClick(true);
-        exoUserPlayer.onPlayNoAlertVideo();
+        exoUserPlayer.playerNoAlertDialog();
     }
 
     @Override
-    public ExoUserPlayer getPlay() {
-        return exoUserPlayer;
+    public void onDetachedFromWindow(boolean isListPlayer) {
+        boolean is = isListPlayer && exoUserPlayer.getPlayer() != null;
+        if (is) {
+            ExoUserPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
+            if (manualPlayer != null && exoUserPlayer.toString().equals(manualPlayer.toString())) {
+                manualPlayer.reset(true);
+            }
+        } else {
+            for (ExoPlayerViewListener item : exoUserPlayer.getPlayerViewListeners()) {
+                item.onDestroy();
+            }
+        }
     }
+
 
     @Override
     public void startPlayers() {
         exoUserPlayer.startPlayer();
     }
 
-    @Override
-    public View.OnClickListener getClickListener() {
-        return onClickListener;
-    }
 
     @Override
     public void land() {
         exoUserPlayer.land();
     }
+
 }

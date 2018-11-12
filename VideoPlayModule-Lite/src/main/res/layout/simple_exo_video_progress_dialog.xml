@@ -15,7 +15,7 @@
         android:background="@drawable/simple_video_dialog_progress_bg"
         android:orientation="vertical">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/exo_video_dialog_pro_img"
             android:layout_width="36dp"
             android:layout_height="27dp"
@@ -23,7 +23,7 @@
             android:layout_marginTop="16dp"
             android:contentDescription="@null" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/exo_video_dialog_pro_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

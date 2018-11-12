@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.FileDataSource;
 import com.google.android.exoplayer2.upstream.cache.Cache;
+import com.google.android.exoplayer2.upstream.cache.CacheDataSink;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
 import com.google.android.exoplayer2.upstream.cache.SimpleCache;
@@ -21,7 +23,8 @@ import java.io.File;
 public class DefaultCacheDataSourceFactory implements DataSource.Factory {
     private final JDefaultDataSourceFactory defaultDatasourceFactory;
     private SimpleCache simpleCache;
-
+    private final CacheDataSource.EventListener listener;
+    private    long  maxCacheSize=CacheDataSource.DEFAULT_MAX_CACHE_FILE_SIZE;
     /***
      * @param context 上下文
      */
@@ -64,6 +67,8 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
      * @param listener the listener
      */
     public DefaultCacheDataSourceFactory(@NonNull Context context, String dirFile, long maxCacheSize, byte[] secretKey, @Nullable CacheDataSource.EventListener listener) {
+        this.listener=listener;
+        this.maxCacheSize=maxCacheSize;
         if (dirFile == null) {
             File downloadDirectory = context.getApplicationContext().getExternalFilesDir("media");
             if (downloadDirectory == null) {
@@ -83,6 +88,6 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
 
     @Override
     public DataSource createDataSource() {
-        return new CacheDataSource(simpleCache, defaultDatasourceFactory.createDataSource(), 0);
+        return new CacheDataSource(simpleCache, defaultDatasourceFactory.createDataSource(),new FileDataSource(),new CacheDataSink(simpleCache, maxCacheSize) ,CacheDataSource.FLAG_BLOCK_ON_CACHE,listener);
     }
 }

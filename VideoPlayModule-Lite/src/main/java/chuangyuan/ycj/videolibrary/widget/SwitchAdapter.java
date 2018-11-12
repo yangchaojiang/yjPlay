@@ -72,12 +72,12 @@ public class SwitchAdapter extends BaseAdapter {
      * 设置选中索引
      * @param selectIndex selectIndex
      * ***/
-    public void setSelectIndex(int selectIndex) {
+      void setSelectIndex(int selectIndex) {
         this.selectIndex = selectIndex;
         notifyDataSetChanged();
     }
 
-    public int getSelectIndex() {
+      int getSelectIndex() {
         return selectIndex;
     }
 }

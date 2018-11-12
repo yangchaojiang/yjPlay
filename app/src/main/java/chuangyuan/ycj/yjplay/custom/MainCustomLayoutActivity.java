@@ -1,9 +1,7 @@
 package chuangyuan.ycj.yjplay.custom;
 
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.source.MediaSource;
 
@@ -55,6 +51,8 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         switch (type) {
             case 0:
                 setContentView(R.layout.layout_coutom);
+                 setSupportActionBar(findViewById(R.id.mToolbar));
+                  getSupportActionBar().setDisplayShowHomeEnabled(true                                                                                                                                                                                       );
                 break;
             case 1:
                 setContentView(R.layout.layout_coutom2);
@@ -114,6 +112,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
                 .setDataSource(wholeMediaSource)
                 .setPosition(currPosition)
                 .setTitle("自定义视频标题")
+                .setVerticalFullScreen(true)
                 .setOnPlayClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -226,7 +225,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
+        // exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
     }
 

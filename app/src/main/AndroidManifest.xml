@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="chuangyuan.ycj.yjplay">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -26,13 +27,32 @@
         <activity
             android:name=".MainListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Translucent" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:mimeType="text/plain"
+                    android:scheme="content" />
+            </intent-filter>
+        </activity>    <activity
+        android:theme="@style/Theme.AppCompat.Translucent"
+        android:name=".list.MainList2Activity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:hardwareAccelerated="true"
+        android:screenOrientation="portrait"
+        />
+
         <activity
+            android:theme="@style/Theme.AppCompat.Translucent"
             android:name=".custom.MainCustomLayoutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
+             />
         <activity
             android:name=".custom.MainListInfoCustomActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -59,9 +79,8 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
-            <intent-filter>
+            <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -74,7 +93,6 @@
             android:name=".fragment.ViewPagerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
-            android:label="@string/title_activity_view_pager"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -93,9 +111,23 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             >
-
-
         </activity>
+
+        <activity android:name=".mp3.Mp3SimpleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="applicationId.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/path"/>
+        </provider>
     </application>
 
 </manifest>

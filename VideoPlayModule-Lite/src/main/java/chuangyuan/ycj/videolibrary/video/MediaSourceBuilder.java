@@ -8,6 +8,7 @@ import android.support.annotation.Size;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.mp4.Mp4Extractor;
 import com.google.android.exoplayer2.source.ClippingMediaSource;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -187,7 +188,7 @@ public class MediaSourceBuilder {
      * 获取视频数据源
      * @return the media source
      */
-    MediaSource getMediaSource() {
+    public MediaSource getMediaSource() {
         return mediaSource;
     }
 
@@ -283,11 +284,13 @@ public class MediaSourceBuilder {
      * @return MediaSource media source
      */
     public MediaSource initMediaSource(Uri uri) {
+        DefaultExtractorsFactory mDefaultExtractorsFactory = new DefaultExtractorsFactory();
+        mDefaultExtractorsFactory.setMp4ExtractorFlags(Mp4Extractor.FLAG_WORKAROUND_IGNORE_EDIT_LISTS);
         int streamType = VideoPlayUtils.inferContentType(uri);
         switch (streamType) {
             case C.TYPE_OTHER:
                 return new ExtractorMediaSource.Factory(getDataSource())
-                        .setExtractorsFactory(new DefaultExtractorsFactory())
+                        .setExtractorsFactory(mDefaultExtractorsFactory)
                         .setMinLoadableRetryCount(5)
                         .setCustomCacheKey(customCacheKey == null ? uri.toString() : customCacheKey)
                         .createMediaSource(uri);

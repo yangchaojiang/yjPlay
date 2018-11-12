@@ -1,4 +1,14 @@
  ## 更新日志
+ #### 2.3.10
+   * 增加竖屏全屏播放适配[200](https://github.com/yangchaojiang/yjPlay/issues/200)。
+   * 增加电视盒子播放适配[187](https://github.com/yangchaojiang/yjPlay/issues/187)。
+   * 增加音频播放适配。
+   * 其他细节优化。
+   * 删除 ManualPlayer和GestureVideoPlayer两个控制播放器类。
+   * 删除 VideoUI module。
+   * 播放器控制类和Ui再度解耦。
+   * 修复修复 build apk  资源文件没有对齐[202](https://github.com/yangchaojiang/yjPlay/issues/202)。
+   * ExoPlayer升级内核版本[#2.9.1](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES
  #### 2.3.0
    * 修改（6.0以下）横屏切换延迟
    * 弃用GestureVideoPlayer和ManualPlayer,改用ExoUserPlayer.统一管理
