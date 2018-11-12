@@ -434,7 +434,6 @@ public class ExoUserPlayer {
             }
             return false;
         } else {
-            onDestroy();
             return true;
         }
     }

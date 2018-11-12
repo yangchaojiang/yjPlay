@@ -52,7 +52,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
             case 0:
                 setContentView(R.layout.layout_coutom);
                  setSupportActionBar(findViewById(R.id.mToolbar));
-                  getSupportActionBar().setDisplayShowHomeEnabled(true                                                                                                                                                                                       );
+                  getSupportActionBar().setDisplayShowHomeEnabled(true);
                 break;
             case 1:
                 setContentView(R.layout.layout_coutom2);

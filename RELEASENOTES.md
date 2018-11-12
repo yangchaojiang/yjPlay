@@ -1,5 +1,5 @@
  ## 更新日志
- #### 2.3.10
+ #### 2.3.11
    * 增加竖屏全屏播放适配[200](https://github.com/yangchaojiang/yjPlay/issues/200)。
    * 增加电视盒子播放适配[187](https://github.com/yangchaojiang/yjPlay/issues/187)。
    * 增加音频播放适配。

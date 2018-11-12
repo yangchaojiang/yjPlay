@@ -41,11 +41,4 @@
         app:user_watermark="@mipmap/watermark_big"
           />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="哈哈哈"
-        />
-
-
 </LinearLayout>

@@ -273,7 +273,11 @@ public final class VideoPlayerView extends BaseView {
                     }
                 }
             } else if (v.getId() == R.id.exo_controls_back) {
-                activity.onBackPressed();
+                if(isLand()){
+                    exitFullView();
+                }else{
+                    activity.onBackPressed();
+                }
             } else if (v.getId() == R.id.exo_player_error_btn_id) {
                 onCreatePlayer();
             } else if (v.getId() == R.id.exo_player_replay_btn_id) {

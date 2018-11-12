@@ -36,7 +36,7 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
                 setContentView(R.layout.layout_coutom4);
                 break;
                 default:{
-                setContentView(R.layout.layout_coutom2);
+                setContentView(R.layout.layout_coutom3);
                 }
         }
         long currPosition = getIntent().getLongExtra("currPosition", 0);
@@ -64,11 +64,10 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
                     .setPosition(currPosition)
                     .create()
                     .startPlayer();
-            VideoPlayerManager.getInstance().setCurrentVideoPlayer(exoPlayerManager);
         } else {
             VideoPlayerManager.getInstance().switchTargetViewNew(videoPlayerView);
             exoPlayerManager.setPosition(currPosition);
-            exoPlayerManager.setStartOrPause(true);
+            exoPlayerManager.startPlayer();
         }
         videoPlayerView.setTitle("自定义视频标题");
         //自定义布局使用

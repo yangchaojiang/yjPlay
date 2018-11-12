@@ -36,7 +36,7 @@
 
  <!--more-->
 
- ### [更新日志2.3.0→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.3.11→》戳我查看](RELEASENOTES.md)
 
 
  ### 一.引用类库
@@ -48,9 +48,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.3.0'
+      compile 'com.ycjiang:VideoPlayModule:2.3.11'
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.3.0'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.3.11'
 
   }
   ````
