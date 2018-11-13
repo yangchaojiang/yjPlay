@@ -38,6 +38,7 @@
                   android:screenOrientation="landscape"/>
 
         <activity android:name=".MainDetailedActivity"
+            android:theme="@style/Theme.AppCompat"
             android:screenOrientation="landscape"/>
     </application>
 
