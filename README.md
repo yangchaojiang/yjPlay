@@ -9,7 +9,9 @@
  ![](https://github.com/yangchaojiang/ResProject/blob/master/gif/test.gif)  ![](https://github.com/yangchaojiang/ResProject/blob/master/gif/test2.gif)
  
  ![](https://github.com/yangchaojiang/ResProject/blob/master/gif/test3.gif)
+ ![](https://github.com/yangchaojiang/ResProject/blob/master/gif/test4.gif)
 
+  ![](https://github.com/yangchaojiang/ResProject/blob/master/gif/testtv.gif)
  ### 基于exoPlayer 自定义播放器 JPlayer支持功能：
    *  ExoUserPlayer 基本播放（默认关闭手势  亮度，音量，快进，等手势，支持自定义布局）
    *  自动适配适配TV。
