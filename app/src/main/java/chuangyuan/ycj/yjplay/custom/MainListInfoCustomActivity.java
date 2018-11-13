@@ -67,7 +67,7 @@ public class MainListInfoCustomActivity extends AppCompatActivity {
         } else {
             VideoPlayerManager.getInstance().switchTargetViewNew(videoPlayerView);
             exoPlayerManager.setPosition(currPosition);
-            exoPlayerManager.startPlayer();
+            exoPlayerManager.setStartOrPause(true);
         }
         videoPlayerView.setTitle("自定义视频标题");
         //自定义布局使用

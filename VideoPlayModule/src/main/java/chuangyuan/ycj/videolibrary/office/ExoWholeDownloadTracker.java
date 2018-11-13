@@ -38,10 +38,10 @@ import chuangyuan.ycj.videolibrary.offline.ExoDownloadTracker;
 
 /**
  * Tracks media that has been downloaded.
- * <p>
+ *
  * <p>Tracked downloads are persisted using an {@link ActionFile}, however in a real application
  * it's expected that state will be stored directly in the application's media database, so that it
- * can be queried efficiently together with other information about the media.
+ * can be queried efficiently together with other information about the media.</p>
  */
 public class ExoWholeDownloadTracker extends ExoDownloadTracker {
 

@@ -133,7 +133,9 @@ public final class VideoPlayerView extends BaseView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mExoPlayerListener.onDetachedFromWindow(isListPlayer());
+        if (mExoPlayerListener!=null){
+            mExoPlayerListener.onDetachedFromWindow(isListPlayer());
+        }
     }
 
 

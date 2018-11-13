@@ -60,7 +60,7 @@ class PlayComponent implements ExoPlayerListener {
         if (is) {
             ExoUserPlayer manualPlayer = VideoPlayerManager.getInstance().getVideoPlayer();
             if (manualPlayer != null && exoUserPlayer.toString().equals(manualPlayer.toString())) {
-                manualPlayer.reset(true);
+                manualPlayer.reset();
             }
         } else {
             for (ExoPlayerViewListener item : exoUserPlayer.getPlayerViewListeners()) {

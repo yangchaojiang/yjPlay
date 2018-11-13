@@ -18,6 +18,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.R;
@@ -73,7 +74,7 @@ public class MediaSourceBuilder {
     }
 
     /****
-     * 初始化
+     * 设置剪贴视频。播放视频部分。使用试看视频
      *
      * @param uri 视频的地址
      * @param startPositionUs startPositionUs  毫秒
@@ -81,16 +82,6 @@ public class MediaSourceBuilder {
      */
     public void setClippingMediaUri(@NonNull Uri uri, long startPositionUs, long endPositionUs) {
         mediaSource = new ClippingMediaSource(initMediaSource(uri), startPositionUs, endPositionUs);
-    }
-
-    /****
-     * 初始化多个视频源，无缝衔接
-     *
-     * @param firstVideoUri 第一个视频， 例如例如广告视频
-     * @param secondVideoUri 第二个视频
-     */
-    public void setMediaUri(@NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
-        setMediaUri(0, firstVideoUri, secondVideoUri);
     }
 
 
@@ -123,6 +114,7 @@ public class MediaSourceBuilder {
         setMediaUri(indexType, firstVideoUri, Uri.parse(secondVideoUri.get(switchIndex)));
     }
 
+
     /****
      * @param indexType 设置当前索引视频屏蔽进度
      * @param firstVideoUri 预览的视频
@@ -136,6 +128,23 @@ public class MediaSourceBuilder {
         mediaSource = source;
     }
 
+    /****
+     * 初始化多个视频源，无缝衔接
+     * @param <T> T
+     * @param indexType the index type 设置广告索引
+     * @param switchIndex the switch 设置多线路索引
+     * @param firstVideoUri 第一个视频， 例如例如广告视频
+     * @param secondVideoUri 第二个视频
+     */
+    public <T extends ItemVideo> void setMediaSwitchUri(@Size(min = 0) int indexType, int switchIndex, @NonNull Uri firstVideoUri, @NonNull List<T> secondVideoUri) {
+        this.indexType = indexType;
+        this.videoUri=null;
+        this.videoUri = new ArrayList<>();
+        for (T item : secondVideoUri) {
+            this.videoUri.add(item.getVideoUri());
+        }
+        setMediaUri(indexType, firstVideoUri, Uri.parse(secondVideoUri.get(switchIndex).getVideoUri()));
+    }
 
     /**
      * 设置多线路播放
@@ -169,8 +178,8 @@ public class MediaSourceBuilder {
 
     /***
      * 设置循环播放视频   Integer.MAX_VALUE 无线循环
-     *
      * @param loopingCount 必须大于0
+     * @param videoUri  播放路径
      */
     public void setLoopingMediaSource(@Size(min = 1) int loopingCount, Uri videoUri) {
         mediaSource = new LoopingMediaSource(initMediaSource(videoUri), loopingCount);

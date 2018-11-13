@@ -1,4 +1,7 @@
  ## 更新日志
+ #### 2.3.12
+   * [Error when orientation change ](https://github.com/yangchaojiang/yjPlay/issues/207)。
+   * 修复列表详情页面返回可能Ui错误。
  #### 2.3.11
    * 增加竖屏全屏播放适配[200](https://github.com/yangchaojiang/yjPlay/issues/200)。
    * 增加电视盒子播放适配[187](https://github.com/yangchaojiang/yjPlay/issues/187)。

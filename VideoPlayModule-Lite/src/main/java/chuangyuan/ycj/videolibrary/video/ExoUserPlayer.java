@@ -13,7 +13,6 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 
@@ -111,6 +110,7 @@ public class ExoUserPlayer {
      * 初始化
      * @param activity 活动对象
      * @param mediaSourceBuilder 自定义数据源类
+     * @param  playerView playerView;
      * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public ExoUserPlayer(@NonNull Context activity, @NonNull MediaSourceBuilder mediaSourceBuilder, @NonNull VideoPlayerView playerView) {
@@ -132,6 +132,7 @@ public class ExoUserPlayer {
     /***
      * 初始化
      * @param activity 活动对象
+     * @param  mediaSourceBuilder 媒体加载来源实例;
      * @deprecated Use {@link VideoPlayerManager.Builder} instead.
      */
     public ExoUserPlayer(@NonNull Context activity, @NonNull MediaSourceBuilder mediaSourceBuilder) {
@@ -223,7 +224,7 @@ public class ExoUserPlayer {
             isPause = true;
             if (player != null) {
                 handPause = !player.getPlayWhenReady();
-                reset(true);
+                reset();
             }
         }
     }
@@ -283,6 +284,7 @@ public class ExoUserPlayer {
 
     /****
      * 初始化播放实例
+     * @return ExoUserPlayer
      */
     public ExoUserPlayer startPlayer() {
         VideoPlayerManager.getInstance().setCurrentVideoPlayer(ExoUserPlayer.this);
@@ -449,23 +451,29 @@ public class ExoUserPlayer {
         }
     }
 
-    public void reset(boolean isList) {
-        if (isList) {
-            if (player != null) {
-                unNetworkBroadcastReceiver();
-                player.stop();
-                player.removeListener(componentListener);
-                for (ExoPlayerViewListener item : getPlayerViewListeners()) {
-                    item.setPlayerBtnOnTouch(true);
-                    item.reset();
-                }
-                player.release();
-                player = null;
+    void reset() {
+        if (player != null) {
+            player.stop();
+            player.removeListener(componentListener);
+            for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                item.setPlayerBtnOnTouch(true);
+                item.reset();
             }
-        } else {
-            releasePlayers();
+            player.release();
+            player = null;
         }
+    }
 
+    void resetList() {
+        if (player != null) {
+            player.stop();
+            for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                item.setPlayerBtnOnTouch(true);
+            }
+            player.release();
+            player = null;
+
+        }
     }
 
     /***
@@ -499,6 +507,15 @@ public class ExoUserPlayer {
 
     /*****************设置参数方法*************************/
 
+    /**
+     * 设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。 不支持流式媒体
+     *
+     * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
+     * @throws IllegalStateException If one of the {@code create} methods has already been called.
+     */
+    public void setCustomCacheKey(@NonNull String customCacheKey) {
+        mediaSourceBuilder.setCustomCacheKey(customCacheKey);
+    }
 
     /****
      * 设置tag 标记 防止列表复用进度导致,
@@ -535,6 +552,15 @@ public class ExoUserPlayer {
         setPlayUri(Uri.parse(uri));
     }
 
+    /**
+     * 设置播放路径
+     *
+     * @param uri 路径
+     */
+    public void setPlayUri(@NonNull Uri uri) {
+        mediaSourceBuilder.setMediaUri(uri);
+    }
+
     /****
      * @param indexType 设置当前索引视频屏蔽进度
      * @param firstVideoUri 预览的视频
@@ -545,11 +571,32 @@ public class ExoUserPlayer {
 
     }
 
+
+    /****
+     * 设置视频列表播放
+     * @param indexType 设置当前索引视频屏蔽进度
+     * @param firstVideoUri 预览的视频
+     * @param secondVideoUri 第二个视频
+     */
+    public void setPlayUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
+        mediaSourceBuilder.setMediaUri(indexType, firstVideoUri, secondVideoUri);
+    }
+
+    /****
+     * 设置视频列表播放
+     * @param <T>     你的实体类
+     * @param uris 集合
+     */
+    public <T extends ItemVideo> void setPlayUri(@NonNull List<T> uris) {
+        mediaSourceBuilder.setMediaUri(uris);
+    }
+
     /***
      * 设置多线路播放
      * @param index 选中播放线路
      * @param videoUri 视频地址
      * @param name 清清晰度显示名称
+     * @deprecated Use {@link VideoPlayerManager.Builder#setPlaySwitchUri(int, String[], String[])} instead.
      */
     public void setPlaySwitchUri(int index, @NonNull String[] videoUri, @NonNull String[] name) {
         setPlaySwitchUri(index, Arrays.asList(videoUri), Arrays.asList(name));
@@ -561,6 +608,7 @@ public class ExoUserPlayer {
      * @param switchIndex 选中播放线路索引
      * @param videoUri 视频地址
      * @param name 清清晰度显示名称
+     * @deprecated Use {@link VideoPlayerManager.Builder#setPlaySwitchUri(int, List, List)} instead.
      */
     public void setPlaySwitchUri(int switchIndex, @NonNull List<String> videoUri, @NonNull List<String> name) {
         mediaSourceBuilder.setMediaSwitchUri(videoUri, switchIndex);
@@ -569,15 +617,6 @@ public class ExoUserPlayer {
         }
     }
 
-    /**
-     * 设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。 不支持流式媒体
-     *
-     * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
-     * @throws IllegalStateException If one of the {@code create} methods has already been called.
-     */
-    public void setCustomCacheKey(@NonNull String customCacheKey) {
-        mediaSourceBuilder.setCustomCacheKey(customCacheKey);
-    }
 
     /****
      * @param indexType 设置当前索引视频屏蔽进度
@@ -585,6 +624,7 @@ public class ExoUserPlayer {
      * @param firstVideoUri 预览视频
      * @param secondVideoUri 内容视频多线路设置
      * @param name the name
+     * @deprecated Use {@link VideoPlayerManager.Builder#setPlaySwitchUri(int, int, String, List, List)} instead.
      */
     public void setPlaySwitchUri(@Size(min = 0) int indexType, @Size(min = 0) int switchIndex, @NonNull String firstVideoUri, String[] secondVideoUri, @NonNull String[] name) {
         setPlaySwitchUri(indexType, switchIndex, firstVideoUri, Arrays.asList(secondVideoUri), Arrays.asList(name));
@@ -597,41 +637,13 @@ public class ExoUserPlayer {
      * @param firstVideoUri 预览视频
      * @param secondVideoUri 内容视频多线路设置
      * @param name the name
+     * @deprecated Use {@link VideoPlayerManager.Builder#setPlaySwitchUri(int, int, String, List, List)}
      */
     public void setPlaySwitchUri(@Size(min = 0) int indexType, @Size(min = 0) int switchIndex, @NonNull String firstVideoUri, List<String> secondVideoUri, @NonNull List<String> name) {
         mediaSourceBuilder.setMediaUri(indexType, switchIndex, Uri.parse(firstVideoUri), secondVideoUri);
         for (ExoPlayerViewListener item : getPlayerViewListeners()) {
             item.setSwitchName(name, switchIndex);
         }
-    }
-
-    /**
-     * 设置播放路径
-     *
-     * @param uri 路径
-     */
-    public void setPlayUri(@NonNull Uri uri) {
-        mediaSourceBuilder.setMediaUri(uri);
-    }
-
-    /****
-     * 设置视频列表播放
-     * @param indexType 设置当前索引视频屏蔽进度
-     * @param firstVideoUri 预览的视频
-     * @param secondVideoUri 第二个视频
-     */
-    public void setPlayUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
-        mediaSourceBuilder.setMediaUri(indexType, firstVideoUri, secondVideoUri);
-    }
-
-
-    /****
-     * 设置视频列表播放
-     * @param <T>     你的实体类
-     * @param uris 集合
-     */
-    public <T extends ItemVideo> void setPlayUri(@NonNull List<T> uris) {
-        mediaSourceBuilder.setMediaUri(uris);
     }
 
 
@@ -695,6 +707,11 @@ public class ExoUserPlayer {
      */
     public void setStartOrPause(boolean value) {
         if (player != null) {
+            if (value) {
+                for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+                    item.showPreview(View.GONE, false);
+                }
+            }
             player.setPlayWhenReady(value);
         }
     }
@@ -786,7 +803,11 @@ public class ExoUserPlayer {
 
     /********************下面主要获取和操作方法*****************************************************************/
 
-    public CopyOnWriteArraySet<ExoPlayerViewListener> getPlayerViewListeners() {
+    /***
+     * 返回接口实例
+     * @return CopyOnWriteArraySet
+     */
+      CopyOnWriteArraySet<ExoPlayerViewListener> getPlayerViewListeners() {
         return mPlayerViewListeners;
     }
 
@@ -860,7 +881,7 @@ public class ExoUserPlayer {
      */
     public void onConfigurationChanged(Configuration configuration) {
         for (ExoPlayerViewListener item : getPlayerViewListeners()) {
-            item.onConfigurationChanged(configuration.orientation==Configuration.ORIENTATION_LANDSCAPE);
+            item.onConfigurationChanged(configuration.orientation == Configuration.ORIENTATION_LANDSCAPE);
         }
     }
 
@@ -977,6 +998,7 @@ public class ExoUserPlayer {
                 isSwitch = false;
                 isRemove = true;
                 player.seekTo(player.getNextWindowIndex(), resumePosition);
+
             }
         }
 

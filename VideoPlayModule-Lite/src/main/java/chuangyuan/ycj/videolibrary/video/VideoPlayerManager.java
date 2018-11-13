@@ -83,7 +83,7 @@ public class VideoPlayerManager {
      */
     public void releaseVideoPlayer() {
         if (mVideoPlayer != null) {
-            mVideoPlayer.reset(true);
+            mVideoPlayer.reset();
         }
         mVideoPlayer = null;
     }
@@ -176,7 +176,6 @@ public class VideoPlayerManager {
     public void setClick(boolean click) {
         isClick = click;
     }
-
     /*****
      * @param player 播放控制器
      *@param  newPlayerView 新的view
@@ -198,7 +197,7 @@ public class VideoPlayerManager {
             player.setStartOrPause(true);
         } else {
             if (newPlayerView != null) {
-                player.reset(true);
+                player.reset();
                 for (ExoPlayerViewListener item : player.getPlayerViewListeners()) {
                     item.setPlayerBtnOnTouch(true);
                     item.reset();
@@ -218,6 +217,8 @@ public class VideoPlayerManager {
 
     /*****
      *@param  oldPlayerView 旧的view
+     * @param   currPosition  当前进度
+     * @param      isEnd  是否播放完毕
      ****/
     public void switchTargetViewResult(@NonNull VideoPlayerView oldPlayerView, long currPosition, boolean isEnd) {
         ExoUserPlayer manualPlayer = getVideoPlayer();
@@ -225,9 +226,10 @@ public class VideoPlayerManager {
             manualPlayer.setPosition(currPosition);
             manualPlayer.switchTargetView(oldPlayerView);
             if (isEnd) {
-                manualPlayer.reset(true);
                 oldPlayerView.resets();
+                manualPlayer.reset();
             } else {
+                manualPlayer.resetList();
                 manualPlayer.startVideo();
             }
         }
@@ -266,6 +268,8 @@ public class VideoPlayerManager {
         private int resumeWindow = -1;
         private View.OnClickListener onClickListener;
         private OnCoverMapImageListener mapImage;
+        //是否多线路
+        private boolean showVideoSwitch;
 
         public Builder(Activity activity, @PlayerType int type, @IdRes int reId) {
             this(type, (VideoPlayerView) activity.findViewById(reId));
@@ -311,6 +315,15 @@ public class VideoPlayerManager {
             return this;
         }
 
+        /***
+         * 设置显示多线路图标
+         * @param showVideoSwitch true 显示 false 不显示
+         * @return Builder
+         */
+        public Builder setShowVideoSwitch(boolean showVideoSwitch) {
+          this.showVideoSwitch=showVideoSwitch;
+            return this;
+        }
         /***
          * 添加多媒体加载接示例
          * @param  mediaSourceBuilder mediaSourceBuilder
@@ -391,7 +404,8 @@ public class VideoPlayerManager {
          *  支持视频源动态添加
          *
          * @param videoUri videoUri
-         */
+         * @return Builder
+         * */
         public Builder addMediaUri(@NonNull Uri videoUri) {
             initMediaSourceBuilder();
             mediaSourceBuilder.addMediaUri(videoUri);
@@ -424,6 +438,7 @@ public class VideoPlayerManager {
          * @param videoUri 视频地址
          * @param name 清清晰度显示名称
          *@return Builder
+         * @deprecated  {{@link #setPlaySwitchUri(int, List, List)}}
          */
         public Builder setPlaySwitchUri(int index, @NonNull String[] videoUri, @NonNull String[] name) {
             return setPlaySwitchUri(index, Arrays.asList(videoUri), Arrays.asList(name));
@@ -444,17 +459,24 @@ public class VideoPlayerManager {
             return this;
         }
 
+
         /****
-         * @param indexType 设置当前索引视频屏蔽进度
-         * @param switchIndex the switch index
-         * @param firstVideoUri 预览视频
-         * @param secondVideoUri 内容视频多线路设置
-         * @param name the name
+         * 初始化多个视频源，无缝衔接
+         * @param <T> T
+         * @param indexType the index type 设置广告索引
+         * @param switchIndex the switch 设置多线路索引
+         * @param firstVideoUri 第一个视频， 例如例如广告视频
+         * @param secondVideoUri 第二个视频
+         * @param name the name  线路名称
          *@return Builder
          */
-        public Builder setPlaySwitchUri(@Size(min = 0) int indexType, @Size(min = 0) int switchIndex, @NonNull String firstVideoUri, String[] secondVideoUri, @NonNull String[] name) {
-            return setPlaySwitchUri(indexType, switchIndex, firstVideoUri, Arrays.asList(secondVideoUri), Arrays.asList(name));
-
+        public <T extends ItemVideo> Builder setPlaySwitchUri2(@Size(min = 0) int indexType, int switchIndex, @NonNull String firstVideoUri, @NonNull List<T> secondVideoUri,@NonNull List<String> name) {
+            initMediaSourceBuilder();
+            if (mVideoPlayerView != null) {
+                mVideoPlayerView.setSwitchName(name, switchIndex);
+            }
+            mediaSourceBuilder.setMediaSwitchUri(indexType, switchIndex, Uri.parse(firstVideoUri), secondVideoUri);
+            return  this;
         }
 
         /****
@@ -501,13 +523,12 @@ public class VideoPlayerManager {
 
         /***
          * 设置循环播放视频   Integer.MAX_VALUE 无线循环
-         *
+         * @param  videoUri videoUri
          * @param loopingCount 必须大于0
          *@return Builder
          */
         public Builder setLoopingMediaSource(@Size(min = 1) int loopingCount, Uri videoUri) {
             initMediaSourceBuilder();
-
             mediaSourceBuilder.setLoopingMediaSource(loopingCount, videoUri);
             return this;
         }
@@ -613,6 +634,7 @@ public class VideoPlayerManager {
          *
          * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
          * @throws IllegalStateException If one of the {@code create} methods has already been called.
+       @return  Builder
          */
         public Builder setCustomCacheKey(@NonNull String customCacheKey) {
             mediaSourceBuilder.setCustomCacheKey(customCacheKey);
@@ -623,6 +645,7 @@ public class VideoPlayerManager {
          * 加载封面图回调
          *
          * @param mapImage 加载封面图回调
+         @return Builder
          */
         public Builder setOnCoverMapImage(@NonNull OnCoverMapImageListener mapImage) {
             this.mapImage = mapImage;
@@ -631,13 +654,14 @@ public class VideoPlayerManager {
 
         /***
          * 创建播放器
-         *
+         @return ExoUserPlayer
          * **/
         public ExoUserPlayer create() {
             initMediaSourceBuilder();
             ExoUserPlayer exoUserPlayer;
             if (mVideoPlayerView != null) {
                 exoUserPlayer = new ExoUserPlayer(context, mediaSourceBuilder, mVideoPlayerView);
+                exoUserPlayer.setShowVideoSwitch(showVideoSwitch);
                 GestureModule gestureModule = new GestureModule((Activity) mVideoPlayerView.getContext(), exoUserPlayer);
                 if (playerType == TYPE_PLAY_GESTURE) {
                     gestureModule.setOnGestureBrightnessListener(onGestureBrightnessListener);
