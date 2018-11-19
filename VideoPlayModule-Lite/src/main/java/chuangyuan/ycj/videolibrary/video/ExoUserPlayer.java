@@ -254,14 +254,12 @@ public class ExoUserPlayer {
         }
         player.addListener(componentListener);
         for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setPlayerBtnOnTouch(true);
             item.toggoleController(false, false);
             item.setControllerHideOnTouch(true);
         }
         isEnd = false;
         isLoad = true;
-        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
-            item.onPrepared();
-        }
     }
 
     /***
@@ -357,9 +355,7 @@ public class ExoUserPlayer {
         player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         isEnd = false;
         isLoad = true;
-        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
-            item.onPrepared();
-        }
+
     }
 
     /**
