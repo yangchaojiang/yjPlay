@@ -343,6 +343,7 @@ public class ExoUserPlayer {
         }
         player.setPlaybackParameters(playbackParameters);
         for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setPlayerBtnOnTouch(true);
             item.showPreview(View.GONE, true);
             item.toggoleController(false, false);
             item.setControllerHideOnTouch(true);
