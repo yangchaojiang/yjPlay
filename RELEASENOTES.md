@@ -1,4 +1,6 @@
  ## 更新日志
+ #### 2.3.13
+   * 修复列表播放后进入详情页播放失败[213](https://github.com/yangchaojiang/yjPlay/issues/213)。
  #### 2.3.12
    * [Error when orientation change ](https://github.com/yangchaojiang/yjPlay/issues/207)。
    * 修复列表详情页面返回可能Ui错误。
