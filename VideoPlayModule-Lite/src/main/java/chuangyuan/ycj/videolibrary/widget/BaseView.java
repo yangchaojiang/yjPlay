@@ -218,7 +218,7 @@ abstract class BaseView extends FrameLayout {
             mActionControlView.hideAllView();
         }
         getPlaybackControlView().showNo();
-        showPreViewLayout(VISIBLE);
+       // showPreViewLayout(VISIBLE);
     }
 
     /**

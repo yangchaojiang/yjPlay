@@ -368,11 +368,7 @@ public final class VideoPlayerView extends BaseView {
             }
         }
 
-        @SuppressLint("ClickableViewAccessibility")
-        @Override
-        public void onPrepared() {
-            playerView.setOnTouchListener(mOnTouchListener);
-        }
+
 
         @Override
         public void showLoadStateView(int visibility) {
@@ -430,6 +426,11 @@ public final class VideoPlayerView extends BaseView {
         }
 
         @Override
+        public void setUseController(boolean useController) {
+            getPlayerView().setUseController(useController);
+        }
+
+        @Override
         public void toggoleController(boolean isShowFull, boolean isShow) {
             showFullscreenTempView(isShowFull ? VISIBLE : GONE);
             if (isShow) {
@@ -444,7 +445,7 @@ public final class VideoPlayerView extends BaseView {
 
         @Override
         public void setControllerHideOnTouch(boolean onTouch) {
-            playerView.setControllerHideOnTouch(onTouch);
+            getPlayerView().setControllerHideOnTouch(onTouch);
         }
 
         @Override

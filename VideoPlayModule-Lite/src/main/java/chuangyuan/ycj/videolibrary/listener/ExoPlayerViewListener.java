@@ -28,11 +28,6 @@ public interface ExoPlayerViewListener extends  BasePlayerListener{
      * 恢复显示是否播放
      */
     void onResumeStart();
-
-    /***
-     * 准备开始加载视频
-     */
-    void onPrepared();
     /***
      * 显示隐藏加载布局
      *
@@ -97,7 +92,12 @@ public interface ExoPlayerViewListener extends  BasePlayerListener{
      * @param currIndex 当前亮度
      */
     void setBrightnessPosition(int mMax, int currIndex);
-
+    /**
+     * 设置是否可以显示回放控件。如果设置为{@code false }，回放控件*将永远不可见，并且与播放机断开连接。
+     *
+     * @param useController 是否可以显示回放控件。
+     */
+    void setUseController(boolean useController);
     /***
      * 显示隐藏控制布局操作
      * @param isShowFull 显示全屏按钮

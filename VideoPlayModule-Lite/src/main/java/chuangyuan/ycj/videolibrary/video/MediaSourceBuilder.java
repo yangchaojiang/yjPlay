@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
+import android.util.Log;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -74,18 +75,6 @@ public class MediaSourceBuilder {
     }
 
     /****
-     * 设置剪贴视频。播放视频部分。使用试看视频
-     *
-     * @param uri 视频的地址
-     * @param startPositionUs startPositionUs  毫秒
-     *@param   endPositionUs endPositionUs       毫秒
-     */
-    public void setClippingMediaUri(@NonNull Uri uri, long startPositionUs, long endPositionUs) {
-        mediaSource = new ClippingMediaSource(initMediaSource(uri), startPositionUs, endPositionUs);
-    }
-
-
-    /****
      *  支持视频源动态添加
      *
      * @param videoUri videoUri
@@ -138,7 +127,7 @@ public class MediaSourceBuilder {
      */
     public <T extends ItemVideo> void setMediaSwitchUri(@Size(min = 0) int indexType, int switchIndex, @NonNull Uri firstVideoUri, @NonNull List<T> secondVideoUri) {
         this.indexType = indexType;
-        this.videoUri=null;
+        this.videoUri = null;
         this.videoUri = new ArrayList<>();
         for (T item : secondVideoUri) {
             this.videoUri.add(item.getVideoUri());
@@ -156,7 +145,6 @@ public class MediaSourceBuilder {
         this.videoUri = videoUri;
         setMediaUri(Uri.parse(videoUri.get(index)));
     }
-
     /****
      * 初始化
      *
@@ -176,15 +164,27 @@ public class MediaSourceBuilder {
     }
 
 
+
     /***
      * 设置循环播放视频   Integer.MAX_VALUE 无线循环
      * @param loopingCount 必须大于0
-     * @param videoUri  播放路径
+     * @param mediaSource  播放媒体来源
      */
-    public void setLoopingMediaSource(@Size(min = 1) int loopingCount, Uri videoUri) {
-        mediaSource = new LoopingMediaSource(initMediaSource(videoUri), loopingCount);
+    public void setLoopingMediaSource(@Size(min = 1) int loopingCount, MediaSource mediaSource) {
+        this.mediaSource = new LoopingMediaSource(mediaSource, loopingCount);
     }
 
+
+    /****
+     * 设置剪贴视频。播放视频部分。使用试看视频
+     *
+     * @param mediaSource 播放媒体来源
+     * @param startPositionUs startPositionUs  毫秒
+     *@param   endPositionUs endPositionUs       毫秒
+     */
+    public void setClippingMediaUri(@NonNull MediaSource mediaSource, long startPositionUs, long endPositionUs) {
+        this.mediaSource = new ClippingMediaSource(mediaSource, startPositionUs*1000, endPositionUs*1000);
+    }
     /***
      * 设置自定义视频数据源
      * @param mediaSource 你的数据源
@@ -231,7 +231,6 @@ public class MediaSourceBuilder {
      * 销毁资源
      */
     public void destroy() {
-
         if (listener != null) {
             DataSource source = listener.getDataSourceFactory().createDataSource();
             if (source instanceof CacheDataSource) {

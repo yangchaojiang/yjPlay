@@ -66,6 +66,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
         public VideoViewHolder(View itemView) {
             super(itemView);
+            notifyDataSetChanged();
             playerView =itemView.findViewById(R.id.exo_play_context_id);
             userPlayer = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_USER,playerView).create();
             itemView.setOnClickListener(new View.OnClickListener() {

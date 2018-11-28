@@ -16,6 +16,8 @@ import android.view.View;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.drm.DrmSessionManager;
 import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
+import com.google.android.exoplayer2.source.ClippingMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 
 import java.lang.annotation.Retention;
@@ -226,14 +228,14 @@ public class VideoPlayerManager {
             manualPlayer.setPosition(currPosition);
             manualPlayer.switchTargetView(oldPlayerView);
             if (isEnd) {
+                manualPlayer.resetList();
                 oldPlayerView.resets();
-                manualPlayer.reset();
             } else {
                 manualPlayer.resetList();
-                manualPlayer.startVideo();
+                manualPlayer.playerNoAlertDialog();
             }
         }
-    }
+        }
 
 
     public static final int TYPE_PLAY_USER = 0;
@@ -458,8 +460,6 @@ public class VideoPlayerManager {
             mVideoPlayerView.setSwitchName(name, switchIndex);
             return this;
         }
-
-
         /****
          * 初始化多个视频源，无缝衔接
          * @param <T> T
@@ -529,10 +529,21 @@ public class VideoPlayerManager {
          */
         public Builder setLoopingMediaSource(@Size(min = 1) int loopingCount, Uri videoUri) {
             initMediaSourceBuilder();
-            mediaSourceBuilder.setLoopingMediaSource(loopingCount, videoUri);
+            mediaSourceBuilder.setLoopingMediaSource(loopingCount, mediaSourceBuilder.initMediaSource(videoUri));
             return this;
         }
-
+        /****
+         * 设置剪贴视频。播放视频部分。使用试看视频
+         *
+         * @param mediaSource 播放媒体来源
+         * @param startPositionUs startPositionUs  毫秒
+         *@param   endPositionUs endPositionUs       毫秒
+         */
+        public Builder setClippingMediaUri(@NonNull MediaSource mediaSource, long startPositionUs, long endPositionUs) {
+            initMediaSourceBuilder();
+            mediaSourceBuilder.setClippingMediaUri(mediaSource,startPositionUs,endPositionUs);
+            return this;
+        }
         /****
          * 设置视频列表播放
          * @param <T>     你的实体类

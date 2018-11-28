@@ -201,6 +201,10 @@ public class ExoUserPlayer {
         if (mediaSourceBuilder != null) {
             mediaSourceBuilder.destroy();
         }
+        lastTotalRxBytes=0L;
+        lastTimeStamp=0L;
+        resumePosition=0L;
+        resumeWindow=0;
         videoInfoListeners.clear();
         videoWindowListeners.clear();
         basePlayerListeners.clear();
@@ -849,7 +853,16 @@ public class ExoUserPlayer {
             item.toggoleController(false, true);
         }
     }
-
+    /**
+     * 设置是否可以显示回放控件。如果设置为{@code false }，回放控件*将永远不可见，并且与播放机断开连接。
+     *
+     * @param useController 是否可以显示回放控件。
+     */
+    public void setUseController(boolean useController) {
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.setUseController(useController);
+        }
+    }
     /***
      * 隐藏控制布局
      * @param isShowFull 是否显示全屏按钮

@@ -19,10 +19,6 @@ public class ExoDataBean extends View.BaseSavedState {
     private  int switchIndex;
     private ArrayList<String> nameSwitch;
 
-    public ExoDataBean(Parcel source) {
-        super(source);
-    }
-
 
 
     public ExoDataBean(Parcelable superState) {

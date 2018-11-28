@@ -73,7 +73,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         videoBrightnessPro = findViewById(R.id.exo_video_brightness_pro);
         wholeMediaSource = new WholeMediaSource(this, new Data2Source(getApplication()));
         MediaSource videoSource = wholeMediaSource.initMediaSource(
-                Uri.parse(getString(R.string.uri_test_1)));
+                Uri.parse("http://183.134.9.57/hdl.miaobolive.com/live/8bd326bbcf8c2fc67bc1850ea5aa8ea2.flv"));
    /*     //构建子标题媒体源
         Format subtitleFormat = Format.createTextSampleFormat(
                 getPackageName(), // 跟踪的标识符。可能是null。
