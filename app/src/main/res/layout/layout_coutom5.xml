@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/activityRoot"
+    android:orientation="vertical">
+
+    <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
+        android:id="@+id/exo_play_context_id"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@android:color/transparent"
+        app:controller_layout_id="@layout/exo_playback_control_view"
+        app:player_layout_id="@layout/simple_exo_view"
+        app:player_fullscreen_image_selector="@drawable/custom_full_selector"
+        app:player_back_image="@drawable/ic_arrow_back_black_24dp"
+        app:player_preview_layout_id="@layout/exo_default_preview_layout"
+        app:player_custom_layout_id="@layout/view_see_layout"
+        app:fastforward_increment="0"
+        app:resize_mode="fill"
+        app:show_timeout="3000"
+        app:surface_type="texture_view"
+        app:use_artwork="true"
+        app:user_watermark="@mipmap/watermark_big"
+        app:use_controller="true" />
+
+
+</LinearLayout>

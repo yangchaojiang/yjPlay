@@ -30,7 +30,11 @@ android {
 }
 
 dependencies {
+   //该使用引用方式只是用作者。
     implementation project(':VideoPlayModule-Lite')
+    //使用着引用远程模式
+    // implementation 'com.ycjiang:VideoPlayModule:2.3.13'
+    //implementation 'com.ycjiang:VideoPlayModule-Lite:1.9.95'
 }
 
  

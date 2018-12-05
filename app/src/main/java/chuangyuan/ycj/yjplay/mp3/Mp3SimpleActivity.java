@@ -7,6 +7,8 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.exoplayer2.ui.PlayerControlView;
+
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.utils.AnimUtils;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
@@ -23,10 +25,12 @@ public class Mp3SimpleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mp3_view);
-        exoPlayerManager = new VideoPlayerManager.Builder(this, findViewById(R.id.mExoPlayerControlView))
+        PlayerControlView s=findViewById(R.id.mPlayerControlView);
+        exoPlayerManager = new VideoPlayerManager.Builder(this,s)
                 .setDataSource(new Data2Source(this))
                 //设置水印图
-                .setPlayUri("http://oph6zeldx.bkt.clouddn.com/20130104095750-MzE1ODU1.mp3")
+              //  .setPlayUri("http://oph6zeldx.bkt.clouddn.com/20130104095750-MzE1ODU1.mp3")
+                .setPlayUri("http://pj8st4lpc.bkt.clouddn.com/noaudio.ts")
                 //视频进度回调
                 .addOnWindowListener(new VideoWindowListener() {
                     @Override

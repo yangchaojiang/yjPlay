@@ -19,7 +19,6 @@ allprojects {
         google()
         maven { url "https://jitpack.io" }
         maven { url 'https://maven.google.com' }
-        maven { url 'https://dl.bintray.com/jkingyens/maven' }
         maven {
             url 'https://dl.bintray.com/hpdx/maven/'
         }
@@ -34,7 +33,7 @@ allprojects {
         minSdkVersion=17
         versionCode = 16
         versionName = "3.0"
-        publish_version='2.3.14'
+        publish_version='2.3.15'
     }
     tasks.withType(Javadoc) {
         options{
