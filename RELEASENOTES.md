@@ -1,9 +1,10 @@
  ## 更新日志
+ #### 2.3.17
+   * 修复手势动无效。
  #### 2.3.15
    * ExoPlayer升级内核版本[#2.9.2](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES)
    * 升级ffmpeg的版本与exoplayer版本对其。重新生成so.文件。
    * 修改Demo部分代码。
- #### 2.3.12
  #### 2.3.13
    * 修复列表播放后进入详情页播放失败[213](https://github.com/yangchaojiang/yjPlay/issues/213)。
  #### 2.3.12

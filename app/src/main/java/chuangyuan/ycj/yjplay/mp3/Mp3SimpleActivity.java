@@ -29,8 +29,7 @@ public class Mp3SimpleActivity extends Activity {
         exoPlayerManager = new VideoPlayerManager.Builder(this,s)
                 .setDataSource(new Data2Source(this))
                 //设置水印图
-              //  .setPlayUri("http://oph6zeldx.bkt.clouddn.com/20130104095750-MzE1ODU1.mp3")
-                .setPlayUri("http://pj8st4lpc.bkt.clouddn.com/noaudio.ts")
+               .setPlayUri("http://oph6zeldx.bkt.clouddn.com/20130104095750-MzE1ODU1.mp3")
                 //视频进度回调
                 .addOnWindowListener(new VideoWindowListener() {
                     @Override

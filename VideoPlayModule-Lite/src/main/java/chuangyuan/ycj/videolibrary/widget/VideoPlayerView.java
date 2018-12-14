@@ -368,7 +368,11 @@ public final class VideoPlayerView extends BaseView {
             }
         }
 
-
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public void onPrepared() {
+            playerView.setOnTouchListener(mOnTouchListener);
+        }
 
         @Override
         public void showLoadStateView(int visibility) {

@@ -71,9 +71,12 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
         videoAudioPro = findViewById(R.id.exo_video_audio_pro);
         videoBrightnessImg = findViewById(R.id.exo_video_brightness_img);
         videoBrightnessPro = findViewById(R.id.exo_video_brightness_pro);
+
         wholeMediaSource = new WholeMediaSource(this, new Data2Source(getApplication()));
-        MediaSource videoSource = wholeMediaSource.initMediaSource(
-                Uri.parse("http://183.134.9.57/hdl.miaobolive.com/live/8bd326bbcf8c2fc67bc1850ea5aa8ea2.flv"));
+     MediaSource videoSource = wholeMediaSource.initMediaSource(
+                Uri.parse(getString(R.string.uri_test_5)));
+/*        MediaSource videoSource = wholeMediaSource.initMediaSource(
+                Uri.parse("http://pj8st4lpc.bkt.clouddn.com/noaudio.ts"));*/
    /*     //构建子标题媒体源
         Format subtitleFormat = Format.createTextSampleFormat(
                 getPackageName(), // 跟踪的标识符。可能是null。
@@ -225,7 +228,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        // exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
+         exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
     }
 

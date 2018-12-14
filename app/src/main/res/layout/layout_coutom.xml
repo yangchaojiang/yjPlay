@@ -19,7 +19,6 @@
         android:id="@+id/exo_play_context_id"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:clickable="true"
         android:background="@android:color/transparent"
         app:auto_show="true"
         app:controller_layout_id="@layout/custom_exo_playback_top_view"

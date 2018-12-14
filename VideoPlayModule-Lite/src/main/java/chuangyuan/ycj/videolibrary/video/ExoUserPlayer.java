@@ -360,6 +360,9 @@ public class ExoUserPlayer {
         player.prepare(mediaSourceBuilder.getMediaSource(), !haveResumePosition, false);
         isEnd = false;
         isLoad = true;
+        for (ExoPlayerViewListener item : getPlayerViewListeners()) {
+            item.onPrepared();
+        }
 
     }
 

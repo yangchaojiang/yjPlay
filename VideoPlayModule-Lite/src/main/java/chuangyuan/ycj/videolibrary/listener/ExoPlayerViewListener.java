@@ -28,6 +28,11 @@ public interface ExoPlayerViewListener extends  BasePlayerListener{
      * 恢复显示是否播放
      */
     void onResumeStart();
+
+    /***
+     * 准备开始加载视频
+     */
+    void onPrepared();
     /***
      * 显示隐藏加载布局
      *

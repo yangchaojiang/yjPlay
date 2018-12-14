@@ -10,6 +10,11 @@ android {
         versionName project.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a" //"armeabi-v7a", "x86_64", "x86","arm64-v8a"
+            //armeabi、armeabi-v7a、arm64-v8a、mips、mips64、x86、x86_64
+            //  abiFilters "armeabi"
+        }
     }
     signingConfigs {
         v2 {
@@ -64,8 +69,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    //implementation project(':VideoPlayModule')
-    implementation 'com.ycjiang:VideoPlayModule:2.3.15'
+    implementation project(':VideoPlayModule')
+   // implementation 'com.ycjiang:VideoPlayModule:2.3.15'
     //implementation 'com.ycjiang:VideoPlayModule-Lite:1.9.95'
     implementation 'com.google.android.exoplayer:extension-cronet:2.9.2'
     implementation 'com.google.android.exoplayer:extension-okhttp:2.9.2'
