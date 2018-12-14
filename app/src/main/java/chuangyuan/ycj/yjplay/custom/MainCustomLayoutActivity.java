@@ -110,12 +110,12 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
             }
         });
         videoPlayerView.setShowBack(false);
+        videoPlayerView.setVerticalFullScreen(true);
         wholeMediaSource.setMediaSource(videoSource);
         exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
                 .setDataSource(wholeMediaSource)
                 .setPosition(currPosition)
                 .setTitle("自定义视频标题")
-                .setVerticalFullScreen(true)
                 .setOnPlayClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
