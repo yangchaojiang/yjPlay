@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.Format;
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.MergingMediaSource;
@@ -60,7 +61,16 @@ public class MainCustomMediaActivity extends AppCompatActivity {
 // Plays the video with the sideloaded subtitle.
         MergingMediaSource mergedSource =
                 new MergingMediaSource(source, subtitleSource);
-        mediaSourceBuilder.setMediaSource(mergedSource);
+
+        //初始化
+        mediaSourceBuilder = new MediaSourceBuilder(this, new DataSource(getApplication()));
+       //使用这个对象添加视频添加
+        ConcatenatingMediaSource concatenatingMediaSource=new ConcatenatingMediaSource();
+        LoopingMediaSource mediaSource = new LoopingMediaSource(concatenatingMediaSource, Integer.MAX_VALUE);
+        mediaSourceBuilder.setMediaSource(mediaSource);
+        //你需要动态添加方法
+        concatenatingMediaSource.addMediaSource(mediaSourceBuilder.initMediaSource(Uri.parse("VideoPath")));
+
         exoPlayerManager = new VideoPlayerManager
                 .Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
                 .setDataSource(mediaSourceBuilder)

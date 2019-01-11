@@ -70,7 +70,7 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     implementation project(':VideoPlayModule')
-   // implementation 'com.ycjiang:VideoPlayModule:2.3.15'
+  // implementation 'com.ycjiang:VideoPlayModule:2.3.17'
     //implementation 'com.ycjiang:VideoPlayModule-Lite:1.9.95'
     implementation 'com.google.android.exoplayer:extension-cronet:2.9.2'
     implementation 'com.google.android.exoplayer:extension-okhttp:2.9.2'
