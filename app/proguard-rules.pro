@@ -19,3 +19,6 @@
 
 # These are part of the Java <-> native interfaces for GVR.
 -dontskipnonpubliclibraryclassmembers
+-keep public class *extends java.lang.annotation.Annotation {
+  *;
+}

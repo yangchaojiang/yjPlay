@@ -30,7 +30,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:'+project.ext.libversion
-    compile('com.google.android.exoplayer:exoplayer-core:2.9.2', {
+    compile('com.google.android.exoplayer:exoplayer-core:2.9.5', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'

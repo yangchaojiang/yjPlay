@@ -38,7 +38,7 @@
 
  <!--more-->
 
- ### [更新日志2.3.17→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.3.30→》戳我查看](RELEASENOTES.md)
 
 
  ### 一.引用类库
@@ -50,9 +50,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.3.17'
+      compile 'com.ycjiang:VideoPlayModule:2.3.30'
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.3.17'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.3.30'
 
   }
   ````
@@ -411,13 +411,13 @@
           http : DefaultDataSourceFactory,DefaultHttpDataSourceFactory
           Priority : PriorityDataSourceFactory
  #### 2 ExoPlayer自定义数据源引用(根据自己需求选用)
-      compile 'com.google.android.exoplayer:extension-okhttp:2.9.0'
-      compile 'com.google.android.exoplayer:extension-rtmp:2.9.0'
-      compile 'com.google.android.exoplayer:extension-gvr:2.9.0'
-      compile 'com.google.android.exoplayer:extension-cast:2.9.0'
-      compile 'com.google.android.exoplayer:extension-mediasession:2.9.0'
-      compile 'com.google.android.exoplayer:extension-ima:2.9.0'
-      compile 'com.google.android.exoplayer:extension-leanback:2.9.0'
+      compile 'com.google.android.exoplayer:extension-okhttp:2.9.5'
+      compile 'com.google.android.exoplayer:extension-rtmp:2.9.5'
+      compile 'com.google.android.exoplayer:extension-gvr:2.9.5'
+      compile 'com.google.android.exoplayer:extension-cast:2.9.5'
+      compile 'com.google.android.exoplayer:extension-mediasession:2.9.5'
+      compile 'com.google.android.exoplayer:extension-ima:2.9.5'
+      compile 'com.google.android.exoplayer:extension-leanback:2.9.5'
 
 ### 五.[自定义数据源用法-戳我](RELEASESOURCE.md)
 ### 六.[自定义布局用法-戳我](READMELAYUOT.md)

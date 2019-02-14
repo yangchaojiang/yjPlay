@@ -1,4 +1,7 @@
  ## 更新日志
+  #### 2.3.30
+   * ExoPlayer升级内核版本[#2.9.5](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES)
+  #### 2.3.15
  #### 2.3.17
    * 修复手势动无效。
  #### 2.3.15
