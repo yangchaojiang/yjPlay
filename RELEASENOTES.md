@@ -1,4 +1,6 @@
  ## 更新日志
+  #### 2.3.32
+   * ExoPlayer升级内核版本[#2.9.6](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES)
   #### 2.3.30
    * ExoPlayer升级内核版本[#2.9.5](https://github.com/google/ExoPlayer/blob/release-v2/RELEASENOTES)
   #### 2.3.15
