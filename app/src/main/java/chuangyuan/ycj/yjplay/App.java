@@ -2,7 +2,8 @@ package chuangyuan.ycj.yjplay;
 
 import android.app.Application;
 
-import chuangyuan.ycj.videolibrary.office.ExoWholeDownLoadManger;
+import com.google.android.exoplayer2.util.Util;
+
 import chuangyuan.ycj.videolibrary.offline.ExoDownLoadManger;
 import chuangyuan.ycj.yjplay.offline.DemoDownloadService;
 
@@ -17,8 +18,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ExoWholeDownLoadManger.getSingle().initDownloadManager(this,DemoDownloadService.class);
-     //  ExoDownLoadManger.getSingle().initDownloadManager(this,DemoDownloadService.class);
+       String userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
+        ExoDownLoadManger.getSingle().initDownloadManager(this,DemoDownloadService.class,userAgent);
     }
 
 }

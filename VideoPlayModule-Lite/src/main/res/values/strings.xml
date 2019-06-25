@@ -10,7 +10,25 @@
     <string name="exo_controls_repeat_off_description">"Repeat none"</string>
     <string name="exo_controls_repeat_one_description">"Repeat one"</string>
     <string name="exo_controls_shuffle_description">Shuffle</string>
-
+    <!-- Describes an audio track with one channel. [CHAR LIMIT=20] -->
+    <string name="exo_track_mono">Mono</string>
+    <!-- Describes an audio track with two channels. [CHAR LIMIT=20] -->
+    <string name="exo_track_stereo">Stereo</string>
+    <!-- Describes a surround sound audio track. [CHAR LIMIT=40] -->
+    <string name="exo_track_surround">Surround sound</string>
+    <!-- Describes a 5.1 surround sound (https://en.wikipedia.org/wiki/5.1_surround_sound) audio track. [CHAR LIMIT=40] -->
+    <string name="exo_track_surround_5_point_1">5.1 surround sound</string>
+    <!-- Describes a 7.1 (https://en.wikipedia.org/wiki/7.1_surround_sound) audio track. [CHAR LIMIT=40] -->
+    <string name="exo_track_surround_7_point_1">7.1 surround sound</string>
+    <!-- Describes an alternate track, e.g. a video recorded from a different viewpoint. [CHAR LIMIT=40] -->
+    <string name="exo_track_role_alternate">Alternate</string>
+    <!-- Describes a supplementary track. [CHAR LIMIT=40] -->
+    <string name="exo_track_role_supplementary">Supplementary</string>
+    <!-- Describes a track containing commentary. [CHAR LIMIT=40] -->
+    <string name="exo_track_role_commentary">Commentary</string>
+    <!-- Describes a track with closed captions. [CHAR LIMIT=40] -->
+    <string name="exo_track_role_closed_captions">CC</string>
+    <string name="exo_controls_vr_description">VR mode</string>
     <!--我的-->
     <string name="media_error">The current video type is not found, or the current type is not supported, depending on the full version</string>
     <string name="exo_play_error_hint">Play exception, video address exception, or network unavailable</string>
@@ -38,13 +56,11 @@
     <string name="exo_track_selection_auto">Automático</string>
     <string name="exo_track_unknown">Desconocido</string>
     <string name="exo_track_resolution">%1$d×%2$d</string>
-    <string name="exo_track_mono">Mono</string>
-    <string name="exo_track_stereo">Estéreo</string>
-    <string name="exo_track_surround">Sonido envolvente</string>
-    <string name="exo_track_surround_5_point_1">Sonido envolvente 5.1</string>
-    <string name="exo_track_surround_7_point_1">Sonido envolvente 7.1</string>
     <string name="exo_track_bitrate">%1$.2f Mbps</string>
     <string name="exo_item_list">%1$s, %2$s</string>
     <string name="download_start_error">Failed to start download</string>
     <string name="exo_fenge">/</string>
+
+    <string name="track_selection_title">Select tracks</string>
+
 </resources>

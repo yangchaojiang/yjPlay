@@ -184,5 +184,7 @@
         <item name="android:visibility">visible</item>
         <item name="android:contentDescription">@null</item>
     </style>
-
+    <style name="TrackSelectionDialogThemeOverlay" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="windowNoTitle">false</item>
+    </style>
 </resources>

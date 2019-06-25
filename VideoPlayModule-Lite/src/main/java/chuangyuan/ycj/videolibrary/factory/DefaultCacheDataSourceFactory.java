@@ -24,7 +24,7 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
     private final JDefaultDataSourceFactory defaultDatasourceFactory;
     private SimpleCache simpleCache;
     private final CacheDataSource.EventListener listener;
-    private    long  maxCacheSize=CacheDataSource.DEFAULT_MAX_CACHE_FILE_SIZE;
+    private    long  maxCacheSize=CacheDataSource.CACHE_IGNORED_REASON_ERROR;
     /***
      * @param context 上下文
      */

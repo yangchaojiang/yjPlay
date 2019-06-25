@@ -1,17 +1,18 @@
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" >
     <string name="app_name">yjPlayVideo</string>
     <string name="url_hls">http://ivi.bupt.edu.cn/hls/cctv2.m3u8</string>
     <string name="uri_test_m3u8">http://cdn.can.cibntv.net/12/201702161000/rexuechangan01/rexuechangan01.m3u8</string>
-    <string name="uri_test_3">http://pic.qiantucdn.com/58pic/video/27/95/42/27954270_57.mp4</string>
-    <string name="uri_test">http://pic.qiantucdn.com/58pic/32/27/73/2258PIC58PICg2HyKaXcHyH4s.mp4_10s.mp4</string>
-    <string name="uri_test_1">http://pic.qiantucdn.com/58pic/28/58/15/83S58PICWbX8VXGSe3dyP.mp4_10s.mp4</string>
-    <string name="uri_test_h">http://pic.qiantucdn.com/58pic/video/27/80/97/27809708_33.mp4</string>
+    <string name="uri_test_3">https://mp4.vjshi.com/2018-11-22/fadb471f0fe4ab1c5785cac4a0f301f7.mp4</string>
+    <string name="uri_test">https://mp4.vjshi.com/2019-01-17/0d9fc3056e6f1fe48e3405aca4c30836.mp4</string>
+    <string name="uri_test_1">https://mp4.vjshi.com/2019-06-03/bb7beef881e616085de9ccab4c99bf7a.mp4</string>
+    <string name="uri_test_h">https://mp4.vjshi.com/2018-11-11/f18a50c41af05709ee24c0bed4717cbc.mp4</string>
     <string name="uri_test_5">http://mp4.vjshi.com/2016-04-14/8d38b2fa34abf98e5677788900f7ed51.mp4</string>
-    <string name="uri_test_6">http://mv.eastday.com/vyuanchuang/20160728/20160728001129441550899_1_06400360.mp4</string>
+    <string name="uri_test_6">https://mp4.vjshi.com/2019-05-02/f76943bb77730ca3e2b1cc58e082b07a.mp4</string>
     <string name="uri_test_7">http://mp4.vjshi.com/2017-06-04/f24264569608f18059ad47993c098dcc.mp4</string>
     <string name="uri_test_8">http://lmp4.vjshi.com/2018-06-16/cdf95d83b3185af4dd2a6a3ecd76ff70.mp4</string>
-    <string name="uri_test_9">http://pic.qiantucdn.com/58pic/video/28/40/92/28409299_58.mp4</string>
-    <string name="uri_test_10">http://pic.qiantucdn.com/58pic/video/27/51/48/27514871_94.mp4</string>
+    <string name="uri_test_9">https://mp4.vjshi.com/2019-05-19/8b2fd4689112a833e143ad866ec3653c.mp4</string>
+    <string name="uri_test_10">https://mp4.vjshi.com/2018-08-31/095179c788b7662d61e18fa57a158ed9.mp4</string>
     <string name="uri_test_11">http://lmp4.vjshi.com/2018-04-11/7607f11445cecc088cb3cfd49e975d2f.mp4</string>
     <string name="uri_test_12">http://lmp4.vjshi.com/2018-09-10/7445b3b38b054e61f27a52d4526163ed.mp4</string>
     <string name="uri_test_13">http://lmp4.vjshi.com/2018-09-12/eb25518f72e1dca09b7bb12d97992d91.mp4</string>
@@ -37,6 +38,7 @@
     <string name="custom_cache">自定义下载缓存</string>
     <string name="simple_fragment">Fragment列表</string>
     <string name="simple_barrage">弹幕</string>
+    <string name="send_show">控制</string>
     <string name="Add_video">动态添加视频</string>
     <string name="player_mp3">播放音频</string>
     <string name="rotate">旋转屏幕</string>
@@ -50,7 +52,6 @@
     <string name="send_danmaku">发送一条(纯文字)</string>
     <string name="send_danmaku_image_text">发送一条(图文)</string>
     <string name="send_danmakus">定时发送</string>
-    <string name="send_show">控制</string>
     <string name="cancel_sending_danmakus">取消定时</string>
     <string name="unexpected_intent_action">Unexpected intent action: <xliff:g id="action">%1$s</xliff:g></string>
 

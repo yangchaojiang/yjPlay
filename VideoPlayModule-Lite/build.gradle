@@ -22,6 +22,10 @@ android {
     lintOptions {
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 
 
 }
@@ -30,11 +34,12 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:'+project.ext.libversion
-    compile('com.google.android.exoplayer:exoplayer-core:2.9.6', {
+    compile('com.google.android.exoplayer:exoplayer-core:2.10.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
+    implementation 'com.android.support:design:'+project.ext.libversion
 }
 
 

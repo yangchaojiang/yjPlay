@@ -321,7 +321,6 @@ abstract class BaseView extends FrameLayout {
      * 设置内容竖屏全屏
      *
      */
-    ViewGroup oldViewGroup;
     private void scaleVerticalLayout() {
         ViewGroup contentView = activity.findViewById(android.R.id.content);
         final ViewGroup parent = (ViewGroup) playerView.getParent();
@@ -374,7 +373,7 @@ abstract class BaseView extends FrameLayout {
             }
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            mExoPlayerListener.land();
+         //   mExoPlayerListener.land();
         }
     }
 

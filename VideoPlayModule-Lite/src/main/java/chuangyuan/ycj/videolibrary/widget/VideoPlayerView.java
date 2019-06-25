@@ -268,9 +268,11 @@ public final class VideoPlayerView extends BaseView {
                 } else {
                     //切竖屏portrait screen
                     if (VideoPlayUtils.isLand(getContext())) {
+                      //  doOnConfigurationChanged(false);
                         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                         //切横屏landscape
                     } else {
+                      //  doOnConfigurationChanged(true);
                         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     }
                 }

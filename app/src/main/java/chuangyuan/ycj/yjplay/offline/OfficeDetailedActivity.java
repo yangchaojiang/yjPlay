@@ -12,8 +12,8 @@ import android.widget.Button;
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.offline.DownloadManager;
 
-import chuangyuan.ycj.videolibrary.office.ExoWholeDownLoadManger;
-import chuangyuan.ycj.videolibrary.office.ExoWholeDownloadTracker;
+import chuangyuan.ycj.videolibrary.offline.DownloadTracker;
+import chuangyuan.ycj.videolibrary.offline.ExoDownLoadManger;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
@@ -21,7 +21,7 @@ import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.OfficeDataSource;
 
 public class OfficeDetailedActivity extends Activity {
-    private ExoWholeDownloadTracker exoDownloadTracker;
+    private DownloadTracker exoDownloadTracker;
     // private ExoDownloadTracker exoDownloadTracker;
     private ExoUserPlayer exoPlayerManager;
     private VideoPlayerView videoPlayerView;
@@ -32,7 +32,7 @@ public class OfficeDetailedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_office);
-        exoDownloadTracker = ExoWholeDownLoadManger.getSingle().getExoDownloadTracker();
+        exoDownloadTracker = ExoDownLoadManger.getSingle().getExoDownloadTracker();
         //  exoDownloadTracker = ExoDownLoadManger.getSingle().getExoDownloadTracker();
         videoPlayerView = findViewById(R.id.exo_play_context_id);
         exoPlayerManager = new VideoPlayerManager
@@ -108,10 +108,15 @@ public class OfficeDetailedActivity extends Activity {
      * 自定义下载
      * ***/
     private void customDown() {
-        exoDownloadTracker.toggleDownload(this, "视频标题",
+/*        exoDownloadTracker.toggleDownload(this, "视频标题",
                 Uri.parse(getString(R.string.uri_test_3)),
                 null,"customCacheKey");
-        exoDownloadTracker.addListener(new ExoWholeDownloadTracker.Listener() {
+        exoDownloadTracker.addListener(new DownloadTracker.Listener() {
+            @Override
+            public void onDownloadsChanged() {
+
+            }
+
             @Override
             public void onDownloadsChanged(int taskState) {
                 Log.d(TAG, "taskState：" + taskState);
@@ -121,6 +126,6 @@ public class OfficeDetailedActivity extends Activity {
                 }
 
             }
-        });
+        });*/
     }
 }
