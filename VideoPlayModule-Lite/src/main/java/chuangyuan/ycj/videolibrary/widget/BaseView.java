@@ -373,7 +373,7 @@ abstract class BaseView extends FrameLayout {
             }
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-         //   mExoPlayerListener.land();
+            mExoPlayerListener.land();
         }
     }
 

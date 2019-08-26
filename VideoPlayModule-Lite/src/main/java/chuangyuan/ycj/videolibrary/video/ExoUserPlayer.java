@@ -412,7 +412,7 @@ public class ExoUserPlayer {
         long nowTimeStamp = System.currentTimeMillis();
         long calculationTime = (nowTimeStamp - lastTimeStamp);
         if (calculationTime == 0) {
-            netSpeed = String.valueOf(1) + " kb/s";
+            netSpeed = 1 + " kb/s";
             return netSpeed;
         }
         //毫秒转换
@@ -421,9 +421,9 @@ public class ExoUserPlayer {
         lastTotalRxBytes = nowTotalRxBytes;
         if (speed > 1024) {
             DecimalFormat df = new DecimalFormat("######0.0");
-            netSpeed = String.valueOf(df.format(VideoPlayUtils.getM(speed))) + " MB/s";
+            netSpeed = df.format(VideoPlayUtils.getM(speed)) + " MB/s";
         } else {
-            netSpeed = String.valueOf(speed) + " kb/s";
+            netSpeed = speed + " kb/s";
         }
         return netSpeed;
     }
@@ -515,7 +515,6 @@ public class ExoUserPlayer {
      * 设置自定义键唯一标识原始流。用于缓存索引。*默认值是{ null }。 不支持流式媒体
      *
      * @param customCacheKey 唯一标识原始流的自定义密钥。用于缓存索引。
-     * @throws IllegalStateException If one of the {@code create} methods has already been called.
      */
     public void setCustomCacheKey(@NonNull String customCacheKey) {
         mediaSourceBuilder.setCustomCacheKey(customCacheKey);

@@ -68,12 +68,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    //implementation project(':VideoPlayModule')
-   implementation 'com.ycjiang:VideoPlayModule:2.3.40'
+    implementation project(':VideoPlayModule')
+   // implementation 'com.ycjiang:VideoPlayModule:2.3.40'
     //implementation 'com.ycjiang:VideoPlayModule-Lite:1.9.95'
-    implementation 'com.google.android.exoplayer:extension-cronet:2.10.1'
-    implementation 'com.google.android.exoplayer:extension-okhttp:2.10.1'
-    implementation 'com.google.android.exoplayer:extension-rtmp:2.10.1'
+    implementation 'com.google.android.exoplayer:extension-cronet:2.10.4'
+    implementation 'com.google.android.exoplayer:extension-okhttp:2.10.4'
+    implementation 'com.google.android.exoplayer:extension-rtmp:2.10.4'
     implementation 'com.jude:easyrecyclerview:4.4.0'
     implementation 'com.android.support:recyclerview-v7:' + project.ext.libversion
     implementation 'com.wang.avi:library:2.1.3'

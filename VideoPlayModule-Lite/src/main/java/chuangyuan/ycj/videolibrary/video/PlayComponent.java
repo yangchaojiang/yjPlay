@@ -50,7 +50,7 @@ class PlayComponent implements ExoPlayerListener {
 
     @Override
     public void playVideoUri() {
-        VideoPlayerManager.getInstance().setClick(true);
+        VideoPlayerManager.getInstance().serEnableHintGPRS(true);
         exoUserPlayer.playerNoAlertDialog();
     }
 

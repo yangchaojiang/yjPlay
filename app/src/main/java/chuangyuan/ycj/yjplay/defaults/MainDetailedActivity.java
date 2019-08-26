@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.offline.DownloadHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class MainDetailedActivity extends Activity {
         listss.add(bean);
         listss.add(bean1);
         listss.add(bean2);
-        //实例化
+                //实例化
         exoPlayerManager = new VideoPlayerManager.Builder(this, VideoPlayerManager.TYPE_PLAY_GESTURE, R.id.exo_play_context_id)
                 .setDataSource(new Data2Source(this))
                 .setPlaySwitchUri2(0, 0, getString(R.string.uri_test_1), listss, Arrays.asList(name))

@@ -163,19 +163,34 @@ public class VideoPlayerManager {
 
     /**
      * 获取当前状态
+     * @deprecated Use {@link VideoPlayerManager.Builder#enableHintGPRS()} instead.
+     * @return ManualPlayer boolean
+     */
+   public   boolean isClick() {
+        return isClick;
+    }
+    /**
+     * 获取是当前状态 隐藏流量提示
      *
      * @return ManualPlayer boolean
      */
-    boolean isClick() {
+    public  boolean enableHintGPRS() {
         return isClick;
     }
-
+    /**
+     * 获取当前播放类
+     * @deprecated Use {@link VideoPlayerManager.Builder#serEnableHintGPRS(boolean)} instead.
+     * @param click 实例
+     */
+    public void setClick(boolean click) {
+        isClick = click;
+    }
     /**
      * 获取当前播放类
      *
      * @param click 实例
      */
-    public void setClick(boolean click) {
+    public void serEnableHintGPRS(boolean click) {
         isClick = click;
     }
     /*****
