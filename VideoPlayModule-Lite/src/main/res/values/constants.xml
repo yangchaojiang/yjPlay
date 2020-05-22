@@ -13,4 +13,14 @@
   <color name="timeBar_scrubber_color">@color/simple_exo_color_switch_item</color>
   <color name="exo_error_message_background_color">#AA000000</color>
   <color name="exo_player_background_color">#000000</color>
+  <integer name="exo_media_button_opacity_percentage_enabled">100</integer>
+  <integer name="exo_media_button_opacity_percentage_disabled">33</integer>
+
+  <dimen name="dp30">40dp</dimen>
+  <dimen name="controls_title__marginRight">60dp</dimen>
+  <dimen name="exo_media_button_width">35dp</dimen>
+  <dimen name="exo_media_button_height">35dp</dimen>
+  <dimen name="exo_media_button_width_2">60dp</dimen>
+  <dimen name="exo_media_button_height_2">50dp</dimen>
+  <dimen name="timeBar_bar_height">2dp</dimen>
 </resources>

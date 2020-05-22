@@ -60,4 +60,7 @@
     <item name="exo_progress" type="id"/>
     <item name="exo_buffering" type="id"/>
     <item name="exo_error_message" type="id"/>
+    <item name="exo_vr" type="id"/>
+    <item name="exo_progress_placeholder" type="id"/>
+    <item name="exo_ad_overlay" type="id"/>
 </resources>

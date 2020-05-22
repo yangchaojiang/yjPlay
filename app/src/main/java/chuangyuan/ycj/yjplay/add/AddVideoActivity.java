@@ -67,7 +67,8 @@ public class AddVideoActivity extends Activity {
                 //设置水印图
                 .setExoPlayWatermarkImg(R.mipmap.watermark_big)
                 .setPlayerGestureOnTouch(false)
-                .addMediaUri(Uri.parse(getString(R.string.uri_test_12)))
+                .addMediaUri(Uri.parse("http://meeting.4coder.cn/test.mp4"))
+               // .addMediaUri(Uri.parse(getString(R.string.uri_test_12)))
                 ///默认实现  播放广告视频时手势操作禁用和开启操作
                 //.setPlayerGestureOnTouch(true);
                 //如果视频需要自己实现该回调 视频切换回调处理，进行布局处理，控制布局显示

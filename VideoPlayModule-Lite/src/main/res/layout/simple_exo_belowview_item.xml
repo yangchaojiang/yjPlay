@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dp30"
+    android:minWidth="100dp"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/exo_media_button_width_2"
     android:layout_gravity="center"
     android:gravity="center"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"

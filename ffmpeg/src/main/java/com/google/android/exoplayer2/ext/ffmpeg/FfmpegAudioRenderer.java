@@ -16,8 +16,8 @@
 package com.google.android.exoplayer2.ext.ffmpeg;
 
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.Format;
@@ -31,6 +31,7 @@ import com.google.android.exoplayer2.drm.ExoMediaCrypto;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.MimeTypes;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -45,8 +46,7 @@ public final class FfmpegAudioRenderer extends SimpleDecoderAudioRenderer {
 
   private final boolean enableFloatOutput;
 
-  private @NonNull
-  FfmpegDecoder decoder;
+  private  FfmpegDecoder decoder;
 
   public FfmpegAudioRenderer() {
     this(/* eventHandler= */ null, /* eventListener= */ null);
@@ -94,13 +94,13 @@ public final class FfmpegAudioRenderer extends SimpleDecoderAudioRenderer {
   }
 
   @Override
-  protected int supportsFormatInternal(DrmSessionManager<ExoMediaCrypto> drmSessionManager,
-      Format format) {
+  @FormatSupport
+  protected int supportsFormatInternal(
+      @Nullable DrmSessionManager<ExoMediaCrypto> drmSessionManager, Format format) {
     Assertions.checkNotNull(format.sampleMimeType);
     if (!FfmpegLibrary.isAvailable()) {
       return FORMAT_UNSUPPORTED_TYPE;
-    } else if (!FfmpegLibrary.supportsFormat(format.sampleMimeType, format.pcmEncoding)
-        || !isOutputSupported(format)) {
+    } else if (!FfmpegLibrary.supportsFormat(format.sampleMimeType) || !isOutputSupported(format)) {
       return FORMAT_UNSUPPORTED_SUBTYPE;
     } else if (!supportsFormatDrm(drmSessionManager, format.drmInitData)) {
       return FORMAT_UNSUPPORTED_DRM;
@@ -110,12 +110,13 @@ public final class FfmpegAudioRenderer extends SimpleDecoderAudioRenderer {
   }
 
   @Override
+  @AdaptiveSupport
   public final int supportsMixedMimeTypeAdaptation() throws ExoPlaybackException {
     return ADAPTIVE_NOT_SEAMLESS;
   }
 
   @Override
-  protected FfmpegDecoder createDecoder(Format format, ExoMediaCrypto mediaCrypto)
+  protected FfmpegDecoder createDecoder(Format format, @Nullable ExoMediaCrypto mediaCrypto)
       throws FfmpegDecoderException {
     int initialInputBufferSize =
         format.maxInputSize != Format.NO_VALUE ? format.maxInputSize : DEFAULT_INPUT_BUFFER_SIZE;
@@ -140,7 +141,7 @@ public final class FfmpegAudioRenderer extends SimpleDecoderAudioRenderer {
         channelCount,
         sampleRate,
         encoding,
-        Collections.<byte[]>emptyList(),
+        new ArrayList<byte[]>(),
         /* drmInitData= */ null,
         /* selectionFlags= */ 0,
         /* language= */ null);

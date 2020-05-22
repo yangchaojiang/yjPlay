@@ -103,7 +103,13 @@
     <item>high</item>
     <item>standard</item>
   </array>
-
+  <string name="track_selection_title">Select tracks</string>
   <string name="download_start_error">Failed to start download</string>
   <string name="exo_fenge">/</string>
+  <string name="exo_controls_shuffle_on_description">Reprod. aleatoria activada</string>
+  <string name="exo_controls_shuffle_off_description">Reprod. aleatoria desactivada</string>
+  <string name="exo_controls_show">Show player controls</string>
+  <!-- Description for a media player view to indicate that tapping on the view hides the playback controls [CHAR LIMIT=50] -->
+  <string name="exo_controls_hide">Hide player controls</string>
+
 </resources>

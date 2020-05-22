@@ -89,6 +89,7 @@
         android:layout_height="wrap_content"
         android:text="@string/player_mp3"/>
     <Button
+        android:visibility="gone"
         android:textAllCaps="false"
         android:id="@+id/button16"
         android:layout_width="wrap_content"

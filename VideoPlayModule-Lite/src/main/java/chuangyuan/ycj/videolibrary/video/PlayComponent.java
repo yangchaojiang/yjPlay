@@ -1,7 +1,5 @@
 package chuangyuan.ycj.videolibrary.video;
 
-import android.support.annotation.Nullable;
-import android.view.View;
 
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
@@ -24,19 +22,6 @@ class PlayComponent implements ExoPlayerListener {
     @Override
     public void onCreatePlayers() {
         exoUserPlayer.startVideo();
-    }
-
-    @Override
-    public void replayPlayers() {
-        exoUserPlayer.clearResumePosition();
-        exoUserPlayer.handPause = false;
-        if (exoUserPlayer.getPlayer() == null) {
-            exoUserPlayer.startVideo();
-        } else {
-            exoUserPlayer.getPlayer().seekTo(0, 0);
-            exoUserPlayer.getPlayer().setPlayWhenReady(true);
-        }
-
     }
 
 
@@ -75,10 +60,11 @@ class PlayComponent implements ExoPlayerListener {
         exoUserPlayer.startPlayer();
     }
 
-
     @Override
-    public void land() {
-        exoUserPlayer.land();
+    public void landScapeChang(boolean isLand) {
+        if (isLand){
+            exoUserPlayer.land();
+        }
     }
 
 }

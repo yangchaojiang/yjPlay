@@ -236,7 +236,7 @@ public final class RenderMeasure {
      * @param aspectRatio the aspect ratio
      */
     public void setAspectRatio(@AspectRatio.ResizeMode int aspectRatio){
-        this.mCurrAspectRatio = aspectRatio;
+        this.mCurrAspectRatio = 0;
     }
 
     /**

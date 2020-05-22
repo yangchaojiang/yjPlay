@@ -38,7 +38,6 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
 
     private IRenderCallback mRenderCallback;
     private RenderMeasure mRenderMeasure;
-
     public RenderSurfaceView(Context context) {
         this(context, null);
     }
@@ -102,7 +101,7 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
 
     @Override
     public void doOnConfigurationChanged(int newConfig) {
-     //   mRenderMeasure.doOnConfigurationChanged(newConfig,this);
+       mRenderMeasure.doOnConfigurationChanged(newConfig,this);
     }
     @Override
     public View getRenderView() {

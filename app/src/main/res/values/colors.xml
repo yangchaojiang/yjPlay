@@ -15,4 +15,5 @@
     <color name="timeBar_unplayed_color">@color/live_yellow</color>
     <!--视频进度圆点的颜色-->
     <color name="timeBar_scrubber_color">@color/colorAccent</color>
+    <color name="switch_color">#80000000</color>
 </resources>

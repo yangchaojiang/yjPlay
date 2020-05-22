@@ -31,6 +31,7 @@ import chuangyuan.ycj.videolibrary.listener.BasePlayerListener;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerViewListener;
 import chuangyuan.ycj.videolibrary.listener.ItemVideo;
+import chuangyuan.ycj.videolibrary.listener.OnBelowViewListener;
 import chuangyuan.ycj.videolibrary.listener.OnCoverMapImageListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureBrightnessListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureProgressListener;
@@ -271,7 +272,6 @@ public class VideoPlayerManager {
         private DataSourceListener listener;
         private MediaSourceBuilder mediaSourceBuilder;
         private int playerType = TYPE_PLAY_GESTURE;
-        private DrmSessionManager<FrameworkMediaCrypto> drmSessionManager;
         private OnGestureBrightnessListener onGestureBrightnessListener;
         private OnGestureVolumeListener onGestureVolumeListener;
         private OnGestureProgressListener onGestureProgressListener;
@@ -287,9 +287,11 @@ public class VideoPlayerManager {
         private OnCoverMapImageListener mapImage;
         //是否多线路
         private boolean showVideoSwitch;
+        /***多线路点击****/
+        private OnBelowViewListener belowViewListener;
 
         public Builder(Activity activity, @PlayerType int type, @IdRes int reId) {
-            this(type, (VideoPlayerView) activity.findViewById(reId));
+            this(type,activity.findViewById(reId));
         }
 
         public Builder(@PlayerType int type, @NonNull VideoPlayerView view) {
@@ -407,15 +409,6 @@ public class VideoPlayerManager {
             return this;
         }
 
-        /***
-         * 设置播放路径
-         * @param drmSessionManager 一个可选的 {@link DrmSessionManager}. 如果DRM得到保护，可能是null
-         *@return Builder
-         */
-        public Builder setDrmSessionManager(DrmSessionManager<FrameworkMediaCrypto> drmSessionManager) {
-            this.drmSessionManager = drmSessionManager;
-            return this;
-        }
 
         /****
          *  支持视频源动态添加
@@ -437,18 +430,42 @@ public class VideoPlayerManager {
         public Builder setPlayUri(@NonNull String uri) {
             return setPlayUri(Uri.parse(uri));
         }
-
         /****
-         * @param indexType 设置当前索引视频屏蔽进度
-         * @param firstVideoUri 预览的视频
-         * @param secondVideoUri 第二个视频
+         * 添加广告视频
+         *
+         * @param indexType  广告视频插入位置，开头和末尾
+         * @param firstVideoUri 广告视频
          *@return Builder
          */
+        public Builder setAdMediaUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri) {
+            mediaSourceBuilder.setAdMediaUri(indexType, firstVideoUri);
+            return  this;
+        }
+            /****
+             * @param indexType 设置当前索引视频屏蔽进度
+             * @param firstVideoUri 预览的视频
+             * @param secondVideoUri 第二个视频
+             *@return Builder
+             * @deprecated   {@link #setAdMediaUri(int,Uri),#setPlayUri(String)}  此方法已过期，setAdMediaUri和setPlayUri组合
+             */
         public Builder setPlayUri(@Size(min = 0) int indexType, @NonNull String firstVideoUri, @NonNull String secondVideoUri) {
             return setPlayUri(indexType, Uri.parse(firstVideoUri), Uri.parse(secondVideoUri));
 
         }
 
+        /****
+         * 设置视频列表播放
+         * @param indexType 设置当前索引视频屏蔽进度
+         * @param firstVideoUri 预览的视频
+         * @param secondVideoUri 第二个视频
+         *@return Builder
+         * @deprecated   {@link #setAdMediaUri(int,Uri),#setPlayUri(Uri)}  此方法已过期，setAdMediaUri和setPlayUri组合
+         */
+        public Builder setPlayUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
+            initMediaSourceBuilder();
+            mediaSourceBuilder.setMediaUri(indexType, firstVideoUri, secondVideoUri);
+            return this;
+        }
         /***
          * 设置多线路播放
          * @param index 选中播放线路
@@ -471,9 +488,27 @@ public class VideoPlayerManager {
          */
         public Builder setPlaySwitchUri(int switchIndex, @NonNull List<String> videoUri, @NonNull List<String> name) {
             initMediaSourceBuilder();
+            if (mVideoPlayerView != null) {
+                mVideoPlayerView.setSwitchName(name, switchIndex);
+            }
             mediaSourceBuilder.setMediaSwitchUri(videoUri, switchIndex);
-            mVideoPlayerView.setSwitchName(name, switchIndex);
             return this;
+        }
+        /****
+         * 初始化多个视频源，无缝衔接
+         * @param <T> T
+         * @param switchIndex the switch 设置多线路索引
+         * @param secondVideoUri 第二个视频
+         * @param name the name  线路名称
+         *@return Builder
+         */
+        public <T extends ItemVideo> Builder setPlaySwitchUri2(int switchIndex, @NonNull List<T> secondVideoUri,@NonNull List<String> name) {
+            initMediaSourceBuilder();
+            if (mVideoPlayerView != null) {
+                mVideoPlayerView.setSwitchName(name, switchIndex);
+            }
+            mediaSourceBuilder.setMediaSwitchUri(switchIndex,secondVideoUri);
+            return  this;
         }
         /****
          * 初始化多个视频源，无缝衔接
@@ -484,13 +519,15 @@ public class VideoPlayerManager {
          * @param secondVideoUri 第二个视频
          * @param name the name  线路名称
          *@return Builder
+         * @deprecated   {@link #setAdMediaUri(int,Uri),#setPlaySwitchUri2(int,List,List)}  此方法已过期，setAdMediaUri和setPlayUri组合
          */
         public <T extends ItemVideo> Builder setPlaySwitchUri2(@Size(min = 0) int indexType, int switchIndex, @NonNull String firstVideoUri, @NonNull List<T> secondVideoUri,@NonNull List<String> name) {
             initMediaSourceBuilder();
             if (mVideoPlayerView != null) {
                 mVideoPlayerView.setSwitchName(name, switchIndex);
             }
-            mediaSourceBuilder.setMediaSwitchUri(indexType, switchIndex, Uri.parse(firstVideoUri), secondVideoUri);
+            mediaSourceBuilder.setAdMediaUri(indexType,Uri.parse(firstVideoUri));
+            mediaSourceBuilder.setMediaSwitchUri(switchIndex,secondVideoUri);
             return  this;
         }
 
@@ -501,13 +538,15 @@ public class VideoPlayerManager {
          * @param secondVideoUri 内容视频多线路设置
          * @param name the name
          *@return Builder
+         * @deprecated  {@link #setAdMediaUri(int,Uri),#setPlaySwitchUri(int,List,List)}  此方法已过期
          */
         public Builder setPlaySwitchUri(@Size(min = 0) int indexType, @Size(min = 0) int switchIndex, @NonNull String firstVideoUri, List<String> secondVideoUri, @NonNull List<String> name) {
             initMediaSourceBuilder();
-            mediaSourceBuilder.setMediaUri(indexType, switchIndex, Uri.parse(firstVideoUri), secondVideoUri);
             if (mVideoPlayerView != null) {
                 mVideoPlayerView.setSwitchName(name, switchIndex);
             }
+            mediaSourceBuilder.setAdMediaUri(indexType,Uri.parse(firstVideoUri));
+            mediaSourceBuilder.setMediaSwitchUri(secondVideoUri,switchIndex);
             return this;
         }
 
@@ -520,19 +559,6 @@ public class VideoPlayerManager {
         public Builder setPlayUri(@NonNull Uri uri) {
             initMediaSourceBuilder();
             mediaSourceBuilder.setMediaUri(uri);
-            return this;
-        }
-
-        /****
-         * 设置视频列表播放
-         * @param indexType 设置当前索引视频屏蔽进度
-         * @param firstVideoUri 预览的视频
-         * @param secondVideoUri 第二个视频
-         *@return Builder
-         */
-        public Builder setPlayUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
-            initMediaSourceBuilder();
-            mediaSourceBuilder.setMediaUri(indexType, firstVideoUri, secondVideoUri);
             return this;
         }
 
@@ -640,7 +666,15 @@ public class VideoPlayerManager {
             this.controllerHideOnTouch = controllerHideOnTouch;
             return this;
         }
-
+        /***
+         * 设置自定义多线路view
+         * @param belowViewListener true 启用  false 关闭
+         @return Builder
+         */
+        public Builder setOnBelowViewListener(OnBelowViewListener belowViewListener) {
+            this.belowViewListener = belowViewListener;
+            return this;
+        }
         /***
          * 增加进度监听
          * @param  updateProgressListener updateProgressListener
@@ -701,6 +735,7 @@ public class VideoPlayerManager {
                 mVideoPlayerView.setOnEndGestureListener(gestureModule);
                 mVideoPlayerView.setPlayerGestureOnTouch(controllerHideOnTouch);
                 mVideoPlayerView.setOnPlayClickListener(onClickListener);
+                mVideoPlayerView.setOnBelowViewListener(belowViewListener);
             } else {
                 exoUserPlayer = new ExoUserPlayer(context, mediaSourceBuilder);
                 exoUserPlayer.addBasePlayerListener(new BasePlayerListener() {
@@ -717,7 +752,6 @@ public class VideoPlayerManager {
             }
 
             exoUserPlayer.createFullPlayer();
-            exoUserPlayer.setDrmSessionManager(drmSessionManager);
             for (VideoInfoListener videoInfoListener : videoInfoListeners) {
                 exoUserPlayer.addVideoInfoListener(videoInfoListener);
             }

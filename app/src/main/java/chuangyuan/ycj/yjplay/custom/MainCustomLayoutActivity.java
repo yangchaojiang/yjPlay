@@ -2,7 +2,6 @@ package chuangyuan.ycj.yjplay.custom;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +14,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.source.MediaSource;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import chuangyuan.ycj.videolibrary.listener.OnCoverMapImageListener;
-import chuangyuan.ycj.videolibrary.listener.OnGestureBrightnessListener;
 import chuangyuan.ycj.videolibrary.listener.OnGestureProgressListener;
-import chuangyuan.ycj.videolibrary.listener.OnGestureVolumeListener;
+import chuangyuan.ycj.videolibrary.listener.OnLandScapeChangListener;
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
@@ -30,6 +28,7 @@ import chuangyuan.ycj.videolibrary.whole.WholeMediaSource;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import chuangyuan.ycj.yjplay.R;
 import chuangyuan.ycj.yjplay.data.Data2Source;
+import chuangyuan.ycj.yjplay.data.TestDataBean;
 
 
 public class MainCustomLayoutActivity extends AppCompatActivity {
@@ -44,17 +43,18 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
     /***显示音频和亮度***/
     private ProgressBar videoAudioPro, videoBrightnessPro;
     WholeMediaSource wholeMediaSource;
+    CustomPopupWindow pw;
+    SpeedPopupWindow speedPopupWindow;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int type = getIntent().getIntExtra("type", 0);
         switch (type) {
             case 0:
                 setContentView(R.layout.layout_coutom);
-                 setSupportActionBar(findViewById(R.id.mToolbar));
-                  getSupportActionBar().setDisplayShowHomeEnabled(true);
+                setSupportActionBar(findViewById(R.id.mToolbar));
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
                 break;
             case 1:
                 setContentView(R.layout.layout_coutom2);
@@ -67,32 +67,110 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
                 break;
         }
         currPosition = getIntent().getLongExtra("currPosition", 0);
+        String[] name = {"超清", "高清", "标清"};
+        TestDataBean bean = new TestDataBean();
+        TestDataBean bean1 = new TestDataBean();
+        TestDataBean bean2 = new TestDataBean();
+        List<TestDataBean> listss = new ArrayList<>();
+        bean.setUri("https://mp4.vjshi.com/2018-09-20/bc8b2ae8678e93a8b5ff87a83378b920.mp4");
+        bean1.setUri("https://mp4.vjshi.com/2018-09-26/edd2743119bd799b696e503649a93c29.mp4");
+        bean2.setUri("https://mp4.vjshi.com/2018-04-11/77502cefe5fe77de6f7c9e5ea7ce591b.mp4");
+        listss.add(bean);
+        listss.add(bean1);
+        listss.add(bean2);
         videoPlayerView = findViewById(R.id.exo_play_context_id);
         exo_video_dialog_pro_text = findViewById(R.id.exo_video_dialog_pro_text);
         videoAudioImg = findViewById(R.id.exo_video_audio_img);
         videoAudioPro = findViewById(R.id.exo_video_audio_pro);
         videoBrightnessImg = findViewById(R.id.exo_video_brightness_img);
         videoBrightnessPro = findViewById(R.id.exo_video_brightness_pro);
-
         wholeMediaSource = new WholeMediaSource(this, new Data2Source(getApplication()));
-     MediaSource videoSource = wholeMediaSource.initMediaSource(
-                Uri.parse(getString(R.string.uri_test_5)));
-/*        MediaSource videoSource = wholeMediaSource.initMediaSource(
-                Uri.parse("http://pj8st4lpc.bkt.clouddn.com/noaudio.ts"));*/
-   /*     //构建子标题媒体源
-        Format subtitleFormat = Format.createTextSampleFormat(
-                getPackageName(), // 跟踪的标识符。可能是null。
-                MimeTypes.TEXT_SSA, // mime类型。必须正确设置
-                0, // 跑道的选择标志。
-                null); // 字幕语言。可能是null。
-        MediaSource      subtitleSource= new SingleSampleMediaSource.Factory(wholeMediaSource.getDataSource())
-                .setTreatLoadErrorsAsEndOfStream(true)
-                .setMinLoadableRetryCount(5)
-        .createMediaSource(Uri.parse("http://oph6zeldx.bkt.clouddn.com/test23.ass"), subtitleFormat, C.TIME_UNSET);
-// Plays the video with the sideloaded subtitle.
-        MergingMediaSource mergedSource =
-                new MergingMediaSource(videoSource, subtitleSource);*/
-        //自定义布局使用
+        exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
+                .setDataSource(wholeMediaSource)
+                .setPosition(currPosition)
+                .setShowVideoSwitch(true)
+                .setPlaySwitchUri2(0, 0, getString(R.string.uri_test_1), listss, Arrays.asList(name))
+                .setTitle("自定义视频标题")
+                .setOnPlayClickListener(v -> {
+                    Toast.makeText(MainCustomLayoutActivity.this, "定义点击播放事件", Toast.LENGTH_LONG).show();
+                    //处理业务操作 完成后，
+                    exoPlayerManager.startPlayer();//开始播放
+                })
+                //重写自定义手势监听事件，
+                .setOnGestureBrightnessListener((mMax, currIndex) -> {
+                    //显示你的布局
+                    videoPlayerView.getGestureBrightnessLayout().setVisibility(View.VISIBLE);
+                    //为你布局显示内容自定义内容
+                    videoBrightnessPro.setMax(mMax);
+                    videoBrightnessImg.setImageResource(chuangyuan.ycj.videolibrary.R.drawable.ic_brightness_6_white_48px);
+                    videoBrightnessPro.setProgress(currIndex);
+                })
+                //重写自定义手势监听事件，
+                .setOnGestureProgressListener(new OnGestureProgressListener() {
+                    @Override
+                    public void showProgressDialog(long seekTimePosition, long duration, String seekTime, String totalTime) {
+                        //显示你的布局
+                        videoPlayerView.getGestureProgressLayout().setVisibility(View.VISIBLE);
+                        exo_video_dialog_pro_text.setTextColor(Color.RED);
+                        exo_video_dialog_pro_text.setText(seekTime + "/" + totalTime);
+                    }
+
+                    @Override
+                    public void endGestureProgress(long position) {
+                        exoPlayerManager.seekTo(position);
+                    }
+                })
+                //重写自定义手势监听事件，
+                .setOnGestureVolumeListener((mMax, currIndex) -> {
+                    //显示你的布局
+                    videoPlayerView.getGestureAudioLayout().setVisibility(View.VISIBLE);
+                    //为你布局显示内容自定义内容
+                    videoAudioPro.setMax(mMax);
+                    videoAudioPro.setProgress(currIndex);
+                    videoAudioImg.setImageResource(currIndex == 0 ? R.drawable.ic_volume_off_white_48px : R.drawable.ic_volume_up_white_48px);
+                })
+                .addVideoInfoListener(new VideoInfoListener() {
+                    @Override
+                    public void onPlayStart(long currPosition) {
+
+                    }
+                    @Override
+                    public void onLoadingChanged() {
+
+                    }
+                    @Override
+                    public void onPlayerError(@Nullable ExoPlaybackException e) {
+
+                    }
+                    @Override
+                    public void onPlayEnd() {
+                        if (pw != null) {
+                            pw.dismissBelowView();
+                        }
+                        if (speedPopupWindow != null) {
+                            speedPopupWindow.dismissBelowView();
+                        }
+                    }
+
+                    @Override
+                    public void isPlaying(boolean playWhenReady) {
+
+                    }
+                })
+                .addUpdateProgressListener((position, bufferedPosition, duration) -> {
+                   // Log.d(TAG, "bufferedPosition:" + position);
+                  //  Log.d(TAG, "duration:" + duration);
+                }).setOnBelowViewListener((view, name1, checkedIndex, mSwitchText, m) -> {
+                    if (pw == null) {
+                        pw = new CustomPopupWindow(view.getContext());
+                    }
+                    pw.showBelowView(view, name1, checkedIndex, mSwitchText, m);
+                })
+                .setOnCoverMapImage(v -> Glide.with(MainCustomLayoutActivity.this)
+                        .load(getString(R.string.uri_test_image))
+                        .asBitmap()
+                        .fitCenter()
+                        .into(v)).create();
         videoPlayerView.getReplayLayout().findViewById(R.id.replay_btn_imageView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,99 +190,31 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
             }
         });
         videoPlayerView.setShowBack(false);
-        videoPlayerView.setVerticalFullScreen(true);
-        wholeMediaSource.setMediaSource(videoSource);
-        exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
-                .setDataSource(wholeMediaSource)
-                .setPosition(currPosition)
-                .setTitle("自定义视频标题")
-                .setOnPlayClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(MainCustomLayoutActivity.this, "定义点击播放事件", Toast.LENGTH_LONG).show();
-                        //处理业务操作 完成后，
-                        exoPlayerManager.startPlayer();//开始播放
-                    }
-                })
-                //重写自定义手势监听事件，
-                .setOnGestureBrightnessListener(new OnGestureBrightnessListener() {
-                    @Override
-                    public void setBrightnessPosition(int mMax, int currIndex) {
-                        //显示你的布局
-                        videoPlayerView.getGestureBrightnessLayout().setVisibility(View.VISIBLE);
-                        //为你布局显示内容自定义内容
-                        videoBrightnessPro.setMax(mMax);
-                        videoBrightnessImg.setImageResource(chuangyuan.ycj.videolibrary.R.drawable.ic_brightness_6_white_48px);
-                        videoBrightnessPro.setProgress(currIndex);
-                    }
-                })
-                //重写自定义手势监听事件，
-                .setOnGestureProgressListener(new OnGestureProgressListener() {
-                    @Override
-                    public void showProgressDialog(long seekTimePosition, long duration, String seekTime, String totalTime) {
-                        //显示你的布局
-                        videoPlayerView.getGestureProgressLayout().setVisibility(View.VISIBLE);
-                        exo_video_dialog_pro_text.setTextColor(Color.RED);
-                        exo_video_dialog_pro_text.setText(seekTime + "/" + totalTime);
-                    }
-
-                    @Override
-                    public void endGestureProgress(long position) {
-                        exoPlayerManager.seekTo(position);
-                    }
-                })
-                //重写自定义手势监听事件，
-                .setOnGestureVolumeListener(new OnGestureVolumeListener() {
-                    @Override
-                    public void setVolumePosition(int mMax, int currIndex) {
-                        //显示你的布局
-                        videoPlayerView.getGestureAudioLayout().setVisibility(View.VISIBLE);
-                        //为你布局显示内容自定义内容
-                        videoAudioPro.setMax(mMax);
-                        videoAudioPro.setProgress(currIndex);
-                        videoAudioImg.setImageResource(currIndex == 0 ? R.drawable.ic_volume_off_white_48px : R.drawable.ic_volume_up_white_48px);
-                    }
-                })
-                .addVideoInfoListener(new VideoInfoListener() {
-                    @Override
-                    public void onPlayStart(long currPosition) {
-                        // videoPlayerView.getPlayerView().setControllerHideOnTouch(false);
-                    }
-
-                    @Override
-                    public void onLoadingChanged() {
-
-                    }
-
-                    @Override
-                    public void onPlayerError(@Nullable ExoPlaybackException e) {
-
-                    }
-
-                    @Override
-                    public void onPlayEnd() {
-                        //  wholeMediaSource.release();
-                        //   wholeMediaSource.setMediaUri(Uri.parse(getString(R.string.url_hls)));
-                        //  exoPlayerManager.startPlayer();
-                    }
-
-                    @Override
-                    public void isPlaying(boolean playWhenReady) {
-
-                    }
-                })
-                .setOnCoverMapImage(new OnCoverMapImageListener() {
-                    @Override
-                    public void onCoverMap(ImageView v) {
-                        Glide.with(MainCustomLayoutActivity.this)
-                                .load(getString(R.string.uri_test_image))
-                                .asBitmap()
-                                .fitCenter()
-                                .into(v);
-                    }
-                }).create();
-
-
+        TextView exoMediaSpeed = videoPlayerView.findViewById(R.id.exoMediaSpeed);
+        exoMediaSpeed.setText("1.0");
+        exoPlayerManager.setPlaybackParameters(1.0f, 1);
+        exoMediaSpeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (speedPopupWindow == null) {
+                    speedPopupWindow = new SpeedPopupWindow(v.getContext(), exoPlayerManager);
+                }
+                speedPopupWindow.showBelowView(v, true, exoMediaSpeed);
+            }
+        });
+        /***
+         * 监听横屏和竖屏事件
+         * ***/
+        videoPlayerView.setOnLandScapeChangListener(new OnLandScapeChangListener() {
+            @Override
+            public void landScapeChang(boolean isLand) {
+                if (isLand) {
+                    exoMediaSpeed.setVisibility(View.VISIBLE);
+                } else {
+                    exoMediaSpeed.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
@@ -230,7 +240,7 @@ public class MainCustomLayoutActivity extends AppCompatActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-         exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
+        exoPlayerManager.onConfigurationChanged(newConfig);//横竖屏切换
         super.onConfigurationChanged(newConfig);
     }
 

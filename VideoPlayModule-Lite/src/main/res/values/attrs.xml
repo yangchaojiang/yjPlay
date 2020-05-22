@@ -21,11 +21,12 @@
      <!--渲染视频大小模式-->
     <attr name="resize_mode" format="enum">
         <enum name="fixed_16_9" value="0"/>
-        <enum name="fixed_4_3" value="1"/>
-        <enum name="match" value="2"/>
+        <enum name="fixed_4_3" value="0"/>
         <enum name="fill" value="3"/>
-        <enum name="fit" value="4"/>
-        <enum name="origin" value="5"/>
+        <enum name="zoom" value="4"/>
+        <enum name="fit" value="0"/>
+        <enum name="fixed_width" value="1"/>
+        <enum name="fixed_height" value="2"/>
     </attr>
 
     <!--选择渲染视频模式 -->
@@ -57,6 +58,7 @@
         <attr name="ad_marker_color" format="color"/>
         <attr name="played_ad_marker_color" format="color"/>
     </declare-styleable>
+
     <declare-styleable name="PlayerView">
         <attr name="use_artwork" format="boolean"/>
         <attr name="shutter_background_color" format="color"/>
@@ -91,6 +93,21 @@
         <attr name="show_shuffle_button"/>
         <attr name="controller_layout_id"/>
         <attr name="player_fullscreen_image_selector"/>
+        <attr name="time_bar_min_update_interval"/>
+        <!-- DefaultTimeBar attributes -->
+        <attr name="bar_height"/>
+        <attr name="touch_target_height"/>
+        <attr name="ad_marker_width"/>
+        <attr name="scrubber_enabled_size"/>
+        <attr name="scrubber_disabled_size"/>
+        <attr name="scrubber_dragged_size"/>
+        <attr name="scrubber_drawable"/>
+        <attr name="played_color"/>
+        <attr name="scrubber_color"/>
+        <attr name="buffered_color" />
+        <attr name="unplayed_color"/>
+        <attr name="ad_marker_color"/>
+        <attr name="played_ad_marker_color"/>
     </declare-styleable>
     <!--加载动画控件-->
     <declare-styleable name="exoVideoAnim">
@@ -158,4 +175,7 @@
         <attr name="player_gesture_progress_layout_id" />
     </declare-styleable>
 
+    <declare-styleable name="AspectRatioFrameLayout">
+        <attr name="resize_mode"/>
+    </declare-styleable>
 </resources>

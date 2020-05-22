@@ -18,14 +18,12 @@
    *  支持横屏和竖屏两种模式全屏。
    *  适配音频控制布局。
    *  支持广告视频预览(轻松实现，完美切换，<font color="red">可自定义</font>)。
-   *  支持多种分辨率视频切换。
+   *  支持多种分辨率视频切换（已支持自定义布局样式）。
    *  [缓存下载加密视频功能（边播变缓存轻松实现](README_EN_VIDEO.md)<font color="red">不是使用AndroidVideoCache</font>。
-   *  支持自定义多种 kttp,Rtmp,Https,Cronet等协议。
    *  支持列表集合 播放视频（<font color="red">列表到详情播放完美过度</font>）
-   *  支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
    *  支持网络类型 提示是否播放(可自定义屏蔽)。
    *  支持视频加载布局, 错误布局,重播布局，提示布局自定义，更灵活实现自己布局样式。
-   *  支持视频加速慢速播放。
+   *  支持视频加速慢速播放（已支持自定义布局样式）参考demo自定义。
    *  支持多种视频封面图（两种模式封面图）。
    *  支持支持自定义[MediaSource]()。
    *  支持精简版和完整版，选择使用更丰富。
@@ -35,10 +33,11 @@
    *  支持自定义视频封面布局.(视频封面图布局样式完美多样化)。
    *  支持视频实时进度（头条底部进度）。
    *  支持流式API方式调用。
-
+   *  支持多种文件类型，MP4，M4A，WebM，Matroska,Ogg,WAV，MP3，MPEG-TS，MPEG-PS，FLV，ADTS (AAC)，Flac，M3U8,mkv 等。
+   *  支持自定义多种 http,Rtmp,Https,Cronet等协议。
  <!--more-->
 
- ### [更新日志2.3.50→》戳我查看](RELEASENOTES.md)
+ ### [更新日志2.3.51→》戳我查看](RELEASENOTES.md)
 
 
  ### 一.引用类库
@@ -50,9 +49,9 @@
 
   dependencies {
      //完整版
-      compile 'com.ycjiang:VideoPlayModule:2.3.50'
+      compile 'com.ycjiang:VideoPlayModule:2.3.60'
      //精简版（没有smoothstreaming,dash,hls,只有常规点播功能）
-      compile 'com.ycjiang:VideoPlayModule-Lite:2.3.50'
+      compile 'com.ycjiang:VideoPlayModule-Lite:2.3.60'
 
   }
   ````
@@ -171,9 +170,6 @@
      或者
      ````
        exoPlayerManager = new VideoPlayerManager.Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
-                     .setDataSource(wholeMediaSource)
-                     .setPosition(currPosition)
-                     .setTitle("自定义视频标题")
                      .setVerticalFullScreen(true)
      ````
 
@@ -194,16 +190,15 @@
 
  > #### 2 VideoPlayerView 控件 可用方法
   | name                                           | type      | info                                                                        |
-  |------------------------------------------------|-----------|---------------------------------------------------------------------------- |
-  | setTitle("标题")                               | void      | 设置视频标题                                                               |  
-  | setExoPlayWatermarkImg(R.mipmap.watermark_big) | void      | 设置添加水印图片                                                               |  
-  | setPreviewImage(Bitmap）                       | void      | 设置封面图                                                             |  
-  | setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                |  
-  | setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                |  
-  | getPreviewImage()                              | ImageView | 设置封面图控件                                                               |  
-  | setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                |  
-  | setVerticalFullScreen(true)                    | void      | 开启竖屏全屏                                                           |
-
+|------------------------------------------------|-----------|---------------------------------------------------------------------------- |
+| setTitle("标题")                               | void      | 设置视频标题                                                               | | |
+| setExoPlayWatermarkImg(R.mipmap.watermark_big) | void      | 设置添加水印图片                                                               | | |
+| setPreviewImage(Bitmap）                       | void      | 设置封面图                                                             | | |
+| setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                | | |
+| setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                | | |
+| getPreviewImage()                              | ImageView | 设置封面图控件                                                               | | |
+| setPreviewImage(R.res.image)                   | void      | 设置封面图                                                                | | |
+| setVerticalFullScreen(true)                    | void      | 开启竖屏全屏                                                           |
   >>更多方法参考demo用法。
   
  > #### 3 播放代码 
@@ -284,7 +279,7 @@
   | setPlayUri(Uri.parse("uri"))         | void |  设置开始播放进度                                                               |  
   | setShowVideoSwitch(true)             | void |  设置开启多线路设置，默认关闭                                                             |  
   | setLoadModel(LoadModelType.PERCENR)  | void |  设置视频加载提示显示模式（默认LoadModelType.SPEED (网速模式)）                                                            |  
-  | setPlaybackParameters(2f,2f)         | void |  设置播放视频倍数  快放和慢放播放 小于1 慢放 大于1 快放  
+  | setPlaybackParameters(2f,1f)         | void |  设置播放视频倍数  快放和慢放播放 小于1 慢放 大于1 快放  
   | startPlayer()                        | void |  开始播放视频                                                               |  
    
    >>更多方法参考demo用法。

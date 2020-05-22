@@ -7,17 +7,11 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.offline.DownloadHelper;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import chuangyuan.ycj.videolibrary.listener.OnCoverMapImageListener;
-import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.listener.VideoWindowListener;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
@@ -30,12 +24,10 @@ public class MainDetailedActivity extends Activity {
     private ExoUserPlayer exoPlayerManager;
     private static final String TAG = "MainDetailedActivity";
     String[] test;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
-        test = new String[]{getString(R.string.uri_test_9), getString(R.string.uri_test_7), getString(R.string.uri_test_8)};
         String[] name = {"超清", "高清", "标清"};
         TestDataBean bean = new TestDataBean();
         TestDataBean bean1 = new TestDataBean();
@@ -47,7 +39,7 @@ public class MainDetailedActivity extends Activity {
         listss.add(bean);
         listss.add(bean1);
         listss.add(bean2);
-                //实例化
+        //实例化
         exoPlayerManager = new VideoPlayerManager.Builder(this, VideoPlayerManager.TYPE_PLAY_GESTURE, R.id.exo_play_context_id)
                 .setDataSource(new Data2Source(this))
                 .setPlaySwitchUri2(0, 0, getString(R.string.uri_test_1), listss, Arrays.asList(name))
@@ -73,7 +65,7 @@ public class MainDetailedActivity extends Activity {
                 //设置开始播放进度
                 // .setPosition(1000)
                 //开启线路设置
-                 .setShowVideoSwitch(true)
+                .setShowVideoSwitch(true)
                 // .setPlaySwitchUri(0,test,name)
                 // .setPlaySwitchUri(0, 0, getString(R.string.uri_test_11), Arrays.asList(test), Arrays.asList(name))
                 //设置播放视频倍数  快进播放和慢放播放
@@ -87,41 +79,6 @@ public class MainDetailedActivity extends Activity {
                     @Override
                     public void onCurrentIndex(int currentIndex, int windowCount) {
                         Toast.makeText(getApplication(), currentIndex + "windowCount:" + windowCount, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                /* .addUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
-                     @Override
-                     public void updateProgress(long position, long bufferedPosition, long duration) {
- //                     //   Log.d(TAG,"bufferedPosition:"+position);
-                     //    Log.d(TAG,"duration:"+duration);
-                     }
-                 })*/
-                .addVideoInfoListener(new VideoInfoListener() {
-
-                    @Override
-                    public void onPlayStart(long currPosition) {
-
-                    }
-
-                    @Override
-                    public void onLoadingChanged() {
-
-                    }
-
-                    @Override
-                    public void onPlayerError(ExoPlaybackException e) {
-
-                    }
-
-                    @Override
-                    public void onPlayEnd() {
-                        // Toast.makeText(getApplication(), "asd", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                    @Override
-                    public void isPlaying(boolean playWhenReady) {
-
                     }
                 })
                 .setOnCoverMapImage(new OnCoverMapImageListener() {

@@ -18,8 +18,7 @@ package chuangyuan.ycj.videolibrary.offline;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
-import androidx.annotation.Nullable;
-
+import android.support.annotation.Nullable;
 import android.support.v4.BuildConfig;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
@@ -60,7 +59,8 @@ public class DownloadTracker {
   private final HashMap<Uri, Download> downloads;
   private final DownloadIndex downloadIndex;
 
-  @Nullable private StartDownloadDialogHelper startDownloadDialogHelper;
+  @Nullable
+  private StartDownloadDialogHelper startDownloadDialogHelper;
 
   public DownloadTracker(
       Context context, DataSource.Factory dataSourceFactory, DownloadManager downloadManager) {

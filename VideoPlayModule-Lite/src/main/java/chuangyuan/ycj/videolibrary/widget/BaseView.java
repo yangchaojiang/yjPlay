@@ -3,19 +3,16 @@ package chuangyuan.ycj.videolibrary.widget;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
@@ -26,18 +23,18 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.android.exoplayer2.ui.ExoPlayerView;
 import com.google.android.exoplayer2.ui.PlayerControlView;
-import com.google.android.exoplayer2.ui.PlayerView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import chuangyuan.ycj.videolibrary.R;
 import chuangyuan.ycj.videolibrary.listener.ExoPlayerListener;
+import chuangyuan.ycj.videolibrary.listener.OnBelowViewListener;
 import chuangyuan.ycj.videolibrary.listener.OnEndGestureListener;
+import chuangyuan.ycj.videolibrary.listener.OnLandScapeChangListener;
 import chuangyuan.ycj.videolibrary.utils.VideoPlayUtils;
 
 /**
@@ -69,24 +66,24 @@ abstract class BaseView extends FrameLayout {
     protected final ActionControlView mActionControlView;
     /*** 锁屏管理布局***/
     protected final LockControlView mLockControlView;
-    /***锁屏管理布局***/
+    /***控制布局***/
     protected final PlayerControlView controllerView;
     /***切换***/
     protected BelowView belowView;
-    /***流量提示框***/
-    protected AlertDialog alertDialog;
     protected ExoPlayerListener mExoPlayerListener;
     /***标题左间距,多分辨率,默认Ui布局样式横屏后还原处理***/
     protected int getPaddingLeft, switchIndex, setSystemUiVisibility = 0;
     /*** The Ic back image.***/
     @DrawableRes
     private int icBackImage = R.drawable.ic_exo_back;
-    private OnEndGestureListener mOnEndGestureListener;
-    private View.OnClickListener onClickListener;
     /***是否显示返回按钮,是否在上面,是否横屏,是否列表播放 默认false,是否切换按钮,是否自动切换视频宽高*/
     private boolean isShowBack = true, isLand, isListPlayer, isShowVideoSwitch, isWGh, controllerHideOnTouch = true, isVerticalFullScreen;
     private ArrayList<String> nameSwitch;
-
+    /***多线路点击****/
+    private OnEndGestureListener mOnEndGestureListener;
+    private View.OnClickListener onClickListener;
+    protected OnBelowViewListener belowViewListener;
+    private OnLandScapeChangListener listeners;
     /**
      * Instantiates a new Base vie
      *
@@ -225,9 +222,6 @@ abstract class BaseView extends FrameLayout {
      * On destroy.
      */
     public void onDestroy() {
-        if (alertDialog != null) {
-            alertDialog.dismiss();
-        }
         if (exoControlsBack != null && exoControlsBack.animate() != null) {
             exoControlsBack.animate().cancel();
         }
@@ -238,7 +232,6 @@ abstract class BaseView extends FrameLayout {
             tags.clear();
             tags2.clear();
             belowView = null;
-            alertDialog = null;
         }
         nameSwitch = null;
     }
@@ -258,39 +251,6 @@ abstract class BaseView extends FrameLayout {
         }
     }
 
-    /***
-     * 显示网络提示框
-     */
-    protected void showDialog() {
-        if (alertDialog != null && alertDialog.isShowing()) {
-            return;
-        }
-        alertDialog = new AlertDialog.Builder(getContext()).create();
-        alertDialog.setTitle(getContext().getString(R.string.exo_play_reminder));
-        alertDialog.setMessage(getContext().getString(R.string.exo_play_wifi_hint_no));
-        alertDialog.setCancelable(false);
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getContext().
-                getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                showBtnContinueHint(View.VISIBLE);
-
-            }
-        });
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getContext().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                showBtnContinueHint(View.GONE);
-                if (mExoPlayerListener != null) {
-                    mExoPlayerListener.playVideoUri();
-                }
-
-            }
-        });
-        alertDialog.show();
-    }
 
     /***
      * 设置内容横竖屏内容
@@ -313,7 +273,10 @@ abstract class BaseView extends FrameLayout {
             addView(playerView, params);
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            mExoPlayerListener.land();
+            mExoPlayerListener.landScapeChang(isLand);
+        }
+        if (listeners!=null){
+            listeners.landScapeChang(isLand);
         }
     }
 
@@ -356,14 +319,11 @@ abstract class BaseView extends FrameLayout {
                 layoutParams2.width = getWidth();
                 layoutParams2.height = getHeight();
                 playerView.setLayoutParams(layoutParams2);
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (parent != null) {
-                            parent.removeView(playerView);
-                        }
-                        BaseView.this.addView(playerView);
+                postDelayed(() -> {
+                    if (parent != null) {
+                        parent.removeView(playerView);
                     }
+                    BaseView.this.addView(playerView);
                 }, ANIM_DURATION);
             } else {
                 if (parent != null) {
@@ -373,7 +333,7 @@ abstract class BaseView extends FrameLayout {
             }
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            mExoPlayerListener.land();
+            mExoPlayerListener.landScapeChang(isLand);
         }
     }
 
@@ -548,6 +508,14 @@ abstract class BaseView extends FrameLayout {
     };
 
     /****
+     * 设置监听横屏时间
+     * @param listeners 回调实例
+     */
+    public void setOnLandScapeChangListener(OnLandScapeChangListener listeners) {
+        this.listeners = listeners;
+    }
+
+    /****
      * 设置点击播放按钮回调, 交给用户处理
      * @param onClickListener 回调实例
      */
@@ -570,7 +538,14 @@ abstract class BaseView extends FrameLayout {
     public void setPlayerGestureOnTouch(boolean controllerHideOnTouch) {
         this.controllerHideOnTouch = controllerHideOnTouch;
     }
-
+    /***
+     * 设置自定义多线路view
+     * @param belowViewListener true 启用  false 关闭
+     @return Builder
+     */
+    public void setOnBelowViewListener(OnBelowViewListener belowViewListener) {
+        this.belowViewListener = belowViewListener;
+    }
     /**
      * 设置返回返回按钮
      *
@@ -879,7 +854,7 @@ abstract class BaseView extends FrameLayout {
      * @return SimpleExoPlayerView player view
      */
     @NonNull
-    public PlayerView getPlayerView() {
+    public ExoPlayerView getPlayerView() {
         return playerView;
     }
 

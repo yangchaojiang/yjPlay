@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.google.android.exoplayer2.ext.rtmp.RtmpDataSourceFactory;
 
-import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 
 

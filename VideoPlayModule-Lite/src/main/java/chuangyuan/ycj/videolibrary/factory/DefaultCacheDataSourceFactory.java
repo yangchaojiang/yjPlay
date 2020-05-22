@@ -5,12 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.FileDataSource;
 import com.google.android.exoplayer2.upstream.cache.Cache;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSink;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
+import com.google.android.exoplayer2.upstream.cache.CacheUtil;
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
 import com.google.android.exoplayer2.upstream.cache.SimpleCache;
+import com.google.android.exoplayer2.util.Util;
 
 import java.io.File;
 
@@ -21,7 +24,7 @@ import java.io.File;
  * Deprecated: 默认缓存缓存工厂类
  */
 public class DefaultCacheDataSourceFactory implements DataSource.Factory {
-    private final JDefaultDataSourceFactory defaultDatasourceFactory;
+    private final DefaultDataSourceFactory defaultDatasourceFactory;
     private SimpleCache simpleCache;
     private final CacheDataSource.EventListener listener;
     private    long  maxCacheSize=CacheDataSource.CACHE_IGNORED_REASON_ERROR;
@@ -78,16 +81,22 @@ public class DefaultCacheDataSourceFactory implements DataSource.Factory {
                 boolean s = downloadDirectory.mkdirs();
             }
             simpleCache = new SimpleCache(downloadDirectory, new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
-
         } else {
             simpleCache = new SimpleCache(new File(dirFile), new LeastRecentlyUsedCacheEvictor(maxCacheSize), secretKey);
         }
-        defaultDatasourceFactory = new JDefaultDataSourceFactory(context);
+        String userAgent = Util.getUserAgent(context, context.getPackageName());
+        defaultDatasourceFactory = new DefaultDataSourceFactory(context,userAgent);
 
     }
 
     @Override
     public DataSource createDataSource() {
         return new CacheDataSource(simpleCache, defaultDatasourceFactory.createDataSource(),new FileDataSource(),new CacheDataSink(simpleCache, maxCacheSize) ,CacheDataSource.FLAG_BLOCK_ON_CACHE,listener);
+    }
+
+    public  void  release(){
+        if (simpleCache!=null){
+            simpleCache.release();
+        }
     }
 }

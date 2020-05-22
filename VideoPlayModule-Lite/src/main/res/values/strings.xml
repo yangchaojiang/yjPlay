@@ -42,7 +42,6 @@
         <item>high</item>
         <item>standard</item>
     </array>
-    <string name="exo_controls_fullscreen_description">Modo de pantalla completa</string>
     <string name="exo_download_description">Descargar</string>
     <string name="exo_download_notification_channel_name">Descargas</string>
     <string name="exo_download_downloading">Descargando</string>
@@ -61,6 +60,14 @@
     <string name="download_start_error">Failed to start download</string>
     <string name="exo_fenge">/</string>
 
+    <!-- Description for a button that controls the shuffle mode of media playback. In this mode shuffle is on. [CHAR LIMIT=40] -->
+    <string name="exo_controls_shuffle_on_description">Shuffle on</string>
+    <!-- Description for a button that controls the shuffle mode of media playback. In this mode shuffle is off. [CHAR LIMIT=40] -->
+    <string name="exo_controls_shuffle_off_description">Shuffle off</string>
+    <!-- Description for a media control button that toggles whether a video playback is fullscreen. [CHAR LIMIT=30] -->
+    <string name="exo_controls_fullscreen_description">Fullscreen mode</string>
     <string name="track_selection_title">Select tracks</string>
-
+    <string name="exo_controls_show">Show player controls</string>
+    <!-- Description for a media player view to indicate that tapping on the view hides the playback controls [CHAR LIMIT=50] -->
+    <string name="exo_controls_hide">Hide player controls</string>
 </resources>

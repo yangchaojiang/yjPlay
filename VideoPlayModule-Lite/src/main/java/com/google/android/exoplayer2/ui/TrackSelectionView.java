@@ -17,8 +17,8 @@ package com.google.android.exoplayer2.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import androidx.annotation.AttrRes;
-import androidx.annotation.Nullable;
+import android.support.annotation.AttrRes;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.util.SparseArray;
@@ -26,13 +26,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
+
+
 import com.google.android.exoplayer2.RendererCapabilities;
 import com.google.android.exoplayer2.source.TrackGroup;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector.SelectionOverride;
+import com.google.android.exoplayer2.trackselection.MappingTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
 import com.google.android.exoplayer2.util.Assertions;
+
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,11 +72,12 @@ public class TrackSelectionView extends LinearLayout {
   private TrackNameProvider trackNameProvider;
   private CheckedTextView[][] trackViews;
 
-   private MappedTrackInfo mappedTrackInfo;
+   private MappingTrackSelector.MappedTrackInfo mappedTrackInfo;
   private int rendererIndex;
   private TrackGroupArray trackGroups;
   private boolean isDisabled;
-  @Nullable private TrackSelectionListener listener;
+  @Nullable
+  private TrackSelectionListener listener;
 
   /** Creates a track selection view. */
   public TrackSelectionView(Context context) {
@@ -86,7 +92,7 @@ public class TrackSelectionView extends LinearLayout {
   /** Creates a track selection view. */
   @SuppressWarnings("nullness")
   public TrackSelectionView(
-      Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+          Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     setOrientation(LinearLayout.VERTICAL);
 

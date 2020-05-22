@@ -108,7 +108,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
         public void run() {
             if (mBaseView.isLand()) {
                 if (lockCheckBox.getVisibility() == VISIBLE) {
-                    AnimUtils.setOutAnimX(lockCheckBox, false).start();
+                    AnimUtils.setOutAnimX(lockCheckBox, true).start();
                 } else {
                     AnimUtils.setInAnimX(lockCheckBox).start();
                 }
@@ -137,7 +137,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
         if (!mBaseView.isLand()) return;
         if (lockCheckBox.isChecked()) {
             if (lockCheckBox.getTranslationX() == 0) {
-                AnimUtils.setOutAnimX(lockCheckBox, false).start();
+                AnimUtils.setOutAnimX(lockCheckBox, true).start();
             } else {
                 AnimUtils.setInAnimX(lockCheckBox).start();
             }
@@ -146,7 +146,7 @@ public class LockControlView extends FrameLayout implements View.OnClickListener
                 AnimUtils.setInAnimX(lockCheckBox).start();
             } else {
                 if (lockCheckBox.getTag() == null) {
-                    AnimUtils.setOutAnimX(lockCheckBox, false).start();
+                    AnimUtils.setOutAnimX(lockCheckBox, true).start();
                 } else {
                     lockCheckBox.setTag(null);
                 }

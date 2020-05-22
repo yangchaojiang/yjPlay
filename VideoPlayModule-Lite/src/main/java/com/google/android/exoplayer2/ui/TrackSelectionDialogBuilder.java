@@ -18,15 +18,17 @@ package com.google.android.exoplayer2.ui;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import androidx.annotation.Nullable;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector.SelectionOverride;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
 import com.google.android.exoplayer2.trackselection.TrackSelectionUtil;
 import com.google.android.exoplayer2.util.Assertions;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -96,7 +98,7 @@ public final class TrackSelectionDialogBuilder {
    *     selection is shown.
    */
   public TrackSelectionDialogBuilder(
-      Context context, CharSequence title, DefaultTrackSelector trackSelector, int rendererIndex) {
+          Context context, CharSequence title, DefaultTrackSelector trackSelector, int rendererIndex) {
     this.context = context;
     this.title = title;
     this.mappedTrackInfo = Assertions.checkNotNull(trackSelector.getCurrentMappedTrackInfo());
@@ -137,7 +139,7 @@ public final class TrackSelectionDialogBuilder {
    * @param override The initial override to show, or null for no override.
    * @return This builder, for convenience.
    */
-  public TrackSelectionDialogBuilder setOverride(@Nullable SelectionOverride override) {
+  public TrackSelectionDialogBuilder setOverride(@Nullable DefaultTrackSelector.SelectionOverride override) {
     return setOverrides(
         override == null ? Collections.emptyList() : Collections.singletonList(override));
   }

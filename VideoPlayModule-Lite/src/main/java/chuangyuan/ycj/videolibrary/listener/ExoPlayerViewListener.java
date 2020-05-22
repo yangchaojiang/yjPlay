@@ -21,10 +21,6 @@ public interface ExoPlayerViewListener extends  BasePlayerListener{
     void startPlayer(ExoUserPlayer exoUserPlayer);
 
     /***
-     * 显示wifi提示框
-     */
-    void showAlertDialog();
-    /***
      * 恢复显示是否播放
      */
     void onResumeStart();
@@ -61,6 +57,12 @@ public interface ExoPlayerViewListener extends  BasePlayerListener{
      */
     void showGestureView(int visibility);
 
+    /***
+     * 显示隐藏提示布局
+     *
+     * @param visibility 显示类型
+     */
+    void showBtnContinueHintView(int visibility);
     /***
      * 显示网速
      *

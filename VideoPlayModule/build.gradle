@@ -26,21 +26,19 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
     compile project(':VideoPlayModule-Lite')
-    compile('com.google.android.exoplayer:exoplayer-smoothstreaming:2.10.4', {
+    compile('com.google.android.exoplayer:exoplayer-smoothstreaming:2.11.4', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile('com.google.android.exoplayer:exoplayer-dash:2.10.4', {
+    compile('com.google.android.exoplayer:exoplayer-dash:2.11.4', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
-    compile('com.google.android.exoplayer:exoplayer-hls:2.10.4', {
+    compile('com.google.android.exoplayer:exoplayer-hls:2.11.4', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'

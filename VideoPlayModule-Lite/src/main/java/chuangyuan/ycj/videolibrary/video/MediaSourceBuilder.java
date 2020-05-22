@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
-import android.util.Log;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -16,13 +15,12 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.R;
+import chuangyuan.ycj.videolibrary.factory.DefaultCacheDataSourceFactory;
 import chuangyuan.ycj.videolibrary.factory.JDefaultDataSourceFactory;
 import chuangyuan.ycj.videolibrary.listener.DataSourceListener;
 import chuangyuan.ycj.videolibrary.listener.ItemVideo;
@@ -44,6 +42,10 @@ public class MediaSourceBuilder {
     private int indexType = -1;
     private List<String> videoUri;
     protected String customCacheKey;
+    /**
+     * 广告视频
+     **/
+    private MediaSource aDmediaSource;
 
     /***
      * 初始化
@@ -71,7 +73,20 @@ public class MediaSourceBuilder {
      * @param uri 视频的地址
      */
     void setMediaUri(@NonNull Uri uri) {
-        mediaSource = initMediaSource(uri);
+        if (aDmediaSource != null) {
+            ConcatenatingMediaSource source = new ConcatenatingMediaSource();
+            if (getIndexType() == 0) {
+                source.addMediaSource(aDmediaSource);
+                source.addMediaSource(initMediaSource(uri));
+            } else {
+                source.addMediaSource(initMediaSource(uri));
+                source.addMediaSource(aDmediaSource);
+            }
+            mediaSource = source;
+        } else {
+            mediaSource = initMediaSource(uri);
+        }
+
     }
 
     /****
@@ -90,31 +105,49 @@ public class MediaSourceBuilder {
     }
 
     /****
-     * 初始化多个视频源，无缝衔接
+     * 添加广告视频
      *
-     * @param indexType the index type
-     * @param switchIndex the switch index
-     * @param firstVideoUri 第一个视频， 例如例如广告视频
-     * @param secondVideoUri 第二个视频
+     * @param indexType  广告视频插入位置，开头和末尾
+     * @param firstVideoUri 广告视频
      */
-    public void setMediaUri(@Size(min = 0) int indexType, int switchIndex, @NonNull Uri firstVideoUri, @NonNull List<String> secondVideoUri) {
-        this.videoUri = secondVideoUri;
+    public void setAdMediaUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri) {
         this.indexType = indexType;
-        setMediaUri(indexType, firstVideoUri, Uri.parse(secondVideoUri.get(switchIndex)));
+        aDmediaSource = initMediaSource(firstVideoUri);
     }
-
 
     /****
      * @param indexType 设置当前索引视频屏蔽进度
      * @param firstVideoUri 预览的视频
      * @param secondVideoUri 第二个视频
+     * @deprecated  {{@link #setAdMediaUri(int, Uri),#setMediaUri(Uri)}}
      */
     public void setMediaUri(@Size(min = 0) int indexType, @NonNull Uri firstVideoUri, @NonNull Uri secondVideoUri) {
         this.indexType = indexType;
         ConcatenatingMediaSource source = new ConcatenatingMediaSource();
-        source.addMediaSource(initMediaSource(firstVideoUri));
-        source.addMediaSource(initMediaSource(secondVideoUri));
+        aDmediaSource = initMediaSource(firstVideoUri);
+        if (getIndexType() == 0) {
+            source.addMediaSource(aDmediaSource);
+            source.addMediaSource(initMediaSource(secondVideoUri));
+        } else {
+            source.addMediaSource(initMediaSource(secondVideoUri));
+            source.addMediaSource(aDmediaSource);
+        }
         mediaSource = source;
+    }
+
+    /****
+     * 初始化多个视频源，无缝衔接
+     * @param <T> T
+     * @param switchIndex the switch 设置多线路索引
+     * @param secondVideoUri 第二个视频
+     */
+    public <T extends ItemVideo> void setMediaSwitchUri(int switchIndex, @NonNull List<T> secondVideoUri) {
+        this.videoUri = null;
+        this.videoUri = new ArrayList<>();
+        for (T item : secondVideoUri) {
+            this.videoUri.add(item.getVideoUri());
+        }
+        setMediaSwitchUri(this.videoUri, switchIndex);
     }
 
     /****
@@ -124,6 +157,7 @@ public class MediaSourceBuilder {
      * @param switchIndex the switch 设置多线路索引
      * @param firstVideoUri 第一个视频， 例如例如广告视频
      * @param secondVideoUri 第二个视频
+     * @deprecated  {@link #setAdMediaUri(int, Uri),#setPlaySwitchUri(int, List, List)}  此方法已过期
      */
     public <T extends ItemVideo> void setMediaSwitchUri(@Size(min = 0) int indexType, int switchIndex, @NonNull Uri firstVideoUri, @NonNull List<T> secondVideoUri) {
         this.indexType = indexType;
@@ -132,7 +166,8 @@ public class MediaSourceBuilder {
         for (T item : secondVideoUri) {
             this.videoUri.add(item.getVideoUri());
         }
-        setMediaUri(indexType, firstVideoUri, Uri.parse(secondVideoUri.get(switchIndex).getVideoUri()));
+        setAdMediaUri(indexType, firstVideoUri);
+        setMediaSwitchUri(this.videoUri, switchIndex);
     }
 
     /**
@@ -145,6 +180,7 @@ public class MediaSourceBuilder {
         this.videoUri = videoUri;
         setMediaUri(Uri.parse(videoUri.get(index)));
     }
+
     /****
      * 初始化
      *
@@ -160,9 +196,16 @@ public class MediaSourceBuilder {
             }
             i++;
         }
-        mediaSource = new ConcatenatingMediaSource(firstSources);
+        ConcatenatingMediaSource source = new ConcatenatingMediaSource(firstSources);
+        if (aDmediaSource != null) {
+            if (getIndexType() == 0) {
+                source.addMediaSource(0, aDmediaSource);
+            } else {
+                source.addMediaSource(aDmediaSource);
+            }
+        }
+        mediaSource = source;
     }
-
 
 
     /***
@@ -183,8 +226,9 @@ public class MediaSourceBuilder {
      *@param   endPositionUs endPositionUs       毫秒
      */
     public void setClippingMediaUri(@NonNull MediaSource mediaSource, long startPositionUs, long endPositionUs) {
-        this.mediaSource = new ClippingMediaSource(mediaSource, startPositionUs*1000, endPositionUs*1000);
+        this.mediaSource = new ClippingMediaSource(mediaSource, startPositionUs * 1000, endPositionUs * 1000);
     }
+
     /***
      * 设置自定义视频数据源
      * @param mediaSource 你的数据源
@@ -232,14 +276,10 @@ public class MediaSourceBuilder {
      */
     public void destroy() {
         if (listener != null) {
-            DataSource source = listener.getDataSourceFactory().createDataSource();
-            if (source instanceof CacheDataSource) {
-                CacheDataSource cacheDataSource = (CacheDataSource) source;
-                try {
-                    cacheDataSource.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            DataSource.Factory source = listener.getDataSourceFactory();
+            if (source instanceof DefaultCacheDataSourceFactory) {
+                DefaultCacheDataSourceFactory cacheDataSource = (DefaultCacheDataSourceFactory) source;
+                cacheDataSource.release();
             }
             listener = null;
         }
@@ -254,15 +294,6 @@ public class MediaSourceBuilder {
      */
     public int getIndexType() {
         return indexType;
-    }
-
-    /**
-     * 设置视频所在索引
-     *
-     * @param indexType 值
-     */
-    public void setIndexType(@Size(min = 0) int indexType) {
-        this.indexType = indexType;
     }
 
     /**

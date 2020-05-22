@@ -80,11 +80,22 @@ public class ActionControlView extends FrameLayout {
             playReplayLayout.setVisibility(visibility);
         }
     }
-    public  void  hideAllView(){
+    /***
+     * 国区是否显示隐藏重播页
+     *
+     */
+    public boolean isShowReplay() {
+        if (playReplayLayout != null) {
+             return playReplayLayout.getVisibility()==VISIBLE;
+        }
+        return  false;
+    }
+     public  void  hideAllView(){
         playBtnHintLayout.setVisibility(GONE);
         exoPlayErrorLayout.setVisibility(GONE);
         playReplayLayout.setVisibility(GONE);
     }
+
     public View getExoPlayErrorLayout() {
         return exoPlayErrorLayout;
     }

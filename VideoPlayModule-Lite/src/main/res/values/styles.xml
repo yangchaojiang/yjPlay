@@ -187,4 +187,18 @@
     <style name="TrackSelectionDialogThemeOverlay" parent="ThemeOverlay.AppCompat.Dialog.Alert">
         <item name="windowNoTitle">false</item>
     </style>
+    <style name="ExoMediaButton.VR">
+        <item name="android:src">@drawable/exo_icon_vr</item>
+        <item name="android:contentDescription">@string/exo_controls_vr_description</item>
+    </style>
+
+    <style name="AnimationLeftFade">
+        <item name="android:windowEnterAnimation">@anim/in_lefttoright</item>
+        <item name="android:windowExitAnimation">@anim/out_righttoleft</item>
+    </style>
+
+    <style name="AnimationRightFade">
+        <item name="android:windowEnterAnimation">@anim/in_righttoleft</item>
+        <item name="android:windowExitAnimation">@anim/out_lefttoright</item>
+    </style>
 </resources>

@@ -21,7 +21,7 @@
         app:player_fullscreen_image_selector="@drawable/custom_full_selector"
         app:player_back_image="@drawable/ic_arrow_back_black_24dp"
         app:player_preview_layout_id="@layout/exo_default_preview_layout"
-        app:resize_mode="fit"
+        app:resize_mode="fill"
         app:show_timeout="3000"
         app:surface_type="texture_view"
         app:use_artwork="true"

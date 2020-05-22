@@ -35,6 +35,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.DisplayMetrics;
+
 import com.google.android.exoplayer2.text.CaptionStyleCompat;
 import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.util.Log;
@@ -362,10 +363,16 @@ import com.google.android.exoplayer2.util.Util;
     int width = Math.round(parentWidth * cueSize);
     int height = cueBitmapHeight != Cue.DIMEN_UNSET ? Math.round(parentHeight * cueBitmapHeight)
         : Math.round(width * ((float) cueBitmap.getHeight() / cueBitmap.getWidth()));
-    int x = Math.round(cueLineAnchor == Cue.ANCHOR_TYPE_END ? (anchorX - width)
-        : cueLineAnchor == Cue.ANCHOR_TYPE_MIDDLE ? (anchorX - (width / 2)) : anchorX);
-    int y = Math.round(cuePositionAnchor == Cue.ANCHOR_TYPE_END ? (anchorY - height)
-        : cuePositionAnchor == Cue.ANCHOR_TYPE_MIDDLE ? (anchorY - (height / 2)) : anchorY);
+    int x =
+        Math.round(
+            cuePositionAnchor == Cue.ANCHOR_TYPE_END
+                ? (anchorX - width)
+                : cuePositionAnchor == Cue.ANCHOR_TYPE_MIDDLE ? (anchorX - (width / 2)) : anchorX);
+    int y =
+        Math.round(
+            cueLineAnchor == Cue.ANCHOR_TYPE_END
+                ? (anchorY - height)
+                : cueLineAnchor == Cue.ANCHOR_TYPE_MIDDLE ? (anchorY - (height / 2)) : anchorY);
     bitmapRect = new Rect(x, y, x + width, y + height);
   }
 

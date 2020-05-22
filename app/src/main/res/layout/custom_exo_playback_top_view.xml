@@ -41,6 +41,9 @@
 
         <TextView style="@style/ExoMediaTextSwitch" />
 
+        <TextView
+            android:id="@+id/exoMediaSpeed"
+            style="@style/ExoMediaTextSwitch" />
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@id/exo_video_fullscreen"
             style="@style/ExoMediaButton.Fullscreen" />

@@ -8,7 +8,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
