@@ -18,6 +18,7 @@
     <!--自定义进度手势布局-->
     <attr name="player_gesture_progress_layout_id" format="reference" />
 
+    <attr name="time_bar_min_update_interval" format="integer"/>
      <!--渲染视频大小模式-->
     <attr name="resize_mode" format="enum">
         <enum name="fixed_16_9" value="0"/>

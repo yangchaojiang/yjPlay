@@ -30,15 +30,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':VideoPlayModule-Lite')
-    compile('com.google.android.exoplayer:exoplayer-smoothstreaming:2.11.4', {
+    compile('com.google.android.exoplayer:exoplayer-smoothstreaming:2.11.7', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile('com.google.android.exoplayer:exoplayer-dash:2.11.4', {
+    compile('com.google.android.exoplayer:exoplayer-dash:2.11.7', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
-    compile('com.google.android.exoplayer:exoplayer-hls:2.11.4', {
+    compile('com.google.android.exoplayer:exoplayer-hls:2.11.7', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'
